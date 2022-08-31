@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <div className="fixed w-full h-20 shadow-xl z-[100]">
-      <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
+      <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16 bg-slate-200">
         {/* <Image
           src="/../public/assets/logo.png" // TODO
           alt="logo"
@@ -97,38 +97,38 @@ const Navbar = () => {
                 Let&apos;s Connect
               </p>
               <div className="flex items-center justify-between my-4 w-full sm:w-[80%]">
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <a
-                    href="https://www.linkedin.com/in/vigneshrajsb/"
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
+                <a
+                  href="https://www.linkedin.com/in/vigneshrajsb/"
+                  target={"_blank"}
+                  rel="noreferrer"
+                >
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <FaLinkedinIn />
-                  </a>
-                </div>
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <a
-                    href="https://github.com/vigneshrajsb"
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
+                  </div>
+                </a>
+                <a
+                  href="https://github.com/vigneshrajsb"
+                  target={"_blank"}
+                  rel="noreferrer"
+                >
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <FaGithub />
-                  </a>
-                </div>
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <a
-                    href="https://twitter.com/vigneshrajsb"
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
+                  </div>
+                </a>
+                <a
+                  href="https://twitter.com/vigneshrajsb"
+                  target={"_blank"}
+                  rel="noreferrer"
+                >
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <FaTwitter />
-                  </a>
-                </div>
-                <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-                  <a href="mailto:vignesh.raj47@gmail.com">
+                  </div>
+                </a>
+                <a href="mailto:vignesh.raj47@gmail.com">
+                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <AiOutlineMail />
-                  </a>
-                </div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
