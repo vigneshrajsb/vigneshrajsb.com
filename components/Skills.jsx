@@ -109,14 +109,14 @@ const Skills = () => {
             <div className="grid grid-cols-2 gap-4 justify-center items-center">
               <div className="m-auto">
                 <Image
-                  src="/../public/assets/skills/graphql.png"
+                  src="/../public/assets/skills/swift.png"
                   width="64px"
                   height="64px"
                   alt="/"
                 ></Image>
               </div>
               <div className="flex flex-col items-center justify-center">
-                <h3>GraphQL</h3>
+                <h3>Swift</h3>
                 {/* <p className="text-sm text-gray-500">past</p> */}
               </div>
             </div>
