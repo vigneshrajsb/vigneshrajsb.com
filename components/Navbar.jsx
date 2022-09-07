@@ -14,13 +14,7 @@ const Navbar = () => {
   return (
     <div className="fixed w-full h-20 shadow-xl z-[100]">
       <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16 bg-slate-200">
-        {/* <Image
-          src="/../public/assets/logo.png" // TODO
-          alt="logo"
-          width="125"
-          height="50"
-        /> */}
-        <p className="ml-5 text-base uppercase">vignesh</p>
+        <Image src="/assets/logo.png" alt="logo" width="90" height="90" />
         <div>
           <ul className="hidden md:flex">
             <Link href="/">
@@ -59,13 +53,12 @@ const Navbar = () => {
         >
           <div>
             <div className="flex w-full items-center justify-between">
-              {/* <Image
-                src="/../public/assets/logo.png" // TODO replace with logo
+              <Image
+                src="/assets/logo.png" // TODO replace with logo
                 alt="logo"
-                width="100"
-                height="40"
-              /> */}
-              <p className="text-base uppercase">vignesh</p>
+                width="90"
+                height="90"
+              />
               <div
                 className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer"
                 onClick={handleNav}

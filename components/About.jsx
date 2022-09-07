@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import React from 'react'
+import AboutImg from '../public/assets/about.jpg'
 
 const About = () => {
   return (
@@ -25,12 +27,11 @@ const About = () => {
             See what I&apos; working on
           </p>
         </div>
-        <div className="w-full h-full m-auto shadow-xl shadow-gray-400 rounded-xl flex items-center justify-center p-4 hover:scale-105 ease-in duration-300">
-          {/* eslint-disable-next-line @next/next/no-img-element */}\
-          <img
+        <div className="invisible md:visible w-full h-full m-auto shadow-xl shadow-gray-400 rounded-xl flex items-center justify-center p-4 hover:scale-105 ease-in duration-300">
+          <Image
+            src={AboutImg}
+            alt="a picture of vignesh with sepia filter"
             className="rounded-xl"
-            alt="laptop on top of a desk with a small plant to its side"
-            src="https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80"
           />
         </div>
       </div>
