@@ -26,16 +26,17 @@ const Navbar = () => {
             <Link href="/">
               <li className="ml-10 text-sm uppercase hover:border-b">Home</li>
             </Link>
+            <Link href="/#about">
+              <li className="ml-10 text-sm uppercase hover:border-b">About</li>
+            </Link>
+            <Link href="/#skills">
+              <li className="ml-10 text-sm uppercase hover:border-b">Skills</li>
+            </Link>
             <Link href="/">
               <li className="ml-10 text-sm uppercase hover:border-b">Work</li>
             </Link>
             <Link href="/">
               <li className="ml-10 text-sm uppercase hover:border-b">Resume</li>
-            </Link>
-            <Link href="/">
-              <li className="ml-10 text-sm uppercase hover:border-b">
-                Contact
-              </li>
             </Link>
           </ul>
           <div className="md:hidden" onClick={handleNav}>
@@ -82,18 +83,21 @@ const Navbar = () => {
               <Link href="/">
                 <li className="py-4 text-sm">Home</li>
               </Link>
+              <Link href="/#about">
+                <li className="py-4 text-sm">About</li>
+              </Link>
+              <Link href="/#skills">
+                <li className="py-4 text-sm">Skills</li>
+              </Link>
               <Link href="/">
                 <li className="py-4 text-sm">Work</li>
               </Link>
               <Link href="/">
                 <li className="py-4 text-sm">Resume</li>
               </Link>
-              <Link href="/">
-                <li className="py-4 text-sm">Contact</li>
-              </Link>
             </ul>
             <div className="pt-40">
-              <p className="uppercase tracking-widest text-[#5651e5]">
+              <p className="uppercase tracking-widest text-[#e06e4d]">
                 Let&apos;s Connect
               </p>
               <div className="flex items-center justify-between my-4 w-full sm:w-[80%]">
