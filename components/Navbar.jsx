@@ -1,23 +1,41 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from 'react-icons/ai'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 
 const Navbar = () => {
   const [nav, setNav] = useState(false)
+  const [shadow, setShadow] = useState(false)
+  const [navBg, setNavBg] = useState('#ecf0f3')
 
   const handleNav = () => {
     setNav(!nav)
   }
 
+  useEffect(() => {
+    const handleShadow = () => {
+      if (window.scrollY >= 90) setShadow(true)
+      else setShadow(false)
+    }
+    window.addEventListener('scroll', handleShadow)
+  }, [])
+
   return (
-    <div className="fixed w-full h-20 shadow-xl z-[100]">
-      <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16 bg-slate-200">
-        <Image src="/assets/logo.png" alt="logo" width="90" height="90" />
+    <div
+      className={
+        shadow
+          ? 'fixed w-full h-20 shadow-xl z-[100] bg-[#ecf0f3]'
+          : 'fixed w-full h-20 z-[100] bg-[#ecf0f3]'
+      }
+    >
+      <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
+        <Link href="/">
+          <Image src="/assets/logo.png" alt="logo" width="90" height="90" />
+        </Link>
         <div>
           <ul className="hidden md:flex">
-            <Link href="/">
+            <Link href="/#main">
               <li className="ml-10 text-sm uppercase hover:border-b">Home</li>
             </Link>
             <Link href="/#about">
@@ -26,9 +44,9 @@ const Navbar = () => {
             <Link href="/#skills">
               <li className="ml-10 text-sm uppercase hover:border-b">Skills</li>
             </Link>
-            <Link href="/">
+            {/* <Link href="/">
               <li className="ml-10 text-sm uppercase hover:border-b">Work</li>
-            </Link>
+            </Link> */}
             <Link href="/">
               <li className="ml-10 text-sm uppercase hover:border-b">Resume</li>
             </Link>
@@ -53,12 +71,14 @@ const Navbar = () => {
         >
           <div>
             <div className="flex w-full items-center justify-between">
-              <Image
-                src="/assets/logo.png" // TODO replace with logo
-                alt="logo"
-                width="90"
-                height="90"
-              />
+              <Link href="/">
+                <Image
+                  src="/assets/logo.png"
+                  alt="logo"
+                  width="90"
+                  height="90"
+                />
+              </Link>
               <div
                 className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer"
                 onClick={handleNav}
@@ -74,19 +94,27 @@ const Navbar = () => {
           <div className="py-4 flex flex-col">
             <ul className="uppercase">
               <Link href="/">
-                <li className="py-4 text-sm">Home</li>
+                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                  Home
+                </li>
               </Link>
               <Link href="/#about">
-                <li className="py-4 text-sm">About</li>
+                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                  About
+                </li>
               </Link>
               <Link href="/#skills">
-                <li className="py-4 text-sm">Skills</li>
+                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                  Skills
+                </li>
               </Link>
-              <Link href="/">
+              {/* <Link href="/">
                 <li className="py-4 text-sm">Work</li>
-              </Link>
+              </Link> */}
               <Link href="/">
-                <li className="py-4 text-sm">Resume</li>
+                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                  Resume
+                </li>
               </Link>
             </ul>
             <div className="pt-40">
