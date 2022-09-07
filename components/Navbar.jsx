@@ -1,15 +1,15 @@
-import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from "react-icons/ai";
-import { FaGithub, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import Image from 'next/image'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from 'react-icons/ai'
+import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(false)
 
   const handleNav = () => {
-    setNav(!nav);
-  };
+    setNav(!nav)
+  }
 
   return (
     <div className="fixed w-full h-20 shadow-xl z-[100]">
@@ -47,14 +47,14 @@ const Navbar = () => {
       {/* menu */}
       <div
         className={
-          nav ? "md:hidden fixed left-0 top-0 w-full h-screen bg-black/70" : ""
+          nav ? 'md:hidden fixed left-0 top-0 w-full h-screen bg-black/70' : ''
         }
       >
         <div
           className={
             nav
-              ? "fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] h-screen bg-[#ecf0f3] p-10 ease-in duration-500"
-              : "fixed left-[-100%] top-0 p-10 ease-in duration-500"
+              ? 'fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] h-screen bg-[#ecf0f3] p-10 ease-in duration-500'
+              : 'fixed left-[-100%] top-0 p-10 ease-in duration-500'
           }
         >
           <div>
@@ -103,7 +103,7 @@ const Navbar = () => {
               <div className="flex items-center justify-between my-4 w-full sm:w-[80%]">
                 <a
                   href="https://www.linkedin.com/in/vigneshrajsb/"
-                  target={"_blank"}
+                  target={'_blank'}
                   rel="noreferrer"
                 >
                   <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
@@ -112,7 +112,7 @@ const Navbar = () => {
                 </a>
                 <a
                   href="https://github.com/vigneshrajsb"
-                  target={"_blank"}
+                  target={'_blank'}
                   rel="noreferrer"
                 >
                   <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
@@ -121,7 +121,7 @@ const Navbar = () => {
                 </a>
                 <a
                   href="https://twitter.com/vigneshrajsb"
-                  target={"_blank"}
+                  target={'_blank'}
                   rel="noreferrer"
                 >
                   <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
@@ -139,7 +139,7 @@ const Navbar = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

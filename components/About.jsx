@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const About = () => {
   return (
@@ -26,7 +26,7 @@ const About = () => {
           </p>
         </div>
         <div className="w-full h-full m-auto shadow-xl shadow-gray-400 rounded-xl flex items-center justify-center p-4 hover:scale-105 ease-in duration-300">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}\
           <img
             className="rounded-xl"
             alt="laptop on top of a desk with a small plant to its side"
@@ -35,7 +35,7 @@ const About = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

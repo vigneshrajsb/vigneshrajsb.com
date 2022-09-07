@@ -1,7 +1,7 @@
-import React from "react";
-import { FaLinkedinIn, FaGithub, FaTwitter } from "react-icons/fa";
-import { AiOutlineMail } from "react-icons/ai";
-import Link from "next/link";
+import React from 'react'
+import { FaLinkedinIn, FaGithub, FaTwitter } from 'react-icons/fa'
+import { AiOutlineMail } from 'react-icons/ai'
+import Link from 'next/link'
 export const Main = () => {
   return (
     <div className="w-full h-screen text-center">
@@ -25,7 +25,7 @@ export const Main = () => {
           <div className="flex items-center justify-between max-w-[330px] m-auto py-4">
             <a
               href="https://www.linkedin.com/in/vigneshrajsb/"
-              target={"_blank"}
+              target={'_blank'}
               rel="noreferrer"
             >
               <div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
@@ -34,7 +34,7 @@ export const Main = () => {
             </a>
             <a
               href="https://github.com/vigneshrajsb"
-              target={"_blank"}
+              target={'_blank'}
               rel="noreferrer"
             >
               <div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
@@ -43,7 +43,7 @@ export const Main = () => {
             </a>
             <a
               href="https://twitter.com/vigneshrajsb"
-              target={"_blank"}
+              target={'_blank'}
               rel="noreferrer"
             >
               <div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
@@ -59,5 +59,5 @@ export const Main = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
