@@ -10,21 +10,33 @@ const About = () => {
           <p className="uppercase text-xl tracking-widest text-[#e06e4d]">
             About
           </p>
-          <h2 className="py-4">Who I Am?</h2>
+          <h2 className="py-4">Who is Vignesh?</h2>
           <p className="py-2 text-gray-600">
             A Software Engineer based in Los Angeles.
           </p>
           <p className="py-2 text-gray-600">
-            Here comes my life story that no one asked for. Here comes my life
-            story that no one asked.
+            I started by developer career in 2011 and have been with GoodRx
+            since 2019. I spent a lot of time working on test automation related
+            roles since I started my developer journey as an SDET but I&apos;ve
+            evolved into more roles, thanks to my team at GoodRx.
           </p>
           <p className="py-2 text-gray-600">
-            Here comes my life story that no one asked for. Here comes my life
-            story that no one asked for. Here comes my life story that no one
-            asked for.
+            I like to code tools that help and support engineers, and enjoy
+            bringing ideas to life. I take new inspirations and willing to
+            follow where they take me everyday. I&apos;m never satisfied with
+            just coming up with ideas but also have an impulsive need to act on
+            and continue improving them.
+          </p>
+          <p className="py-2 text-gray-600 font-medium">
+            I love to keep learning, continue challenging myself and do
+            interesting things that matter.
+          </p>
+          <p className="py-2 text-gray-600">
+            Outside of work I enjoy my runs, spending the weekends at beach and
+            sometimes all day in my couch playing games.
           </p>
           <p className="py-2 text-gray-600 underline cursor-pointer">
-            See what I&apos; working on
+            See what I can do
           </p>
         </div>
         <div className="invisible md:visible w-full h-full m-auto shadow-xl shadow-gray-400 rounded-xl flex items-center justify-center p-4 hover:scale-105 ease-in duration-300">
