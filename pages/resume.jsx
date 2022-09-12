@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { FaGithub, FaLinkedinIn, FaFileDownload } from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn, FaFileDownload, FaShare } from 'react-icons/fa'
 
 const resume = () => {
   return (
@@ -17,12 +17,26 @@ const resume = () => {
       <div className="max-w-[940px] mx-auto p-2 pt-[120px]">
         <div className="flex  justify-between items-center">
           <h2 className="text-center text-[#e06e4d]">Resume</h2>
-          <a href="assets/vignesh-resume.pdf" download>
-            <div className=" p-6 cursor-pointer hover:scale-110 ease-in duration-300 flex align-middle">
-              <div className="cursor-pointer">Download (40kb)</div>
-              <FaFileDownload size={25} />
-            </div>
-          </a>
+          <div className="flex px-0">
+            <a
+              href="https://docs.google.com/document/d/1rFgfrJMLjTbBVSWEGslrAhne5_yQwvwU9A9WrID5Lw0/edit?usp=sharing"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex">
+                <div className="cursor-pointer px-2 text-lg"> Share </div>
+                <FaShare size={25} />
+              </div>
+            </a>
+            <a href="assets/vignesh-resume.pdf" download>
+              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex">
+                <div className="cursor-pointer px-2 text-lg">
+                  Download (40kb)
+                </div>
+                <FaFileDownload size={25} />
+              </div>
+            </a>
+          </div>
         </div>
         <div className="bg-[#d0d4d6] my-4 p-4 w-full flex justify-between items-center">
           <h2 className="text-center">Vigneshraj Sekar Babu</h2>
