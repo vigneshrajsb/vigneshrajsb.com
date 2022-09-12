@@ -35,7 +35,7 @@ const Navbar = () => {
         </Link>
         <div>
           <ul className="hidden md:flex">
-            <Link href="/#main">
+            <Link href="/#home">
               <li className="ml-10 text-sm uppercase hover:border-b">Home</li>
             </Link>
             <Link href="/#about">
@@ -93,7 +93,7 @@ const Navbar = () => {
           </div>
           <div className="py-4 flex flex-col">
             <ul className="uppercase">
-              <Link href="/">
+              <Link href="/#home">
                 <li className="py-4 text-sm" onClick={() => setNav(false)}>
                   Home
                 </li>
