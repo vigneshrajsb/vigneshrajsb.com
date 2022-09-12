@@ -16,16 +16,15 @@ const About = () => {
           </p>
 
           <p className="py-2 text-gray-600">
-            I started by developer career in 2011 and have been with GoodRx
-            since 2019. I spent a lot of time working on test automation related
-            roles since I started my developer journey as an SDET but I&apos;ve
-            evolved into more roles and now a polyglot{' '}
+            I started my career in 2011 and have been with GoodRx since 2019. I
+            spent a lot of time working on test automation related roles since I
+            started my developer journey as an SDET but I&apos;ve evolved into
+            more roles and now a polyglot{' '}
             <span className="font-semibold">
               Developer Productivity Engineer
             </span>{' '}
             working on internal tools, test enablement while also learning
-            observability, reliability engineering. All of this made possible by
-            my team at GoodRx.
+            observability, reliability engineering.
           </p>
           <p className="py-2 text-gray-600">
             I like to code tools that help and support engineers, and enjoy
