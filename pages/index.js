@@ -17,7 +17,6 @@ export default function Home() {
       <Main />
       <About />
       <Skills />
-      <Footer />
     </div>
   )
 }
