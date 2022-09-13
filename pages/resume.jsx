@@ -23,23 +23,26 @@ const resume = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex">
-                <div className="cursor-pointer px-2 text-lg"> Share </div>
-                <FaShare size={25} />
+              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
+                <div className="cursor-pointer px-1 md:px-2 text-sm md:text-lg  text-gray-800">
+                  {' '}
+                  Share{' '}
+                </div>
+                <FaShare />
               </div>
             </a>
             <a href="assets/vignesh-resume.pdf" download>
-              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex">
-                <div className="cursor-pointer px-2 text-lg">
-                  Download (40kb)
+              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
+                <div className="cursor-pointer px-1 md:px-2 text-sm md:text-lg text-gray-800">
+                  Download <span className="text-sm text-gray-500">(40kb)</span>
                 </div>
-                <FaFileDownload size={25} />
+                <FaFileDownload />
               </div>
             </a>
           </div>
         </div>
-        <div className="bg-[#d0d4d6] my-4 p-4 w-full flex justify-between items-center">
-          <h2 className="text-center">Vigneshraj Sekar Babu</h2>
+        <div className="bg-[#d0d4d6] my-4 py-4 px-2 md:px-4 w-full flex justify-between items-center">
+          <h2 className="text-xl md:text-3xl">Vigneshraj Sekar Babu</h2>
           <div className="flex">
             <a
               href="https://www.linkedin.com/in/vigneshrajsb/"
@@ -64,7 +67,7 @@ const resume = () => {
               Enablement <span className="px-1">|</span> Problem Solving
             </p>
           </div>
-          <div className="block sm:hidden">
+          <div className="block sm:hidden text-base md:text-lg">
             <p>Developer Productivity</p>
             <p className="py-2">Test Enablement</p>
             <p>Problem Solving</p>
