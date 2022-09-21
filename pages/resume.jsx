@@ -24,8 +24,8 @@ const resume = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
-                <div className="cursor-pointer px-1 md:px-2 text-sm md:text-lg  text-gray-800">
+              <div className="px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
+                <div className="cursor-pointer px-1 md:px-2 text-xs md:text-base  text-gray-800">
                   {' '}
                   Share{' '}
                 </div>
@@ -33,16 +33,19 @@ const resume = () => {
               </div>
             </a>
             <a href="assets/vignesh-resume.pdf" download>
-              <div className=" py-6 px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
-                <div className="cursor-pointer px-1 md:px-2 text-sm md:text-lg text-gray-800">
-                  Download <span className="text-sm text-gray-500">(40kb)</span>
+              <div className="px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
+                <div className="cursor-pointer px-1 md:px-2 text-xs md:text-base text-gray-800">
+                  Download{' '}
+                  <span className="text-xs md:text-sm text-gray-500">
+                    (40kb)
+                  </span>
                 </div>
                 <FaFileDownload />
               </div>
             </a>
           </div>
         </div>
-        <div className="bg-[#d0d4d6] my-4 py-4 px-2 md:px-4 w-full flex justify-between items-center">
+        <div className="bg-[#d0d4d6] my-2 py-4 px-2 md:px-4 w-full flex justify-between items-center">
           <h2 className="text-xl md:text-3xl">Vigneshraj Sekar Babu</h2>
           <div className="flex">
             <a
@@ -86,7 +89,7 @@ const resume = () => {
 
         {/* Skills */}
         <div className="text-center py-4">
-          <h5 className="text-center underline text-[18px] py-2">Skills</h5>
+          <h5 className="text-center underline text-[18px] py-2">SKILLS</h5>
           <p className="py-2">
             <span className="font-bold">Technical Skills</span>
             <span className="px-2">|</span>Developer Productivity Engineering
@@ -111,7 +114,7 @@ const resume = () => {
         </div>
 
         <h5 className="text-center underline text-[18px] py-4">
-          Professional Experience
+          PROFESSIONAL EXPERIENCE
         </h5>
         {/* Experience */}
         <div className="py-6">
