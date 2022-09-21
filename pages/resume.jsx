@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { FaGithub, FaLinkedinIn, FaFileDownload, FaShare } from 'react-icons/fa'
+import { AiOutlineMail, AiTwotoneMail } from 'react-icons/ai'
 
 const resume = () => {
   return (
@@ -58,6 +59,9 @@ const resume = () => {
             >
               <FaGithub size={20} style={{ marginRight: '1rem' }} />
             </a>
+            <a href="mailto:vignesh.raj47@gmail.com">
+              <AiTwotoneMail size={20} style={{ marginRight: '1rem' }} />
+            </a>
           </div>
         </div>
         <div className="text-center py-4 text-xl font-bold uppercase tracking-wider">
@@ -74,10 +78,10 @@ const resume = () => {
           </div>
         </div>
         <p>
-          Motivated and analytical software engineer with organization
-          effectiveness in fast paced challenging environments. Effective and
-          proven track record of critical thinking, idea generation, and
-          optimizing efficiencies.
+          Motivated and analytical software engineer with 10+ years of
+          experience in fast paced challenging environments. Effective and
+          proven track record of organizational effectiveness, critical
+          thinking, idea generation and optimizing efficiencies.
         </p>
 
         {/* Skills */}
@@ -85,7 +89,7 @@ const resume = () => {
           <h5 className="text-center underline text-[18px] py-2">Skills</h5>
           <p className="py-2">
             <span className="font-bold">Technical Skills</span>
-            <span className="px-2">|</span>Developer Productivity
+            <span className="px-2">|</span>Developer Productivity Engineering
             <span className="px-2">|</span> NodeJS{' '}
             <span className="px-2">|</span>
             Playwright <span className="px-2">|</span>NextJS
@@ -112,45 +116,46 @@ const resume = () => {
         {/* Experience */}
         <div className="py-6">
           <p className="italic">
-            <span className="font-bold italic">GoodRx</span>
+            <span className="font-bold">GoodRx</span>
             <span className="px-2">|</span>Los Angeles
           </p>
           <p className="py-1 italic">Sr. SDET (2019 - Current)</p>
           <ul className="list-disc list-outside px-7 py-1 leading-relaxed">
             <li>
-              Develop frontend automation tools with Playwright supporting
+              Developed frontend automation tools with Playwright supporting
               NextJS applications and instrument apps(mocking props) for
               integration UI tests.
             </li>
             <li>
-              Create capabilities for teams across org to setup shift left
-              strategy enabling dev contributed tests across all test components
-              (UI/unit/backend/performance).
+              Collaborated with teams to shift left testing by enabling
+              developer contributed tests across all test phases enabling faster
+              development cycles.
             </li>
             <li>
-              Build and troubleshoot CI/CD pipelines to maintain optimal time to
-              production cycles.
+              Built and optimized CI/CD test pipelines to maintain minimal time
+              from commit to production cycles.
             </li>
             <li>
               Enhanced test reporting with hosted HTML reports, added telemetry
-              to test suites for test health monitoring.
+              to test suites for test health enabling easier debugging on test
+              failures.
             </li>
             <li>
-              Publish private node modules for testing utilities - identify new
-              tests, create test data, utility to fetch verification codes from
-              email/sms.
+              Published private node modules for testing utilities - identify
+              new tests, create test data, utility to fetch verification codes
+              from email/sms.
             </li>
             <li>
               Developed chrome extension to support account functions in testing
-              envs.
+              environments.
             </li>
             <li>
-              Create and publish GoLang CLI with supporting AWS Lambda
+              Created and published GoLang CLI with supporting AWS Lambda
               functions.
             </li>
             <li>
-              Build, maintain and support test automation framework with Python,
-              Behave(BDD), Selenium/Appium, RestAPI & Jenkins.
+              Built, maintained and supported test automation frameworks with
+              Python, Pytest, Behave(BDD), k6.io, Selenium/Appium & Jenkins.
             </li>
           </ul>
         </div>
@@ -163,16 +168,19 @@ const resume = () => {
           <p className="py-1 italic">Automation Engineer (2019)</p>
           <ul className="list-disc list-outside px-7 py-1 leading-relaxed">
             <li>
-              Create and maintain a scalable test framework for web and API
+              Created and maintained a scalable test framework for web and API
               automation tests (Java, Selenium, Extent reports).
             </li>
-            <li>Integrate test runs in Jenkins with automated reporting.</li>
             <li>
-              Build integrations with JIRA to monitor test cycles with existing
+              Integrated test executions in CI(Jenkins) with automated
+              reporting.
+            </li>
+            <li>
+              Built integrations with JIRA to monitor test cycles with existing
               test plans.
             </li>
             <li>
-              Support multiple frontend and backend teams for automation
+              Supported multiple frontend and backend teams for automation
               capabilities.
             </li>
           </ul>
@@ -186,20 +194,20 @@ const resume = () => {
           <p className="py-1 italic">Software Engineer (2011 – 2019)</p>
           <ul className="list-disc list-outside px-7 py-1 leading-relaxed">
             <li>
-              Develop test automation solution with Java, Selenium for CMS
+              Developed test automation solution with Java, Selenium for CMS
               application.
             </li>
             <li>
-              Prepare test plans and scenarios for EXACT applications for
+              Prepared test plans and scenarios for EXACT applications for
               Telecom domain.
             </li>
             <li>
-              Support and developer Dot Net applications mitigating from legacy
-              ASP applications.
+              Supported and developed Dot Net applications mitigating from
+              legacy ASP applications.
             </li>
             <li>
-              Create Ad-hoc reporting from lubricant sales data and work with
-              DBAs and support teams on app migrations.
+              Created Ad-hoc reporting from lubricant sales data and worked with
+              DBAs and support teams on application migrations.
             </li>
           </ul>
         </div>
