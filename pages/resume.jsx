@@ -12,7 +12,7 @@ const resume = () => {
           name="description"
           content="A software developer specialized in building tools improving developer productivity and test enablement."
         />
-        <link rel="icon" href="/fav.png" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className="max-w-[940px] mx-auto p-2 pt-[120px]">
