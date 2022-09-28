@@ -1,5 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
+
 // TODO get high res icons
 const Skills = () => {
   return (
@@ -137,6 +139,13 @@ const Skills = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="pt-8">
+          <Link href="/resume">
+            <p className="py-2 text-gray-600 underline cursor-pointer">
+              Checkout my resume for more
+            </p>
+          </Link>
         </div>
       </div>
     </div>
