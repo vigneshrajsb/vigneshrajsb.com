@@ -122,7 +122,7 @@ const resume = () => {
             <span className="font-bold">GoodRx</span>
             <span className="px-2">|</span>Los Angeles
           </p>
-          <p className="py-1 italic">Sr. SDET (2019 - Current)</p>
+          <p className="py-1 italic">Sr. SDET (2019 - PRESENT)</p>
           <ul className="list-disc list-outside px-7 py-1 leading-relaxed">
             <li>
               Developed frontend automation tools with Playwright supporting
@@ -130,35 +130,39 @@ const resume = () => {
               integration UI tests.
             </li>
             <li>
-              Collaborated with teams to shift left testing by enabling
+              Collaborated with teams to shift left testing by enabling 100%
               developer contributed tests across all test phases enabling faster
               development cycles.
             </li>
             <li>
-              Built and optimized CI/CD test pipelines to maintain minimal time
-              from commit to production cycles.
+              Built and optimized CI/CD pipelines to maintain optimal deployment
+              cycles from first commit to production under ~40 minutes.
             </li>
             <li>
               Enhanced test reporting with hosted HTML reports, added telemetry
-              to test suites for test health enabling easier debugging on test
-              failures.
+              to test suites to improve test health(>90%) monitoring.
             </li>
             <li>
-              Published private node modules for testing utilities - identify
-              new tests, create test data, utility to fetch verification codes
-              from email/sms.
+              Maintained average test runtime under 60 seconds with test
+              telemetry data.
             </li>
             <li>
-              Developed chrome extension to support account functions in testing
-              environments.
+              Publish private node modules for utilities - identify new tests,
+              create test data, utility to fetch verification codes from
+              email/sms accounts.
             </li>
             <li>
-              Created and published GoLang CLI with supporting AWS Lambda
+              Developed chrome extension to support validation across account
+              based functionalities.
+            </li>
+            <li>
+              Create and publish GoLang CLI with supporting AWS Lambda
               functions.
             </li>
             <li>
-              Built, maintained and supported test automation frameworks with
-              Python, Pytest, Behave(BDD), k6.io, Selenium/Appium & Jenkins.
+              Build, maintain and support test automation framework with Python,
+              Behave(BDD), Selenium/Appium, RestAPI & Jenkins and with XCUI
+              tests for iOS native application.
             </li>
           </ul>
         </div>
