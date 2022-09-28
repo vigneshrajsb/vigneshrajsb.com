@@ -42,6 +42,10 @@ const About = () => {
             Outside of work I enjoy my runs, spending the weekends at beach and
             sometimes all day in my couch playing games.
           </p>
+          <p className="py-2 text-gray-600">
+            I also take my responsibility of creating timely memes and slack
+            emojis seriously.
+          </p>
           <Link href="/#skills">
             <p className="py-2 text-gray-600 underline cursor-pointer">
               See what I can do

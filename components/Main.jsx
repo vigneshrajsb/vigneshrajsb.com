@@ -13,7 +13,7 @@ export const Main = () => {
           <h1 className="py-4 text-gray-700">
             Hi, I&apos;m <span className="text-[#e06e4d]"> Vignesh</span>
           </h1>
-          <h1 className="py-4 text-gray-700">A Software Engineer</h1>
+          <h1 className="py-4 text-gray-700">Software Engineer</h1>
           <p className="py-1 text-gray-500">(he/him)</p>
           <p className="py-4 text-gray-600 max-w-[70%] m-auto">
             I&apos;m a software developer specialized in building tools that
