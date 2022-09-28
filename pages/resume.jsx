@@ -140,7 +140,7 @@ const resume = () => {
             </li>
             <li>
               Enhanced test reporting with hosted HTML reports, added telemetry
-              to test suites to improve test health(>90%) monitoring.
+              to test suites to improve test health({'>'}90%) monitoring.
             </li>
             <li>
               Maintained average test runtime under 60 seconds with test
