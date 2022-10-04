@@ -15,12 +15,12 @@ import {
   SiGraphql,
 } from 'react-icons/si'
 import { HiChevronDoubleRight } from 'react-icons/hi'
-import Skill from './Skill'
+import Skill from './molecules/Skill'
 
 // TODO get high res icons
 const Skills = () => {
   return (
-    <div id="skills" className="w-full lg:h-screen p-2 bg-[#222]">
+    <div id="skills" className="w-full h-screen p-2 bg-[#222]">
       <div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full text-[#d4d4d4]">
         <p className="text-xl tracking-widest uppercase text-[#e06e4d] py-4">
           Skills
@@ -40,10 +40,10 @@ const Skills = () => {
           <Skill name="Jenkins" icon={SiJenkins} />
           <Skill name="GraphQL" icon={SiGraphql} />
         </div>
-        <div className="flex justify-center py-6">
+        <div className="flex justify-center py-10">
           <Link href="/resume">
             <a>
-              <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300">
+              <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white">
                 <HiChevronDoubleRight className="text-[#d4d4d4]" size={20} />
               </div>
             </a>

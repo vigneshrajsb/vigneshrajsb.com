@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from 'react-icons/ai'
 import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
+import MenuItem from './molecules/MenuItem'
 
 const Navbar = () => {
   const [nav, setNav] = useState(false)
@@ -31,35 +32,25 @@ const Navbar = () => {
     >
       <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
         <Link href="/">
-          <Image src="/assets/logo.png" alt="logo" width="90" height="90" />
+          <Image
+            src="/assets/logo.png"
+            alt="logo"
+            width="90"
+            height="90"
+            className="hover:scale-110 ease-in duration-300"
+          />
         </Link>
         <div>
           <ul className="hidden md:flex">
-            <Link href="/#home">
-              <li className="ml-10 text-sm uppercase hover:border-b text-[#d4d4d4]">
-                Home
-              </li>
-            </Link>
-            <Link href="/#about">
-              <li className="ml-10 text-sm uppercase hover:border-b text-[#d4d4d4]">
-                About
-              </li>
-            </Link>
-            <Link href="/#skills">
-              <li className="ml-10 text-sm uppercase hover:border-b text-[#d4d4d4]">
-                Skills
-              </li>
-            </Link>
-            {/* <Link href="/">
-              <li className="ml-10 text-sm uppercase hover:border-b">Work</li>
-            </Link> */}
-            <Link href="/resume">
-              <li className="ml-10 text-sm uppercase hover:border-b text-[#d4d4d4]">
-                Resume
-              </li>
-            </Link>
+            <MenuItem title="Home" href="/#home" />
+            <MenuItem title="About" href="/#about" />
+            <MenuItem title="Skills" href="/#skills" />
+            <MenuItem title="Resume" href="/resume" />
           </ul>
-          <div className="md:hidden text-[#d4d4d4]" onClick={handleNav}>
+          <div
+            className="md:hidden text-[#d4d4d4] rounded-md p-2 hover:ring-white hover:ring-1"
+            onClick={handleNav}
+          >
             <AiOutlineMenu size={25} />
           </div>
         </div>
@@ -69,6 +60,7 @@ const Navbar = () => {
         className={
           nav ? 'md:hidden fixed left-0 top-0 w-full h-screen bg-black/70' : ''
         }
+        onClick={handleNav}
       >
         <div
           className={
@@ -78,17 +70,21 @@ const Navbar = () => {
           }
         >
           <div>
-            <div className="flex w-full items-center justify-between">
+            <div
+              className="flex w-full items-center justify-between"
+              onClick={handleNav}
+            >
               <Link href="/">
                 <Image
                   src="/assets/logo.png"
                   alt="logo"
                   width="90"
                   height="90"
+                  className="hover:scale-110 ease-in duration-300"
                 />
               </Link>
               <div
-                className="rounded-full shadow-lg shadow-gray-900 text-[#d4d4d4] p-3 cursor-pointer"
+                className="rounded-full shadow-lg shadow-gray-900 text-[#d4d4d4] p-3 cursor-pointer hover:ring-1 hover:ring-white ease-in duration-300 "
                 onClick={handleNav}
               >
                 <AiOutlineClose />
@@ -103,7 +99,7 @@ const Navbar = () => {
             <ul className="uppercase">
               <Link href="/#home">
                 <li
-                  className="py-4 text-sm text-[#d4d4d4]"
+                  className="py-4 text-sm text-[#d4d4d4] ease-in duration-300 hover:text-[#e06e4d]"
                   onClick={() => setNav(false)}
                 >
                   Home
@@ -111,7 +107,7 @@ const Navbar = () => {
               </Link>
               <Link href="/#about">
                 <li
-                  className="py-4 text-sm  text-[#d4d4d4]"
+                  className="py-4 text-sm  text-[#d4d4d4] ease-in duration-300 hover:text-[#e06e4d]"
                   onClick={() => setNav(false)}
                 >
                   About
@@ -119,7 +115,7 @@ const Navbar = () => {
               </Link>
               <Link href="/#skills">
                 <li
-                  className="py-4 text-sm  text-[#d4d4d4]"
+                  className="py-4 text-sm  text-[#d4d4d4] ease-in duration-300 hover:text-[#e06e4d]"
                   onClick={() => setNav(false)}
                 >
                   Skills
@@ -130,7 +126,7 @@ const Navbar = () => {
               </Link> */}
               <Link href="/resume">
                 <li
-                  className="py-4 text-sm  text-[#d4d4d4]"
+                  className="py-4 text-sm  text-[#d4d4d4] ease-in duration-300 hover:text-[#e06e4d]"
                   onClick={() => setNav(false)}
                 >
                   Resume
@@ -147,7 +143,7 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300 hover:ring-1 hover:ring-white">
                     <FaLinkedinIn />
                   </div>
                 </a>
@@ -156,7 +152,7 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300  hover:ring-1 hover:ring-white">
                     <FaGithub />
                   </div>
                 </a>
@@ -165,12 +161,12 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300  hover:ring-1 hover:ring-white">
                     <FaTwitter />
                   </div>
                 </a>
                 <a href="mailto:vignesh.raj47@gmail.com">
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300  hover:ring-1 hover:ring-white">
                     <AiOutlineMail />
                   </div>
                 </a>

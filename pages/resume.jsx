@@ -1,7 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
-import { FaGithub, FaLinkedinIn, FaFileDownload, FaShare } from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import { AiTwotoneMail } from 'react-icons/ai'
+import Employment from '../components/molecules/Employment'
 
 const resume = () => {
   return (
@@ -29,7 +30,9 @@ const resume = () => {
                 <div className="flex space-x-2 justify-center">
                   <button
                     type="button"
-                    className=" px-1 md:px-4 py-2 bg-[#222] text-[#d4d4d4] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] hover:shadow-lg focus:bg-[#d4d4d4] focus:text-[#222] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#d4d4d4] active:text-[#222] active:shadow-lg transition duration-150 ease-in-out "
+                    data-tooltip-target="tooltip-top"
+                    data-tooltip-placement="top"
+                    className=" px-1 md:px-3 py-2 bg-[#222] text-[#e06e4d] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] ring-1 ring-[#e06e4d] hover:ring-[#222] hover:shadow-lg  transition duration-150 ease-in-out"
                   >
                     Share
                   </button>
@@ -40,7 +43,7 @@ const resume = () => {
                 <div className="flex space-x-2 justify-center">
                   <button
                     type="button"
-                    className="px-1 md:px-4 py-2 bg-[#222] text-[#d4d4d4] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] hover:shadow-lg focus:bg-[#d4d4d4] focus:text-[#222] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#d4d4d4] active:text-[#222] active:shadow-lg transition duration-150 ease-in-out "
+                    className=" px-1 md:px-3   py-2 bg-[#222] text-[#e06e4d] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] ring-1 ring-[#e06e4d] hover:ring-[#222] hover:shadow-lg  transition duration-150 ease-in-out"
                   >
                     Download
                   </button>
@@ -48,30 +51,37 @@ const resume = () => {
               </a>
             </div>
           </div>
-          <hr className="mb-6 border-gray-800 sm:mx-auto" />
+          <hr className="mb-6 mt-1 border-[#222] sm:mx-auto" />
           <div className="my-2 py-4 px-2 md:px-4 w-full flex justify-between items-center ring-1 ring-[#d4d4d4]">
-            <h2 className="text-xl md:text-3xl">Vigneshraj Sekar Babu</h2>
-            <div className="flex">
+            <h2 className="text-xl md:text-3xl uppercase">
+              Vigneshraj Sekar Babu
+            </h2>
+            <div className="flex px-1">
               <a
                 href="https://www.linkedin.com/in/vigneshrajsb/"
                 target="_blank"
                 rel="noreferrer"
+                className="p-2 rounded-md hover:scale-100 ease-in duration-300 hover:ring-1 hover:ring-white"
               >
-                <FaLinkedinIn size={20} style={{ marginRight: '1rem' }} />
+                <FaLinkedinIn size={20} />
               </a>
               <a
                 href="https://github.com/vigneshrajsb"
                 target="_blank"
                 rel="noreferrer"
+                className="p-2 rounded-md hover:scale-100 ease-in duration-300 hover:ring-1 hover:ring-white"
               >
-                <FaGithub size={20} style={{ marginRight: '1rem' }} />
+                <FaGithub size={20} />
               </a>
-              <a href="mailto:vignesh.raj47@gmail.com">
-                <AiTwotoneMail size={20} style={{ marginRight: '1rem' }} />
+              <a
+                href="mailto:vignesh.raj47@gmail.com"
+                className="p-2 rounded-md hover:scale-100 ease-in duration-300 hover:ring-1 hover:ring-white"
+              >
+                <AiTwotoneMail size={20} />
               </a>
             </div>
           </div>
-          <div className="text-center py-4 text-xl font-bold uppercase tracking-wider">
+          <div className="text-center py-4 text-xl font-medium uppercase tracking-wider">
             <div className="hidden sm:block">
               <p>
                 Developer Productivity <span className="px-1">|</span> Test
@@ -84,7 +94,7 @@ const resume = () => {
               <p>Problem Solving</p>
             </div>
           </div>
-          <p>
+          <p className=" font-light">
             Motivated and analytical software engineer with 10+ years of
             experience in fast paced challenging environments. Effective and
             proven track record of organizational effectiveness, critical
@@ -94,7 +104,7 @@ const resume = () => {
           {/* Skills */}
           <div className="text-center py-4">
             <h5 className="text-center underline text-[18px] py-2">SKILLS</h5>
-            <p className="py-2">
+            <p className="py-2  font-light">
               <span className="font-bold">Technical Skills</span>
               <span className="px-2">|</span>Developer Productivity Engineering
               <span className="px-2">|</span> NodeJS
@@ -106,7 +116,7 @@ const resume = () => {
               <span className="px-2">|</span> Selenium
               <span className="px-2">|</span> Swift - XCUI Tests
             </p>
-            <p className="py-2">
+            <p className="py-2  font-light">
               <span className="font-bold">Tools</span>
               <span className="px-2">|</span> Datadog
               <span className="px-2">|</span> Codefresh
@@ -122,12 +132,14 @@ const resume = () => {
           </h5>
           {/* Experience */}
           <div className="py-6">
-            <p className="italic">
-              <span className="font-bold">GoodRx</span>
-              <span className="px-2">|</span>Los Angeles
-            </p>
-            <p className="py-1 italic">Sr. SDET (2019 - PRESENT)</p>
-            <ul className="list-disc list-outside px-7 py-1 leading-relaxed">
+            <Employment
+              employer="GoodRx"
+              title="Sr. SDET"
+              duration="2019 - PRESENT"
+              location="Los Angeles"
+            />
+
+            <ul className="list-disc list-outside px-7 py-1 leading-relaxed font-light">
               <li>
                 Developed frontend automation tools with Playwright supporting
                 NextJS applications and instrument apps(mocking props) for
@@ -179,12 +191,13 @@ const resume = () => {
           </div>
           {/* Experience */}
           <div className="py-6">
-            <p className="italic">
-              <span className="font-bold">Cognizant</span>
-              <span className="px-2">|</span>Indianapolis
-            </p>
-            <p className="py-1 italic">Automation Engineer (2019)</p>
-            <ul className="list-disc list-outside px-7 py-1 leading-relaxed">
+            <Employment
+              employer="Cognizant"
+              title="Automation Engineer"
+              duration="2019 - 2019"
+              location="Indianapolis"
+            />
+            <ul className="list-disc list-outside px-7 py-1 leading-relaxed font-light">
               <li>
                 Created and maintained a scalable test framework for web and API
                 automation tests (Java, Selenium, Extent reports).
@@ -205,12 +218,13 @@ const resume = () => {
           </div>
           {/* Experience */}
           <div className="py-6">
-            <p className="italic">
-              <span className="font-bold">Tech Mahindra</span>
-              <span className="px-2">|</span>St. Louis
-            </p>
-            <p className="py-1 italic">Software Engineer (2011 – 2019)</p>
-            <ul className="list-disc list-outside px-7 py-1 leading-relaxed">
+            <Employment
+              employer="Tech Mahindra"
+              title="Software Engineer  "
+              duration="2011 - 2019"
+              location="St Louis"
+            />
+            <ul className="list-disc list-outside px-7 py-1 leading-relaxed  font-light">
               <li>
                 Developed test automation solution with Java, Selenium for CMS
                 application.
@@ -232,7 +246,7 @@ const resume = () => {
           <h5 className="text-center underline text-[18px] py-4">EDUCATION</h5>
           {/* Experience */}
           <div className="py-4">
-            <p>
+            <p className=" font-light">
               <span className="font-bold">Bachelor of Engineering</span>
               <span className="px-2">|</span> 2007 - 2011
               <span className="px-2">|</span> Anna University, Chennai, India
