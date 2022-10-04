@@ -5,8 +5,8 @@ import { SiNodedotjs } from 'react-icons/si'
 const Skill = ({ icon, image, name }) => {
   return (
     <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-      <div className="grid grid-cols-2 gap-4 justify-center items-center">
-        <div className="m-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center items-center">
+        <div className="m-auto invisible md:visible">
           {icon && React.createElement(icon, { size: '50' })}
           {image && (
             <Image src={image} width="64px" height="64px" alt="/"></Image>

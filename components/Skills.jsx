@@ -25,7 +25,7 @@ const Skills = () => {
           Skills
         </p>
         <h2 className="py-4">What I can do?</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-8">
           <Skill name="NodeJS" icon={SiNodedotjs} />
           <Skill name="Typescript" icon={SiTypescript} />
           <Skill name="Playwright" image="/assets/skills/playwright.png" />
@@ -41,7 +41,7 @@ const Skills = () => {
         </div>
         <div className="pt-8">
           <Link href="/resume">
-            <p className="py-2 underline cursor-pointer text-[#d4d4d4]">
+            <p className="pt-2 pb-4 underline cursor-pointer text-[#d4d4d4]">
               Checkout my resume for more
             </p>
           </Link>
