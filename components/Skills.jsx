@@ -10,7 +10,11 @@ import {
   SiDatadog,
   SiSwift,
   SiSelenium,
+  SiPython,
+  SiJenkins,
+  SiGraphql,
 } from 'react-icons/si'
+import Skill from './Skill'
 
 // TODO get high res icons
 const Skills = () => {
@@ -22,109 +26,18 @@ const Skills = () => {
         </p>
         <h2 className="py-4">What I can do?</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiNodedotjs size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>NodeJS</h3>
-                {/* <p className="text-sm text-gray-500 italic">(everyday)</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiTypescript size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>Typescript</h3>
-                {/* <p className="text-sm text-gray-500 italic">(everyday)</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <Image
-                  src="/assets/skills/playwright.png"
-                  width="50"
-                  height="50"
-                  alt="/"
-                ></Image>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>Playwright</h3>
-                {/* <p className="text-sm text-gray-500 italic">(everyday)</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiNextdotjs size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>Next.js</h3>
-                {/* <p className="text-sm text-gray-500 italic">(everyday)</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiAmazonaws size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>AWS</h3>
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiGithub size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>Github</h3>
-                {/* <p className="text-sm text-gray-500">everyday</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiDatadog size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>Datadog</h3>
-                {/* <p className="text-sm text-gray-500">past</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiSwift size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>Swift</h3>
-                {/* <p className="text-sm text-gray-500">past</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-            <div className="grid grid-cols-2 gap-4 justify-center items-center">
-              <div className="m-auto">
-                <SiSelenium size="50" />
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                <h3>Selenium</h3>
-                {/* <p className="text-sm text-gray-500">past</p> */}
-              </div>
-            </div>
-          </div>
+          <Skill name="NodeJS" icon={SiNodedotjs} />
+          <Skill name="Typescript" icon={SiTypescript} />
+          <Skill name="Playwright" image="/assets/skills/playwright.png" />
+          <Skill name="NextJS" icon={SiNextdotjs} />
+          <Skill name="AWS" icon={SiAmazonaws} />
+          <Skill name="Github" icon={SiGithub} />
+          <Skill name="Datadog" icon={SiDatadog} />
+          <Skill name="Swift" icon={SiSwift} />
+          <Skill name="Selenium" icon={SiSelenium} />
+          <Skill name="Python" icon={SiPython} />
+          <Skill name="Jenkins" icon={SiJenkins} />
+          <Skill name="GraphQL" icon={SiGraphql} />
         </div>
         <div className="pt-8">
           <Link href="/resume">
