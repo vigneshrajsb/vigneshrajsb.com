@@ -29,7 +29,7 @@ const resume = () => {
                 <div className="flex space-x-2 justify-center">
                   <button
                     type="button"
-                    className="px-4 py-2 bg-[#222] text-[#d4d4d4] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] hover:shadow-lg focus:bg-[#d4d4d4] focus:text-[#222] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#d4d4d4] active:text-[#222] active:shadow-lg transition duration-150 ease-in-out "
+                    className=" px-1 md:px-4 py-2 bg-[#222] text-[#d4d4d4] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] hover:shadow-lg focus:bg-[#d4d4d4] focus:text-[#222] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#d4d4d4] active:text-[#222] active:shadow-lg transition duration-150 ease-in-out "
                   >
                     Share
                   </button>
@@ -40,7 +40,7 @@ const resume = () => {
                 <div className="flex space-x-2 justify-center">
                   <button
                     type="button"
-                    className="px-4 py-2 bg-[#222] text-[#d4d4d4] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] hover:shadow-lg focus:bg-[#d4d4d4] focus:text-[#222] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#d4d4d4] active:text-[#222] active:shadow-lg transition duration-150 ease-in-out "
+                    className="px-1 md:px-4 py-2 bg-[#222] text-[#d4d4d4] font-medium text-sm leading-tight uppercase rounded shadow-md hover:bg-[#d4d4d4] hover:text-[#222] hover:shadow-lg focus:bg-[#d4d4d4] focus:text-[#222] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#d4d4d4] active:text-[#222] active:shadow-lg transition duration-150 ease-in-out "
                   >
                     Download
                   </button>

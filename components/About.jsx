@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import AboutImg from '../public/assets/about.jpg'
+import { HiChevronDown } from 'react-icons/hi'
 
 const About = () => {
   return (
@@ -49,18 +50,22 @@ const About = () => {
             I also take my responsibility of creating timely memes and slack
             emojis seriously.
           </p>
-          <Link href="/#skills">
-            <p className="py-2 text-[#d4d4d4] underline cursor-pointer">
-              See what I can do
-            </p>
-          </Link>
         </div>
-        <div className="invisible md:visible w-full h-full m-auto shadow-xl shadow-gray-900 rounded-xl flex items-center justify-center p-4 hover:scale-105 ease-in duration-300">
+        <div className="hidden md:flex w-full h-full m-auto shadow-xl shadow-gray-900 rounded-xl items-center justify-center p-4 hover:scale-105 ease-in duration-300">
           <Image
             src={AboutImg}
             alt="a picture of vignesh with sepia filter"
             className="rounded-xl"
           />
+        </div>
+        <div className="flex justify-center py-6">
+          <Link href="/#skills">
+            <a>
+              <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300 ">
+                <HiChevronDown className="text-[#d4d4d4]" size={20} />
+              </div>
+            </a>
+          </Link>
         </div>
       </div>
     </div>

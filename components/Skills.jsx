@@ -14,6 +14,7 @@ import {
   SiJenkins,
   SiGraphql,
 } from 'react-icons/si'
+import { HiChevronDoubleRight } from 'react-icons/hi'
 import Skill from './Skill'
 
 // TODO get high res icons
@@ -39,11 +40,13 @@ const Skills = () => {
           <Skill name="Jenkins" icon={SiJenkins} />
           <Skill name="GraphQL" icon={SiGraphql} />
         </div>
-        <div className="pt-8">
+        <div className="flex justify-center py-6">
           <Link href="/resume">
-            <p className="pt-2 pb-4 underline cursor-pointer text-[#d4d4d4]">
-              Checkout my resume for more
-            </p>
+            <a>
+              <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300">
+                <HiChevronDoubleRight className="text-[#d4d4d4]" size={20} />
+              </div>
+            </a>
           </Link>
         </div>
       </div>
