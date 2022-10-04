@@ -143,24 +143,29 @@ const resume = () => {
               to test suites to improve test health({'>'}90%) monitoring.
             </li>
             <li>
-              Maintained average test runtime under 60 seconds with test
-              telemetry data.
+              Supported squad SDETs to maintain average test runtime under 60
+              seconds with telemetry.
             </li>
             <li>
-              Publish private node modules for utilities - identify new tests,
-              create test data, utility to fetch verification codes from
-              email/sms accounts.
+              Packaged Playwright as node module with internal tooling setup out
+              of the box to support micro frontend applications with zero to
+              minimal effort.
+            </li>
+            <li>
+              Published private node modules for utilities - identify new tests,
+              create test data, fetch verification codes from email/sms
+              accounts.
             </li>
             <li>
               Developed chrome extension to support validation across account
               based functionalities.
             </li>
             <li>
-              Create and publish GoLang CLI with supporting AWS Lambda
-              functions.
+              Created and published GoLang CLI with supporting APIs and lambda
+              functions saving 200%+ time for test data creation.
             </li>
             <li>
-              Build, maintain and support test automation framework with Python,
+              Built and maintained test automation framework with Python,
               Behave(BDD), Selenium/Appium, RestAPI & Jenkins and with XCUI
               tests for iOS native application.
             </li>
