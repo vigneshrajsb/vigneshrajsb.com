@@ -111,9 +111,9 @@ const resume = () => {
               <span className="px-2">|</span> Datadog
               <span className="px-2">|</span> Codefresh
               <span className="px-2">|</span> Github
-              <span className="px-2">|</span> Jenkins
               <span className="px-2">|</span> AWS Serverless
               <span className="px-2">|</span> AWS API Gateway
+              <span className="px-2">|</span> Jenkins
             </p>
           </div>
 
