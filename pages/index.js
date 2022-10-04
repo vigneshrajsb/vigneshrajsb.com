@@ -11,7 +11,7 @@ export default function Home() {
       <Head>
         <title>Vignesh | Sofware Engineer</title>
         <meta name="description" content="vigneshrajsb, a software engineer" />
-        <meta name="theme-color" content="#1F2937" />
+        <meta name="theme-color" content="#222" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
