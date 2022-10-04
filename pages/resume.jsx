@@ -15,7 +15,7 @@ const resume = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="max-w-[940px] mx-auto p-2 pt-[120px]">
+      <div className="max-w-[940px] mx-auto p-2 pt-[120px] bg-gray-800 text-slate-200">
         <div className="flex  justify-between items-center">
           <h2 className="text-center text-[#e06e4d]">Resume</h2>
           <div className="flex px-0">
@@ -25,7 +25,7 @@ const resume = () => {
               rel="noreferrer"
             >
               <div className="px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
-                <div className="cursor-pointer px-1 md:px-2 text-xs md:text-base  text-gray-800">
+                <div className="cursor-pointer px-1 md:px-2 text-xs md:text-base  text-slate-200">
                   {' '}
                   Share{' '}
                 </div>
@@ -34,7 +34,7 @@ const resume = () => {
             </a>
             <a href="assets/vignesh-resume.pdf" download>
               <div className="px-2 cursor-pointer hover:scale-110 ease-in duration-300 flex items-center">
-                <div className="cursor-pointer px-1 md:px-2 text-xs md:text-base text-gray-800">
+                <div className="cursor-pointer px-1 md:px-2 text-xs md:text-base text-slate-200">
                   Download{' '}
                   <span className="text-xs md:text-sm text-gray-500">
                     (40kb)
@@ -45,7 +45,7 @@ const resume = () => {
             </a>
           </div>
         </div>
-        <div className="bg-[#d0d4d6] my-2 py-4 px-2 md:px-4 w-full flex justify-between items-center">
+        <div className="bg-gray-700 my-2 py-4 px-2 md:px-4 w-full flex justify-between items-center">
           <h2 className="text-xl md:text-3xl">Vigneshraj Sekar Babu</h2>
           <div className="flex">
             <a

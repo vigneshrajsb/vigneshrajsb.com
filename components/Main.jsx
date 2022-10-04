@@ -4,18 +4,18 @@ import { AiOutlineMail } from 'react-icons/ai'
 import Link from 'next/link'
 export const Main = () => {
   return (
-    <div id="home" className="w-full h-screen text-center">
+    <div id="home" className="w-full h-screen text-center bg-gray-800">
       <div className="max-w-[1240p] w-full h-full mx-auto p-2 flex justify-center items-center">
         <div>
-          <p className="uppercase text-sm tracking-widest text-gray-600">
+          <p className="uppercase text-sm tracking-widest text-slate-200">
             LET&apos;S BUILD SOFTWARE TOGETHER!
           </p>
-          <h1 className="py-4 text-gray-700">
+          <h1 className="py-4 text-slate-200">
             Hi, I&apos;m <span className="text-[#e06e4d]"> Vignesh</span>
           </h1>
-          <h1 className="py-4 text-gray-700">Software Engineer</h1>
-          <p className="py-1 text-gray-500">(he/him)</p>
-          <p className="py-4 text-gray-600 max-w-[70%] m-auto">
+          <h1 className="py-4 text-slate-200">Software Engineer</h1>
+          <p className="py-1 text-slate-400">(he/him)</p>
+          <p className="py-4 text-slate-200 max-w-[70%] m-auto">
             I&apos;m a software developer specialized in building tools that
             help with developer productivity, internal tooling and testing
             practices. Currently, I&apos;m a part of the Developer Productivity
@@ -28,7 +28,7 @@ export const Main = () => {
               target={'_blank'}
               rel="noreferrer"
             >
-              <div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+              <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
                 <FaLinkedinIn />
               </div>
             </a>
@@ -37,7 +37,7 @@ export const Main = () => {
               target={'_blank'}
               rel="noreferrer"
             >
-              <div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+              <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
                 <FaGithub />
               </div>
             </a>
@@ -46,12 +46,12 @@ export const Main = () => {
               target={'_blank'}
               rel="noreferrer"
             >
-              <div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+              <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
                 <FaTwitter />
               </div>
             </a>
             <a href="mailto:vignesh.raj47@gmail.com">
-              <div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+              <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
                 <AiOutlineMail />
               </div>
             </a>

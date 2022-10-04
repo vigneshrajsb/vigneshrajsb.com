@@ -25,8 +25,8 @@ const Navbar = () => {
     <div
       className={
         shadow
-          ? 'fixed w-full h-20 shadow-xl z-[100] bg-[#ecf0f3]'
-          : 'fixed w-full h-20 z-[100] bg-[#ecf0f3]'
+          ? 'fixed w-full h-20 shadow-xl z-[100] bg-gray-800'
+          : 'fixed w-full h-20 z-[100] bg-gray-800'
       }
     >
       <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
@@ -36,22 +36,30 @@ const Navbar = () => {
         <div>
           <ul className="hidden md:flex">
             <Link href="/#home">
-              <li className="ml-10 text-sm uppercase hover:border-b">Home</li>
+              <li className="ml-10 text-sm uppercase hover:border-b text-slate-200">
+                Home
+              </li>
             </Link>
             <Link href="/#about">
-              <li className="ml-10 text-sm uppercase hover:border-b">About</li>
+              <li className="ml-10 text-sm uppercase hover:border-b text-slate-200">
+                About
+              </li>
             </Link>
             <Link href="/#skills">
-              <li className="ml-10 text-sm uppercase hover:border-b">Skills</li>
+              <li className="ml-10 text-sm uppercase hover:border-b text-slate-200">
+                Skills
+              </li>
             </Link>
             {/* <Link href="/">
               <li className="ml-10 text-sm uppercase hover:border-b">Work</li>
             </Link> */}
             <Link href="/resume">
-              <li className="ml-10 text-sm uppercase hover:border-b">Resume</li>
+              <li className="ml-10 text-sm uppercase hover:border-b text-slate-200">
+                Resume
+              </li>
             </Link>
           </ul>
-          <div className="md:hidden" onClick={handleNav}>
+          <div className="md:hidden text-slate-200" onClick={handleNav}>
             <AiOutlineMenu size={25} />
           </div>
         </div>
@@ -65,7 +73,7 @@ const Navbar = () => {
         <div
           className={
             nav
-              ? 'fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] h-screen bg-[#ecf0f3] p-10 ease-in duration-500'
+              ? 'fixed left-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] h-screen bg-gray-800 p-10 ease-in duration-500'
               : 'fixed left-[-100%] top-0 p-10 ease-in duration-500'
           }
         >
@@ -80,7 +88,7 @@ const Navbar = () => {
                 />
               </Link>
               <div
-                className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer"
+                className="rounded-full shadow-lg shadow-gray-900 text-slate-200 p-3 cursor-pointer"
                 onClick={handleNav}
               >
                 <AiOutlineClose />
@@ -94,17 +102,26 @@ const Navbar = () => {
           <div className="py-4 flex flex-col">
             <ul className="uppercase">
               <Link href="/#home">
-                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                <li
+                  className="py-4 text-sm text-slate-200"
+                  onClick={() => setNav(false)}
+                >
                   Home
                 </li>
               </Link>
               <Link href="/#about">
-                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                <li
+                  className="py-4 text-sm  text-slate-200"
+                  onClick={() => setNav(false)}
+                >
                   About
                 </li>
               </Link>
               <Link href="/#skills">
-                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                <li
+                  className="py-4 text-sm  text-slate-200"
+                  onClick={() => setNav(false)}
+                >
                   Skills
                 </li>
               </Link>
@@ -112,7 +129,10 @@ const Navbar = () => {
                 <li className="py-4 text-sm">Work</li>
               </Link> */}
               <Link href="/resume">
-                <li className="py-4 text-sm" onClick={() => setNav(false)}>
+                <li
+                  className="py-4 text-sm  text-slate-200"
+                  onClick={() => setNav(false)}
+                >
                   Resume
                 </li>
               </Link>
@@ -127,7 +147,7 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <FaLinkedinIn />
                   </div>
                 </a>
@@ -136,7 +156,7 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <FaGithub />
                   </div>
                 </a>
@@ -145,12 +165,12 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <FaTwitter />
                   </div>
                 </a>
                 <a href="mailto:vignesh.raj47@gmail.com">
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-gray-900  text-slate-200 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
                     <AiOutlineMail />
                   </div>
                 </a>

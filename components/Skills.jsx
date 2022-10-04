@@ -5,8 +5,8 @@ import React from 'react'
 // TODO get high res icons
 const Skills = () => {
   return (
-    <div id="skills" className="w-full lg:h-screen p-2">
-      <div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full">
+    <div id="skills" className="w-full lg:h-screen p-2 bg-gray-800">
+      <div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full text-slate-200">
         <p className="text-xl tracking-widest uppercase text-[#e06e4d]">
           Skills
         </p>
@@ -142,7 +142,7 @@ const Skills = () => {
         </div>
         <div className="pt-8">
           <Link href="/resume">
-            <p className="py-2 text-gray-600 underline cursor-pointer">
+            <p className="py-2 underline cursor-pointer text-slate-200">
               Checkout my resume for more
             </p>
           </Link>
