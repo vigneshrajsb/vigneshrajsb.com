@@ -22,10 +22,10 @@ const Skills = () => {
   return (
     <div id="skills" className="w-full lg:h-screen p-2 bg-[#222]">
       <div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full text-[#d4d4d4]">
-        <p className="text-xl tracking-widest uppercase text-[#e06e4d]">
+        <p className="text-xl tracking-widest uppercase text-[#e06e4d] py-4">
           Skills
         </p>
-        <h2 className="py-4">What I can do?</h2>
+        {/* <h2 className="py-4">What I can do?</h2> */}
         <div className="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-8">
           <Skill name="NodeJS" icon={SiNodedotjs} />
           <Skill name="Typescript" icon={SiTypescript} />

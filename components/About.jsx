@@ -10,12 +10,12 @@ const About = () => {
       id="about"
       className="w-full md:h-screen p-2 flex items-center py-16 bg-[#222]"
     >
-      <div className="=max-w-[1240px] m-auto md:grid grid-cols-3 gap-8 text-[#d4d4d4]">
+      <div className="max-w-[1240px] m-auto md:grid grid-cols-3 gap-8 text-[#d4d4d4]">
         <div className="col-span-2">
-          <p className="uppercase text-xl tracking-widest text-[#e06e4d]">
+          <p className="uppercase text-xl tracking-widest text-[#e06e4d] py-4">
             About
           </p>
-          <h2 className="py-4">Who am I?</h2>
+          {/* <h2 className="py-4">Who am I?</h2> */}
           <p className="py-2 text-[#d4d4d4]">
             A Software Engineer based in Los Angeles.
           </p>
@@ -58,7 +58,7 @@ const About = () => {
             className="rounded-xl"
           />
         </div>
-        <div className="flex justify-center py-6">
+        <div className="flex justify-center py-6 col-span-3">
           <Link href="/#skills">
             <a>
               <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300 ">
