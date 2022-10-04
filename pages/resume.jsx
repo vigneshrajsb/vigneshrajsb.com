@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { FaGithub, FaLinkedinIn, FaFileDownload, FaShare } from 'react-icons/fa'
-import { AiOutlineMail, AiTwotoneMail } from 'react-icons/ai'
+import { AiTwotoneMail } from 'react-icons/ai'
 
 const resume = () => {
   return (
@@ -93,14 +93,14 @@ const resume = () => {
           <p className="py-2">
             <span className="font-bold">Technical Skills</span>
             <span className="px-2">|</span>Developer Productivity Engineering
-            <span className="px-2">|</span> NodeJS{' '}
-            <span className="px-2">|</span>
-            Playwright <span className="px-2">|</span>NextJS
-            <span className="px-2">|</span>Selenium
-            <span className="px-2">|</span> Swift
-            <span className="px-2">|</span> AWS
+            <span className="px-2">|</span> NodeJS
+            <span className="px-2">|</span> Typescript
             <span className="px-2">|</span> Python
             <span className="px-2">|</span> GoLang
+            <span className="px-2">|</span> Playwright
+            <span className="px-2">|</span> NextJS
+            <span className="px-2">|</span> Selenium
+            <span className="px-2">|</span> Swift - XCUI Tests
           </p>
           <p className="py-2">
             <span className="font-bold">Tools</span>
@@ -217,6 +217,15 @@ const resume = () => {
               DBAs and support teams on application migrations.
             </li>
           </ul>
+        </div>
+        <h5 className="text-center underline text-[18px] py-4">EDUCATION</h5>
+        {/* Experience */}
+        <div className="py-4">
+          <p>
+            <span className="font-bold">Bachelor of Engineering</span>
+            <span className="px-2">|</span> 2007 - 2011
+            <span className="px-2">|</span> Anna University, Chennai, India
+          </p>
         </div>
       </div>
     </>
