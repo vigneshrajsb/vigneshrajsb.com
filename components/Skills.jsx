@@ -29,7 +29,7 @@ const Skills = () => {
         <div className="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-8">
           <Skill name="NodeJS" icon={SiNodedotjs} />
           <Skill name="Typescript" icon={SiTypescript} />
-          <Skill name="Playwright" image="/assets/skills/playwright.png" />
+          <Skill name="Playwright" image="/assets/skills/playwright.svg" />
           <Skill name="NextJS" icon={SiNextdotjs} />
           <Skill name="AWS" icon={SiAmazonaws} />
           <Skill name="Github" icon={SiGithub} />
