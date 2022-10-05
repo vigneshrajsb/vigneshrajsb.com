@@ -10,12 +10,12 @@ export const Main = () => {
           <p className="uppercase text-sm tracking-widest text-[#d4d4d4]  hover:cursor-default">
             LET&apos;S BUILD SOFTWARE TOGETHER!
           </p>
-          <h1 className="py-4 text-[#d4d4d4]  hover:scale-125 ease-in duration-500">
+          <h1 className="py-4 text-[#d4d4d4]  md:hover:scale-125 ease-in duration-500">
             Hi, I&apos;m <span className="text-[#e06e4d] "> Vignesh</span>
           </h1>
           <h2 className="py-2 text-[#d4d4d4]">Software Engineer</h2>
           <p className="py-1 text-[#d4d4d4] font-light">(he/him)</p>
-          <p className="py-4 text-[#d4d4d4] max-w-[70%] m-auto  font-light">
+          <p className="py-4 text-[#d4d4d4] max-w-[70%] m-auto  font-light text-sm md:text-base">
             I&apos;m a software developer specialized in building tools that
             help with developer productivity, internal tooling and testing
             practices. Currently, I&apos;m a part of the Developer Productivity

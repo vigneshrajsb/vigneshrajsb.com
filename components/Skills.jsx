@@ -20,7 +20,7 @@ import Skill from './molecules/Skill'
 // TODO get high res icons
 const Skills = () => {
   return (
-    <div id="skills" className="w-full h-screen p-2 bg-[#222]">
+    <div id="skills" className="w-full h-auto md:h-screen p-2 bg-[#222]">
       <div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full text-[#d4d4d4]">
         <p className="text-xl tracking-widest uppercase text-[#e06e4d] py-4">
           Skills

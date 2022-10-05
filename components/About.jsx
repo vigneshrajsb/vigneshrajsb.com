@@ -8,9 +8,9 @@ const About = () => {
   return (
     <div
       id="about"
-      className="w-full h-screen p-2 flex items-center py-16 bg-[#222]  font-light"
+      className="w-full h-full md:h-screen p-2 flex items-center py-16 bg-[#222] font-light"
     >
-      <div className="max-w-[1240px] m-auto md:grid grid-cols-3 gap-8 text-[#d4d4d4]">
+      <div className="max-w-[1240px] m-auto md:grid grid-cols-3 gap-8 text-[#d4d4d4] text-xs md:text-base">
         <div className="col-span-2">
           <p className="uppercase text-xl tracking-widest text-[#e06e4d] py-4 font-normal">
             About

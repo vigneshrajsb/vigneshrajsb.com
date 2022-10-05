@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import About from '../components/About'
-import Footer from '../components/Footer'
 import { Main } from '../components/Main'
 import Navbar from '../components/Navbar'
 import Skills from '../components/Skills'
