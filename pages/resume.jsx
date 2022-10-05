@@ -94,7 +94,7 @@ const resume = () => {
               <p>Problem Solving</p>
             </div>
           </div>
-          <p className=" font-light">
+          <p className="font-light text-sm md:text">
             Motivated and analytical software engineer with 10+ years of
             experience in fast paced challenging environments. Effective and
             proven track record of organizational effectiveness, critical
@@ -139,7 +139,7 @@ const resume = () => {
               location="Los Angeles"
             />
 
-            <ul className="list-disc list-outside px-7 py-1 leading-relaxed font-light">
+            <ul className="list-disc list-outside px-7 py-1 leading-relaxed font-light text-sm md:text-base">
               <li>
                 Developed frontend automation tools with Playwright supporting
                 NextJS applications and instrument apps(mocking props) for
@@ -197,7 +197,7 @@ const resume = () => {
               duration="2019 - 2019"
               location="Indianapolis"
             />
-            <ul className="list-disc list-outside px-7 py-1 leading-relaxed font-light">
+            <ul className="list-disc list-outside px-7 py-1 leading-relaxed font-light text-sm md:text-base">
               <li>
                 Created and maintained a scalable test framework for web and API
                 automation tests (Java, Selenium, Extent reports).
@@ -224,7 +224,7 @@ const resume = () => {
               duration="2011 - 2019"
               location="St Louis"
             />
-            <ul className="list-disc list-outside px-7 py-1 leading-relaxed  font-light">
+            <ul className="list-disc list-outside px-7 py-1 leading-relaxed font-light text-sm md:text-base">
               <li>
                 Developed test automation solution with Java, Selenium for CMS
                 application.
