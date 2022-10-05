@@ -94,7 +94,7 @@ const resume = () => {
               <p>Problem Solving</p>
             </div>
           </div>
-          <p className="font-light text-sm md:text">
+          <p className="font-light text-sm md:text-base">
             Motivated and analytical software engineer with 10+ years of
             experience in fast paced challenging environments. Effective and
             proven track record of organizational effectiveness, critical
