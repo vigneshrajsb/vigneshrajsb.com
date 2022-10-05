@@ -40,7 +40,7 @@ const Skills = () => {
           <Skill name="Jenkins" icon={SiJenkins} />
           <Skill name="GraphQL" icon={SiGraphql} />
         </div>
-        <div className="flex justify-center py-2 md:py-10">
+        <div className="flex justify-center py-4 md:py-10">
           <Link href="/resume">
             <a>
               <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white">
