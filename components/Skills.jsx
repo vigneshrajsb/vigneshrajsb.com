@@ -20,7 +20,7 @@ import Skill from './molecules/Skill'
 // TODO get high res icons
 const Skills = () => {
   return (
-    <div id="skills" className="w-full h-screen p-2 bg-[#222]">
+    <div id="skills" className="w-full h-screen p-2 bg-[#222] relative">
       <div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full text-[#d4d4d4]">
         <p className="text-xl tracking-widest uppercase text-[#e06e4d] py-2 md:py-4">
           Skills
@@ -40,15 +40,15 @@ const Skills = () => {
           <Skill name="Jenkins" icon={SiJenkins} />
           <Skill name="GraphQL" icon={SiGraphql} />
         </div>
-        <div className="flex justify-center py-4 md:py-10">
-          <Link href="/resume">
-            <a>
-              <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white">
-                <HiChevronDoubleRight className="text-[#d4d4d4]" size={20} />
-              </div>
-            </a>
-          </Link>
-        </div>
+      </div>
+      <div className="absolute bottom-0 w-full flex items-center justify-center py-1 md:py-6 col-span-3">
+        <Link href="/resume">
+          <a>
+            <div className="rounded-full shadow-lg shadow-gray-900 p-3 md:p-4 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white animate-pulse">
+              <HiChevronDoubleRight className="text-[#d4d4d4] text-xs md:text-lg" />
+            </div>
+          </a>
+        </Link>
       </div>
     </div>
   )

@@ -8,7 +8,7 @@ const About = () => {
   return (
     <div
       id="about"
-      className="w-full h-full md:h-screen p-2 flex items-center py-16 bg-[#222] font-light"
+      className="w-full min-h-screen md:h-screen p-2 flex items-center py-16 bg-[#222] font-light relative"
     >
       <div className="max-w-[1240px] m-auto md:grid grid-cols-3 gap-8 text-[#d4d4d4] text-xs md:text-base">
         <div className="col-span-2">
@@ -56,15 +56,15 @@ const About = () => {
             className="rounded-xl"
           />
         </div>
-        <div className="flex justify-center py-6 col-span-3">
-          <Link href="/#skills">
-            <a>
-              <div className="rounded-full shadow-lg shadow-gray-900 p-4 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white">
-                <HiChevronDown className="text-[#d4d4d4]" size={20} />
-              </div>
-            </a>
-          </Link>
-        </div>
+      </div>
+      <div className="absolute bottom-0 w-full flex items-center justify-center py-1 md:py-6 col-span-3">
+        <Link href="/#skills">
+          <a>
+            <div className="rounded-full shadow-lg shadow-gray-900 p-3 md:p-4 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white animate-pulse">
+              <HiChevronDown className="text-[#d4d4d4] text-xs md:text-lg" />
+            </div>
+          </a>
+        </Link>
       </div>
     </div>
   )

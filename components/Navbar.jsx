@@ -37,7 +37,7 @@ const Navbar = () => {
             alt="logo"
             width="90"
             height="90"
-            className="hover:scale-110 ease-in duration-300"
+            className="hover:scale-110 ease-in duration-300 cursor-default"
           />
         </Link>
         <div>
