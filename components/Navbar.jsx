@@ -143,7 +143,7 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300 hover:ring-1 hover:ring-white">
+                  <div className="social-icon p-3">
                     <FaLinkedinIn />
                   </div>
                 </a>
@@ -152,7 +152,7 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300  hover:ring-1 hover:ring-white">
+                  <div className="social-icon p-3">
                     <FaGithub />
                   </div>
                 </a>
@@ -161,12 +161,12 @@ const Navbar = () => {
                   target={'_blank'}
                   rel="noreferrer"
                 >
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300  hover:ring-1 hover:ring-white">
+                  <div className="social-icon p-3">
                     <FaTwitter />
                   </div>
                 </a>
                 <a href="mailto:vignesh.raj47@gmail.com">
-                  <div className="rounded-full shadow-lg shadow-gray-900  text-[#d4d4d4] p-3 cursor-pointer hover:scale-105 ease-in duration-300  hover:ring-1 hover:ring-white">
+                  <div className="social-icon p-3">
                     <AiOutlineMail />
                   </div>
                 </a>

@@ -7,15 +7,17 @@ export const Main = () => {
     <div id="home" className="w-full h-screen text-center bg-[#222]">
       <div className="max-w-[1240p] w-full h-full mx-auto p-2 flex justify-center items-center hover:cursor-default">
         <div>
-          <p className="uppercase text-sm tracking-widest text-[#d4d4d4]  hover:cursor-default">
+          <p className="uppercase text-sm tracking-widest text-white  hover:cursor-default">
             LET&apos;S BUILD SOFTWARE TOGETHER!
           </p>
-          <h1 className="py-4 text-[#d4d4d4]  md:hover:scale-125 ease-in duration-500">
-            Hi, I&apos;m <span className="text-[#e06e4d] "> Vignesh</span>
+          <h1 className="py-4 text-white ease-in duration-500">
+            Hi, I&apos;m <span className="text-primary "> Vignesh</span>
           </h1>
-          <h2 className="py-2 text-[#d4d4d4]">Software Engineer</h2>
-          <p className="py-1 text-[#d4d4d4] font-light">(he/him)</p>
-          <p className="py-4 text-[#d4d4d4] max-w-[70%] m-auto  font-light text-sm md:text-base">
+          <h3 className="py-2 text-white font-bold sm:text-4xl md:text-4xl">
+            Software Engineer
+          </h3>
+          <p className="py-1 text-white font-light">(he/him)</p>
+          <p className="py-4 text-white max-w-[70%] m-auto  font-light text-sm md:text-base">
             I&apos;m a software developer specialized in building tools that
             help with developer productivity, internal tooling and testing
             practices. Currently, I&apos;m a part of the Developer Productivity
@@ -28,7 +30,7 @@ export const Main = () => {
               target={'_blank'}
               rel="noreferrer"
             >
-              <div className="rounded-full shadow-md shadow-gray-900  text-[#d4d4d4] p-6 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white">
+              <div className="social-icon p-6">
                 <FaLinkedinIn />
               </div>
             </a>
@@ -37,7 +39,7 @@ export const Main = () => {
               target={'_blank'}
               rel="noreferrer"
             >
-              <div className="rounded-full shadow-md shadow-gray-900  text-[#d4d4d4] p-6 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white">
+              <div className="social-icon p-6">
                 <FaGithub />
               </div>
             </a>
@@ -46,12 +48,12 @@ export const Main = () => {
               target={'_blank'}
               rel="noreferrer"
             >
-              <div className="rounded-full shadow-md shadow-gray-900  text-[#d4d4d4] p-6 cursor-pointer hover:scale-110 ease-in duration-300 hover:ring-1 hover:ring-white">
+              <div className="social-icon p-6">
                 <FaTwitter />
               </div>
             </a>
             <a href="mailto:vignesh.raj47@gmail.com">
-              <div className="rounded-full shadow-md hover:ring-1 hover:ring-white shadow-gray-900  text-[#d4d4d4] p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+              <div className="social-icon p-6">
                 <AiOutlineMail />
               </div>
             </a>
