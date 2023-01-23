@@ -8,7 +8,7 @@ const resume = () => {
   return (
     <>
       <Head>
-        <title>Vignesh | Resume</title>
+        <title>Vignesh | Software Engineer | Resume</title>
         <meta
           name="description"
           content="A software developer specialized in building tools improving developer productivity and test enablement."
