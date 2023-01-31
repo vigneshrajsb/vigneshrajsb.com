@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from 'react-icons/ai'
-import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn, FaTree, FaTwitter } from 'react-icons/fa'
 import MenuItem from './molecules/MenuItem'
 
 const Navbar = () => {
@@ -137,7 +137,7 @@ const Navbar = () => {
               <p className="uppercase tracking-widest text-[#e06e4d]">
                 Let&apos;s Connect
               </p>
-              <div className="flex items-center justify-between my-4 w-full sm:w-[80%]">
+              <div className="flex items-center justify-between my-4 w-full sm:w-[100%]">
                 <a
                   href="https://www.linkedin.com/in/vigneshrajsb/"
                   target={'_blank'}
@@ -163,6 +163,15 @@ const Navbar = () => {
                 >
                   <div className="social-icon p-3">
                     <FaTwitter />
+                  </div>
+                </a>
+                <a
+                  href="https://linktr.ee/vigneshrajsb"
+                  target={'_blank'}
+                  rel="noreferrer"
+                >
+                  <div className="social-icon p-3">
+                    <FaTree />
                   </div>
                 </a>
                 <a href="mailto:vignesh.raj47@gmail.com">

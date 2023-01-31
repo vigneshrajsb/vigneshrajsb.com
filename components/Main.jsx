@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaLinkedinIn, FaGithub, FaTwitter } from 'react-icons/fa'
+import { FaLinkedinIn, FaGithub, FaTwitter, FaTree } from 'react-icons/fa'
 import { AiOutlineMail } from 'react-icons/ai'
 import Link from 'next/link'
 export const Main = () => {
@@ -24,7 +24,7 @@ export const Main = () => {
             team building tools and serverless applications while learning SRE
             technologies.
           </p>
-          <div className="flex items-center justify-between max-w-[330px] m-auto py-4">
+          <div className="flex items-center justify-between max-w-[500px] m-auto py-4">
             <a
               href="https://www.linkedin.com/in/vigneshrajsb/"
               target={'_blank'}
@@ -50,6 +50,15 @@ export const Main = () => {
             >
               <div className="social-icon p-6">
                 <FaTwitter />
+              </div>
+            </a>
+             <a
+              href="https://linktr.ee/vigneshrajsb"
+              target={'_blank'}
+              rel="noreferrer"
+            >
+              <div className="social-icon p-6">
+                <FaTree />
               </div>
             </a>
             <a href="mailto:vignesh.raj47@gmail.com">
