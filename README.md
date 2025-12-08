@@ -1,9 +1,5 @@
-Hi!! I am Vignesh..
+# vigneshrajsb.com
 
-Checkout more about me: https://vigneshrajsb.com/
+Personal website. Plain HTML + CSS.
 
-
-Feedback and input welcome!
-
-
-
+https://vigneshrajsb.com
