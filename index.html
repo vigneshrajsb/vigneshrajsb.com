@@ -1,67 +1,90 @@
 <!doctype html>
+<!--
+  Hi. Hand-built with HTML and CSS, no framework, no tracking.
+  Source: https://github.com/vigneshrajsb/vigneshrajsb.com
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vignesh | Software Engineer</title>
+    <title>Vignesh, Software Engineer in LA</title>
     <meta
       name="description"
-      content="Vignesh - Sr Software Engineer at GoodRx, Los Angeles. Building tools that help engineers."
+      content="Personal site of Vignesh, a senior software engineer on the Developer Tools team at GoodRx in Los Angeles. Building tools that make engineers' lives easier."
     />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <main>
-      <header>
-        <h1>Vignesh</h1>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <span id="ext-tab" class="sr-only">opens in a new tab</span>
+    <main id="main">
+      <header class="masthead">
+        <h1 class="name">Vignesh</h1>
         <p class="role">
-          Sr Software Engineer at
-          <a href="https://www.goodrx.com" target="_blank" rel="noopener"
+          Senior Software Engineer at
+          <a href="https://www.goodrx.com" target="_blank" rel="noopener" aria-describedby="ext-tab"
             >GoodRx</a
           >
         </p>
         <p class="location">Los Angeles</p>
+        <p class="aside">Building tools, taking notes, walking the dog.</p>
       </header>
 
-      <nav class="links">
-        <a href="https://github.com/vigneshrajsb" target="_blank" rel="noopener"
-          >GitHub</a
-        >
-        <a
-          href="https://www.linkedin.com/in/vigneshrajsb/"
-          target="_blank"
-          rel="noopener"
-          >LinkedIn</a
-        >
-        <a href="https://vigneshrajsb.medium.com" target="_blank" rel="noopener"
-          >Medium</a
-        >
-        <a href="mailto:vignesh.raj47@gmail.com">Email</a>
-        <a href="/vignesh-resume.pdf" download>Resume</a>
+      <nav class="links" aria-label="External profiles">
+        <span class="profiles">
+          <a
+            href="https://github.com/vigneshrajsb"
+            target="_blank"
+            rel="noopener" aria-describedby="ext-tab"
+            >GitHub</a
+          >
+          <a
+            href="https://www.linkedin.com/in/vigneshrajsb/"
+            target="_blank"
+            rel="noopener" aria-describedby="ext-tab"
+            >LinkedIn</a
+          >
+          <a
+            href="https://vigneshrajsb.medium.com"
+            target="_blank"
+            rel="noopener" aria-describedby="ext-tab"
+            >Medium</a
+          >
+          <a href="mailto:vignesh.raj47@gmail.com">Email</a>
+        </span>
+        <a class="resume" href="/vignesh-resume.pdf" download aria-label="Resume (PDF, downloads)">Resume</a>
       </nav>
 
-      <section class="about">
-        <p>
+      <section class="about" id="about">
+        <p class="lede">
           I build tools that make engineers' lives easier. There's something
           about watching an idea turn into working code that still gives me a
           dopamine hit after all these years.
         </p>
 
         <p>
-          Born near Chennai, studied electrical engineering&mdash;but to be
-          honest, I was always interested in writing software.
+          Born near Chennai, studied electrical engineering, but to be honest,
+          I was always interested in writing software.
         </p>
+
         <p>
           These days I'm on the Developer Tools team at GoodRx, where I get to
-          build internal tooling, test automation, mess with infrastructure, and
-          occasionally break things in interesting ways.
+          build internal tooling, test automation, mess with infrastructure,
+          and occasionally break things in interesting ways.
         </p>
 
         <p>
           I'm the kind of person who can't just have an idea and let it sit
-          there. If something seems like it could work, I need to build it, ship
-          it, see what happens. Then probably rebuild it three more times.
+          there. If something seems like it could work, I need to build it,
+          ship it, see what happens. Then probably rebuild it three more
+          times.
         </p>
 
         <p>
@@ -70,67 +93,180 @@
         </p>
       </section>
 
-      <section class="work">
+      <section class="currently" id="currently">
+        <p class="eyebrow">
+          Currently <em><span class="date">Apr 2026</span></em>
+        </p>
+        <ul class="plain-list">
+          <li>
+            Building new features for
+            <a
+              href="https://github.com/GoodRxOSS/lifecycle"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              ><em>Lifecycle</em></a
+            >, in the open.
+          </li>
+          <li>
+            Sharpening my design eye with
+            <a
+              href="https://www.interfacecraft.dev/"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              ><em>interface.craft</em></a
+            >.
+          </li>
+          <li>
+            Thinking about how AI reshapes developer tooling in the
+            agentic-harness era.
+          </li>
+        </ul>
+      </section>
+
+      <section class="work" id="work">
+        <p class="eyebrow">Work</p>
         <h2>What I've been working on</h2>
-        <ul>
+        <ul class="plain-list">
           <li>
             <a
               href="https://github.com/GoodRxOSS/lifecycle"
               target="_blank"
-              rel="noopener"
-              >Lifecycle</a
-            >&mdash;an open-source dev environment orchestrator that's spun up
-            18k+ preview environments, letting engineers test full-stack changes
-            per pull request
+              rel="noopener" aria-describedby="ext-tab"
+              ><em>Lifecycle</em></a
+            >: an open-source preview-environment orchestrator. 18k+ envs
+            and counting, one per pull request.
           </li>
           <li>
-            Smart alert routing that matches GitHub commits and CODEOWNERS to
-            Slack channels, so the right people get notified instead of everyone
+            Researching agentic harnesses, and quietly building one.
           </li>
           <li>
-            Packaged Playwright as an internal module with built-in auth,
-            mocking, and telemetry&mdash;teams can now add integration tests
-            with zero config
+            Scaling preview-environment infrastructure as load grows,
+            learning the failure modes by hitting them.
+          </li>
+          <li>
+            An alert router that pairs GitHub commits and CODEOWNERS to
+            Slack channels, so the right people get pinged instead of
+            everyone.
+          </li>
+          <li>
+            Packaged Playwright as an internal module with auth, mocking,
+            and telemetry baked in. Teams add integration tests with zero
+            config.
           </li>
           <li>
             <a
               href="https://github.com/vigneshrajsb/opendevtools.io"
               target="_blank"
-              rel="noopener"
-              >OpenDevTools</a
-            >&mdash;a collection of open-source developer utilities, no
-            tracking, completely free
-          </li>
-          <li>
-            <a
-              href="https://github.com/vigneshrajsb/playwright-manager"
-              target="_blank"
-              rel="noopener"
-              >Playwright Manager</a
-            >&mdash;an open-source dashboard that tames flaky Playwright tests.
-            Auto-detects CI environments, scores test health, and quarantines
-            failures remotely. No more broken builds from intermittent tests.
+              rel="noopener" aria-describedby="ext-tab"
+              ><em>OpenDevTools</em></a
+            >: a small collection of open-source developer utilities. No
+            tracking, no upsell, free.
           </li>
         </ul>
-        <p>
+        <p class="cta">
           Always happy to chat about developer tools, testing strategies, or
           interesting problems.
-          <a href="mailto:vignesh.raj47@gmail.com">Say hi!</a>
+          <a href="mailto:vignesh.raj47@gmail.com">Say hi.</a>
         </p>
       </section>
 
-      <section class="interests">
-        <h2>When I'm not coding</h2>
-        <ul>
+      <section class="writing" id="writing">
+        <p class="eyebrow">Writing</p>
+        <h2>Notes from the side</h2>
+        <ul class="entries">
           <li>
-            Shooting barebow archery (no sights, no stabilizers, just vibes)
+            <a
+              href="https://vigneshrajsb.medium.com/openclaw-assistant-has-a-backup-plan"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              class="title"
+              ><em>OpenClaw: when the AI assistant has a backup plan</em></a
+            ><span class="blurb">
+              On building agents that fail gracefully instead of confidently.</span
+            >
           </li>
-          <li>Pretending to be good at CrossFit</li>
-          <li>Hiking around LA</li>
-          <li>Console gaming&mdash;just wrapped up Ghost of Yotei</li>
-          <li>Answering to my dog, Chocolata who runs my home</li>
+          <li>
+            <a
+              href="https://vigneshrajsb.medium.com/find-my-distributed-trace-airtags-for-datadog-apm"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              class="title"
+              ><em>Find My Distributed Trace</em></a
+            ><span class="blurb">
+              AirTags for Datadog APM, or how I stopped guessing where requests
+              go.</span
+            >
+          </li>
+          <li>
+            <a
+              href="https://vigneshrajsb.medium.com/frontend-automation-principles-a-field-guide"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              class="title"
+              ><em>Frontend automation principles: a field guide</em></a
+            ><span class="blurb">
+              Patterns I keep reaching for after years of writing browser
+              tests.</span
+            >
+          </li>
+          <li>
+            <a
+              href="https://vigneshrajsb.medium.com/building-a-slack-sidekick-targeted-alerts-cross-workspace-invites"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              class="title"
+              ><em>Building a Slack sidekick</em></a
+            ><span class="blurb">
+              Targeted alerts and cross-workspace invites without losing your
+              mind.</span
+            >
+          </li>
+        </ul>
+        <p class="more">
+          <a
+            href="https://vigneshrajsb.medium.com"
+            target="_blank"
+            rel="noopener" aria-describedby="ext-tab"
+            class="forward"
+            >More on Medium <span aria-hidden="true">→&#xFE0E;</span></a
+          >
+        </p>
+      </section>
+
+      <section class="beyond" id="beyond">
+        <p class="eyebrow">Beyond code</p>
+        <h2>When I'm not at the keyboard</h2>
+        <ul class="plain-list">
+          <li>
+            Shooting barebow archery. No sights, no stabilizers, mostly
+            intuition and a lot of misses.
+          </li>
+          <li>Doing CrossFit, badly but trying to be consistent.</li>
+          <li>Walking LA on foot, looking for the parts that still feel like a neighborhood.</li>
+          <li>Console gaming. Currently somewhere deep in Ghost of Yotei.</li>
+          <li>Reporting to <em>Chocolata</em>, my 65lb Doberman mix who runs the house.</li>
         </ul>
       </section>
     </main>
+
+    <footer class="colophon">
+      <p>
+        Set in
+        <a
+          href="https://fonts.google.com/specimen/Vollkorn"
+          target="_blank"
+          rel="noopener" aria-describedby="ext-tab"
+          >Vollkorn</a
+        >
+        and
+        <a
+          href="https://fonts.google.com/specimen/Karla"
+          target="_blank"
+          rel="noopener" aria-describedby="ext-tab"
+          >Karla</a
+        >. Hand-built with HTML and CSS.
+      </p>
+      <p>&copy; 2026 Vignesh.</p>
+    </footer>
   </body>
 </html>
