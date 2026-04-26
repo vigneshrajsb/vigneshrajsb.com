@@ -314,7 +314,7 @@ a:focus-visible {
 }
 
 .links .resume::before {
-    content: '\2197';
+    content: '\2197\FE0E';
     margin-right: 0.3rem;
     font-style: normal;
     color: var(--accent);
