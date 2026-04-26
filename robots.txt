@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vigneshrajsb.com/sitemap.xml
+
+# Agents: there's a markdown summary at /llms.txt
