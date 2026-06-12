@@ -2,7 +2,7 @@
 
 > Personal site of Vigneshraj Sekar Babu (Vignesh), a lead software engineer on the Developer Tools team at GoodRx in Los Angeles. He builds internal tooling, test automation, and infrastructure that make engineers' lives easier.
 
-The site is hand-built HTML and CSS — no framework, no tracking. It's a hub, not a workflow: the canonical place to learn who Vignesh is, what he's built, what he writes about, and how to reach him. Email is the best contact channel: vignesh.raj47@gmail.com.
+The site is hand-built HTML and CSS, no framework. Analytics are privacy-first and cookieless (GoatCounter): no cookies, no personal data, Do Not Track respected. It's a hub, not a workflow: the canonical place to learn who Vignesh is, what he's built, what he writes about, and how to reach him. Email is the best contact channel: vignesh.raj47@gmail.com.
 
 ## Currently
 
