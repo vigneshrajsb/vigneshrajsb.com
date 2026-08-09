@@ -52,7 +52,11 @@ A post touches seven files. Miss one and the post silently fails to propagate.
 - Heroes: resize to ~1200px wide, JPEG quality ~80 (target ~100-150 KB).
   `sips -s format jpeg -s formatOptions 82 --resampleWidth 1200 in.png --out out.jpg`
 - Every `img` gets real `width`/`height` attributes and descriptive `alt`
-  that does not repeat the figcaption. `loading="lazy"` below the fold only.
+  that does not repeat the figcaption. `loading="lazy"` below the fold only;
+  the hero gets `fetchpriority="high"`; all post images get `decoding="async"`.
+- Loading state (shimmer placeholder + blur-up settle) comes free from
+  `writing.css` — if the post has images, include
+  `<script src="/writing/reveal.js" defer></script>` in the head.
 
 ### 3. Update the six other files
 

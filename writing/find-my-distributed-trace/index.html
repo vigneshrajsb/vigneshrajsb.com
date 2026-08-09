@@ -89,6 +89,7 @@
     />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/writing/writing.css" />
+    <script src="/writing/reveal.js" defer></script>
   </head>
   <body class="post-page">
     <a href="#main" class="skip-link">Skip to content</a>
@@ -118,6 +119,8 @@
             alt="Illustration of a request leaving a browser and being tracked along its path through a mesh of microservice nodes"
             width="1200"
             height="669"
+            fetchpriority="high"
+            decoding="async"
           />
           <figcaption>
             Tracing requests through distributed systems: from browser to
@@ -204,6 +207,7 @@
               <figure class="frame">
                 <img
                   src="../assets/trace-settings.png"
+                  decoding="async"
                   alt="The Chrome extension's settings page, where multiple domains can be configured for tracing"
                   width="1208"
                   height="644"

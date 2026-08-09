@@ -160,6 +160,46 @@ body.post-page main {
     height: auto;
     border: 1px solid var(--rule);
     border-radius: 6px;
+    background-color: var(--bg-subtle);
+    background-image: linear-gradient(
+        100deg,
+        transparent 32%,
+        oklch(0.985 0.01 78 / 0.9) 50%,
+        transparent 68%
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-position: -100% 0;
+    animation: img-shimmer 1.6s linear infinite;
+}
+
+.frame img.ready,
+.frame img.loaded {
+    background: none;
+    animation: none;
+}
+
+.frame img.loaded {
+    animation: img-settle 550ms var(--ease-out-quart);
+}
+
+@keyframes img-shimmer {
+    to {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes img-settle {
+    from {
+        opacity: 0;
+        filter: blur(8px);
+        transform: scale(1.015);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: none;
+    }
 }
 
 .frame figcaption {
