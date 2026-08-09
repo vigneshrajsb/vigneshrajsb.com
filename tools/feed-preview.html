@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed preview</title>
+<style>
+  /* Deliberately reader-ish: system fonts, no site CSS, so the post HTML
+     renders under the same conditions a feed reader imposes. */
+  body { margin: 0; background: #f6f5f2; color: #222;
+         font: 16px/1.6 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header.bar { background: #fff; border-bottom: 1px solid #ddd; padding: 12px 20px;
+               font-size: 13px; color: #666; }
+  .item { max-width: 640px; margin: 24px auto; background: #fff;
+          border: 1px solid #ddd; border-radius: 8px; padding: 28px 32px; }
+  .item > h1 { font-size: 1.4rem; line-height: 1.3; margin: 0 0 4px; }
+  .item .meta { font-size: 13px; color: #888; margin-bottom: 20px; }
+  .content img { max-width: 100%; height: auto; }
+  .content pre { overflow-x: auto; background: #f4f4f4; padding: 12px;
+                 font-size: 13px; }
+  .content blockquote { border-left: 3px solid #ddd; margin-left: 0;
+                        padding-left: 16px; color: #555; }
+</style>
+</head>
+<body>
+<header class="bar">
+  Feed preview — renders <code>content:encoded</code> with no site CSS,
+  approximating a feed reader. Source: <span id="src"></span>
+</header>
+<main id="items"></main>
+<script>
+  const feedUrl = new URLSearchParams(location.search).get('feed') || '/feed.xml';
+  document.getElementById('src').textContent = feedUrl;
+  fetch(feedUrl)
+    .then(r => r.text())
+    .then(xml => {
+      const doc = new DOMParser().parseFromString(xml, 'text/xml');
+      const main = document.getElementById('items');
+      for (const item of doc.querySelectorAll('item')) {
+        const enc = item.getElementsByTagNameNS(
+          'http://purl.org/rss/1.0/modules/content/', 'encoded')[0];
+        const el = document.createElement('article');
+        el.className = 'item';
+        el.innerHTML = '<h1></h1><div class="meta"></div><div class="content"></div>';
+        el.querySelector('h1').textContent =
+          item.querySelector('title').textContent;
+        el.querySelector('.meta').textContent =
+          item.querySelector('pubDate').textContent;
+        el.querySelector('.content').innerHTML =
+          enc ? enc.textContent : '(no content:encoded)';
+        main.appendChild(el);
+      }
+    })
+    .catch(e => { document.getElementById('items').textContent = 'Error: ' + e; });
+</script>
+</body>
+</html>
