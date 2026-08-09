@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Vignesh — Writing</title>
     <link>https://vigneshrajsb.com/writing/</link>
@@ -12,27 +12,1649 @@
       <guid>https://vigneshrajsb.com/writing/extraction/</guid>
       <pubDate>Sun, 09 Aug 2026 00:00:00 GMT</pubDate>
       <description>Loyalty is a prediction about how a company will act under pressure. What Unity, Veeva, and Reddit reveal about spending customer trust to hit the quarter.</description>
+      <content:encoded><![CDATA[<div class="post-body">
+<p>People keep saying there is no customer loyalty anymore. I believed that for a while. Then I started making a list of brands I go out of my way to choose, the stores I trust without thinking twice, the companies I give a level of patience I do not give everyone else.</p>
+
+  <p>The list was selective.</p>
+
+  <p>I am not loyal to logos but to a prediction: <em>a guess about which way a company will lean when it has to choose between extracting a little more from me and protecting the thing it says it exists to do</em>.</p>
+
+  <p>For example: Costco is on my list not because of its mission statement (I have never read Costco's mission statement) but because decades of small, verifiable decisions point the same direction. Customer loyalty is contingent confidence, earned through repetition.</p>
+
+  <!-- V4: Costco stat tiles -->
+  <figure class="viz" id="fig-costco">
+    <p class="viz-title">Costco, in four verifiable promises</p>
+    <div class="tiles">
+      <div class="tile">
+        <span class="val">$1.50</span>
+        <span class="lbl">hot dog combo price</span>
+        <span class="sub">unchanged since 1985</span>
+      </div>
+      <div class="tile">
+        <span class="val">92.3%</span>
+        <span class="lbl">US &amp; Canada membership renewal</span>
+        <span class="sub">FY2025</span>
+      </div>
+      <div class="tile">
+        <span class="val">$5.3B</span>
+        <span class="lbl">membership fees vs $8.1B net income</span>
+        <span class="sub">FY2025</span>
+      </div>
+      <div class="tile">
+        <span class="val">$31/hr</span>
+        <span class="lbl">average US hourly wage</span>
+        <span class="sub">entry level starts at $20/hr</span>
+      </div>
+    </div>
+    <div class="viz-foot">
+      <figcaption>Small promises, kept for years and decades are the raw materials leading to strong prediction.</figcaption>
+    </div>
+  </figure>
+
+
+  <h2 id="the-test-only-happens-under-pressure">The test only happens under pressure</h2>
+
+  <p>A mission statement costs nothing when things are going well. Every company protects its users in the good years, the same way everyone is generous when they are rich. The test arrives when the growth slows, when the board wants a number, when there is an obvious lever that would extract more from the people who already committed to you.</p>
+
+  <p>Eric Ries calls the force behind that lever <strong>financial gravity</strong>: the quiet, structural pull that bends successful companies toward short-term extraction. Not because the people inside turned greedy, but because compensation, leadership attention, and decision-making all slowly reorient toward the next reported number. I find the term useful because it removes the cartoon villain. Nobody in the room says "let's betray our users." or "let's charge our users more! suckers!!." They say "we're leaving money on the table." Both sentences describe the same meeting.</p>
+
+  <p>And the people the lever gets pulled on are, almost by definition, your most committed customers: the ones who made investments they cannot easily reverse. Nobody extracts from the customer who can and will leave tomorrow.</p>
+
+  <h2 id="unity-when-predictability-is-the-product">Unity: when predictability is the product</h2>
+
+  <p>Unity's stated purpose is that the world is a better place with more creators in it. Its 2022 annual filing went further, describing a core value of putting users first even when that meant forgoing short-term gains. I do not think anyone was lying when they wrote that.</p>
+
+  <p>Here is what its customers had done in the meantime. A game studio that adopts Unity spends years learning the engine, buying assets, hiring for it, and building a pipeline around it. Games take years to ship. By the time a title launches, the studio's economics were planned around a bargain struck long ago. For a platform like that, pricing predictability is part of the product, not an invoice preference.</p>
+
+  <figure class="meme">
+    <img src="https://vigneshrajsb.com/writing/assets/extraction-anakin-padme.jpg" loading="lazy" alt="Anakin and Padmé four-panel meme. Anakin: ‘We’re introducing a per-install Runtime Fee.’ Padmé, smiling: ‘For games shipping under the new terms, right?’ Anakin stares in silence. Padmé, worried: ‘For games shipping under the new terms, right?’" width="768" height="768">
+  </figure>
+
+  <p>In September 2023, Unity announced the Runtime Fee: a per-install charge that would apply to games already built and shipped under a different deal. The backlash was immediate, and if you read what developers actually wrote, the anger was only partly about the amount. It was about the instability. Studios had made irreversible bets on one set of rules, and the rules changed after the bets were placed. Some publicly said they would reconsider Unity for future projects, not because the fee was unpayable, but because they could no longer predict what the next fee would be.</p>
+
+  <p>Within a month, the CEO retired. In January 2024, Unity cut about a quarter of its workforce. In September 2024, it canceled the Runtime Fee entirely, before the fee had ever collected a dollar, and returned to seat-based pricing, raising subscription prices instead.</p>
+
+  <!-- V1: Unity Runtime Fee event timeline -->
+  <figure class="viz" id="fig-unity">
+    <p class="viz-title">The Runtime Fee, start to finish</p>
+    <p class="viz-sub">November 2022 – September 2024</p>
+    <div class="chart-scroll">
+      <svg id="viz-unity" class="wide" viewBox="0 85 880 195" role="img" aria-label="Timeline of five Unity events: ironSource merger completes November 7, 2022; Runtime Fee announced September 12, 2023; CEO Riccitiello retires October 9, 2023; about 1,800 roles cut, roughly 25 percent of the workforce, January 8, 2024; Runtime Fee canceled September 12, 2024 — exactly one year after it was announced.">
+        <!-- axis -->
+        <line x1="40" y1="178" x2="850" y2="178" stroke="var(--baseline)" stroke-width="1.25"></line>
+
+        <!-- one-year bracket connecting the two accent events -->
+        <g>
+          <path d="M411 168 V114 H781 V168" fill="none" stroke="var(--accent)" stroke-width="1.5"></path>
+          <text x="596" y="104" text-anchor="middle" font-size="15.5" font-weight="650" fill="var(--ink)">365 days</text>
+        </g>
+
+        <!-- e1: ironSource merger -->
+        <g>
+          <line x1="98" y1="186" x2="98" y2="202" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="98" cy="178" r="4.5" fill="var(--ink2)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="94" y="216" font-size="14.5" font-weight="600" fill="var(--ink)">ironSource merger completes</text>
+          <text x="94" y="231" font-size="13" fill="var(--muted)">Nov 7, 2022</text>
+        </g>
+
+        <!-- e2: Runtime Fee announced -->
+        <g>
+          <line x1="411" y1="186" x2="411" y2="240" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="411" cy="178" r="6.5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="415" y="254" text-anchor="end" font-size="14.5" font-weight="600" fill="var(--ink)">Runtime Fee announced</text>
+          <text x="415" y="269" text-anchor="end" font-size="13" fill="var(--muted)">Sept 12, 2023</text>
+        </g>
+
+        <!-- e3: CEO retires (label above axis) -->
+        <g>
+          <line x1="439" y1="162" x2="439" y2="171" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="439" cy="178" r="4.5" fill="var(--ink2)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="447" y="141" font-size="14.5" font-weight="600" fill="var(--ink)">CEO Riccitiello retires</text>
+          <text x="447" y="156" font-size="13" fill="var(--muted)">Oct 9, 2023</text>
+        </g>
+
+        <!-- e4: layoffs -->
+        <g>
+          <line x1="530" y1="186" x2="530" y2="240" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="530" cy="178" r="4.5" fill="var(--ink2)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="534" y="254" font-size="14.5" font-weight="600" fill="var(--ink)">~1,800 roles cut (~25% of workforce)</text>
+          <text x="534" y="269" font-size="13" fill="var(--muted)">Jan 8, 2024</text>
+        </g>
+
+        <!-- e5: Runtime Fee canceled -->
+        <g>
+          <line x1="781" y1="186" x2="781" y2="202" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="781" cy="178" r="6.5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="785" y="216" text-anchor="end" font-size="14.5" font-weight="600" fill="var(--ink)">Runtime Fee canceled</text>
+          <text x="785" y="231" text-anchor="end" font-size="13" fill="var(--muted)">Sept 12, 2024</text>
+        </g>
+
+      </svg>
+    </div>
+    <details class="data-table">
+      <summary>View the data</summary>
+      <table>
+        <thead><tr><th>Date</th><th>Event</th></tr></thead>
+        <tbody>
+          <tr><td>Nov 7, 2022</td><td>ironSource merger completes</td></tr>
+          <tr><td>Sept 12, 2023</td><td>Runtime Fee announced</td></tr>
+          <tr><td>Oct 9, 2023</td><td>CEO Riccitiello retires</td></tr>
+          <tr><td>Jan 8, 2024</td><td>~1,800 roles cut (~25% of workforce)</td></tr>
+          <tr><td>Sept 12, 2024</td><td>Runtime Fee canceled</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </figure>
+
+  <p>I want to be careful here, because the neat version of this story is false. Unity's revenue decline through 2024 had many causes: a merger being digested, a portfolio reset, a brutal ad market. The Runtime Fee did not single-handedly do that and I will not pretend otherwise. What the episode shows is narrower and I think more useful. Unity still needed the revenue, the cancellation removed the unpredictable mechanism and not the need to charge more. The company effectively conceded that the money was recoverable, but the confidence was the expensive part.</p>
+
+  <p>Unity's mistake was not the charging itself, any platform has to fund itself. The mistake was proposing a new extraction mechanism after customers had already built their futures on the old one. For a platform, that stops being a pricing conversation and becomes a question of whether anyone can safely build on you at all.</p>
+
+  <h2 id="veeva-making-the-promise-expensive-to-break">Veeva: making the promise expensive to break</h2>
+
+  <p>The usual objection arrives here: that's easy to say, but public companies answer to shareholders. Missions are for the About page; the quarter is for real life.</p>
+
+  <p>Veeva Systems is the counterexample I stumbled upon, because it is not a scrappy indie holdout but a public enterprise software company. In 2021, with shareholder approval, Veeva became the first publicly traded company to convert to a Delaware Public Benefit Corporation. Its charter now legally requires the board to balance shareholder interests against the interests of the people its decisions materially affect, and against its stated purpose.</p>
+
+  <p>That structure does not make Veeva nicer; it makes betraying its customers expensive. A future team under quarterly pressure cannot quietly collapse every decision into the reported number, because the governing documents point somewhere else. It is kind of the corporate equivalent of throwing your car keys on the roof before you start drinking.</p>
+
+  <p>And the results do not require charity to admire: in its most recent fiscal year, Veeva reported $3.2 billion in revenue with a 29% GAAP operating margin. We cannot claim the PBC charter caused that performance; Veeva was a focused, well-run business before the conversion. The claim is smaller and still damning to the objection: a public software company can legally bind itself to its mission and remain large, profitable, and durable. "The market made us do it" is a choice that teams make.</p>
+
+  <!-- V3: Veeva revenue with PBC conversion marker -->
+  <figure class="viz" id="fig-veeva">
+    <p class="viz-title">Veeva revenue by fiscal year</p>
+    <p class="viz-sub">Fiscal years end January 31</p>
+    <div class="chart-scroll">
+      <svg id="viz-veeva" class="wide" viewBox="0 0 880 300" role="img" aria-label="Bar chart of Veeva annual revenue from fiscal 2019 to fiscal 2026, rising every year from 862 million dollars to 3.195 billion dollars. A dashed marker between fiscal 2021 and fiscal 2022 notes that Veeva became a Public Benefit Corporation on February 1, 2021. Growth continued after the conversion.">
+        <defs>
+          <clipPath id="veeva-clip"><rect x="40" y="20" width="810" height="230"></rect></clipPath>
+        </defs>
+        <!-- gridlines -->
+        <g stroke="var(--grid)" stroke-width="1">
+          <line x1="50" y1="188.2" x2="850" y2="188.2"></line>
+          <line x1="50" y1="126.5" x2="850" y2="126.5"></line>
+          <line x1="50" y1="64.7" x2="850" y2="64.7"></line>
+        </g>
+        <g font-size="12" fill="var(--muted)" text-anchor="end">
+          <text x="42" y="191.7">$1B</text>
+          <text x="42" y="130">$2B</text>
+          <text x="42" y="68.2">$3B</text>
+        </g>
+        <!-- baseline -->
+        <line x1="50" y1="250" x2="850" y2="250" stroke="var(--baseline)" stroke-width="1.25"></line>
+        <!-- bars (rounded top, square baseline via clip) -->
+        <g clip-path="url(#veeva-clip)" fill="var(--bar)">
+          <rect class="bar" x="88" y="196.8" width="24" height="57.2" rx="4"><title>FY2019: $862M</title></rect>
+          <rect class="bar" x="188" y="181.8" width="24" height="72.2" rx="4"><title>FY2020: $1,104M</title></rect>
+          <rect class="bar" x="288" y="159.5" width="24" height="94.5" rx="4"><title>FY2021: $1,465M</title></rect>
+          <rect class="bar" x="388" y="135.7" width="24" height="118.3" rx="4"><title>FY2022: $1,851M</title></rect>
+          <rect class="bar" x="488" y="116.9" width="24" height="137.1" rx="4"><title>FY2023: $2,155M</title></rect>
+          <rect class="bar" x="588" y="104" width="24" height="150" rx="4"><title>FY2024: ~$2,364M</title></rect>
+          <rect class="bar" x="688" y="80.3" width="24" height="173.7" rx="4"><title>FY2025: $2,747M</title></rect>
+          <rect class="bar" x="788" y="52.7" width="24" height="201.3" rx="4"><title>FY2026: $3,195M</title></rect>
+        </g>
+        <!-- cap labels -->
+        <g font-size="12" fill="var(--ink2)" text-anchor="middle">
+          <text x="100" y="188.8">$862M</text>
+          <text x="200" y="173.8">$1.10B</text>
+          <text x="300" y="151.5">$1.47B</text>
+          <text x="400" y="127.7">$1.85B</text>
+          <text x="500" y="108.9">$2.16B</text>
+          <text x="600" y="96">~$2.36B</text>
+          <text x="700" y="72.3">$2.75B</text>
+          <text x="800" y="44.7">$3.20B</text>
+        </g>
+        <!-- x labels -->
+        <g font-size="12.5" fill="var(--muted)" text-anchor="middle">
+          <text x="100" y="270">FY19</text>
+          <text x="200" y="270">FY20</text>
+          <text x="300" y="270">FY21</text>
+          <text x="400" y="270">FY22</text>
+          <text x="500" y="270">FY23</text>
+          <text x="600" y="270">FY24</text>
+          <text x="700" y="270">FY25</text>
+          <text x="800" y="270">FY26</text>
+        </g>
+        <!-- PBC conversion marker -->
+        <g>
+          <line x1="350" y1="32" x2="350" y2="250" stroke="var(--annot)" stroke-width="1.5" stroke-dasharray="4 3"></line>
+          <circle cx="350" cy="32" r="3" fill="var(--annot)"></circle>
+          <text x="340" y="46" text-anchor="end" font-size="13" font-weight="600" fill="var(--ink)">Becomes a Public Benefit Corporation</text>
+          <text x="340" y="61" text-anchor="end" font-size="12" fill="var(--muted)">Feb 1, 2021</text>
+        </g>
+      </svg>
+    </div>
+    <details class="data-table">
+      <summary>View the data</summary>
+      <table>
+        <thead><tr><th>Fiscal year</th><th class="num">Revenue</th></tr></thead>
+        <tbody>
+          <tr><td>FY2019</td><td class="num">$862M</td></tr>
+          <tr><td>FY2020</td><td class="num">$1,104M</td></tr>
+          <tr><td>FY2021</td><td class="num">$1,465M</td></tr>
+          <tr><td>FY2022</td><td class="num">$1,851M</td></tr>
+          <tr><td>FY2023</td><td class="num">$2,155M</td></tr>
+          <tr><td>FY2024</td><td class="num">~$2,364M</td></tr>
+          <tr><td>FY2025</td><td class="num">$2,747M</td></tr>
+          <tr><td>FY2026</td><td class="num">$3,195M</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </figure>
+
+  <h2 id="the-objection-i-can-t-skip-reddit">The objection I can't skip: Reddit</h2>
+
+  <p>If this essay is a fairy tale, it would end with every extractive company punished by the market. Reddit is an anomaly in this tale.</p>
+
+  <p>In 2023, Reddit repriced its API in a way that killed most third-party clients, and thousands of communities went dark in protest. It was one of the loudest trust ruptures in consumer internet history. Then Reddit went public, reported $1.3 billion in revenue for 2024, $2.2 billion for 2025, and grew daily actives the whole way through.</p>
+
+  <!-- V2: Reddit two-panel toggle -->
+  <figure class="viz" id="fig-reddit">
+    <p class="viz-title">Reddit, two true stories</p>
+    <div class="vpanels">
+      <div class="vpanel vp-a">
+        <p class="panel-h">The rupture (June 2023)</p>
+        <div class="tiles">
+          <div class="tile">
+            <span class="val">~7,000</span>
+            <span class="lbl">subreddits went dark in protest</span>
+            <span class="sub">June 12, 2023</span>
+          </div>
+          <div class="tile neg">
+            <span class="val">−7%</span>
+            <span class="lbl">Reddit site visits the next day; visit duration fell 16%</span>
+            <span class="sub">June 13, 2023 · Similarweb</span>
+          </div>
+          <div class="tile neg">
+            <span class="val">−20%</span>
+            <span class="lbl">traffic to ads.reddit.com during the blackout</span>
+            <span class="sub">June 13–21, 2023 · Similarweb</span>
+          </div>
+          <div class="tile">
+            <span class="val">~$20M/yr</span>
+            <span class="lbl">the API bill Apollo's developer calculated before shutting the app down</span>
+            <span class="sub">Apollo closed June 30, 2023</span>
+          </div>
+        </div>
+      </div>
+      <div class="vpanel vp-b">
+        <p class="panel-h">The earnings (2022–2025)</p>
+        <div class="duo">
+          <div class="mini">
+            <p class="mini-t">Revenue</p>
+            <svg viewBox="0 0 420 250" role="img" aria-label="Bar chart of Reddit annual revenue: 666.7 million dollars in 2022, 804 million in 2023, 1.3 billion in 2024, and 2.2 billion in 2025.">
+              <defs><clipPath id="rrev-clip"><rect x="0" y="10" width="420" height="190"></rect></clipPath></defs>
+              <line x1="10" y1="200" x2="410" y2="200" stroke="var(--baseline)" stroke-width="1.25"></line>
+              <g clip-path="url(#rrev-clip)" fill="var(--bar)">
+                <rect x="48" y="153.9" width="24" height="50.1" rx="4"><title>2022: $666.7M</title></rect>
+                <rect x="148" y="144.4" width="24" height="59.6" rx="4"><title>2023: $804.0M</title></rect>
+                <rect x="248" y="110.1" width="24" height="93.9" rx="4"><title>2024: $1.3B</title></rect>
+                <rect x="348" y="47.8" width="24" height="156.2" rx="4"><title>2025: $2.2B</title></rect>
+              </g>
+              <g font-size="13" fill="var(--ink2)" text-anchor="middle">
+                <text x="60" y="145.9">$666.7M</text>
+                <text x="160" y="136.4">$804.0M</text>
+                <text x="260" y="102.1">$1.3B</text>
+                <text x="360" y="39.8">$2.2B</text>
+              </g>
+              <g font-size="13" fill="var(--muted)" text-anchor="middle">
+                <text x="60" y="222">2022</text>
+                <text x="160" y="222">2023</text>
+                <text x="260" y="222">2024</text>
+                <text x="360" y="222">2025</text>
+              </g>
+            </svg>
+          </div>
+          <div class="mini">
+            <p class="mini-t">Daily actives, Q4 average</p>
+            <svg viewBox="0 0 420 250" role="img" aria-label="Bar chart of Reddit daily active uniques in the fourth quarter: 73.1 million in 2023, 101.7 million in 2024, and 121.4 million in 2025.">
+              <defs><clipPath id="rdau-clip"><rect x="0" y="10" width="420" height="190"></rect></clipPath></defs>
+              <line x1="10" y1="200" x2="410" y2="200" stroke="var(--baseline)" stroke-width="1.25"></line>
+              <g clip-path="url(#rdau-clip)" fill="var(--bar)">
+                <rect x="64.7" y="106.7" width="24" height="97.3" rx="4"><title>Q4 2023: 73.1M</title></rect>
+                <rect x="198" y="70.1" width="24" height="133.9" rx="4"><title>Q4 2024: 101.7M</title></rect>
+                <rect x="331.3" y="45" width="24" height="159" rx="4"><title>Q4 2025: 121.4M</title></rect>
+              </g>
+              <g font-size="13" fill="var(--ink2)" text-anchor="middle">
+                <text x="76.7" y="98.7">73.1M</text>
+                <text x="210" y="62.1">101.7M</text>
+                <text x="343.3" y="37">121.4M</text>
+              </g>
+              <g font-size="13" fill="var(--muted)" text-anchor="middle">
+                <text x="76.7" y="222">Q4 2023</text>
+                <text x="210" y="222">Q4 2024</text>
+                <text x="343.3" y="222">Q4 2025</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <details class="data-table">
+      <summary>View the data</summary>
+      <table>
+        <thead><tr><th>Year</th><th class="num">Revenue</th><th class="num">Q4 daily actives</th></tr></thead>
+        <tbody>
+          <tr><td>2022</td><td class="num">$666.7M</td><td class="num">—</td></tr>
+          <tr><td>2023</td><td class="num">$804.0M</td><td class="num">73.1M</td></tr>
+          <tr><td>2024</td><td class="num">$1.3B</td><td class="num">101.7M</td></tr>
+          <tr><td>2025</td><td class="num">$2.2B</td><td class="num">121.4M</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </figure>
+
+  <p>So did the betrayal not matter? I'd argue it mattered, and that expecting it to show up in the next earnings report is the wrong test. The developers and moderators who were charged are not the users who generate the most traffic. Network effects, habit, advertiser demand, and the absence of alternatives can mask trust damage in aggregate numbers for a very long time. Loyalty erodes long before revenue does, because the people who stopped believing you often keep using you. They stop forgiving you, stop advocating for you and stop giving you the benefit of the doubt you'll need at your next mistake.</p>
+
+  <p>So I have stopped thinking of trust as a PR metric, and I no longer expect it to run on a karma schedule. Trust is stored optionality: when customers believe you will treat them fairly under pressure, they give you patience, advocacy, honest feedback, and another chance. When they stop believing it, nothing visible happens — until the day the company needs one of those things and discovers the trust account is empty.</p>
+
+  <h2 id="the-quarter-is-not-a-destination">The quarter is not a destination</h2>
+
+  <p>Cory Doctorow has documented how platforms decay by clawing back value from locked-in users; he calls it <strong>enshittification</strong>. I read his account as the platform-specific case of something more general, because the same collapse happens in companies with no network effects and no lock-in at all. The quarterly number is a health signal, evidence that you are serving your mission well, and a company begins to rot on the day the signal quietly becomes the goal. The rot arrives not through one villainous decision but through financial gravity: a hundred locally rational meetings where "leaving money on the table" beats "keeping the promise," until the mission on the wall is branding for an extraction schedule.</p>
+
+  <p>The companies on my loyalty list have earned their place by making betrayal expensive for themselves first, through governance, ownership, or decades of verifiable habit and repetition.</p>
+
+  <p>Every company seems to eventually take the same test: when the quarter and the mission finally disagree, which one gets rewritten?</p>
+
+  <p>Recommend reading or listening to both these books - Incorruptible (2026), Enshittification (2025).</p>
+
+  <hr class="sep">
+
+  <p class="credits"><em>This essay was sparked by Eric Ries's book <strong>Incorruptible: Why Good Companies Go Bad… and How Great Companies Stay Great</strong> (2026), which helped me confirm and structure the long standing thoughts I collected from my personal experiences. His cases (Costco, Patagonia, Novo Nordisk, Anthropic) are worth the read on their own. Cory Doctorow's <strong>Enshittification</strong> (2025) covers the platform version of this story in depth. The Unity, Veeva, and Reddit analysis here is my own, from my readings, filings and announcements. LLM used for grammar and polish.</em></p>
+
+  <h2 id="sources">Sources</h2>
+  <ol class="sources">
+    <li>Unity Software — shareholder letters and annual results releases, FY2021–FY2025. <a href="https://investors.unity.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">investors.unity.com</a></li>
+    <li>Unity — "Unity is Canceling the Runtime Fee" (Sept 12, 2024). <a href="https://unity.com/blog/unity-is-canceling-the-runtime-fee" target="_blank" rel="noopener" aria-describedby="ext-tab">unity.com/blog/unity-is-canceling-the-runtime-fee</a></li>
+    <li>Unity Software Form 8-K filings, including the CEO retirement announcement (Oct 2023). <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001810806&amp;type=8-K&amp;dateb=&amp;owner=include&amp;count=40" target="_blank" rel="noopener" aria-describedby="ext-tab">SEC EDGAR, Unity Software 8-K index</a></li>
+    <li>Reddit, Inc. Form S-1 registration statement (Feb 2024). <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001713445&amp;type=S-1&amp;dateb=&amp;owner=include&amp;count=40" target="_blank" rel="noopener" aria-describedby="ext-tab">SEC EDGAR, Reddit S-1 index</a></li>
+    <li>Reddit — Q4 &amp; full-year 2024 and 2025 results press releases. <a href="https://investor.redditinc.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">investor.redditinc.com</a></li>
+    <li>Similarweb — Reddit blackout traffic analysis (June 2023). <a href="https://www.similarweb.com/blog/insights/reddit-blackout/" target="_blank" rel="noopener" aria-describedby="ext-tab">similarweb.com/blog/insights/reddit-blackout</a></li>
+    <li>Veeva Systems — annual results releases, FY2019–FY2026. <a href="https://ir.veeva.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">ir.veeva.com</a></li>
+    <li>Veeva — Public Benefit Corporation conversion (announced via Businesswire, Feb 1, 2021) and PBC overview. <a href="https://www.veeva.com/pbc/" target="_blank" rel="noopener" aria-describedby="ext-tab">veeva.com/pbc</a></li>
+    <li>Costco Wholesale — FY2025 results (Form 8-K) and membership metrics. <a href="https://investor.costco.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">investor.costco.com</a></li>
+    <li>Patagonia — "Earth is now our only shareholder" ownership announcement (Sept 2022). <a href="https://eu.patagonia.com/gb/en/ownership/" target="_blank" rel="noopener" aria-describedby="ext-tab">patagonia.com/ownership</a></li>
+    <li>Hamilton Nolan — "Enshittification Relies on Broken Economic Math". <a href="https://www.hamiltonnolan.com/p/enshittification-relies-on-broken" target="_blank" rel="noopener" aria-describedby="ext-tab">hamiltonnolan.com/p/enshittification-relies-on-broken</a></li>
+    <li>Ed Zitron — "The Rot Economy" (2023). <a href="https://www.wheresyoured.at/the-rot-economy/" target="_blank" rel="noopener" aria-describedby="ext-tab">wheresyoured.at/the-rot-economy</a></li>
+    <li>Eric Ries, <em>Incorruptible: Why Good Companies Go Bad… and How Great Companies Stay Great</em> (2026).</li>
+    <li>Cory Doctorow, <em>Enshittification</em> (2025).</li>
+  </ol>
+        </div>]]></content:encoded>
     </item>
     <item>
       <title>Find my distributed trace: AirTags for Datadog APM</title>
       <link>https://vigneshrajsb.com/writing/find-my-distributed-trace/</link>
       <guid>https://vigneshrajsb.com/writing/find-my-distributed-trace/</guid>
       <pubDate>Wed, 21 Jan 2026 00:00:00 GMT</pubDate>
-      <description>A browser extension that tags your requests before you send them, so you stop guessing where requests go in Datadog APM.</description>
+      <description>A Chrome extension that tags your requests with Datadog trace headers before you send them — an AirTag for requests headed into the microservices wilderness.</description>
+      <content:encoded><![CDATA[<figure class="frame">
+          <img
+            src="https://vigneshrajsb.com/writing/assets/trace-hero.jpg"
+            alt="Illustration of a request leaving a browser and being tracked along its path through a mesh of microservice nodes"
+            width="1200"
+            height="669"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <figcaption>
+            Tracing requests through distributed systems: from browser to
+            microservices, tracked end-to-end
+          </figcaption>
+        </figure>
+
+        <div class="post-body">
+          <p>
+            I built something that's been saving my sanity for a while now, and
+            I figured it was time to share.
+          </p>
+          <p>
+            If you've ever stared at Datadog APM, scrolling through thousands
+            of traces trying to find that one request you made from your
+            browser three minutes ago&hellip; this post is for you.
+          </p>
+
+          <h2>The Problem</h2>
+          <p>
+            Here's the thing about debugging distributed systems: the actual
+            debugging part isn't even the hard part anymore. It's finding the
+            right trace to debug.
+          </p>
+          <p>
+            Picture this. You're testing a checkout flow on staging.
+            Something's broken. You click "Place Order" and get a vague error.
+            Now you need to trace that request through your frontend, API
+            gateway, auth service, payment service, and inventory service.
+          </p>
+          <p>
+            You pop open Datadog APM. And there it is: 47,000 traces from the
+            last 15 minutes. Your one request is somewhere in there. Probably.
+          </p>
+          <p>"Hey, can you filter by user ID?"</p>
+          <p>
+            Sure, if your services propagate user context correctly. (Spoiler:
+            they don't always.)
+          </p>
+          <p>"What about by endpoint?"</p>
+          <p>Great, now you're down to 3,000 traces. Progress.</p>
+          <p>
+            You start clicking through traces like you're swiping on a dating
+            app, hoping to find "the one." Sound familiar?
+          </p>
+          <p>
+            And here's the kicker &mdash; sometimes your trace isn't even
+            there. Datadog's retention filters sampled it out because it looked
+            "normal." Your bug got marked as uninteresting and yeeted into the
+            void. Gone. Poof.
+          </p>
+
+          <h2>The Solution</h2>
+          <p>
+            I built a Chrome extension called Datadog APM Tracer that flips the
+            whole process on its head.
+          </p>
+          <p>
+            Instead of making a request and then hunting for it in Datadog,
+            you:
+          </p>
+          <ol>
+            <li>Open the extension and hit "Toggle ON"</li>
+            <li>The extension generates a unique trace ID</li>
+            <li>
+              Every request from that browser tab now carries Datadog's trace
+              headers
+            </li>
+            <li>
+              Click the link in the extension &rarr; you're looking at your
+              trace in Datadog
+            </li>
+          </ol>
+          <p>
+            In human terms: it's like putting an AirTag on your request before
+            sending it into the microservices wilderness.
+          </p>
+
+          <h2>Key features</h2>
+          <ul>
+            <li>
+              Multi-domain support &mdash; Configure multiple domains (your
+              frontend, API, CDN) and trace requests to all of them
+              <figure class="frame">
+                <img
+                  src="https://vigneshrajsb.com/writing/assets/trace-settings.png"
+                  decoding="async"
+                  alt="The Chrome extension's settings page, where multiple domains can be configured for tracing"
+                  width="1208"
+                  height="644"
+                  loading="lazy"
+                />
+              </figure>
+            </li>
+            <li>
+              Automatic header injection &mdash; Adds the trace headers
+              automatically
+              <ul>
+                <li><code>x-datadog-trace-id</code></li>
+                <li><code>x-datadog-parent-id</code></li>
+                <li><code>x-datadog-origin</code></li>
+                <li><code>x-datadog-sampling-priority</code></li>
+              </ul>
+            </li>
+            <li>
+              Visual tab grouping &mdash; Traced tabs get grouped and
+              highlighted in green so you don't forget which tab is being
+              traced
+            </li>
+            <li>
+              Bypass retention filters &mdash; The
+              <code>synthetics-browser</code> origin flag tells Datadog to keep
+              this trace, period.
+            </li>
+          </ul>
+          <p>
+            The best part? You get a direct link to your trace. No searching.
+            No scrolling. No existential dread.
+          </p>
+
+          <h2>Why Build This</h2>
+          <p>
+            I've been using this internally for over a year now. Every time I
+            needed to debug something end-to-end &mdash; slow backend, failed
+            account creation, weird auth redirect &mdash; I'd fire up the
+            extension, reproduce the issue, and go straight to the trace.
+          </p>
+          <p>
+            After sharing it with a few teammates, I cleaned it up, added
+            multi-domain support, and put it on the Chrome Web Store.
+          </p>
+
+          <h2>This Is For You If&hellip;</h2>
+          <ul>
+            <li>You're an engineer working with Datadog APM</li>
+            <li>
+              You debug issues that span browser &rarr; backend &rarr;
+              microservices
+            </li>
+            <li>
+              You've lost traces to retention filters and wanted to flip a
+              table
+            </li>
+            <li>
+              You're tired of the "refresh and hope" approach to finding your
+              requests
+            </li>
+            <li>
+              Your services are instrumented with Datadog, but finding your
+              specific trace still feels like archaeology
+            </li>
+          </ul>
+          <p>
+            If you're not using Datadog APM, this won't help you. (But maybe
+            it's a sign you should look into it &mdash; distributed tracing is
+            a game changer for debugging.)
+          </p>
+
+          <h2>Links</h2>
+          <p>The extension is free and open source:</p>
+          <ul>
+            <li>
+              Install:
+              <a
+                href="https://chrome.google.com/webstore/detail/datadog-apm-tracer/jilpmibbdkjiigdofgpmclkmmehgdibb"
+                target="_blank"
+                rel="noopener" aria-describedby="ext-tab"
+                >Chrome Web Store</a
+              >
+            </li>
+            <li>
+              Source:
+              <a
+                href="https://github.com/vigneshrajsb/datadog-tracer"
+                target="_blank"
+                rel="noopener" aria-describedby="ext-tab"
+                >GitHub</a
+              >
+            </li>
+            <li>
+              Issues/Questions:
+              <a
+                href="https://github.com/vigneshrajsb/datadog-tracer/issues"
+                target="_blank"
+                rel="noopener" aria-describedby="ext-tab"
+                >GitHub Issues</a
+              >
+            </li>
+          </ul>
+          <p>Go trace some bugs. This is the way!</p>
+        </div>]]></content:encoded>
     </item>
     <item>
       <title>Frontend automation principles: a field guide</title>
       <link>https://vigneshrajsb.com/writing/frontend-automation-principles/</link>
       <guid>https://vigneshrajsb.com/writing/frontend-automation-principles/</guid>
       <pubDate>Fri, 26 Dec 2025 00:00:00 GMT</pubDate>
-      <description>Principles distilled from real-world scars: late nights, flaky tests, and hard-won lessons from years of writing browser tests.</description>
+      <description>A field guide, not a tutorial: thirty principles for frontend test automation, distilled from real-world scars — late nights, flaky tests, and hard-won lessons.</description>
+      <content:encoded><![CDATA[<figure class="frame">
+          <img
+            src="https://vigneshrajsb.com/writing/assets/frontend-hero.jpg"
+            alt="A simple vector illustration of a field notebook"
+            width="1200"
+            height="669"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+
+        <div class="post-body">
+          <p>
+            What this is: A field guide, not a tutorial. These are principles
+            distilled from real-world scars &mdash; late nights, flaky tests,
+            and hard-won lessons. Beginners welcome. Battle-hardened veterans,
+            you'll nod along.
+          </p>
+
+          <h2 id="the-golden-rules">The Golden Rules</h2>
+
+          <h3 id="1-data-testid-or-die-trying">1. data-testid or Die Trying</h3>
+          <p>
+            Every element that does something (actions), takes something
+            (inputs), or shows something (outputs) needs a data-testid. No
+            exceptions. No "we'll add it later." No "the CSS selector works
+            fine."
+          </p>
+          <p>
+            Future you will thank present you. Present you should also
+            apologize to past you for all those div &gt; span:nth-child(3)
+            selectors.
+          </p>
+
+          <h3 id="2-build-harnesses-not-novels">2. Build Harnesses, Not Novels</h3>
+          <p>
+            Your test scripts should read like a story, not a dissertation. If
+            your test file is doing HTTP setup, data seeding, authentication
+            flows, AND the actual test &mdash; you've written a monolith, not a
+            test.
+          </p>
+          <p>
+            Build the harness in and around your application. The test should
+            just orchestrate.
+          </p>
+
+          <h3 id="3-ci-reports-should-be-boring">3. CI Reports Should Be Boring</h3>
+          <p>
+            If your CI report requires a Rosetta Stone to interpret, you've
+            failed. Engineers should glance at it and know:
+          </p>
+          <ul>
+            <li>What failed?</li>
+            <li>Where it failed?</li>
+            <li>How to reproduce it?</li>
+          </ul>
+          <p>
+            Nobody has time to scroll through 500 lines of CI logs to find
+            "Expected: true, Received: false".
+          </p>
+
+          <h3 id="4-fast-feedback-or-no-feedback">4. Fast Feedback or No Feedback</h3>
+          <p>
+            A 45-minute CI pipeline is just a very slow way to say "I'll check
+            tomorrow."
+          </p>
+          <p>
+            If engineers aren't getting feedback fast enough to act on it in
+            the same context switch, you're losing them. Parallelize. Cache.
+            Optimize. Do whatever it takes.
+          </p>
+
+          <h3 id="5-youre-building-for-humans-specifically-tired-ones">5. You're Building for Humans (Specifically, Tired Ones)</h3>
+          <p>
+            You're not writing tests for the CI. You're writing for the
+            engineer at 4 PM on a Friday who just wants to ship their feature.
+          </p>
+          <ul>
+            <li>Get feedback from your team</li>
+            <li>Iterate based on their pain points</li>
+            <li>Document the weird stuff</li>
+          </ul>
+          <p>
+            Growing an automation suite is like growing plants. They need
+            care, pruning, and enough sunlight. Neglected tests become that
+            corner of the garden everyone pretends doesn't exist.
+          </p>
+
+          <h3 id="6-no-telemetry-testing-blind">6. No Telemetry = Testing Blind</h3>
+          <p>
+            If you can't answer "how healthy is our test suite right now?"
+            without running the whole thing, you're flying blind.
+          </p>
+          <p>Track:</p>
+          <ul>
+            <li>Pass/fail rates over time</li>
+            <li>Flakiness scores</li>
+            <li>Execution duration trends</li>
+          </ul>
+          <p>You need data to make decisions. Gut feelings don't scale.</p>
+
+          <h3 id="7-quarantine-without-guilt">7. Quarantine Without Guilt</h3>
+          <p>
+            A flaky test erodes trust. Every time a test fails for "no
+            reason," an engineer loses a little faith. Enough of these and your
+            entire suite becomes background noise.
+          </p>
+          <p>
+            Quarantine aggressively. Fix methodically. Losing engineering
+            confidence is expensive &mdash; earning it back is very expensive.
+          </p>
+
+          <h3 id="8-e2e-tests-are-expensive-act-like-it">8. E2E Tests Are Expensive. Act Like It.</h3>
+          <p>
+            Each E2E test is a small commitment to maintain it forever. Before
+            adding one, ask:
+          </p>
+          <ul>
+            <li>Can this be covered at a lower level?</li>
+            <li>Is this a critical user journey?</li>
+            <li>Will anyone notice if this breaks?</li>
+          </ul>
+          <p>
+            Treat E2E tests like you're paying for them out of pocket. Because
+            you are. In time.
+          </p>
+
+          <h3 id="9-order-independence-is-non-negotiable">9. Order Independence Is Non-Negotiable</h3>
+          <p>
+            If your tests only pass when run in a specific order, you don't
+            have tests. You have a very fragile house of cards.
+          </p>
+          <p>
+            Each test sets up what it needs, cleans up after itself, and makes
+            no assumptions about shared state.
+          </p>
+
+          <h3 id="10-readable-tests-clever-tests">10. Readable Tests &gt; Clever Tests</h3>
+          <p>
+            Use your harnesses to make tests read like specifications. An
+            engineer unfamiliar with the codebase should be able to read a test
+            and understand the user story.
+          </p>
+          <p>
+            If a test requires archaeological knowledge to understand,
+            refactor it.
+          </p>
+
+          <h3 id="11-the-test-shaker-non-negotiable">11. The Test Shaker: Non-Negotiable</h3>
+          <p>
+            Every new test goes through the shaker before merge. Run it 50
+            times. Run it 100 times. Find its breaking point.
+          </p>
+          <p>
+            Flaky tests don't become less flaky in production. They just
+            become your problem later. Catch them at the door.
+          </p>
+
+          <h3 id="12-test-what-users-see-not-how-its-built">12. Test What Users See, Not How It's Built</h3>
+          <p>You click. You type. You assert what's visible.</p>
+          <p>
+            If you're checking internal state, component props, or Redux store
+            contents &mdash; that's a unit test, not an E2E test. E2E tests are
+            the user's advocate, not the codebase's internal auditor.
+          </p>
+
+          <h3 id="13-page-object-model-yes-still">13. Page Object Model: Yes, Still</h3>
+          <p>
+            It's not sexy. It's not new. It's also battle-tested across
+            countless implementations and keeps your tests maintainable.
+          </p>
+          <p>
+            When the login button moves, you update it in one place. Not
+            forty-seven.
+          </p>
+
+          <h3 id="14-test-data-is-infrastructure">14. Test Data Is Infrastructure</h3>
+          <p>Build tooling for:</p>
+          <ul>
+            <li>Creating test data</li>
+            <li>Cleaning up test data</li>
+            <li>Pruning stale test data</li>
+          </ul>
+          <p>
+            If your tests are fighting over the same testuser@example.com,
+            you're going to have a bad time.
+          </p>
+
+          <h3 id="15-determinism-is-the-antidote-to-flakiness">15. Determinism Is the Antidote to Flakiness</h3>
+          <p>If your test behaves differently based on:</p>
+          <ul>
+            <li>Time of day</li>
+            <li>What other tests ran before it</li>
+            <li>The phase of the moon</li>
+          </ul>
+          <p>
+            You have a determinism problem. Build support into your
+            application:
+          </p>
+          <ul>
+            <li>Seed control</li>
+            <li>Clock manipulation</li>
+            <li>Feature flag overrides for tests</li>
+          </ul>
+          <p>
+            Flaky tests are almost always a symptom of non-deterministic
+            behavior.
+          </p>
+
+          <h3 id="16-no-fixed-waits-period">16. No Fixed Waits. Period.</h3>
+          <pre><code>// If you write this, you owe the team coffee
+await page.waitForTimeout(5000);</code></pre>
+          <p>
+            Playwright's locators auto-wait. If you're adding fixed waits,
+            you're treating symptoms, not causes. Find the actual race
+            condition. Fix it. Don't bandaid it.
+          </p>
+          <p>Fixed waits are a test smell that something deeper is broken.</p>
+
+          <h3 id="17-ephemeral-environments-are-worth-it">17. Ephemeral Environments Are Worth It</h3>
+          <p>
+            Yes, they're complex to set up. Yes, they cost more. They're still
+            worth it.
+          </p>
+          <p>Running tests against an isolated environment per PR:</p>
+          <ul>
+            <li>Eliminates cross-PR interference</li>
+            <li>Increases confidence in results</li>
+            <li>Makes debugging dramatically easier</li>
+          </ul>
+          <p>The ROI on this is real.</p>
+
+          <h3 id="18-fixtures-are-your-friends">18. Fixtures Are Your Friends</h3>
+          <p>
+            Playwright fixtures aren't just for browser setup. Build custom
+            fixtures for:
+          </p>
+          <ul>
+            <li>Test accounts with specific states</li>
+            <li>Data cleanup hooks</li>
+            <li>Telemetry injection</li>
+            <li>Feature flag configurations</li>
+          </ul>
+          <p>
+            A well-designed fixture library is worth its weight in gold.
+          </p>
+
+          <h3 id="19-resist-the-wrapper-urge">19. Resist the Wrapper Urge</h3>
+          <p>
+            Do not wrap Playwright's expects, locators or methods "for
+            convenience." You will regret it.
+          </p>
+          <pre><code>// Don't do this
+class CustomPage {
+  async customClick(selector) {
+    await this.page.click(selector);
+  }
+}</code></pre>
+          <p>
+            Every wrapper is a maintenance burden. Every abstraction is a
+            layer to debug through. YAGNI (You Ain't Gonna Need It) applies
+            here more than anywhere.
+          </p>
+          <p>
+            Only abstract when there's proven, repeated pain. Not prophylactic
+            abstraction.
+          </p>
+
+          <h2 id="aspects-worth-adding">Aspects Worth Adding</h2>
+
+          <h3 id="20-traces-videos-screenshots-debug-like-a-detective">20. Traces, Videos, Screenshots: Debug Like a Detective</h3>
+          <p>
+            When a test fails in CI, you're not there to watch it. Capture
+            everything:
+          </p>
+          <ul>
+            <li>Playwright traces for step-by-step replay</li>
+            <li>Videos of failures (not passes &mdash; save the storage)</li>
+            <li>Screenshots at failure points</li>
+          </ul>
+          <p>
+            Configure these to upload as artifacts. Future you or an engineer
+            debugging will be grateful.
+          </p>
+
+          <h3 id="21-know-when-to-delete-tests">21. Know When to Delete Tests</h3>
+          <p>Tests are not precious. A test that:</p>
+          <ul>
+            <li>Tests deprecated functionality</li>
+            <li>Has been quarantined for 1+ months</li>
+            <li>Provides no signal, only noise</li>
+          </ul>
+          <p>
+            &hellip;should be deleted. Not "disabled." Deleted. Dead code is
+            dead weight.
+          </p>
+
+          <h3 id="22-api-mocking-pick-your-battles">22. API Mocking: Pick Your Battles</h3>
+          <p>
+            Sometimes you mock. Sometimes you go real. The decision matrix:
+          </p>
+          <ul>
+            <li>
+              Mock: External third-party services, rate-limited APIs, services
+              with known instability
+            </li>
+            <li>
+              Real: Your own backend when testing integration, critical
+              payment flows
+            </li>
+          </ul>
+          <p>
+            Mock strategically. Going 100% mocked means you're not testing
+            integration. Going 100% real means you're at the mercy of external
+            dependencies.
+          </p>
+
+          <h3 id="23-test-tagging-is-your-friend">23. Test Tagging Is Your Friend</h3>
+          <p>Tag your tests by:</p>
+          <ul>
+            <li>Feature area (@auth, @checkout)</li>
+            <li>Priority (@smoke, @regression)</li>
+            <li>Stability (@stable, @quarantined)</li>
+          </ul>
+          <p>
+            This enables running subsets of tests, which enables faster
+            feedback loops.
+          </p>
+
+          <h3 id="24-retry-strategies-handle-with-care">24. Retry Strategies: Handle With Care</h3>
+          <p>
+            Retries can mask flakiness or legitimately handle transient
+            issues. Be intentional:
+          </p>
+          <ul>
+            <li>Document why a retry exists</li>
+            <li>Track retry rates as a metric</li>
+            <li>
+              A test that only passes on retry #3 is not passing &mdash; it's
+              limping
+            </li>
+          </ul>
+
+          <h3 id="25-ownership-rotation-and-evangelism">25. Ownership, Rotation, and Evangelism</h3>
+          <p>
+            Every test should have a clear owner or owning team. Unowned tests
+            become orphans. Orphaned tests rot.
+          </p>
+          <p>
+            Consider rotation for test maintenance duties. Spreads knowledge,
+            prevents single points of failure, and keeps everyone honest about
+            test quality.
+          </p>
+          <p>
+            But ownership isn't enough &mdash; evangelize. Run
+            lunch-and-learns. Pair with engineers when they break tests. Write
+            a "how to debug a failing test" runbook.
+          </p>
+          <p>
+            A test suite maintained by one person is a bus factor of one. If
+            you're the only one who understands the suite, you've built a
+            dependency, not a solution. The goal is to make testing everyone's
+            responsibility, not the "automation team's problem."
+          </p>
+
+          <h3 id="26-cross-browser-less-than-you-think">26. Cross-Browser: Less Than You Think</h3>
+          <p>
+            Here's a hot take: you probably don't need to run everything on
+            Chrome, Firefox, Safari, and Edge.
+          </p>
+          <p>
+            Most rendering bugs are caught in one browser. Most logic bugs are
+            definitely caught in one. Running your entire suite across 4
+            browsers is 4x the cost for diminishing returns.
+          </p>
+          <p>Strategy:</p>
+          <ul>
+            <li>Chromium: Your daily driver. Run everything here.</li>
+            <li>
+              WebKit/Firefox: Run smoke tests and critical paths. Not the full
+              suite.
+            </li>
+            <li>Edge: It's Chromium. You're covered.</li>
+          </ul>
+          <p>
+            The exception: if your product explicitly supports a browser and
+            your users are actually on it, test it. Check your analytics.
+            Don't test Safari on principle if 2% of your users are on it.
+          </p>
+
+          <h3 id="27-visual-regression-handle-with-oven-mitts">27. Visual Regression: Handle With Oven Mitts</h3>
+          <p>Visual regression testing sounds great in theory. In practice:</p>
+          <ul>
+            <li>Screenshots bloat your repo (or your vendor bill)</li>
+            <li>
+              Pixel-perfect comparisons break on font rendering differences
+            </li>
+            <li>
+              Every minor UI tweak becomes a "update 47 snapshots" commit
+            </li>
+          </ul>
+          <p>Use it sparingly:</p>
+          <ul>
+            <li>Happy path flows only</li>
+            <li>Critical UI that must not change unexpectedly</li>
+            <li>Components with complex visual states</li>
+          </ul>
+          <p>
+            This is a scalpel, not a sledgehammer. If you're screenshotting
+            every test, you're going to drown in maintenance.
+          </p>
+
+          <h3 id="28-tiered-execution-not-everything-every-time">28. Tiered Execution: Not Everything, Every Time</h3>
+          <p>
+            Your full suite doesn't need to run on every push. That's how you
+            get 45-minute pipelines and engineers making coffee while CI runs.
+          </p>
+          <p>The pyramid:</p>
+          <ul>
+            <li>
+              Every push: Critical smoke tests. The "if this breaks, the app
+              is unusable" paths. Fast. Under 5 minutes.
+            </li>
+            <li>
+              On release/merge to main: Expanded regression suite. The
+              important journeys.
+            </li>
+            <li>
+              Scheduled (nightly/weekly): The full suite. Every edge case.
+              Every browser combo. The works.
+            </li>
+          </ul>
+          <p>
+            This pairs with test tagging (section 23). Tag intentionally, run
+            strategically. Your engineers get fast feedback on pushes, and you
+            still catch edge cases before they hit production.
+          </p>
+
+          <h3 id="29-speak-the-same-language-as-your-app">29. Speak the Same Language as Your App</h3>
+          <p>
+            Testing a React app? Write your tests in TypeScript/JavaScript.
+            Not Java. Not Python.
+          </p>
+          <p>
+            This isn't about language superiority &mdash; it's about cognitive
+            load. Your frontend engineers are already in the JavaScript mental
+            model. Asking them to context-switch to a different language,
+            different tooling, different idioms just to read a test? That's
+            friction. Friction means they won't read the tests. Or fix them.
+            Or write new ones.
+          </p>
+          <p>
+            Tests are signals for your engineering team. If the people
+            building the app can't easily read, debug, and contribute to the
+            test suite, you've built a silo. Silos become someone else's
+            problem. Then they become everyone's problem.
+          </p>
+          <p>Match the language. Minimize the context switch.</p>
+
+          <h3 id="30-synthetic-monitoring-tests-that-never-sleep">30. Synthetic Monitoring: Tests That Never Sleep</h3>
+          <p>
+            Your CI tests run on commits. But production doesn't wait for
+            commits to break.
+          </p>
+          <p>
+            Run your critical smoke tests against production on a schedule
+            &mdash; every 5 minutes, every hour, whatever fits. This isn't a
+            replacement for alerting or observability. It's a canary.
+          </p>
+          <p>
+            If your checkout flow breaks at 3 AM because a third-party payment
+            provider changed something, you want to know before your users do.
+          </p>
+          <p>
+            This bridges testing and observability. Your tests become early
+            warning systems. The same Playwright scripts you wrote for CI can
+            run against prod with minor configuration changes. Double the
+            value from the same investment.
+          </p>
+
+          <h2 id="the-meta-principle">The Meta Principle</h2>
+          <p>"Tests are production code for your test infrastructure."</p>
+          <p>
+            Treat them with the same rigor: code review, refactoring,
+            deprecation strategies, documentation.
+          </p>
+          <p>
+            The moment tests become second-class citizens, the rot begins.
+          </p>
+          <p>
+            Now go forth and automate. May your selectors be stable and your
+            CI green.
+          </p>
+        </div>]]></content:encoded>
     </item>
     <item>
       <title>Building a Slack sidekick — targeted CI alerts + cross-workspace invites</title>
       <link>https://vigneshrajsb.com/writing/building-a-slack-sidekick/</link>
       <guid>https://vigneshrajsb.com/writing/building-a-slack-sidekick/</guid>
       <pubDate>Sun, 14 Dec 2025 00:00:00 GMT</pubDate>
-      <description>How we turned noisy CI alerts into targeted signals and solved cross-workspace incident invites with a single Slack app.</description>
+      <description>How we turned noisy CI alerts into targeted signals and solved cross-workspace incident invites in Slack Enterprise Grid with a single, well-scoped app.</description>
+      <content:encoded><![CDATA[<figure class="frame">
+          <img
+            src="https://vigneshrajsb.com/writing/assets/slack-hero.jpg"
+            alt="Illustration of a person untangling a chaotic knot of lines into orderly signals routed to distinct endpoints"
+            width="1200"
+            height="593"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <figcaption>Simple workflows can turn noise into signals</figcaption>
+        </figure>
+
+        <div class="post-body">
+          <p>
+            If you've spent any time as a platform engineer working with
+            distributed systems, you have faced a distinct pain.
+          </p>
+          <p>
+            <em>Distributed systems distribute everything &mdash; including
+            the alerts.</em>
+          </p>
+          <p>
+            Suddenly you've got 100 services, 100 pipelines, and 100 webhook
+            URLs pointing to channels nobody remembers creating.
+          </p>
+          <ul>
+            <li>
+              Ever set up a Slack webhook URL to send messages from CI and
+              wonder if anyone actually sees the alerts?
+            </li>
+            <li>
+              Ever needed someone in an incident channel but hit a wall
+              because they're in a different Slack workspace?
+            </li>
+            <li>
+              Ever wished CI failures went directly to the dev who broke the
+              build instead of @channel?
+            </li>
+          </ul>
+          <p>We built a Slack app to help with this.</p>
+          <p>
+            Let's call it <strong>Sidekick</strong> &mdash; a lightweight
+            internal tool that routes CI/CD notifications to the right humans
+            and invites anyone from multi-workspace slack org into incident
+            channels without the friction.
+          </p>
+          <p>
+            Here's how we did it, the scopes we used, and the lessons we
+            learned along the way.
+          </p>
+
+          <h2>The Problem with Webhook-Based Alerts</h2>
+          <p>
+            The traditional setup for CI/CD alerts looks something like this:
+          </p>
+          <ol>
+            <li>
+              Create a Slack channel (#build-alerts, #deploy-notifications,
+              etc.)
+            </li>
+            <li>Generate an incoming webhook URL</li>
+            <li>Paste that URL into your CI configuration</li>
+            <li>Watch as alerts flood in</li>
+            <li>Watch as your team develops webhook blindness</li>
+          </ol>
+          <p>
+            The fundamental issue?
+            <strong>Webhooks are channel-centric, not people-centric.</strong>
+            When a deployment fails, the webhook screams into a channel. The
+            developer who actually broke the build? They might be in a
+            meeting, have notifications muted, or simply not be watching that
+            channel at all.
+          </p>
+          <p>
+            Even worse: have you ever tried to figure out <em>where</em> a
+            Slack webhook URL is actually posting? It's like trying to find a
+            needle in a haystack, except the haystack is your CI configuration
+            spread across 47 repositories and the needle might actually be
+            pointing at a channel that was renamed six months ago.
+          </p>
+          <p>We needed something better.</p>
+
+          <h2>What We Actually Wanted</h2>
+          <ul>
+            <li>
+              <strong>Direct messages to the responsible developer</strong>
+              when their commit breaks something
+            </li>
+            <li>
+              <strong>Channel messages that work</strong> without hunting for
+              webhook URLs
+            </li>
+            <li>
+              <strong>A single integration point</strong> instead of dozens of
+              webhook configurations
+            </li>
+            <li>
+              <strong>GitHub-to-Slack user mapping</strong> so we can route
+              alerts based on who made the commit
+            </li>
+          </ul>
+
+          <h2>Building the Bot Foundation</h2>
+          <p>
+            The first step was creating a Slack app with the right bot
+            permissions. Here's what we needed and why:
+          </p>
+          <pre><code># Bot Scopes
+chat:write
+chat:write.public
+channels:read
+users:read
+users:read.email
+incoming-webhook
+channels:write.invites</code></pre>
+          <p>With these scopes, we could:</p>
+          <ol>
+            <li>
+              <strong>Receive alerts from CI</strong> through a simple HTTP
+              endpoint
+            </li>
+            <li>
+              <strong>Map GitHub emails to Slack users</strong> using the
+              Users API
+            </li>
+            <li>
+              <strong>Send targeted DMs</strong> to the developer who caused
+              the issue
+            </li>
+            <li>
+              <strong>Post to channels</strong> without managing a
+              constellation of webhook URLs
+            </li>
+          </ol>
+
+          <h2>The Architecture</h2>
+          <p>Our setup is straightforward:</p>
+          <pre class="diagram"><code>&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x2502;   CI Pipeline   &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;  Sidekick API   &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;   Slack API     &#x2502;
+&#x2502; (GH Actions etc)&#x2502;     &#x2502;   (Internal)    &#x2502;     &#x2502;   (Bot Token)   &#x2502;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                              &#x2502;
+                              &#x25BC;
+                        &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+                        &#x2502;  User Mapping   &#x2502;
+                        &#x2502;  (email&rarr;slack)  &#x2502;
+                        &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</code></pre>
+          <p>
+            The CI pipeline sends a payload to our internal API containing:
+          </p>
+          <ul>
+            <li>The message to send</li>
+            <li>The GitHub committer's email (or username)</li>
+            <li>
+              Optional: a channel or webhook url to post to, severity level,
+              etc.
+            </li>
+          </ul>
+          <p>
+            Sidekick API looks up the Slack user ID from the email, then sends
+            a direct message. <em>No more hoping someone is watching the
+            alerts channel!!</em>
+          </p>
+
+          <h2>Backward Compatibility with Webhooks</h2>
+          <p>
+            Since we included the <code>incoming-webhook</code> scope, teams
+            with existing webhook integrations could keep using them while
+            migrating. We essentially created a webhook-compatible endpoint
+            that accepted the same payload format but routed messages through
+            our smarter logic.
+          </p>
+          <p>
+            This was crucial for adoption-nobody wants to rewrite all their CI
+            configurations on day one.
+          </p>
+
+          <h2>Beyond Single Messages &mdash; Interactive Workflows</h2>
+          <p>
+            Once you have a bot that can DM developers, you start seeing other
+            opportunities. What about those CI/CD workflows that require
+            manual approval gates?
+          </p>
+          <p>
+            Instead of a notification that says "Deployment waiting for
+            approval, check Github Actions(or Codefresh or Jenkins)," you can
+            send an interactive message with Slack Block Kit:
+          </p>
+          <pre><code>{
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Production deployment ready*\nCommit: `abc123` by @developer\nService: payment-service"
+      }
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": { "type": "plain_text", "text": "Approve" },
+          "style": "primary",
+          "action_id": "approve_deploy"
+        },
+        {
+          "type": "button",
+          "text": { "type": "plain_text", "text": "Reject" },
+          "style": "danger",
+          "action_id": "reject_deploy"
+        }
+      ]
+    }
+  ]
+}</code></pre>
+          <p>
+            Engineers can approve or reject directly from Slack without
+            context-switching to another tool. This is where the bot starts
+            becoming a real productivity multiplier.
+          </p>
+
+          <h2>The Enterprise Grid Challenge</h2>
+          <p>
+            Everything we built so far works great within a single Slack
+            workspace. But then reality hits: <strong>Enterprise
+            Grid</strong>.
+          </p>
+          <p><em>(Cue dramatic music.)</em></p>
+          <p>
+            If your organization uses Slack Enterprise Grid, you likely have
+            multiple workspaces-maybe one for employees, another for
+            contractors, separate ones for different business units, or legacy
+            workspaces from acquisitions that nobody had the heart to merge.
+          </p>
+          <p>
+            When an incident occurs and you need to spin up an incident
+            channel, you want <em>everyone</em> relevant in that channel. But
+            here's the catch: <strong>a bot installed in Workspace A cannot
+            invite users from Workspace B.</strong>
+          </p>
+          <p>
+            This is where most teams hit a wall. The usual "solution"
+            involves:
+          </p>
+          <ul>
+            <li>Requesting Channel Management Tools access</li>
+            <li>Getting IT approval</li>
+            <li>Filling out a ticket in triplicate</li>
+            <li>Sacrificing a small goat to the access management gods</li>
+            <li>Waiting while your incident burns and your MTTR weeps</li>
+          </ul>
+          <p>We wanted our Sidekick to handle this automatically.</p>
+
+          <h2>User Scopes for Cross-Workspace Operations</h2>
+          <p>
+            To operate across workspaces in an Enterprise Grid, we needed
+            <strong>user token</strong> (not just a bot token) and the app
+            needed to be installed at the <strong>organization
+            level</strong>:
+          </p>
+          <pre><code>admin.conversations:read
+admin.conversations:write
+admin.users:read
+channels:read
+users:read
+users:read.email
+chat:write</code></pre>
+          <p>
+            The key difference: <strong>bot tokens are workspace-scoped, but
+            user tokens with admin scopes can be org-scoped</strong> when
+            installed when the app is installed at the organization level.
+          </p>
+
+          <h2>Enabling Organization-Level Installation</h2>
+          <p>
+            For your app to be installable at the org level (not just
+            individual workspaces), you need to enable it in your app's
+            settings:
+          </p>
+          <pre><code>{
+  "settings": {
+    "org_deploy_enabled": true
+  }
+}</code></pre>
+          <p>
+            This tells Slack that your app can be installed to a Slack
+            organization.
+          </p>
+
+          <h2>OAuth Setup for Org Installation</h2>
+          <p>
+            When you enable org-level deployment, you need a proper OAuth
+            flow. The user who installs your app (typically an Enterprise Grid
+            admin or owner) will go through an authorization flow that grants
+            your app the admin scopes across the organization.
+          </p>
+          <p>Here's what the flow looks like:</p>
+          <pre class="diagram"><code>1. Admin clicks "Install App to Org" from your app's OAuth page
+   &#x2193;
+2. Slack redirects to: https://slack.com/oauth/v2/authorize
+   (with your client_id and requested scopes)
+   &#x2193;
+3. Admin authorizes the app and grants org-level permissions
+   &#x2193;
+4. Slack redirects to your callback: https://your-server.com/slack/oauth/callback?code=...
+   &#x2193;
+5. Your server exchanges the code for access tokens
+   &#x2193;
+6. You store the user token securely&mdash;this is your user scoped auth token</code></pre>
+          <p>
+            For detailed implementation guidance, check out Slack's official
+            documentation:
+            <a
+              href="https://docs.slack.dev/authentication/installing-with-oauth/"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              >Installing with OAuth</a
+            >
+          </p>
+          <p>The important pieces:</p>
+          <ul>
+            <li>Register a redirect URL in your app configuration</li>
+            <li>
+              Implement the <code>/slack/oauth/callback</code> endpoint to
+              handle the code exchange
+            </li>
+            <li>
+              Securely store the resulting user token (<em>this has admin
+              permissions!</em>)
+            </li>
+          </ul>
+          <blockquote>
+            <p>
+              <strong>A Critical Gotcha:</strong> If your app was previously
+              installed in a workspace at the workspace level, and then you
+              enable org-level deployment and try to install it at the org
+              level, you may encounter a confusing error:
+            </p>
+            <p>
+              "This app is requesting more permissions than what your org
+              admin has granted for your organization"
+            </p>
+            <p>
+              After chatting with Slack support, we learned that
+              <strong>some workspace-level scopes conflict with org-level
+              scopes</strong>. The cleanest solution is to create a fresh app
+              that has never been installed in any workspace, configure it for
+              org deployment from the start, and install it at the org level
+              first.
+            </p>
+            <p>
+              This cost us a few hours of debugging. Learn from our pain.
+            </p>
+          </blockquote>
+
+          <h2>Adding a Slash Command</h2>
+          <p>
+            With cross-workspace user invites working, we wanted to make it
+            easy for anyone to use. Enter the slash command:
+            <code>/incident-invite</code>.
+          </p>
+          <p>
+            Because if there's one thing engineers love, it's typing commands.
+            We're basically just building CLIs for Slack at this point.
+          </p>
+          <p>
+            When someone types <code>/incident-invite @username</code> in an
+            incident channel, our Sidekick:
+          </p>
+          <ol>
+            <li>Receives the command payload at our API endpoint</li>
+            <li>Looks up the mentioned user across all workspaces</li>
+            <li>
+              Invites them to the current channel (even if they're in a
+              different workspace)
+            </li>
+            <li>Confirms the invite in the channel</li>
+          </ol>
+
+          <h2>Setting Up the Slash Command</h2>
+          <p>In your Slack app configuration, add a slash command with:</p>
+          <ul>
+            <li>
+              <strong>Command</strong>: <code>/incident-invite</code> (or
+              whatever fits your naming convention)
+            </li>
+            <li>
+              <strong>Request URL</strong>: Your API endpoint that handles the
+              command
+            </li>
+            <li>
+              <strong>Description</strong>: A helpful hint like "<em>Invite a
+              user from any workspace to this channel</em>"
+            </li>
+          </ul>
+          <p>
+            <em>Remember this will add the</em> <code>commands</code>
+            <em>scope to your bot scopes to receive slash command payloads and
+            if already installed, you have to re-install the app.</em>
+          </p>
+
+          <h2>The Complete Manifest</h2>
+          <p>
+            Here's the complete app manifest you can use as a starting point.
+            Copy, paste, update the URLs, and you're 80% of the way there.
+            (<em>The other 20% is, as always, "everything else."</em>)
+          </p>
+          <pre><code>{
+  "display_information": {
+    "name": "Sidekick Concierge",
+    "description": "Invite humans across workspaces into slack channels on demand, push signals to slack users!",
+    "background_color": "#0a0a09"
+  },
+  "features": {
+    "bot_user": {
+      "display_name": "Sidekick Concierge",
+      "always_online": true
+    },
+    "slash_commands": [
+      {
+        "command": "/incident-invite",
+        "url": "https://your-server.com/api/slack/command",
+        "description": "tag a user (cross workspace) to be invited",
+        "usage_hint": "@username",
+        "should_escape": true
+      }
+    ]
+  },
+  "oauth_config": {
+    "redirect_urls": ["https://your-server.com/slack/oauth/callback"],
+    "scopes": {
+      "user": [
+        "admin.conversations:read",
+        "admin.conversations:write",
+        "admin.users:read",
+        "channels:read",
+        "users:read.email",
+        "users:read",
+        "chat:write"
+      ],
+      "bot": [
+        "channels:read",
+        "channels:write.invites",
+        "chat:write",
+        "chat:write.public",
+        "incoming-webhook",
+        "users:read",
+        "users:read.email",
+        "commands"
+      ]
+    }
+  },
+  "settings": {
+    "org_deploy_enabled": true,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}</code></pre>
+
+          <h2>What You Can Build From Here</h2>
+          <p>Once you have this foundation, the possibilities expand:</p>
+          <ul>
+            <li>
+              <strong>Restrict slash commands to specific roles</strong>: Only
+              incident commanders can use <code>/incident-invite</code>
+            </li>
+            <li>
+              <strong>Audit logging</strong>: Track every cross-workspace
+              invite for compliance
+            </li>
+            <li>
+              <strong>Channel templates</strong>: Auto-create incident
+              channels with predefined members
+            </li>
+            <li>
+              <strong>Integration with PagerDuty/OpsGenie</strong>:
+              Automatically invite on-call engineers
+            </li>
+            <li>
+              <strong>Smart routing</strong>: Send different severity alerts
+              to different channels/people
+            </li>
+            <li>
+              <strong>Acknowledgment tracking</strong>: Know when someone has
+              seen and acknowledged an alert
+            </li>
+          </ul>
+          <p>
+            The key insight is that by centralizing your Slack operations
+            through a single, well-scoped app, you gain control and visibility
+            that's impossible with scattered webhook URLs and manual
+            processes.
+          </p>
+
+          <h2>Summarized Learnings</h2>
+          <ul>
+            <li>
+              <strong>Bot scopes first, admin scopes sparingly.</strong> Only
+              escalate to admin/user scopes when you genuinely need
+              cross-workspace operations.
+            </li>
+            <li>
+              <strong>Design for Enterprise Grid early.</strong> Retrofitting
+              is painful. Ask us how we know.
+            </li>
+            <li>
+              <strong>Guard your admin tokens.</strong> They're powerful.
+              Treat them like production database credentials.
+            </li>
+            <li>
+              <strong>Support legacy webhooks during migration.</strong> Your
+              teammates will thank you (<em>or at least not curse you</em>).
+            </li>
+            <li>
+              <strong>Interactive messages pay dividends.</strong> Buttons
+              beat "check CI" every time.
+            </li>
+          </ul>
+          <p>
+            What started as a solution to noisy CI alerts evolved into a Swiss
+            Army knife for Slack operations. Our Sidekick now handles:
+          </p>
+          <ul>
+            <li>
+              <strong>Targeted CI/CD notifications</strong> that reach the
+              engineer, not just a channel
+            </li>
+            <li>
+              <strong>Cross-workspace incident invites</strong> without
+              friction
+            </li>
+            <li>
+              <strong>Interactive approval workflows</strong> for deployments
+              and other gates
+            </li>
+            <li>
+              <strong>Unified message routing</strong> that replaces a mess of
+              webhook URLs
+            </li>
+          </ul>
+          <p>
+            Building this required understanding Slack's permission
+            model-specifically the difference between bot tokens and user
+            tokens, workspace scopes and org scopes. But once you grasp those
+            concepts, you can build tooling that dramatically improves your
+            organization's incident response and developer experience.
+          </p>
+          <p>
+            The best part? Everything we built runs on a single,
+            straightforward Slack app and a simple express server. No complex
+            infrastructure-just a well-scoped app and an API that knows how to
+            use it.
+          </p>
+          <blockquote>
+            <p>
+              Now go build your own Sidekick. Your future on-call self will
+              thank you.
+            </p>
+          </blockquote>
+        </div>]]></content:encoded>
     </item>
   </channel>
 </rss>

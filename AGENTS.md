@@ -6,9 +6,17 @@ Instructions for AI agents working on vigneshrajsb.com.
 
 Hand-built static site: plain HTML and CSS, no framework, no build step, no
 package.json. Deploys to production automatically when `main` is pushed
-(Vercel). Voice and visual rules live in `PRODUCT.md` and `DESIGN.md` — read
-them before writing copy or CSS. Analytics is GoatCounter (cookieless); the
-script tag has no SRI on purpose because GoatCounter rotates `count.js`.
+(Vercel, proxied through Cloudflare). Voice and visual rules live in
+`PRODUCT.md` and `DESIGN.md` — read them before writing copy or CSS.
+Analytics is GoatCounter (cookieless); the script tag has no SRI on purpose
+because GoatCounter rotates `count.js`.
+
+## Dev commands
+
+`make help` lists them. The ones that matter: `make feed` regenerates
+feed.xml from the post pages (the only sanctioned way to touch feed.xml),
+`make check` validates the XML files and fails if feed.xml is stale, and
+`make serve` runs a local server on port 4173.
 
 ## House rules that bite
 
@@ -35,6 +43,10 @@ A post touches seven files. Miss one and the post silently fails to propagate.
   as the template; it carries the correct head block, breadcrumb, skip link,
   stylesheets (`/styles.css` then `/writing/writing.css`), and
   `<body class="post-page">` (posts render at the wider 44rem measure).
+- Keep the `<!-- feed:start -->` / `<!-- feed:end -->` markers around the
+  hero figure + post body — `make feed` extracts the full-content RSS entry
+  from between them and errors if they're missing. A page whose Article
+  JSON-LD lacks `datePublished` is treated as a draft and skipped.
 - Body content is semantic HTML: `h2`/`h3` with slug `id` anchors, `p`,
   `ul`/`ol`, `blockquote`, `pre`/`code`, `figure`/`figcaption`. Wide code
   blocks and ASCII diagrams must scroll inside their own `pre` (the shared CSS
@@ -63,14 +75,14 @@ A post touches seven files. Miss one and the post silently fails to propagate.
 | File | What to add |
 |---|---|
 | `writing/index.html` | New `li` at the top of the archive list (date · read time, title, blurb) AND a `BlogPosting` entry in the Blog JSON-LD |
-| `feed.xml` | New `<item>` first: title, link, guid (= link), RFC-822 `pubDate`, description |
+| `feed.xml` | Do NOT hand-edit — run `make feed` (regenerates full-content items from the post pages) |
 | `sitemap.xml` | `<url>` for the post with `lastmod`; also bump `/writing/`'s `lastmod` |
 | `llms.txt` | Bullet in the Writing section |
 | `index.html` (homepage) | Optional: "Notes from the side" is a curated top-3, swap an entry only if the new post earns it |
 
 ### 4. Validate before committing
 
-- `xmllint --noout feed.xml sitemap.xml`
+- `make check` (validates feed.xml + sitemap.xml, fails if the feed is stale)
 - Parse every JSON-LD block (e.g. `json.loads` over the script contents).
 - Serve the repo root locally (`python3 -m http.server`) and check the post,
   the archive, and the homepage at desktop and 375px mobile width: no

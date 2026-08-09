@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""Regenerates feed.xml from the post pages under writing/.
+
+The post pages are the source of truth. Each post marks its feed content
+with <!-- feed:start --> / <!-- feed:end --> comments; metadata comes from
+the page's Article JSON-LD. Pages without an Article datePublished are
+treated as drafts and skipped. Run with --check to verify feed.xml is
+current without writing it (exits 1 if stale).
+"""
+import json
+import re
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+SITE = "https://vigneshrajsb.com"
+ROOT = Path(__file__).resolve().parent.parent
+FEED = ROOT / "feed.xml"
+
+CHANNEL = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Vignesh — Writing</title>
+    <link>{SITE}/writing/</link>
+    <description>Notes from the side: developer tools, testing, and infrastructure by Vigneshraj Sekar Babu.</description>
+    <language>en-us</language>
+    <atom:link href="{SITE}/feed.xml" rel="self" type="application/rss+xml"/>
+"""
+
+WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
+def article_meta(html):
+    for m in re.finditer(
+        r'<script type="application/ld\+json">(.*?)</script>', html, re.S
+    ):
+        data = json.loads(m.group(1))
+        if data.get("@type") == "Article":
+            return data
+    return None
+
+
+def extract_content(html, page):
+    start = html.find("<!-- feed:start -->")
+    end = html.find("<!-- feed:end -->")
+    if start == -1 or end == -1:
+        sys.exit(f"error: {page}: missing feed:start / feed:end markers")
+    return html[start + len("<!-- feed:start -->"):end].strip()
+
+
+def absolutize(content, post_url):
+    content = re.sub(r'(href|src)="\.\./', rf'\1="{SITE}/writing/', content)
+    content = re.sub(r'(href|src)="/', rf'\1="{SITE}/', content)
+    content = re.sub(r'(href|src)="#', rf'\1="{post_url}#', content)
+    return content
+
+
+def cdata(text):
+    return "<![CDATA[" + text.replace("]]>", "]]]]><![CDATA[>") + "]]>"
+
+
+def esc(text):
+    return (
+        text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    )
+
+
+def rfc822(iso_date):
+    d = datetime.strptime(iso_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    return (
+        f"{WEEKDAYS[d.weekday()]}, {d.day:02d} {MONTHS[d.month - 1]} "
+        f"{d.year} 00:00:00 GMT"
+    )
+
+
+def build():
+    items = []
+    for page in sorted((ROOT / "writing").glob("*/index.html")):
+        html = page.read_text()
+        meta = article_meta(html)
+        if not meta or not meta.get("datePublished"):
+            print(f"skip (draft, no Article datePublished): {page.parent.name}")
+            continue
+        url = meta["url"]
+        items.append({
+            "title": meta["headline"],
+            "url": url,
+            "date": meta["datePublished"],
+            "description": meta["description"],
+            "content": absolutize(extract_content(html, page), url),
+        })
+
+    items.sort(key=lambda i: (i["date"], i["url"]), reverse=True)
+
+    out = [CHANNEL]
+    for i in items:
+        out.append(
+            "    <item>\n"
+            f"      <title>{esc(i['title'])}</title>\n"
+            f"      <link>{i['url']}</link>\n"
+            f"      <guid>{i['url']}</guid>\n"
+            f"      <pubDate>{rfc822(i['date'])}</pubDate>\n"
+            f"      <description>{esc(i['description'])}</description>\n"
+            f"      <content:encoded>{cdata(i['content'])}</content:encoded>\n"
+            "    </item>\n"
+        )
+    out.append("  </channel>\n</rss>\n")
+    return "".join(out), items
+
+
+def main():
+    feed, items = build()
+    if "--check" in sys.argv:
+        if not FEED.exists() or FEED.read_text() != feed:
+            sys.exit("error: feed.xml is stale — run: make feed")
+        print(f"feed.xml is current ({len(items)} items)")
+        return
+    FEED.write_text(feed)
+    print(f"wrote feed.xml ({len(items)} items)")
+    for i in items:
+        print(f"  {i['date']}  {i['title']}")
+
+
+if __name__ == "__main__":
+    main()
