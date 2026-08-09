@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building a Slack sidekick — Vignesh</title>
+    <meta
+      name="description"
+      content="How we turned noisy CI alerts into targeted signals and solved cross-workspace incident invites in Slack Enterprise Grid with a single, well-scoped app."
+    />
+    <link
+      rel="canonical"
+      href="https://vigneshrajsb.com/writing/building-a-slack-sidekick/"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Vigneshraj Sekar Babu" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Vignesh — vigneshrajsb.com" />
+    <meta
+      property="og:title"
+      content="Building a Slack sidekick — targeted CI alerts + cross-workspace invites"
+    />
+    <meta
+      property="og:description"
+      content="How we turned noisy CI alerts into targeted signals and solved cross-workspace incident invites in Slack Enterprise Grid with a single, well-scoped app."
+    />
+    <meta
+      property="og:url"
+      content="https://vigneshrajsb.com/writing/building-a-slack-sidekick/"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:image"
+      content="https://vigneshrajsb.com/writing/assets/slack-hero.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="593" />
+    <meta property="article:published_time" content="2025-12-14" />
+    <meta property="article:author" content="Vigneshraj Sekar Babu" />
+    <meta property="article:tag" content="Platform Engineering" />
+    <meta property="article:tag" content="Slack" />
+    <meta property="article:tag" content="Slack Tips And Tricks" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Building a Slack sidekick — targeted CI alerts + cross-workspace invites"
+    />
+    <meta
+      name="twitter:description"
+      content="How we turned noisy CI alerts into targeted signals and solved cross-workspace incident invites in Slack Enterprise Grid with a single, well-scoped app."
+    />
+    <meta
+      name="twitter:image"
+      content="https://vigneshrajsb.com/writing/assets/slack-hero.jpg"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Building a Slack sidekick — targeted CI alerts + cross-workspace invites",
+        "description": "How we turned noisy CI alerts into targeted signals and solved cross-workspace incident invites in Slack Enterprise Grid with a single, well-scoped app.",
+        "image": "https://vigneshrajsb.com/writing/assets/slack-hero.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "Vigneshraj Sekar Babu",
+          "url": "https://vigneshrajsb.com/"
+        },
+        "datePublished": "2025-12-14",
+        "url": "https://vigneshrajsb.com/writing/building-a-slack-sidekick/",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://vigneshrajsb.com/writing/building-a-slack-sidekick/"
+        }
+      }
+    </script>
+
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Vignesh — Writing"
+      href="/feed.xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/writing/writing.css" />
+  </head>
+  <body class="post-page">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <span id="ext-tab" class="sr-only">opens in a new tab</span>
+    <main id="main">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep" aria-hidden="true">&#x203A;</span>
+        <a href="/writing/">Writing</a>
+      </nav>
+
+      <article>
+        <header class="post-header">
+          <h1>
+            Building a Slack sidekick &mdash; targeted CI alerts +
+            cross-workspace invites
+          </h1>
+          <p class="post-subtitle">
+            How we turned noisy CI alerts into targeted signals and solved
+            cross-workspace incident invites with a single Slack app
+          </p>
+          <p class="post-meta">
+            <time datetime="2025-12-14">December 14, 2025</time> &middot; 8 min
+            read
+          </p>
+        </header>
+
+        <figure class="frame">
+          <img
+            src="../assets/slack-hero.jpg"
+            alt="Illustration of a person untangling a chaotic knot of lines into orderly signals routed to distinct endpoints"
+            width="1200"
+            height="593"
+          />
+          <figcaption>Simple workflows can turn noise into signals</figcaption>
+        </figure>
+
+        <div class="post-body">
+          <p>
+            If you've spent any time as a platform engineer working with
+            distributed systems, you have faced a distinct pain.
+          </p>
+          <p>
+            <em>Distributed systems distribute everything &mdash; including
+            the alerts.</em>
+          </p>
+          <p>
+            Suddenly you've got 100 services, 100 pipelines, and 100 webhook
+            URLs pointing to channels nobody remembers creating.
+          </p>
+          <ul>
+            <li>
+              Ever set up a Slack webhook URL to send messages from CI and
+              wonder if anyone actually sees the alerts?
+            </li>
+            <li>
+              Ever needed someone in an incident channel but hit a wall
+              because they're in a different Slack workspace?
+            </li>
+            <li>
+              Ever wished CI failures went directly to the dev who broke the
+              build instead of @channel?
+            </li>
+          </ul>
+          <p>We built a Slack app to help with this.</p>
+          <p>
+            Let's call it <strong>Sidekick</strong> &mdash; a lightweight
+            internal tool that routes CI/CD notifications to the right humans
+            and invites anyone from multi-workspace slack org into incident
+            channels without the friction.
+          </p>
+          <p>
+            Here's how we did it, the scopes we used, and the lessons we
+            learned along the way.
+          </p>
+
+          <h2>The Problem with Webhook-Based Alerts</h2>
+          <p>
+            The traditional setup for CI/CD alerts looks something like this:
+          </p>
+          <ol>
+            <li>
+              Create a Slack channel (#build-alerts, #deploy-notifications,
+              etc.)
+            </li>
+            <li>Generate an incoming webhook URL</li>
+            <li>Paste that URL into your CI configuration</li>
+            <li>Watch as alerts flood in</li>
+            <li>Watch as your team develops webhook blindness</li>
+          </ol>
+          <p>
+            The fundamental issue?
+            <strong>Webhooks are channel-centric, not people-centric.</strong>
+            When a deployment fails, the webhook screams into a channel. The
+            developer who actually broke the build? They might be in a
+            meeting, have notifications muted, or simply not be watching that
+            channel at all.
+          </p>
+          <p>
+            Even worse: have you ever tried to figure out <em>where</em> a
+            Slack webhook URL is actually posting? It's like trying to find a
+            needle in a haystack, except the haystack is your CI configuration
+            spread across 47 repositories and the needle might actually be
+            pointing at a channel that was renamed six months ago.
+          </p>
+          <p>We needed something better.</p>
+
+          <h2>What We Actually Wanted</h2>
+          <ul>
+            <li>
+              <strong>Direct messages to the responsible developer</strong>
+              when their commit breaks something
+            </li>
+            <li>
+              <strong>Channel messages that work</strong> without hunting for
+              webhook URLs
+            </li>
+            <li>
+              <strong>A single integration point</strong> instead of dozens of
+              webhook configurations
+            </li>
+            <li>
+              <strong>GitHub-to-Slack user mapping</strong> so we can route
+              alerts based on who made the commit
+            </li>
+          </ul>
+
+          <h2>Building the Bot Foundation</h2>
+          <p>
+            The first step was creating a Slack app with the right bot
+            permissions. Here's what we needed and why:
+          </p>
+          <pre><code># Bot Scopes
+chat:write
+chat:write.public
+channels:read
+users:read
+users:read.email
+incoming-webhook
+channels:write.invites</code></pre>
+          <p>With these scopes, we could:</p>
+          <ol>
+            <li>
+              <strong>Receive alerts from CI</strong> through a simple HTTP
+              endpoint
+            </li>
+            <li>
+              <strong>Map GitHub emails to Slack users</strong> using the
+              Users API
+            </li>
+            <li>
+              <strong>Send targeted DMs</strong> to the developer who caused
+              the issue
+            </li>
+            <li>
+              <strong>Post to channels</strong> without managing a
+              constellation of webhook URLs
+            </li>
+          </ol>
+
+          <h2>The Architecture</h2>
+          <p>Our setup is straightforward:</p>
+          <pre class="diagram"><code>&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+&#x2502;   CI Pipeline   &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;  Sidekick API   &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;   Slack API     &#x2502;
+&#x2502; (GH Actions etc)&#x2502;     &#x2502;   (Internal)    &#x2502;     &#x2502;   (Bot Token)   &#x2502;
+&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;
+                              &#x2502;
+                              &#x25BC;
+                        &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;
+                        &#x2502;  User Mapping   &#x2502;
+                        &#x2502;  (email&rarr;slack)  &#x2502;
+                        &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</code></pre>
+          <p>
+            The CI pipeline sends a payload to our internal API containing:
+          </p>
+          <ul>
+            <li>The message to send</li>
+            <li>The GitHub committer's email (or username)</li>
+            <li>
+              Optional: a channel or webhook url to post to, severity level,
+              etc.
+            </li>
+          </ul>
+          <p>
+            Sidekick API looks up the Slack user ID from the email, then sends
+            a direct message. <em>No more hoping someone is watching the
+            alerts channel!!</em>
+          </p>
+
+          <h2>Backward Compatibility with Webhooks</h2>
+          <p>
+            Since we included the <code>incoming-webhook</code> scope, teams
+            with existing webhook integrations could keep using them while
+            migrating. We essentially created a webhook-compatible endpoint
+            that accepted the same payload format but routed messages through
+            our smarter logic.
+          </p>
+          <p>
+            This was crucial for adoption-nobody wants to rewrite all their CI
+            configurations on day one.
+          </p>
+
+          <h2>Beyond Single Messages &mdash; Interactive Workflows</h2>
+          <p>
+            Once you have a bot that can DM developers, you start seeing other
+            opportunities. What about those CI/CD workflows that require
+            manual approval gates?
+          </p>
+          <p>
+            Instead of a notification that says "Deployment waiting for
+            approval, check Github Actions(or Codefresh or Jenkins)," you can
+            send an interactive message with Slack Block Kit:
+          </p>
+          <pre><code>{
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Production deployment ready*\nCommit: `abc123` by @developer\nService: payment-service"
+      }
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": { "type": "plain_text", "text": "Approve" },
+          "style": "primary",
+          "action_id": "approve_deploy"
+        },
+        {
+          "type": "button",
+          "text": { "type": "plain_text", "text": "Reject" },
+          "style": "danger",
+          "action_id": "reject_deploy"
+        }
+      ]
+    }
+  ]
+}</code></pre>
+          <p>
+            Engineers can approve or reject directly from Slack without
+            context-switching to another tool. This is where the bot starts
+            becoming a real productivity multiplier.
+          </p>
+
+          <h2>The Enterprise Grid Challenge</h2>
+          <p>
+            Everything we built so far works great within a single Slack
+            workspace. But then reality hits: <strong>Enterprise
+            Grid</strong>.
+          </p>
+          <p><em>(Cue dramatic music.)</em></p>
+          <p>
+            If your organization uses Slack Enterprise Grid, you likely have
+            multiple workspaces-maybe one for employees, another for
+            contractors, separate ones for different business units, or legacy
+            workspaces from acquisitions that nobody had the heart to merge.
+          </p>
+          <p>
+            When an incident occurs and you need to spin up an incident
+            channel, you want <em>everyone</em> relevant in that channel. But
+            here's the catch: <strong>a bot installed in Workspace A cannot
+            invite users from Workspace B.</strong>
+          </p>
+          <p>
+            This is where most teams hit a wall. The usual "solution"
+            involves:
+          </p>
+          <ul>
+            <li>Requesting Channel Management Tools access</li>
+            <li>Getting IT approval</li>
+            <li>Filling out a ticket in triplicate</li>
+            <li>Sacrificing a small goat to the access management gods</li>
+            <li>Waiting while your incident burns and your MTTR weeps</li>
+          </ul>
+          <p>We wanted our Sidekick to handle this automatically.</p>
+
+          <h2>User Scopes for Cross-Workspace Operations</h2>
+          <p>
+            To operate across workspaces in an Enterprise Grid, we needed
+            <strong>user token</strong> (not just a bot token) and the app
+            needed to be installed at the <strong>organization
+            level</strong>:
+          </p>
+          <pre><code>admin.conversations:read
+admin.conversations:write
+admin.users:read
+channels:read
+users:read
+users:read.email
+chat:write</code></pre>
+          <p>
+            The key difference: <strong>bot tokens are workspace-scoped, but
+            user tokens with admin scopes can be org-scoped</strong> when
+            installed when the app is installed at the organization level.
+          </p>
+
+          <h2>Enabling Organization-Level Installation</h2>
+          <p>
+            For your app to be installable at the org level (not just
+            individual workspaces), you need to enable it in your app's
+            settings:
+          </p>
+          <pre><code>{
+  "settings": {
+    "org_deploy_enabled": true
+  }
+}</code></pre>
+          <p>
+            This tells Slack that your app can be installed to a Slack
+            organization.
+          </p>
+
+          <h2>OAuth Setup for Org Installation</h2>
+          <p>
+            When you enable org-level deployment, you need a proper OAuth
+            flow. The user who installs your app (typically an Enterprise Grid
+            admin or owner) will go through an authorization flow that grants
+            your app the admin scopes across the organization.
+          </p>
+          <p>Here's what the flow looks like:</p>
+          <pre class="diagram"><code>1. Admin clicks "Install App to Org" from your app's OAuth page
+   &#x2193;
+2. Slack redirects to: https://slack.com/oauth/v2/authorize
+   (with your client_id and requested scopes)
+   &#x2193;
+3. Admin authorizes the app and grants org-level permissions
+   &#x2193;
+4. Slack redirects to your callback: https://your-server.com/slack/oauth/callback?code=...
+   &#x2193;
+5. Your server exchanges the code for access tokens
+   &#x2193;
+6. You store the user token securely&mdash;this is your user scoped auth token</code></pre>
+          <p>
+            For detailed implementation guidance, check out Slack's official
+            documentation:
+            <a
+              href="https://docs.slack.dev/authentication/installing-with-oauth/"
+              target="_blank"
+              rel="noopener" aria-describedby="ext-tab"
+              >Installing with OAuth</a
+            >
+          </p>
+          <p>The important pieces:</p>
+          <ul>
+            <li>Register a redirect URL in your app configuration</li>
+            <li>
+              Implement the <code>/slack/oauth/callback</code> endpoint to
+              handle the code exchange
+            </li>
+            <li>
+              Securely store the resulting user token (<em>this has admin
+              permissions!</em>)
+            </li>
+          </ul>
+          <blockquote>
+            <p>
+              <strong>A Critical Gotcha:</strong> If your app was previously
+              installed in a workspace at the workspace level, and then you
+              enable org-level deployment and try to install it at the org
+              level, you may encounter a confusing error:
+            </p>
+            <p>
+              "This app is requesting more permissions than what your org
+              admin has granted for your organization"
+            </p>
+            <p>
+              After chatting with Slack support, we learned that
+              <strong>some workspace-level scopes conflict with org-level
+              scopes</strong>. The cleanest solution is to create a fresh app
+              that has never been installed in any workspace, configure it for
+              org deployment from the start, and install it at the org level
+              first.
+            </p>
+            <p>
+              This cost us a few hours of debugging. Learn from our pain.
+            </p>
+          </blockquote>
+
+          <h2>Adding a Slash Command</h2>
+          <p>
+            With cross-workspace user invites working, we wanted to make it
+            easy for anyone to use. Enter the slash command:
+            <code>/incident-invite</code>.
+          </p>
+          <p>
+            Because if there's one thing engineers love, it's typing commands.
+            We're basically just building CLIs for Slack at this point.
+          </p>
+          <p>
+            When someone types <code>/incident-invite @username</code> in an
+            incident channel, our Sidekick:
+          </p>
+          <ol>
+            <li>Receives the command payload at our API endpoint</li>
+            <li>Looks up the mentioned user across all workspaces</li>
+            <li>
+              Invites them to the current channel (even if they're in a
+              different workspace)
+            </li>
+            <li>Confirms the invite in the channel</li>
+          </ol>
+
+          <h2>Setting Up the Slash Command</h2>
+          <p>In your Slack app configuration, add a slash command with:</p>
+          <ul>
+            <li>
+              <strong>Command</strong>: <code>/incident-invite</code> (or
+              whatever fits your naming convention)
+            </li>
+            <li>
+              <strong>Request URL</strong>: Your API endpoint that handles the
+              command
+            </li>
+            <li>
+              <strong>Description</strong>: A helpful hint like "<em>Invite a
+              user from any workspace to this channel</em>"
+            </li>
+          </ul>
+          <p>
+            <em>Remember this will add the</em> <code>commands</code>
+            <em>scope to your bot scopes to receive slash command payloads and
+            if already installed, you have to re-install the app.</em>
+          </p>
+
+          <h2>The Complete Manifest</h2>
+          <p>
+            Here's the complete app manifest you can use as a starting point.
+            Copy, paste, update the URLs, and you're 80% of the way there.
+            (<em>The other 20% is, as always, "everything else."</em>)
+          </p>
+          <pre><code>{
+  "display_information": {
+    "name": "Sidekick Concierge",
+    "description": "Invite humans across workspaces into slack channels on demand, push signals to slack users!",
+    "background_color": "#0a0a09"
+  },
+  "features": {
+    "bot_user": {
+      "display_name": "Sidekick Concierge",
+      "always_online": true
+    },
+    "slash_commands": [
+      {
+        "command": "/incident-invite",
+        "url": "https://your-server.com/api/slack/command",
+        "description": "tag a user (cross workspace) to be invited",
+        "usage_hint": "@username",
+        "should_escape": true
+      }
+    ]
+  },
+  "oauth_config": {
+    "redirect_urls": ["https://your-server.com/slack/oauth/callback"],
+    "scopes": {
+      "user": [
+        "admin.conversations:read",
+        "admin.conversations:write",
+        "admin.users:read",
+        "channels:read",
+        "users:read.email",
+        "users:read",
+        "chat:write"
+      ],
+      "bot": [
+        "channels:read",
+        "channels:write.invites",
+        "chat:write",
+        "chat:write.public",
+        "incoming-webhook",
+        "users:read",
+        "users:read.email",
+        "commands"
+      ]
+    }
+  },
+  "settings": {
+    "org_deploy_enabled": true,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}</code></pre>
+
+          <h2>What You Can Build From Here</h2>
+          <p>Once you have this foundation, the possibilities expand:</p>
+          <ul>
+            <li>
+              <strong>Restrict slash commands to specific roles</strong>: Only
+              incident commanders can use <code>/incident-invite</code>
+            </li>
+            <li>
+              <strong>Audit logging</strong>: Track every cross-workspace
+              invite for compliance
+            </li>
+            <li>
+              <strong>Channel templates</strong>: Auto-create incident
+              channels with predefined members
+            </li>
+            <li>
+              <strong>Integration with PagerDuty/OpsGenie</strong>:
+              Automatically invite on-call engineers
+            </li>
+            <li>
+              <strong>Smart routing</strong>: Send different severity alerts
+              to different channels/people
+            </li>
+            <li>
+              <strong>Acknowledgment tracking</strong>: Know when someone has
+              seen and acknowledged an alert
+            </li>
+          </ul>
+          <p>
+            The key insight is that by centralizing your Slack operations
+            through a single, well-scoped app, you gain control and visibility
+            that's impossible with scattered webhook URLs and manual
+            processes.
+          </p>
+
+          <h2>Summarized Learnings</h2>
+          <ul>
+            <li>
+              <strong>Bot scopes first, admin scopes sparingly.</strong> Only
+              escalate to admin/user scopes when you genuinely need
+              cross-workspace operations.
+            </li>
+            <li>
+              <strong>Design for Enterprise Grid early.</strong> Retrofitting
+              is painful. Ask us how we know.
+            </li>
+            <li>
+              <strong>Guard your admin tokens.</strong> They're powerful.
+              Treat them like production database credentials.
+            </li>
+            <li>
+              <strong>Support legacy webhooks during migration.</strong> Your
+              teammates will thank you (<em>or at least not curse you</em>).
+            </li>
+            <li>
+              <strong>Interactive messages pay dividends.</strong> Buttons
+              beat "check CI" every time.
+            </li>
+          </ul>
+          <p>
+            What started as a solution to noisy CI alerts evolved into a Swiss
+            Army knife for Slack operations. Our Sidekick now handles:
+          </p>
+          <ul>
+            <li>
+              <strong>Targeted CI/CD notifications</strong> that reach the
+              engineer, not just a channel
+            </li>
+            <li>
+              <strong>Cross-workspace incident invites</strong> without
+              friction
+            </li>
+            <li>
+              <strong>Interactive approval workflows</strong> for deployments
+              and other gates
+            </li>
+            <li>
+              <strong>Unified message routing</strong> that replaces a mess of
+              webhook URLs
+            </li>
+          </ul>
+          <p>
+            Building this required understanding Slack's permission
+            model-specifically the difference between bot tokens and user
+            tokens, workspace scopes and org scopes. But once you grasp those
+            concepts, you can build tooling that dramatically improves your
+            organization's incident response and developer experience.
+          </p>
+          <p>
+            The best part? Everything we built runs on a single,
+            straightforward Slack app and a simple express server. No complex
+            infrastructure-just a well-scoped app and an API that knows how to
+            use it.
+          </p>
+          <blockquote>
+            <p>
+              Now go build your own Sidekick. Your future on-call self will
+              thank you.
+            </p>
+          </blockquote>
+        </div>
+      </article>
+
+      <nav class="post-foot" aria-label="Post navigation">
+        <a href="/writing/"
+          ><span class="arrow" aria-hidden="true">&#x2190;&#xFE0E;</span>All
+          writing</a
+        >
+        <a href="/">vigneshrajsb.com</a>
+      </nav>
+    </main>
+
+    <script
+      data-goatcounter="https://vigneshrajsb.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
+  </body>
+</html>

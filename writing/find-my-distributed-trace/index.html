@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find my distributed trace: AirTags for Datadog APM — Vignesh</title>
+    <meta
+      name="description"
+      content="A Chrome extension that tags your requests with Datadog trace headers before you send them — an AirTag for requests headed into the microservices wilderness."
+    />
+    <link
+      rel="canonical"
+      href="https://vigneshrajsb.com/writing/find-my-distributed-trace/"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Vigneshraj Sekar Babu" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Vignesh — vigneshrajsb.com" />
+    <meta
+      property="og:title"
+      content="Find my distributed trace: AirTags for Datadog APM"
+    />
+    <meta
+      property="og:description"
+      content="A Chrome extension that tags your requests with Datadog trace headers before you send them — an AirTag for requests headed into the microservices wilderness."
+    />
+    <meta
+      property="og:url"
+      content="https://vigneshrajsb.com/writing/find-my-distributed-trace/"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:image"
+      content="https://vigneshrajsb.com/writing/assets/trace-hero.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="669" />
+    <meta property="article:published_time" content="2026-01-21" />
+    <meta property="article:author" content="Vigneshraj Sekar Babu" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Find my distributed trace: AirTags for Datadog APM"
+    />
+    <meta
+      name="twitter:description"
+      content="A Chrome extension that tags your requests with Datadog trace headers before you send them — an AirTag for requests headed into the microservices wilderness."
+    />
+    <meta
+      name="twitter:image"
+      content="https://vigneshrajsb.com/writing/assets/trace-hero.jpg"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Find my distributed trace: AirTags for Datadog APM",
+        "description": "A Chrome extension that tags your requests with Datadog trace headers before you send them — an AirTag for requests headed into the microservices wilderness.",
+        "image": "https://vigneshrajsb.com/writing/assets/trace-hero.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "Vigneshraj Sekar Babu",
+          "url": "https://vigneshrajsb.com/"
+        },
+        "datePublished": "2026-01-21",
+        "url": "https://vigneshrajsb.com/writing/find-my-distributed-trace/",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://vigneshrajsb.com/writing/find-my-distributed-trace/"
+        }
+      }
+    </script>
+
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Vignesh — Writing"
+      href="/feed.xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/writing/writing.css" />
+  </head>
+  <body class="post-page">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <span id="ext-tab" class="sr-only">opens in a new tab</span>
+    <main id="main">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep" aria-hidden="true">&#x203A;</span>
+        <a href="/writing/">Writing</a>
+      </nav>
+
+      <article>
+        <header class="post-header">
+          <h1>Find my distributed trace: AirTags for Datadog APM</h1>
+          <p class="post-subtitle">
+            A browser extension that tags your requests before you send them
+          </p>
+          <p class="post-meta">
+            <time datetime="2026-01-21">January 21, 2026</time> &middot; 3 min
+            read
+          </p>
+        </header>
+
+        <figure class="frame">
+          <img
+            src="../assets/trace-hero.jpg"
+            alt="Illustration of a request leaving a browser and being tracked along its path through a mesh of microservice nodes"
+            width="1200"
+            height="669"
+          />
+          <figcaption>
+            Tracing requests through distributed systems: from browser to
+            microservices, tracked end-to-end
+          </figcaption>
+        </figure>
+
+        <div class="post-body">
+          <p>
+            I built something that's been saving my sanity for a while now, and
+            I figured it was time to share.
+          </p>
+          <p>
+            If you've ever stared at Datadog APM, scrolling through thousands
+            of traces trying to find that one request you made from your
+            browser three minutes ago&hellip; this post is for you.
+          </p>
+
+          <h2>The Problem</h2>
+          <p>
+            Here's the thing about debugging distributed systems: the actual
+            debugging part isn't even the hard part anymore. It's finding the
+            right trace to debug.
+          </p>
+          <p>
+            Picture this. You're testing a checkout flow on staging.
+            Something's broken. You click "Place Order" and get a vague error.
+            Now you need to trace that request through your frontend, API
+            gateway, auth service, payment service, and inventory service.
+          </p>
+          <p>
+            You pop open Datadog APM. And there it is: 47,000 traces from the
+            last 15 minutes. Your one request is somewhere in there. Probably.
+          </p>
+          <p>"Hey, can you filter by user ID?"</p>
+          <p>
+            Sure, if your services propagate user context correctly. (Spoiler:
+            they don't always.)
+          </p>
+          <p>"What about by endpoint?"</p>
+          <p>Great, now you're down to 3,000 traces. Progress.</p>
+          <p>
+            You start clicking through traces like you're swiping on a dating
+            app, hoping to find "the one." Sound familiar?
+          </p>
+          <p>
+            And here's the kicker &mdash; sometimes your trace isn't even
+            there. Datadog's retention filters sampled it out because it looked
+            "normal." Your bug got marked as uninteresting and yeeted into the
+            void. Gone. Poof.
+          </p>
+
+          <h2>The Solution</h2>
+          <p>
+            I built a Chrome extension called Datadog APM Tracer that flips the
+            whole process on its head.
+          </p>
+          <p>
+            Instead of making a request and then hunting for it in Datadog,
+            you:
+          </p>
+          <ol>
+            <li>Open the extension and hit "Toggle ON"</li>
+            <li>The extension generates a unique trace ID</li>
+            <li>
+              Every request from that browser tab now carries Datadog's trace
+              headers
+            </li>
+            <li>
+              Click the link in the extension &rarr; you're looking at your
+              trace in Datadog
+            </li>
+          </ol>
+          <p>
+            In human terms: it's like putting an AirTag on your request before
+            sending it into the microservices wilderness.
+          </p>
+
+          <h2>Key features</h2>
+          <ul>
+            <li>
+              Multi-domain support &mdash; Configure multiple domains (your
+              frontend, API, CDN) and trace requests to all of them
+              <figure class="frame">
+                <img
+                  src="../assets/trace-settings.png"
+                  alt="The Chrome extension's settings page, where multiple domains can be configured for tracing"
+                  width="1208"
+                  height="644"
+                  loading="lazy"
+                />
+              </figure>
+            </li>
+            <li>
+              Automatic header injection &mdash; Adds the trace headers
+              automatically
+              <ul>
+                <li><code>x-datadog-trace-id</code></li>
+                <li><code>x-datadog-parent-id</code></li>
+                <li><code>x-datadog-origin</code></li>
+                <li><code>x-datadog-sampling-priority</code></li>
+              </ul>
+            </li>
+            <li>
+              Visual tab grouping &mdash; Traced tabs get grouped and
+              highlighted in green so you don't forget which tab is being
+              traced
+            </li>
+            <li>
+              Bypass retention filters &mdash; The
+              <code>synthetics-browser</code> origin flag tells Datadog to keep
+              this trace, period.
+            </li>
+          </ul>
+          <p>
+            The best part? You get a direct link to your trace. No searching.
+            No scrolling. No existential dread.
+          </p>
+
+          <h2>Why Build This</h2>
+          <p>
+            I've been using this internally for over a year now. Every time I
+            needed to debug something end-to-end &mdash; slow backend, failed
+            account creation, weird auth redirect &mdash; I'd fire up the
+            extension, reproduce the issue, and go straight to the trace.
+          </p>
+          <p>
+            After sharing it with a few teammates, I cleaned it up, added
+            multi-domain support, and put it on the Chrome Web Store.
+          </p>
+
+          <h2>This Is For You If&hellip;</h2>
+          <ul>
+            <li>You're an engineer working with Datadog APM</li>
+            <li>
+              You debug issues that span browser &rarr; backend &rarr;
+              microservices
+            </li>
+            <li>
+              You've lost traces to retention filters and wanted to flip a
+              table
+            </li>
+            <li>
+              You're tired of the "refresh and hope" approach to finding your
+              requests
+            </li>
+            <li>
+              Your services are instrumented with Datadog, but finding your
+              specific trace still feels like archaeology
+            </li>
+          </ul>
+          <p>
+            If you're not using Datadog APM, this won't help you. (But maybe
+            it's a sign you should look into it &mdash; distributed tracing is
+            a game changer for debugging.)
+          </p>
+
+          <h2>Links</h2>
+          <p>The extension is free and open source:</p>
+          <ul>
+            <li>
+              Install:
+              <a
+                href="https://chrome.google.com/webstore/detail/datadog-apm-tracer/jilpmibbdkjiigdofgpmclkmmehgdibb"
+                target="_blank"
+                rel="noopener" aria-describedby="ext-tab"
+                >Chrome Web Store</a
+              >
+            </li>
+            <li>
+              Source:
+              <a
+                href="https://github.com/vigneshrajsb/datadog-tracer"
+                target="_blank"
+                rel="noopener" aria-describedby="ext-tab"
+                >GitHub</a
+              >
+            </li>
+            <li>
+              Issues/Questions:
+              <a
+                href="https://github.com/vigneshrajsb/datadog-tracer/issues"
+                target="_blank"
+                rel="noopener" aria-describedby="ext-tab"
+                >GitHub Issues</a
+              >
+            </li>
+          </ul>
+          <p>Go trace some bugs. This is the way!</p>
+        </div>
+      </article>
+
+      <nav class="post-foot" aria-label="Post navigation">
+        <a href="/writing/"
+          ><span class="arrow" aria-hidden="true">&#x2190;&#xFE0E;</span>All
+          writing</a
+        >
+        <a href="/">vigneshrajsb.com</a>
+      </nav>
+    </main>
+
+    <script
+      data-goatcounter="https://vigneshrajsb.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
+  </body>
+</html>

@@ -16,16 +16,17 @@ The site is hand-built HTML and CSS, no framework. Analytics are privacy-first a
 - An internal Playwright module with auth, mocking, and telemetry baked in — teams add integration tests with zero config.
 - An alert router that pairs GitHub commits and CODEOWNERS to Slack channels so the right people get pinged.
 - [OpenDevTools](https://github.com/vigneshrajsb/opendevtools.io): a small collection of open-source developer utilities. No tracking, no upsell, free.
-- [useloam.design](https://useloam.design): a small thing I've been tinkering on.
+- [tribb.app](https://tribb.app): a small thing I've been tinkering on.
 - Second place at a recent GoodRx hackathon for an agent that automates infra-migration work.
 - Scaling preview-environment infrastructure as load grows.
 
 ## Writing
 
-- [OpenClaw: when the AI assistant has a backup plan](https://vigneshrajsb.medium.com/openclaw-assistant-has-a-backup-plan): on building agents that fail gracefully instead of confidently.
-- [Find My Distributed Trace](https://vigneshrajsb.medium.com/find-my-distributed-trace-airtags-for-datadog-apm): AirTags for Datadog APM.
-- [Frontend automation principles: a field guide](https://vigneshrajsb.medium.com/frontend-automation-principles-a-field-guide): patterns for browser test authors.
-- [Building a Slack sidekick](https://vigneshrajsb.medium.com/building-a-slack-sidekick-targeted-alerts-cross-workspace-invites): targeted alerts and cross-workspace invites.
+Native posts live under https://vigneshrajsb.com/writing/ (index) with an RSS feed at https://vigneshrajsb.com/feed.xml.
+
+- [Find my distributed trace](https://vigneshrajsb.com/writing/find-my-distributed-trace/): AirTags for Datadog APM.
+- [Frontend automation principles: a field guide](https://vigneshrajsb.com/writing/frontend-automation-principles/): patterns for browser test authors.
+- [Building a Slack sidekick](https://vigneshrajsb.com/writing/building-a-slack-sidekick/): targeted alerts and cross-workspace invites.
 - [More on Medium](https://vigneshrajsb.medium.com)
 
 ## Profiles

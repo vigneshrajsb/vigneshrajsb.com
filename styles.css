@@ -207,18 +207,34 @@ p:last-child {
 
 /* ---------- Links ---------- */
 
+/*
+ * Underlines are layered background gradients instead of text-decoration so
+ * the accent line can sweep in from the left on hover. --u-base/--u-hover set
+ * the resting and sweep colors, --u-h the thickness, and --u-pad lifts the
+ * line back up to the text on links with vertical tap-target padding.
+ */
 a {
+    --u-base: var(--ink-3);
+    --u-hover: var(--accent);
+    --u-h: 1px;
+    --u-pad: 0px;
     color: inherit;
-    text-decoration: underline;
-    text-decoration-color: var(--ink-3);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
-    transition: text-decoration-color 180ms var(--ease-out-quart),
+    text-decoration: none;
+    background-image: linear-gradient(var(--u-hover), var(--u-hover)),
+        linear-gradient(var(--u-base), var(--u-base));
+    background-size: 0 var(--u-h), 100% var(--u-h);
+    background-position: left calc(100% - var(--u-pad) - 0.05em),
+        left calc(100% - var(--u-pad) - 0.05em);
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition: background-size 280ms var(--ease-out-quart),
         color 180ms var(--ease-out-quart);
 }
 
-a:hover {
-    text-decoration-color: var(--accent);
+a:hover,
+a:focus-visible {
+    background-size: 100% var(--u-h), 100% var(--u-h);
 }
 
 a:focus-visible {
@@ -245,13 +261,12 @@ a:focus-visible {
 }
 
 .masthead .role a {
+    --u-base: var(--rule);
     color: var(--ink-2);
-    text-decoration-color: var(--rule);
 }
 
 .masthead .role a:hover {
     color: var(--ink);
-    text-decoration-color: var(--accent);
 }
 
 .masthead .aside {
@@ -285,52 +300,28 @@ a:focus-visible {
 }
 
 .links .profiles a {
+    --u-base: var(--rule);
+    --u-pad: 0.75rem;
     color: var(--ink);
-    text-decoration-color: var(--rule);
     padding: 0.75rem 0;
 }
 
-.links .profiles a:hover {
-    text-decoration-color: var(--accent);
-}
-
-.links .profiles a:not(:last-child)::after {
-    content: '\00B7'; /* middle dot */
+.links .profiles .dot {
     color: var(--ink-3);
     margin: 0 0.7rem;
-    text-decoration: none;
-    display: inline-block;
 }
 
-.links .resume {
-    color: var(--ink);
-    text-decoration-color: var(--accent-soft);
-    text-decoration-thickness: 1.5px;
-    padding: 0.75rem 0;
-    margin-left: auto;
-    font-style: italic;
-    font-family: var(--font-serif);
-    font-size: var(--text-body);
+/* Narrow screens: the last dot becomes an invisible line break, so Resume
+   starts its own row at natural width instead of wrapping mid-row. */
+@media (max-width: 539px) {
+    .links .profiles .dot:last-of-type {
+        flex-basis: 100%;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+    }
 }
 
-.links .resume::before {
-    content: '\2197\FE0E';
-    margin-right: 0.3rem;
-    font-style: normal;
-    color: var(--accent);
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 180ms var(--ease-out-quart);
-}
-
-.links .resume:hover {
-    text-decoration-color: var(--accent);
-}
-
-.links .resume:hover::before,
-.links .resume:focus-visible::before {
-    transform: translate(2px, -2px);
-}
 
 /* ---------- Sections ---------- */
 
@@ -423,11 +414,6 @@ section:last-of-type {
 .work .cta a {
     color: var(--ink);
     font-style: normal;
-    text-decoration-color: var(--ink-3);
-}
-
-.work .cta a:hover {
-    text-decoration-color: var(--accent);
 }
 
 /* ---------- Writing ---------- */
@@ -449,12 +435,7 @@ section:last-of-type {
 
 .writing .entries .title {
     color: var(--ink);
-    text-decoration-color: var(--ink-3);
     font-weight: 500;
-}
-
-.writing .entries .title:hover {
-    text-decoration-color: var(--accent);
 }
 
 .writing .entries .blurb {
@@ -471,7 +452,6 @@ section:last-of-type {
 .writing .forward {
     white-space: nowrap;
     color: var(--ink);
-    text-decoration-color: var(--ink-3);
     font-weight: 500;
 }
 
@@ -481,50 +461,12 @@ section:last-of-type {
 }
 
 .writing .forward:hover {
-    text-decoration-color: var(--accent);
     color: var(--accent);
 }
 
 .writing .forward:hover span[aria-hidden],
 .writing .forward:focus-visible span[aria-hidden] {
     transform: translateX(3px);
-}
-
-/* ---------- Colophon ---------- */
-
-.colophon {
-    background: var(--bg-subtle);
-    border-top: 1px solid var(--rule);
-    padding: var(--space-xl) 1.25rem;
-    text-align: center;
-    font-family: var(--font-sans);
-    font-size: var(--text-meta);
-    color: var(--ink-2);
-}
-
-.colophon p {
-    margin-bottom: var(--space-2xs);
-    line-height: 1.55;
-}
-
-.colophon p:last-child {
-    margin-bottom: 0;
-}
-
-.colophon a {
-    color: var(--ink-2);
-    text-decoration-color: var(--rule);
-}
-
-.colophon a:hover {
-    color: var(--ink);
-    text-decoration-color: var(--accent);
-}
-
-@media (min-width: 540px) {
-    .colophon {
-        padding: var(--space-xl) 1.5rem;
-    }
 }
 
 /* ---------- Reduced motion ---------- */
@@ -543,8 +485,6 @@ section:last-of-type {
         animation: none;
     }
 
-    .links .resume:hover::before,
-    .links .resume:focus-visible::before,
     .writing .forward:hover span[aria-hidden],
     .writing .forward:focus-visible span[aria-hidden] {
         transform: none;
@@ -575,6 +515,7 @@ section:last-of-type {
     .writing a,
     .masthead .role a {
         text-decoration: none;
+        background-image: none;
         color: #1a1410;
     }
 
@@ -587,9 +528,6 @@ section:last-of-type {
         font-style: normal;
     }
 
-    .colophon {
-        display: none;
-    }
 
     .eyebrow {
         position: static !important;
