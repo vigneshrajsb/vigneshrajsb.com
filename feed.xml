@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://vigneshrajsb.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Extraction</title>
+      <link>https://vigneshrajsb.com/writing/extraction/</link>
+      <guid>https://vigneshrajsb.com/writing/extraction/</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 GMT</pubDate>
+      <description>Loyalty is a prediction about how a company will act under pressure. What Unity, Veeva, and Reddit reveal about spending customer trust to hit the quarter.</description>
+    </item>
+    <item>
       <title>Find my distributed trace: AirTags for Datadog APM</title>
       <link>https://vigneshrajsb.com/writing/find-my-distributed-trace/</link>
       <guid>https://vigneshrajsb.com/writing/find-my-distributed-trace/</guid>

@@ -24,6 +24,7 @@ The site is hand-built HTML and CSS, no framework. Analytics are privacy-first a
 
 Native posts live under https://vigneshrajsb.com/writing/ (index) with an RSS feed at https://vigneshrajsb.com/feed.xml.
 
+- [Extraction](https://vigneshrajsb.com/writing/extraction/): loyalty is a prediction; what Unity, Veeva, and Reddit reveal about companies that spend customer trust to hit the quarter.
 - [Find my distributed trace](https://vigneshrajsb.com/writing/find-my-distributed-trace/): AirTags for Datadog APM.
 - [Frontend automation principles: a field guide](https://vigneshrajsb.com/writing/frontend-automation-principles/): patterns for browser test authors.
 - [Building a Slack sidekick](https://vigneshrajsb.com/writing/building-a-slack-sidekick/): targeted alerts and cross-workspace invites.

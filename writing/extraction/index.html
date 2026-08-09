@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extraction — Vignesh</title>
+    <meta
+      name="description"
+      content="Loyalty is a prediction about how a company will act under pressure. What Unity, Veeva, and Reddit reveal about spending customer trust to hit the quarter."
+    />
+    <link rel="canonical" href="https://vigneshrajsb.com/writing/extraction/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Vigneshraj Sekar Babu" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Vignesh — vigneshrajsb.com" />
+    <meta property="og:title" content="Extraction" />
+    <meta
+      property="og:description"
+      content="Loyalty is a prediction about how a company will act under pressure. What Unity, Veeva, and Reddit reveal about spending customer trust to hit the quarter."
+    />
+    <meta property="og:url" content="https://vigneshrajsb.com/writing/extraction/" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:image"
+      content="https://vigneshrajsb.com/writing/assets/extraction-hero.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="article:published_time" content="2026-08-09" />
+    <meta property="article:author" content="Vigneshraj Sekar Babu" />
+    <meta property="article:tag" content="business" />
+    <meta property="article:tag" content="product strategy" />
+    <meta property="article:tag" content="trust" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Extraction" />
+    <meta
+      name="twitter:description"
+      content="Loyalty is a prediction about how a company will act under pressure. What Unity, Veeva, and Reddit reveal about spending customer trust to hit the quarter."
+    />
+    <meta
+      name="twitter:image"
+      content="https://vigneshrajsb.com/writing/assets/extraction-hero.jpg"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Extraction",
+        "description": "Loyalty is a prediction about how a company will act under pressure. What Unity, Veeva, and Reddit reveal about spending customer trust to hit the quarter.",
+        "image": "https://vigneshrajsb.com/writing/assets/extraction-hero.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "Vigneshraj Sekar Babu",
+          "url": "https://vigneshrajsb.com/"
+        },
+        "datePublished": "2026-08-09",
+        "url": "https://vigneshrajsb.com/writing/extraction/",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://vigneshrajsb.com/writing/extraction/"
+        }
+      }
+    </script>
+
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Vignesh — Writing"
+      href="/feed.xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/writing/writing.css" />
+
+    <style>
+      /* Extraction: post-local figure/chart styles. Colors resolve to site tokens. */
+      .post-body {
+        --grid: var(--rule);
+        --baseline: var(--ink-3);
+        --muted: var(--ink-2);
+        --annot: var(--accent);
+        --ink2: var(--ink-2);
+        --bar: oklch(0.51 0.11 245);
+      }
+      .post-body figure.viz { margin: var(--space-xl) 0; font-family: var(--font-sans); }
+      .post-body .viz-title { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin: 0 0 0.15rem; }
+      .post-body #fig-costco .viz-title { margin-bottom: 0.85rem; }
+      .post-body .viz-sub { font-size: 0.8rem; color: var(--ink-2); margin: 0 0 0.9rem; }
+      .post-body .viz figcaption { font-size: var(--text-meta); font-style: italic; color: var(--ink-2); line-height: 1.55; margin: 0; }
+      .post-body .viz-foot { margin-top: 0.9rem; }
+      .post-body .chart-scroll { overflow-x: auto; }
+      .post-body .chart-scroll > svg { display: block; width: 100%; height: auto; }
+      .post-body .chart-scroll > svg.wide { min-width: 600px; }
+      .post-body #viz-unity.wide { min-width: 700px; }
+      .post-body .viz svg text { font-family: var(--font-sans); }
+      .post-body .data-table { margin: 0.75rem 0 0; font-family: var(--font-sans); font-size: var(--text-meta); }
+      .post-body .data-table summary { cursor: pointer; color: var(--ink-2); font-size: 0.8rem; display: inline-block; padding: 0.7rem 0; margin: -0.45rem 0; }
+      .post-body .data-table table { border-collapse: collapse; width: 100%; margin-top: 0.5rem; }
+      .post-body .data-table th { text-align: left; font-weight: 500; color: var(--ink-2); }
+      .post-body .data-table th, .post-body .data-table td { padding: 0.35rem 0.75rem 0.35rem 0; border-bottom: 1px solid var(--rule); }
+      .post-body .data-table td.num, .post-body .data-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+      .post-body .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; }
+      @media (max-width: 680px) { .post-body .tiles { grid-template-columns: repeat(2, 1fr); } }
+      .post-body .tile { border: 1px solid var(--rule); border-radius: 6px; padding: 0.8rem 0.85rem; background: var(--bg-subtle); }
+      .post-body .tile .val { display: block; font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; color: var(--ink); line-height: 1.15; }
+      .post-body .tile .lbl { display: block; font-size: 0.8rem; color: var(--ink-2); margin-top: 0.3rem; line-height: 1.4; }
+      .post-body .tile .sub { display: block; font-size: 0.75rem; color: var(--ink-2); margin-top: 0.35rem; }
+      .post-body .tile.neg .val { color: var(--accent); }
+      .post-body .vpanel + .vpanel { margin-top: 1.5rem; }
+      .post-body .panel-h { font: 500 0.9rem var(--font-sans); color: var(--ink); margin: 0 0 0.6rem; }
+      .post-body .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      @media (max-width: 640px) { .post-body .duo { grid-template-columns: 1fr; } }
+      .post-body .mini-t { font: 500 0.85rem var(--font-sans); color: var(--ink); margin: 0 0 0.35rem; }
+      .post-body .meme { margin: var(--space-xl) auto; max-width: 28rem; }
+      .post-body .meme img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; }
+      .post-body hr.sep { border: 0; border-top: 1px solid var(--rule); width: 48px; margin: var(--space-2xl) 0; }
+      .post-body .credits { font-style: italic; color: var(--ink-2); font-size: 0.98rem; }
+      .post-body .sources { font-family: var(--font-sans); font-size: var(--text-meta); line-height: 1.6; color: var(--ink-2); padding-left: 1.25rem; margin: 0; }
+      .post-body .sources li { padding-left: 0.25rem; margin-bottom: 0.5rem; }
+    </style>
+  </head>
+  <body class="post-page">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <span id="ext-tab" class="sr-only">opens in a new tab</span>
+    <main id="main">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep" aria-hidden="true">&#x203A;</span>
+        <a href="/writing/">Writing</a>
+      </nav>
+
+      <article>
+        <header class="post-header">
+          <h1>Extraction</h1>
+          <p class="post-subtitle">
+            What Unity, Veeva, and Reddit reveal about what happens when the
+            quarterly number quietly becomes the mission
+          </p>
+          <p class="post-meta">
+            <time datetime="2026-08-09">August 9, 2026</time> &middot; 7 min
+            read
+          </p>
+        </header>
+
+        <div class="post-body">
+<p>People keep saying there is no customer loyalty anymore. I believed that for a while. Then I started making a list of brands I go out of my way to choose, the stores I trust without thinking twice, the companies I give a level of patience I do not give everyone else.</p>
+
+  <p>The list was selective.</p>
+
+  <p>I am not loyal to logos but to a prediction: <em>a guess about which way a company will lean when it has to choose between extracting a little more from me and protecting the thing it says it exists to do</em>.</p>
+
+  <p>For example: Costco is on my list not because of its mission statement (I have never read Costco's mission statement) but because decades of small, verifiable decisions point the same direction. Customer loyalty is contingent confidence, earned through repetition.</p>
+
+  <!-- V4: Costco stat tiles -->
+  <figure class="viz" id="fig-costco">
+    <p class="viz-title">Costco, in four verifiable promises</p>
+    <div class="tiles">
+      <div class="tile">
+        <span class="val">$1.50</span>
+        <span class="lbl">hot dog combo price</span>
+        <span class="sub">unchanged since 1985</span>
+      </div>
+      <div class="tile">
+        <span class="val">92.3%</span>
+        <span class="lbl">US &amp; Canada membership renewal</span>
+        <span class="sub">FY2025</span>
+      </div>
+      <div class="tile">
+        <span class="val">$5.3B</span>
+        <span class="lbl">membership fees vs $8.1B net income</span>
+        <span class="sub">FY2025</span>
+      </div>
+      <div class="tile">
+        <span class="val">$31/hr</span>
+        <span class="lbl">average US hourly wage</span>
+        <span class="sub">entry level starts at $20/hr</span>
+      </div>
+    </div>
+    <div class="viz-foot">
+      <figcaption>Small promises, kept for years and decades are the raw materials leading to strong prediction.</figcaption>
+    </div>
+  </figure>
+
+
+  <h2 id="the-test-only-happens-under-pressure">The test only happens under pressure</h2>
+
+  <p>A mission statement costs nothing when things are going well. Every company protects its users in the good years, the same way everyone is generous when they are rich. The test arrives when the growth slows, when the board wants a number, when there is an obvious lever that would extract more from the people who already committed to you.</p>
+
+  <p>Eric Ries calls the force behind that lever <strong>financial gravity</strong>: the quiet, structural pull that bends successful companies toward short-term extraction. Not because the people inside turned greedy, but because compensation, leadership attention, and decision-making all slowly reorient toward the next reported number. I find the term useful because it removes the cartoon villain. Nobody in the room says "let's betray our users." or "let's charge our users more! suckers!!." They say "we're leaving money on the table." Both sentences describe the same meeting.</p>
+
+  <p>And the people the lever gets pulled on are, almost by definition, your most committed customers: the ones who made investments they cannot easily reverse. Nobody extracts from the customer who can and will leave tomorrow.</p>
+
+  <h2 id="unity-when-predictability-is-the-product">Unity: when predictability is the product</h2>
+
+  <p>Unity's stated purpose is that the world is a better place with more creators in it. Its 2022 annual filing went further, describing a core value of putting users first even when that meant forgoing short-term gains. I do not think anyone was lying when they wrote that.</p>
+
+  <p>Here is what its customers had done in the meantime. A game studio that adopts Unity spends years learning the engine, buying assets, hiring for it, and building a pipeline around it. Games take years to ship. By the time a title launches, the studio's economics were planned around a bargain struck long ago. For a platform like that, pricing predictability is part of the product, not an invoice preference.</p>
+
+  <figure class="meme">
+    <img src="../assets/extraction-anakin-padme.jpg" loading="lazy" alt="Anakin and Padmé four-panel meme. Anakin: ‘We’re introducing a per-install Runtime Fee.’ Padmé, smiling: ‘For games shipping under the new terms, right?’ Anakin stares in silence. Padmé, worried: ‘For games shipping under the new terms, right?’" width="768" height="768">
+  </figure>
+
+  <p>In September 2023, Unity announced the Runtime Fee: a per-install charge that would apply to games already built and shipped under a different deal. The backlash was immediate, and if you read what developers actually wrote, the anger was only partly about the amount. It was about the instability. Studios had made irreversible bets on one set of rules, and the rules changed after the bets were placed. Some publicly said they would reconsider Unity for future projects, not because the fee was unpayable, but because they could no longer predict what the next fee would be.</p>
+
+  <p>Within a month, the CEO retired. In January 2024, Unity cut about a quarter of its workforce. In September 2024, it canceled the Runtime Fee entirely, before the fee had ever collected a dollar, and returned to seat-based pricing, raising subscription prices instead.</p>
+
+  <!-- V1: Unity Runtime Fee event timeline -->
+  <figure class="viz" id="fig-unity">
+    <p class="viz-title">The Runtime Fee, start to finish</p>
+    <p class="viz-sub">November 2022 – September 2024</p>
+    <div class="chart-scroll">
+      <svg id="viz-unity" class="wide" viewBox="0 85 880 195" role="img" aria-label="Timeline of five Unity events: ironSource merger completes November 7, 2022; Runtime Fee announced September 12, 2023; CEO Riccitiello retires October 9, 2023; about 1,800 roles cut, roughly 25 percent of the workforce, January 8, 2024; Runtime Fee canceled September 12, 2024 — exactly one year after it was announced.">
+        <!-- axis -->
+        <line x1="40" y1="178" x2="850" y2="178" stroke="var(--baseline)" stroke-width="1.25"></line>
+
+        <!-- one-year bracket connecting the two accent events -->
+        <g>
+          <path d="M411 168 V114 H781 V168" fill="none" stroke="var(--accent)" stroke-width="1.5"></path>
+          <text x="596" y="104" text-anchor="middle" font-size="15.5" font-weight="650" fill="var(--ink)">365 days</text>
+        </g>
+
+        <!-- e1: ironSource merger -->
+        <g>
+          <line x1="98" y1="186" x2="98" y2="202" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="98" cy="178" r="4.5" fill="var(--ink2)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="94" y="216" font-size="14.5" font-weight="600" fill="var(--ink)">ironSource merger completes</text>
+          <text x="94" y="231" font-size="13" fill="var(--muted)">Nov 7, 2022</text>
+        </g>
+
+        <!-- e2: Runtime Fee announced -->
+        <g>
+          <line x1="411" y1="186" x2="411" y2="240" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="411" cy="178" r="6.5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="415" y="254" text-anchor="end" font-size="14.5" font-weight="600" fill="var(--ink)">Runtime Fee announced</text>
+          <text x="415" y="269" text-anchor="end" font-size="13" fill="var(--muted)">Sept 12, 2023</text>
+        </g>
+
+        <!-- e3: CEO retires (label above axis) -->
+        <g>
+          <line x1="439" y1="162" x2="439" y2="171" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="439" cy="178" r="4.5" fill="var(--ink2)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="447" y="141" font-size="14.5" font-weight="600" fill="var(--ink)">CEO Riccitiello retires</text>
+          <text x="447" y="156" font-size="13" fill="var(--muted)">Oct 9, 2023</text>
+        </g>
+
+        <!-- e4: layoffs -->
+        <g>
+          <line x1="530" y1="186" x2="530" y2="240" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="530" cy="178" r="4.5" fill="var(--ink2)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="534" y="254" font-size="14.5" font-weight="600" fill="var(--ink)">~1,800 roles cut (~25% of workforce)</text>
+          <text x="534" y="269" font-size="13" fill="var(--muted)">Jan 8, 2024</text>
+        </g>
+
+        <!-- e5: Runtime Fee canceled -->
+        <g>
+          <line x1="781" y1="186" x2="781" y2="202" stroke="var(--baseline)" stroke-width="1"></line>
+          <circle cx="781" cy="178" r="6.5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"></circle>
+          <text x="785" y="216" text-anchor="end" font-size="14.5" font-weight="600" fill="var(--ink)">Runtime Fee canceled</text>
+          <text x="785" y="231" text-anchor="end" font-size="13" fill="var(--muted)">Sept 12, 2024</text>
+        </g>
+
+      </svg>
+    </div>
+    <details class="data-table">
+      <summary>View the data</summary>
+      <table>
+        <thead><tr><th>Date</th><th>Event</th></tr></thead>
+        <tbody>
+          <tr><td>Nov 7, 2022</td><td>ironSource merger completes</td></tr>
+          <tr><td>Sept 12, 2023</td><td>Runtime Fee announced</td></tr>
+          <tr><td>Oct 9, 2023</td><td>CEO Riccitiello retires</td></tr>
+          <tr><td>Jan 8, 2024</td><td>~1,800 roles cut (~25% of workforce)</td></tr>
+          <tr><td>Sept 12, 2024</td><td>Runtime Fee canceled</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </figure>
+
+  <p>I want to be careful here, because the neat version of this story is false. Unity's revenue decline through 2024 had many causes: a merger being digested, a portfolio reset, a brutal ad market. The Runtime Fee did not single-handedly do that and I will not pretend otherwise. What the episode shows is narrower and I think more useful. Unity still needed the revenue, the cancellation removed the unpredictable mechanism and not the need to charge more. The company effectively conceded that the money was recoverable, but the confidence was the expensive part.</p>
+
+  <p>Unity's mistake was not the charging itself, any platform has to fund itself. The mistake was proposing a new extraction mechanism after customers had already built their futures on the old one. For a platform, that stops being a pricing conversation and becomes a question of whether anyone can safely build on you at all.</p>
+
+  <h2 id="veeva-making-the-promise-expensive-to-break">Veeva: making the promise expensive to break</h2>
+
+  <p>The usual objection arrives here: that's easy to say, but public companies answer to shareholders. Missions are for the About page; the quarter is for real life.</p>
+
+  <p>Veeva Systems is the counterexample I stumbled upon, because it is not a scrappy indie holdout but a public enterprise software company. In 2021, with shareholder approval, Veeva became the first publicly traded company to convert to a Delaware Public Benefit Corporation. Its charter now legally requires the board to balance shareholder interests against the interests of the people its decisions materially affect, and against its stated purpose.</p>
+
+  <p>That structure does not make Veeva nicer; it makes betraying its customers expensive. A future team under quarterly pressure cannot quietly collapse every decision into the reported number, because the governing documents point somewhere else. It is kind of the corporate equivalent of throwing your car keys on the roof before you start drinking.</p>
+
+  <p>And the results do not require charity to admire: in its most recent fiscal year, Veeva reported $3.2 billion in revenue with a 29% GAAP operating margin. We cannot claim the PBC charter caused that performance; Veeva was a focused, well-run business before the conversion. The claim is smaller and still damning to the objection: a public software company can legally bind itself to its mission and remain large, profitable, and durable. "The market made us do it" is a choice that teams make.</p>
+
+  <!-- V3: Veeva revenue with PBC conversion marker -->
+  <figure class="viz" id="fig-veeva">
+    <p class="viz-title">Veeva revenue by fiscal year</p>
+    <p class="viz-sub">Fiscal years end January 31</p>
+    <div class="chart-scroll">
+      <svg id="viz-veeva" class="wide" viewBox="0 0 880 300" role="img" aria-label="Bar chart of Veeva annual revenue from fiscal 2019 to fiscal 2026, rising every year from 862 million dollars to 3.195 billion dollars. A dashed marker between fiscal 2021 and fiscal 2022 notes that Veeva became a Public Benefit Corporation on February 1, 2021. Growth continued after the conversion.">
+        <defs>
+          <clipPath id="veeva-clip"><rect x="40" y="20" width="810" height="230"></rect></clipPath>
+        </defs>
+        <!-- gridlines -->
+        <g stroke="var(--grid)" stroke-width="1">
+          <line x1="50" y1="188.2" x2="850" y2="188.2"></line>
+          <line x1="50" y1="126.5" x2="850" y2="126.5"></line>
+          <line x1="50" y1="64.7" x2="850" y2="64.7"></line>
+        </g>
+        <g font-size="12" fill="var(--muted)" text-anchor="end">
+          <text x="42" y="191.7">$1B</text>
+          <text x="42" y="130">$2B</text>
+          <text x="42" y="68.2">$3B</text>
+        </g>
+        <!-- baseline -->
+        <line x1="50" y1="250" x2="850" y2="250" stroke="var(--baseline)" stroke-width="1.25"></line>
+        <!-- bars (rounded top, square baseline via clip) -->
+        <g clip-path="url(#veeva-clip)" fill="var(--bar)">
+          <rect class="bar" x="88" y="196.8" width="24" height="57.2" rx="4"><title>FY2019: $862M</title></rect>
+          <rect class="bar" x="188" y="181.8" width="24" height="72.2" rx="4"><title>FY2020: $1,104M</title></rect>
+          <rect class="bar" x="288" y="159.5" width="24" height="94.5" rx="4"><title>FY2021: $1,465M</title></rect>
+          <rect class="bar" x="388" y="135.7" width="24" height="118.3" rx="4"><title>FY2022: $1,851M</title></rect>
+          <rect class="bar" x="488" y="116.9" width="24" height="137.1" rx="4"><title>FY2023: $2,155M</title></rect>
+          <rect class="bar" x="588" y="104" width="24" height="150" rx="4"><title>FY2024: ~$2,364M</title></rect>
+          <rect class="bar" x="688" y="80.3" width="24" height="173.7" rx="4"><title>FY2025: $2,747M</title></rect>
+          <rect class="bar" x="788" y="52.7" width="24" height="201.3" rx="4"><title>FY2026: $3,195M</title></rect>
+        </g>
+        <!-- cap labels -->
+        <g font-size="12" fill="var(--ink2)" text-anchor="middle">
+          <text x="100" y="188.8">$862M</text>
+          <text x="200" y="173.8">$1.10B</text>
+          <text x="300" y="151.5">$1.47B</text>
+          <text x="400" y="127.7">$1.85B</text>
+          <text x="500" y="108.9">$2.16B</text>
+          <text x="600" y="96">~$2.36B</text>
+          <text x="700" y="72.3">$2.75B</text>
+          <text x="800" y="44.7">$3.20B</text>
+        </g>
+        <!-- x labels -->
+        <g font-size="12.5" fill="var(--muted)" text-anchor="middle">
+          <text x="100" y="270">FY19</text>
+          <text x="200" y="270">FY20</text>
+          <text x="300" y="270">FY21</text>
+          <text x="400" y="270">FY22</text>
+          <text x="500" y="270">FY23</text>
+          <text x="600" y="270">FY24</text>
+          <text x="700" y="270">FY25</text>
+          <text x="800" y="270">FY26</text>
+        </g>
+        <!-- PBC conversion marker -->
+        <g>
+          <line x1="350" y1="32" x2="350" y2="250" stroke="var(--annot)" stroke-width="1.5" stroke-dasharray="4 3"></line>
+          <circle cx="350" cy="32" r="3" fill="var(--annot)"></circle>
+          <text x="340" y="46" text-anchor="end" font-size="13" font-weight="600" fill="var(--ink)">Becomes a Public Benefit Corporation</text>
+          <text x="340" y="61" text-anchor="end" font-size="12" fill="var(--muted)">Feb 1, 2021</text>
+        </g>
+      </svg>
+    </div>
+    <details class="data-table">
+      <summary>View the data</summary>
+      <table>
+        <thead><tr><th>Fiscal year</th><th class="num">Revenue</th></tr></thead>
+        <tbody>
+          <tr><td>FY2019</td><td class="num">$862M</td></tr>
+          <tr><td>FY2020</td><td class="num">$1,104M</td></tr>
+          <tr><td>FY2021</td><td class="num">$1,465M</td></tr>
+          <tr><td>FY2022</td><td class="num">$1,851M</td></tr>
+          <tr><td>FY2023</td><td class="num">$2,155M</td></tr>
+          <tr><td>FY2024</td><td class="num">~$2,364M</td></tr>
+          <tr><td>FY2025</td><td class="num">$2,747M</td></tr>
+          <tr><td>FY2026</td><td class="num">$3,195M</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </figure>
+
+  <h2 id="the-objection-i-can-t-skip-reddit">The objection I can't skip: Reddit</h2>
+
+  <p>If this essay is a fairy tale, it would end with every extractive company punished by the market. Reddit is an anomaly in this tale.</p>
+
+  <p>In 2023, Reddit repriced its API in a way that killed most third-party clients, and thousands of communities went dark in protest. It was one of the loudest trust ruptures in consumer internet history. Then Reddit went public, reported $1.3 billion in revenue for 2024, $2.2 billion for 2025, and grew daily actives the whole way through.</p>
+
+  <!-- V2: Reddit two-panel toggle -->
+  <figure class="viz" id="fig-reddit">
+    <p class="viz-title">Reddit, two true stories</p>
+    <div class="vpanels">
+      <div class="vpanel vp-a">
+        <p class="panel-h">The rupture (June 2023)</p>
+        <div class="tiles">
+          <div class="tile">
+            <span class="val">~7,000</span>
+            <span class="lbl">subreddits went dark in protest</span>
+            <span class="sub">June 12, 2023</span>
+          </div>
+          <div class="tile neg">
+            <span class="val">−7%</span>
+            <span class="lbl">Reddit site visits the next day; visit duration fell 16%</span>
+            <span class="sub">June 13, 2023 · Similarweb</span>
+          </div>
+          <div class="tile neg">
+            <span class="val">−20%</span>
+            <span class="lbl">traffic to ads.reddit.com during the blackout</span>
+            <span class="sub">June 13–21, 2023 · Similarweb</span>
+          </div>
+          <div class="tile">
+            <span class="val">~$20M/yr</span>
+            <span class="lbl">the API bill Apollo's developer calculated before shutting the app down</span>
+            <span class="sub">Apollo closed June 30, 2023</span>
+          </div>
+        </div>
+      </div>
+      <div class="vpanel vp-b">
+        <p class="panel-h">The earnings (2022–2025)</p>
+        <div class="duo">
+          <div class="mini">
+            <p class="mini-t">Revenue</p>
+            <svg viewBox="0 0 420 250" role="img" aria-label="Bar chart of Reddit annual revenue: 666.7 million dollars in 2022, 804 million in 2023, 1.3 billion in 2024, and 2.2 billion in 2025.">
+              <defs><clipPath id="rrev-clip"><rect x="0" y="10" width="420" height="190"></rect></clipPath></defs>
+              <line x1="10" y1="200" x2="410" y2="200" stroke="var(--baseline)" stroke-width="1.25"></line>
+              <g clip-path="url(#rrev-clip)" fill="var(--bar)">
+                <rect x="48" y="153.9" width="24" height="50.1" rx="4"><title>2022: $666.7M</title></rect>
+                <rect x="148" y="144.4" width="24" height="59.6" rx="4"><title>2023: $804.0M</title></rect>
+                <rect x="248" y="110.1" width="24" height="93.9" rx="4"><title>2024: $1.3B</title></rect>
+                <rect x="348" y="47.8" width="24" height="156.2" rx="4"><title>2025: $2.2B</title></rect>
+              </g>
+              <g font-size="13" fill="var(--ink2)" text-anchor="middle">
+                <text x="60" y="145.9">$666.7M</text>
+                <text x="160" y="136.4">$804.0M</text>
+                <text x="260" y="102.1">$1.3B</text>
+                <text x="360" y="39.8">$2.2B</text>
+              </g>
+              <g font-size="13" fill="var(--muted)" text-anchor="middle">
+                <text x="60" y="222">2022</text>
+                <text x="160" y="222">2023</text>
+                <text x="260" y="222">2024</text>
+                <text x="360" y="222">2025</text>
+              </g>
+            </svg>
+          </div>
+          <div class="mini">
+            <p class="mini-t">Daily actives, Q4 average</p>
+            <svg viewBox="0 0 420 250" role="img" aria-label="Bar chart of Reddit daily active uniques in the fourth quarter: 73.1 million in 2023, 101.7 million in 2024, and 121.4 million in 2025.">
+              <defs><clipPath id="rdau-clip"><rect x="0" y="10" width="420" height="190"></rect></clipPath></defs>
+              <line x1="10" y1="200" x2="410" y2="200" stroke="var(--baseline)" stroke-width="1.25"></line>
+              <g clip-path="url(#rdau-clip)" fill="var(--bar)">
+                <rect x="64.7" y="106.7" width="24" height="97.3" rx="4"><title>Q4 2023: 73.1M</title></rect>
+                <rect x="198" y="70.1" width="24" height="133.9" rx="4"><title>Q4 2024: 101.7M</title></rect>
+                <rect x="331.3" y="45" width="24" height="159" rx="4"><title>Q4 2025: 121.4M</title></rect>
+              </g>
+              <g font-size="13" fill="var(--ink2)" text-anchor="middle">
+                <text x="76.7" y="98.7">73.1M</text>
+                <text x="210" y="62.1">101.7M</text>
+                <text x="343.3" y="37">121.4M</text>
+              </g>
+              <g font-size="13" fill="var(--muted)" text-anchor="middle">
+                <text x="76.7" y="222">Q4 2023</text>
+                <text x="210" y="222">Q4 2024</text>
+                <text x="343.3" y="222">Q4 2025</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <details class="data-table">
+      <summary>View the data</summary>
+      <table>
+        <thead><tr><th>Year</th><th class="num">Revenue</th><th class="num">Q4 daily actives</th></tr></thead>
+        <tbody>
+          <tr><td>2022</td><td class="num">$666.7M</td><td class="num">—</td></tr>
+          <tr><td>2023</td><td class="num">$804.0M</td><td class="num">73.1M</td></tr>
+          <tr><td>2024</td><td class="num">$1.3B</td><td class="num">101.7M</td></tr>
+          <tr><td>2025</td><td class="num">$2.2B</td><td class="num">121.4M</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </figure>
+
+  <p>So did the betrayal not matter? I'd argue it mattered, and that expecting it to show up in the next earnings report is the wrong test. The developers and moderators who were charged are not the users who generate the most traffic. Network effects, habit, advertiser demand, and the absence of alternatives can mask trust damage in aggregate numbers for a very long time. Loyalty erodes long before revenue does, because the people who stopped believing you often keep using you. They stop forgiving you, stop advocating for you and stop giving you the benefit of the doubt you'll need at your next mistake.</p>
+
+  <p>So I have stopped thinking of trust as a PR metric, and I no longer expect it to run on a karma schedule. Trust is stored optionality: when customers believe you will treat them fairly under pressure, they give you patience, advocacy, honest feedback, and another chance. When they stop believing it, nothing visible happens — until the day the company needs one of those things and discovers the trust account is empty.</p>
+
+  <h2 id="the-quarter-is-not-a-destination">The quarter is not a destination</h2>
+
+  <p>Cory Doctorow has documented how platforms decay by clawing back value from locked-in users; he calls it <strong>enshittification</strong>. I read his account as the platform-specific case of something more general, because the same collapse happens in companies with no network effects and no lock-in at all. The quarterly number is a health signal, evidence that you are serving your mission well, and a company begins to rot on the day the signal quietly becomes the goal. The rot arrives not through one villainous decision but through financial gravity: a hundred locally rational meetings where "leaving money on the table" beats "keeping the promise," until the mission on the wall is branding for an extraction schedule.</p>
+
+  <p>The companies on my loyalty list have earned their place by making betrayal expensive for themselves first, through governance, ownership, or decades of verifiable habit and repetition.</p>
+
+  <p>Every company seems to eventually take the same test: when the quarter and the mission finally disagree, which one gets rewritten?</p>
+
+  <p>Recommend reading or listening to both these books - Incorruptible (2026), Enshittification (2025).</p>
+
+  <hr class="sep">
+
+  <p class="credits"><em>This essay was sparked by Eric Ries's book <strong>Incorruptible: Why Good Companies Go Bad… and How Great Companies Stay Great</strong> (2026), which helped me confirm and structure the long standing thoughts I collected from my personal experiences. His cases (Costco, Patagonia, Novo Nordisk, Anthropic) are worth the read on their own. Cory Doctorow's <strong>Enshittification</strong> (2025) covers the platform version of this story in depth. The Unity, Veeva, and Reddit analysis here is my own, from my readings, filings and announcements. LLM used for grammar and polish.</em></p>
+
+  <h2 id="sources">Sources</h2>
+  <ol class="sources">
+    <li>Unity Software — shareholder letters and annual results releases, FY2021–FY2025. <a href="https://investors.unity.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">investors.unity.com</a></li>
+    <li>Unity — "Unity is Canceling the Runtime Fee" (Sept 12, 2024). <a href="https://unity.com/blog/unity-is-canceling-the-runtime-fee" target="_blank" rel="noopener" aria-describedby="ext-tab">unity.com/blog/unity-is-canceling-the-runtime-fee</a></li>
+    <li>Unity Software Form 8-K filings, including the CEO retirement announcement (Oct 2023). <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001810806&amp;type=8-K&amp;dateb=&amp;owner=include&amp;count=40" target="_blank" rel="noopener" aria-describedby="ext-tab">SEC EDGAR, Unity Software 8-K index</a></li>
+    <li>Reddit, Inc. Form S-1 registration statement (Feb 2024). <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001713445&amp;type=S-1&amp;dateb=&amp;owner=include&amp;count=40" target="_blank" rel="noopener" aria-describedby="ext-tab">SEC EDGAR, Reddit S-1 index</a></li>
+    <li>Reddit — Q4 &amp; full-year 2024 and 2025 results press releases. <a href="https://investor.redditinc.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">investor.redditinc.com</a></li>
+    <li>Similarweb — Reddit blackout traffic analysis (June 2023). <a href="https://www.similarweb.com/blog/insights/reddit-blackout/" target="_blank" rel="noopener" aria-describedby="ext-tab">similarweb.com/blog/insights/reddit-blackout</a></li>
+    <li>Veeva Systems — annual results releases, FY2019–FY2026. <a href="https://ir.veeva.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">ir.veeva.com</a></li>
+    <li>Veeva — Public Benefit Corporation conversion (announced via Businesswire, Feb 1, 2021) and PBC overview. <a href="https://www.veeva.com/pbc/" target="_blank" rel="noopener" aria-describedby="ext-tab">veeva.com/pbc</a></li>
+    <li>Costco Wholesale — FY2025 results (Form 8-K) and membership metrics. <a href="https://investor.costco.com/" target="_blank" rel="noopener" aria-describedby="ext-tab">investor.costco.com</a></li>
+    <li>Patagonia — "Earth is now our only shareholder" ownership announcement (Sept 2022). <a href="https://eu.patagonia.com/gb/en/ownership/" target="_blank" rel="noopener" aria-describedby="ext-tab">patagonia.com/ownership</a></li>
+    <li>Hamilton Nolan — "Enshittification Relies on Broken Economic Math". <a href="https://www.hamiltonnolan.com/p/enshittification-relies-on-broken" target="_blank" rel="noopener" aria-describedby="ext-tab">hamiltonnolan.com/p/enshittification-relies-on-broken</a></li>
+    <li>Ed Zitron — "The Rot Economy" (2023). <a href="https://www.wheresyoured.at/the-rot-economy/" target="_blank" rel="noopener" aria-describedby="ext-tab">wheresyoured.at/the-rot-economy</a></li>
+    <li>Eric Ries, <em>Incorruptible: Why Good Companies Go Bad… and How Great Companies Stay Great</em> (2026).</li>
+    <li>Cory Doctorow, <em>Enshittification</em> (2025).</li>
+  </ol>
+        </div>
+      </article>
+
+      <nav class="post-foot" aria-label="Post navigation">
+        <a href="/writing/"
+          ><span class="arrow" aria-hidden="true">&#x2190;&#xFE0E;</span>All
+          writing</a
+        >
+        <a href="/">vigneshrajsb.com</a>
+      </nav>
+    </main>
+
+    <script
+      data-goatcounter="https://vigneshrajsb.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
+  </body>
+</html>
