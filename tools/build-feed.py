@@ -50,6 +50,30 @@ def extract_content(html, page):
     return html[start + len("<!-- feed:start -->"):end].strip()
 
 
+def replace_svgs(content, slug):
+    """Swap inline SVGs for the PNGs render-viz.py produced (feed only)."""
+    import hashlib
+    counter = [0]
+
+    def sub(m):
+        counter[0] += 1
+        svg = m.group(0)
+        digest = hashlib.sha256(svg.encode()).hexdigest()[:8]
+        name = f"{slug}-viz{counter[0]}-{digest}.png"
+        if not (ROOT / "writing" / "assets" / "feed" / name).exists():
+            sys.exit(f"error: missing {name} — run: make feed")
+        label = re.search(r'aria-label="([^"]*)"', svg)
+        alt = (label.group(1) if label else "").replace('"', "&quot;")
+        vb = re.search(r'viewBox="([-\d. ]+)"', svg)
+        _, _, w, h = (float(v) for v in vb.group(1).split())
+        return (
+            f'<img src="{SITE}/writing/assets/feed/{name}" alt="{alt}" '
+            f'width="744" height="{round(744 * h / w)}" />'
+        )
+
+    return re.sub(r"<svg.*?</svg>", sub, content, flags=re.S)
+
+
 def absolutize(content, post_url):
     content = re.sub(r'(href|src)="\.\./', rf'\1="{SITE}/writing/', content)
     content = re.sub(r'(href|src)="/', rf'\1="{SITE}/', content)
@@ -84,12 +108,14 @@ def build():
             print(f"skip (draft, no Article datePublished): {page.parent.name}")
             continue
         url = meta["url"]
+        content = extract_content(html, page)
+        content = replace_svgs(content, page.parent.name)
         items.append({
             "title": meta["headline"],
             "url": url,
             "date": meta["datePublished"],
             "description": meta["description"],
-            "content": absolutize(extract_content(html, page), url),
+            "content": absolutize(content, url),
         })
 
     items.sort(key=lambda i: (i["date"], i["url"]), reverse=True)

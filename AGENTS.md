@@ -47,6 +47,11 @@ A post touches seven files. Miss one and the post silently fails to propagate.
   hero figure + post body — `make feed` extracts the full-content RSS entry
   from between them and errors if they're missing. A page whose Article
   JSON-LD lacks `datePublished` is treated as a draft and skipped.
+- Inline SVG charts are fine on the page but feed readers strip them, so
+  `make feed` auto-rasterizes each one to `writing/assets/feed/` (via macOS
+  QuickLook; content-hashed filenames) and swaps them for `<img>` in the
+  feed only. Give every chart `<svg>` a `viewBox` and a descriptive
+  `aria-label` — the label becomes the feed image's alt text.
 - Body content is semantic HTML: `h2`/`h3` with slug `id` anchors, `p`,
   `ul`/`ol`, `blockquote`, `pre`/`code`, `figure`/`figcaption`. Wide code
   blocks and ASCII diagrams must scroll inside their own `pre` (the shared CSS

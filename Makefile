@@ -4,6 +4,7 @@ help: ## List available commands
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  make %-8s %s\n", $$1, $$2}'
 
 feed: ## Regenerate feed.xml from the post pages under writing/
+	python3 tools/render-viz.py
 	python3 tools/build-feed.py
 	xmllint --noout feed.xml
 
