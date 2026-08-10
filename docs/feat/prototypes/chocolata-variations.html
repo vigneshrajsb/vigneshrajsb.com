@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chocolata · variation sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&family=Vollkorn:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: oklch(0.965 0.012 78);
+    --bg-subtle: oklch(0.945 0.014 78);
+    --ink: oklch(0.22 0.018 50);
+    --ink-2: oklch(0.46 0.014 55);
+    --ink-3: oklch(0.62 0.012 60);
+    --rule: oklch(0.84 0.018 70);
+    --accent: oklch(0.5 0.16 32);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Vollkorn", serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+  }
+  .sheet-head h1 {
+    font: italic 500 2.1rem/1.2 "Vollkorn", serif;
+    letter-spacing: -0.008em;
+  }
+  .sheet-head p {
+    font: 400 0.875rem/1.5 "Karla", sans-serif;
+    color: var(--ink-2);
+    margin-top: 0.4rem;
+    max-width: 34rem;
+  }
+  .specimen { margin-top: 4rem; }
+  .specimen + .specimen { border-top: 1px solid transparent; }
+  .specimen::before {
+    content: "";
+    display: block;
+    width: 48px;
+    border-top: 1px solid var(--rule);
+    margin-bottom: 2.5rem;
+  }
+  .specimen-label {
+    font: 500 0.875rem/1.5 "Karla", sans-serif;
+    letter-spacing: 0.01em;
+  }
+  .specimen-label .letter {
+    display: inline-block;
+    min-width: 1.1em;
+    color: var(--accent);
+  }
+  .specimen-desc {
+    font: 400 0.875rem/1.5 "Karla", sans-serif;
+    color: var(--ink-2);
+    margin-top: 0.15rem;
+    max-width: 34rem;
+  }
+  .renders {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 3rem;
+  }
+  .render-large svg { display: block; width: 220px; height: 220px; }
+  .render-context {
+    display: flex;
+    align-items: baseline;
+    padding-bottom: 0.4rem;
+  }
+  .render-context .name {
+    font: italic 500 3.4rem/1.1 "Vollkorn", serif;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+  .render-context svg {
+    display: inline-block;
+    margin-left: 0.55rem;
+    vertical-align: baseline;
+  }
+  .caption {
+    margin-top: 0.75rem;
+    font: 400 0.75rem/1.5 "Karla", sans-serif;
+    color: var(--ink-3);
+  }
+  @media (max-width: 560px) {
+    main { padding: 3rem 1.25rem 4rem; }
+    .renders { gap: 2rem; }
+    .render-context .name { font-size: 2.6rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="sheet-head">
+    <h1>Chocolata</h1>
+    <p>Variation sheet for the header mascot. Same dog, same pose, four hands. Each row shows the drawing at full size, then inline beside the masthead at the size it will actually live.</p>
+  </header>
+
+  <!-- ============================ A · PEN AND INK ============================ -->
+  <section class="specimen" id="specimen-a">
+    <p class="specimen-label"><span class="letter">A</span> Editorial pen and ink</p>
+    <p class="specimen-desc">Fine ink line with sparse hatching and a dry rust wash, like a sketch in the margin of a hand-set letter.</p>
+    <div class="renders">
+      <div class="render-large">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Pen and ink drawing of Chocolata, a Vizsla, bust portrait with chain collar">
+          <g id="art-a">
+            <g id="body-a">
+              <path d="M 74 104 C 66 124, 61 158, 59 200 L 145 200 C 143 156, 138 124, 129 102 C 116 92, 88 92, 74 104 Z"
+                    fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M 128 112 C 133 130, 137 156, 138 182 M 121 118 C 125 136, 128 158, 129 178 M 115 128 C 118 144, 120 160, 121 174"
+                    fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="0.9" opacity="0.55"/>
+              <path d="M 84 172 C 90 176, 98 178, 106 177 M 82 182 C 90 186, 100 188, 110 187"
+                    fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="0.9" opacity="0.4"/>
+            </g>
+            <g id="collar-a">
+              <path d="M 66 148 Q 101 170 138 146" fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="0.8" opacity="0.35"/>
+              <g fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="1.3">
+                <circle cx="68" cy="149" r="3"/><circle cx="76" cy="153" r="3"/><circle cx="84" cy="156" r="3"/>
+                <circle cx="93" cy="158" r="3"/><circle cx="101" cy="159" r="3"/><circle cx="110" cy="158" r="3"/>
+                <circle cx="118" cy="156" r="3"/><circle cx="126" cy="153" r="3"/><circle cx="133" cy="149" r="3"/>
+              </g>
+              <circle cx="101" cy="167" r="5.5" fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="1.5"/>
+            </g>
+            <g id="head-a">
+              <g id="ear-left-a">
+                <path d="M 78 55 C 64 58, 55 74, 55 93 C 55 110, 59 124, 67 129 C 74 132, 79 125, 79 111 C 79 92, 79 72, 78 55 Z"
+                      fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M 71 70 C 66 82, 64 98, 66 114 M 76 66 C 73 80, 72 96, 73 112"
+                      fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="0.9" opacity="0.5"/>
+              </g>
+              <g id="ear-right-a">
+                <path d="M 122 55 C 136 58, 145 74, 145 93 C 145 110, 141 124, 133 129 C 126 132, 121 125, 121 111 C 121 92, 121 72, 122 55 Z"
+                      fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M 129 70 C 134 82, 136 98, 134 114 M 124 66 C 127 80, 128 96, 127 112"
+                      fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="0.9" opacity="0.5"/>
+              </g>
+              <path id="skull-a" d="M 99 42 C 86 42, 74 50, 70 62 C 67 72, 68 82, 72 91 C 76 100, 82 110, 88 117 C 93 122, 105 122, 110 117 C 116 110, 122 100, 126 91 C 130 82, 131 72, 128 62 C 124 50, 112 42, 99 42 Z"
+                    fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="2" stroke-linejoin="round"/>
+              <!-- rust washes -->
+              <g fill="oklch(0.5 0.16 32)" opacity="0.14">
+                <path d="M 99 44 C 88 44, 78 51, 74 61 C 78 55, 88 50, 99 50 C 110 50, 120 55, 124 61 C 120 51, 110 44, 99 44 Z"/>
+                <path d="M 76 58 C 66 63, 59 78, 58 94 C 59 110, 62 122, 68 127 C 63 116, 61 100, 63 84 C 65 72, 70 63, 76 58 Z"/>
+                <path d="M 124 58 C 134 63, 141 78, 142 94 C 141 110, 138 122, 132 127 C 137 116, 139 100, 137 84 C 135 72, 130 63, 124 58 Z"/>
+                <path d="M 126 104 C 133 126, 137 156, 139 190 L 130 190 C 129 158, 128 128, 122 110 Z"/>
+              </g>
+              <!-- cheek hatch -->
+              <path d="M 116 96 C 119 92, 121 88, 122 84 M 112 102 C 115 98, 118 94, 120 90"
+                    fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="0.9" opacity="0.5"/>
+              <!-- brow ridges -->
+              <path d="M 74 69 C 78 65, 84 64, 89 66 M 105 66 C 110 64, 116 65, 120 69"
+                    fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="1.3" stroke-linecap="round"/>
+              <!-- forehead furrow -->
+              <path d="M 97 56 C 96.5 64, 96.5 74, 97 84" fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="0.8" opacity="0.45"/>
+              <!-- muzzle -->
+              <path d="M 96 92 C 90 92, 87 95, 87 99 C 87 103, 91 106, 96 106 C 101 106, 105 103, 105 99 C 105 95, 102 92, 96 92 Z"
+                    fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="1.6"/>
+              <path d="M 91.5 97.5 C 92 98.5, 93 99, 94 98.5 M 100.5 98.5 C 99.5 99, 98.8 98.5, 98.5 97.5"
+                    fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M 96 106 L 96 111 M 96 111 C 92 115, 88 115, 85 112 M 96 111 C 100 115, 104 115, 107 112"
+                    fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="1.4" stroke-linecap="round"/>
+              <g id="eyes-a">
+                <path d="M 75 76 C 78 72.5, 85 72.5, 88 76 C 85 79.5, 78 79.5, 75 76 Z"
+                      fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="1.4"/>
+                <path d="M 106 76 C 109 72.5, 116 72.5, 119 76 C 116 79.5, 109 79.5, 106 76 Z"
+                      fill="oklch(0.965 0.012 78)" stroke="oklch(0.22 0.018 50)" stroke-width="1.4"/>
+                <circle cx="81.5" cy="76" r="3.1" fill="oklch(0.5 0.16 32)" opacity="0.35"/>
+                <circle cx="112.5" cy="76" r="3.1" fill="oklch(0.5 0.16 32)" opacity="0.35"/>
+                <g id="pupil-left-a"><circle cx="81.5" cy="76" r="1.9" fill="oklch(0.22 0.018 50)"/></g>
+                <g id="pupil-right-a"><circle cx="112.5" cy="76" r="1.9" fill="oklch(0.22 0.018 50)"/></g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="render-context">
+        <span class="name">Vignesh</span>
+        <svg width="34" height="52" viewBox="48 38 106 162" aria-hidden="true"><use href="#art-a"/></svg>
+      </div>
+    </div>
+    <p class="caption">Reads quietest of the four. Line weight tuned to survive 52px; the wash disappears first.</p>
+  </section>
+
+  <!-- ============================ B · CEL CARTOON ============================ -->
+  <section class="specimen" id="specimen-b">
+    <p class="specimen-label"><span class="letter">B</span> Soft cel cartoon</p>
+    <p class="specimen-desc">Warm flat fills, rounded line, two-tone shading and glossy eyes. Picture-book warmth, muted to sit on cream.</p>
+    <div class="renders">
+      <div class="render-large">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Cartoon drawing of Chocolata, a Vizsla, bust portrait with chain collar">
+          <defs>
+            <clipPath id="clip-eye-left-b"><path d="M 74.5 76 C 77.5 72, 85.5 72, 88.5 76 C 85.5 80, 77.5 80, 74.5 76 Z"/></clipPath>
+            <clipPath id="clip-eye-right-b"><path d="M 105.5 76 C 108.5 72, 116.5 72, 119.5 76 C 116.5 80, 108.5 80, 105.5 76 Z"/></clipPath>
+          </defs>
+          <g id="art-b">
+            <g id="body-b">
+              <path d="M 74 104 C 66 124, 61 158, 59 200 L 145 200 C 143 156, 138 124, 129 102 C 116 92, 88 92, 74 104 Z"
+                    fill="oklch(0.62 0.09 45)" stroke="oklch(0.34 0.05 45)" stroke-width="2.4" stroke-linejoin="round"/>
+              <path d="M 129 102 C 138 124, 143 156, 145 200 L 121 200 C 121 158, 122 128, 116 106 C 120 101, 125 100, 129 102 Z"
+                    fill="oklch(0.53 0.09 42)"/>
+              <path d="M 78 170 C 88 178, 104 180, 116 176 C 112 188, 108 196, 106 200 L 84 200 C 82 190, 80 180, 78 170 Z"
+                    fill="oklch(0.68 0.08 50)" opacity="0.5"/>
+            </g>
+            <g id="collar-b">
+              <path d="M 66 148 Q 101 170 138 146" fill="none" stroke="oklch(0.45 0.02 260)" stroke-width="1" opacity="0.4"/>
+              <g fill="oklch(0.86 0.006 250)" stroke="oklch(0.5 0.015 260)" stroke-width="1.4">
+                <circle cx="68" cy="149" r="3.2"/><circle cx="76" cy="153" r="3.2"/><circle cx="84" cy="156" r="3.2"/>
+                <circle cx="93" cy="158" r="3.2"/><circle cx="101" cy="159" r="3.2"/><circle cx="110" cy="158" r="3.2"/>
+                <circle cx="118" cy="156" r="3.2"/><circle cx="126" cy="153" r="3.2"/><circle cx="133" cy="149" r="3.2"/>
+              </g>
+              <circle cx="101" cy="167" r="5.5" fill="none" stroke="oklch(0.72 0.012 255)" stroke-width="2.6"/>
+              <circle cx="101" cy="167" r="5.5" fill="none" stroke="oklch(0.5 0.015 260)" stroke-width="1"/>
+            </g>
+            <g id="head-b">
+              <g id="ear-left-b">
+                <path d="M 78 55 C 64 58, 55 74, 55 93 C 55 110, 59 124, 67 129 C 74 132, 79 125, 79 111 C 79 92, 79 72, 78 55 Z"
+                      fill="oklch(0.5 0.09 40)" stroke="oklch(0.34 0.05 45)" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M 74 68 C 67 74, 63 88, 64 104 C 65 116, 68 124, 72 126 C 75 122, 76 112, 75 98 C 75 86, 75 76, 74 68 Z"
+                      fill="oklch(0.44 0.085 38)"/>
+              </g>
+              <g id="ear-right-b">
+                <path d="M 122 55 C 136 58, 145 74, 145 93 C 145 110, 141 124, 133 129 C 126 132, 121 125, 121 111 C 121 92, 121 72, 122 55 Z"
+                      fill="oklch(0.5 0.09 40)" stroke="oklch(0.34 0.05 45)" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M 126 68 C 133 74, 137 88, 136 104 C 135 116, 132 124, 128 126 C 125 122, 124 112, 125 98 C 125 86, 125 76, 126 68 Z"
+                      fill="oklch(0.44 0.085 38)"/>
+              </g>
+              <path d="M 99 42 C 86 42, 74 50, 70 62 C 67 72, 68 82, 72 91 C 76 100, 82 110, 88 117 C 93 122, 105 122, 110 117 C 116 110, 122 100, 126 91 C 130 82, 131 72, 128 62 C 124 50, 112 42, 99 42 Z"
+                    fill="oklch(0.62 0.09 45)" stroke="oklch(0.34 0.05 45)" stroke-width="2.4" stroke-linejoin="round"/>
+              <path d="M 126 91 C 130 82, 131 72, 128 62 C 126 55, 121 49, 115 46 C 121 54, 124 64, 123 75 C 122 86, 118 98, 112 108 C 116 103, 122 98, 126 91 Z"
+                    fill="oklch(0.53 0.09 42)"/>
+              <!-- muzzle plate -->
+              <path d="M 96 85 C 87 85, 80.5 92, 80.5 101 C 80.5 111, 87 119.5, 96 120 C 105 119.5, 111.5 111, 111.5 101 C 111.5 92, 105 85, 96 85 Z"
+                    fill="oklch(0.7 0.075 52)"/>
+              <!-- brow ridges -->
+              <path d="M 74 68.5 C 78 65, 84 64, 89 66 M 105 66 C 110 64, 116 65, 120 68.5"
+                    fill="none" stroke="oklch(0.42 0.06 42)" stroke-width="2" stroke-linecap="round"/>
+              <!-- nose -->
+              <path d="M 96 91.5 C 90.5 91.5, 87.5 94.5, 87.5 98.5 C 87.5 102.5, 91.5 105.5, 96 105.5 C 100.5 105.5, 104.5 102.5, 104.5 98.5 C 104.5 94.5, 101.5 91.5, 96 91.5 Z"
+                    fill="oklch(0.42 0.06 38)"/>
+              <ellipse cx="92.6" cy="95.4" rx="1.9" ry="1.3" fill="oklch(0.62 0.07 45)" opacity="0.8"/>
+              <path d="M 96 105.5 L 96 111 M 96 111 C 92 115, 88 115, 85 112 M 96 111 C 100 115, 104 115, 107 112"
+                    fill="none" stroke="oklch(0.34 0.05 45)" stroke-width="2" stroke-linecap="round"/>
+              <g id="eyes-b">
+                <path d="M 74.5 76 C 77.5 72, 85.5 72, 88.5 76 C 85.5 80, 77.5 80, 74.5 76 Z" fill="oklch(0.93 0.015 80)"/>
+                <path d="M 105.5 76 C 108.5 72, 116.5 72, 119.5 76 C 116.5 80, 108.5 80, 105.5 76 Z" fill="oklch(0.93 0.015 80)"/>
+                <g clip-path="url(#clip-eye-left-b)">
+                  <circle cx="81.5" cy="76.2" r="3.6" fill="oklch(0.66 0.12 72)"/>
+                  <g id="pupil-left-b">
+                    <circle cx="81.5" cy="76.4" r="2" fill="oklch(0.24 0.02 45)"/>
+                    <circle cx="82.4" cy="75.4" r="0.8" fill="oklch(0.97 0.01 80)"/>
+                  </g>
+                </g>
+                <g clip-path="url(#clip-eye-right-b)">
+                  <circle cx="112.5" cy="76.2" r="3.6" fill="oklch(0.66 0.12 72)"/>
+                  <g id="pupil-right-b">
+                    <circle cx="112.5" cy="76.4" r="2" fill="oklch(0.24 0.02 45)"/>
+                    <circle cx="113.4" cy="75.4" r="0.8" fill="oklch(0.97 0.01 80)"/>
+                  </g>
+                </g>
+                <path d="M 74.5 76 C 77.5 72, 85.5 72, 88.5 76" fill="none" stroke="oklch(0.34 0.05 45)" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M 105.5 76 C 108.5 72, 116.5 72, 119.5 76" fill="none" stroke="oklch(0.34 0.05 45)" stroke-width="1.8" stroke-linecap="round"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="render-context">
+        <span class="name">Vignesh</span>
+        <svg width="34" height="52" viewBox="48 38 106 162" aria-hidden="true"><use href="#art-b"/></svg>
+      </div>
+    </div>
+    <p class="caption">The friendliest read. Holds up well at 52px; the eyes stay glossy.</p>
+  </section>
+
+  <!-- ============================ C · MINIMAL WARM FLAT ============================ -->
+  <section class="specimen" id="specimen-c">
+    <p class="specimen-label"><span class="letter">C</span> Minimal warm flat</p>
+    <p class="specimen-desc">A few flat shapes, no outlines, shape-on-shape shading. Modern spot-illustration in warm neutrals and rust.</p>
+    <div class="renders">
+      <div class="render-large">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Flat minimal drawing of Chocolata, a Vizsla, bust portrait with chain collar">
+          <g id="art-c">
+            <g id="body-c">
+              <path d="M 74 104 C 66 124, 61 158, 59 200 L 145 200 C 143 156, 138 124, 129 102 C 116 92, 88 92, 74 104 Z"
+                    fill="oklch(0.62 0.1 42)"/>
+              <path d="M 129 102 C 138 124, 143 156, 145 200 L 120 200 C 120 158, 121 128, 115 106 C 119 100, 125 100, 129 102 Z"
+                    fill="oklch(0.54 0.1 40)"/>
+              <path d="M 80 168 C 90 176, 106 178, 118 172 C 114 186, 110 195, 108 200 L 86 200 C 84 189, 82 178, 80 168 Z"
+                    fill="oklch(0.7 0.08 52)"/>
+            </g>
+            <g id="collar-c">
+              <g fill="oklch(0.87 0.008 250)">
+                <circle cx="68" cy="149" r="2.7"/><circle cx="76" cy="153" r="2.7"/><circle cx="84" cy="156" r="2.7"/>
+                <circle cx="93" cy="158" r="2.7"/><circle cx="101" cy="159" r="2.7"/><circle cx="110" cy="158" r="2.7"/>
+                <circle cx="118" cy="156" r="2.7"/><circle cx="126" cy="153" r="2.7"/><circle cx="133" cy="149" r="2.7"/>
+              </g>
+              <circle cx="101" cy="167" r="5" fill="none" stroke="oklch(0.87 0.008 250)" stroke-width="2.4"/>
+            </g>
+            <g id="head-c">
+              <g id="ear-left-c">
+                <path d="M 78 55 C 64 58, 55 74, 55 93 C 55 110, 59 124, 67 129 C 74 132, 79 125, 79 111 C 79 92, 79 72, 78 55 Z"
+                      fill="oklch(0.46 0.1 36)"/>
+              </g>
+              <g id="ear-right-c">
+                <path d="M 122 55 C 136 58, 145 74, 145 93 C 145 110, 141 124, 133 129 C 126 132, 121 125, 121 111 C 121 92, 121 72, 122 55 Z"
+                      fill="oklch(0.46 0.1 36)"/>
+              </g>
+              <path d="M 99 42 C 86 42, 74 50, 70 62 C 67 72, 68 82, 72 91 C 76 100, 82 110, 88 117 C 93 122, 105 122, 110 117 C 116 110, 122 100, 126 91 C 130 82, 131 72, 128 62 C 124 50, 112 42, 99 42 Z"
+                    fill="oklch(0.62 0.1 42)"/>
+              <path d="M 126 91 C 130 82, 131 72, 128 62 C 126 55, 121 49, 115 46 C 121 54, 124 64, 123 75 C 122 86, 118 98, 112 108 C 116 103, 122 98, 126 91 Z"
+                    fill="oklch(0.54 0.1 40)"/>
+              <path d="M 96 86 C 87.5 86, 81.5 93, 81.5 101 C 81.5 110.5, 87.5 118.5, 96 119 C 104.5 118.5, 110.5 110.5, 110.5 101 C 110.5 93, 104.5 86, 96 86 Z"
+                    fill="oklch(0.72 0.075 55)"/>
+              <path d="M 96 92 C 91 92, 88 95, 88 98.7 C 88 102.4, 91.6 105, 96 105 C 100.4 105, 104 102.4, 104 98.7 C 104 95, 101 92, 96 92 Z"
+                    fill="oklch(0.4 0.06 38)"/>
+              <path d="M 96 105 L 96 110.5 M 96 110.5 C 92.5 114, 89 114, 86.5 111.5"
+                    fill="none" stroke="oklch(0.4 0.06 38)" stroke-width="1.8" stroke-linecap="round"/>
+              <g id="eyes-c">
+                <path d="M 76 76 C 79 72.8, 84.5 72.8, 87.5 76 C 84.5 79.2, 79 79.2, 76 76 Z" fill="oklch(0.62 0.12 70)"/>
+                <path d="M 106.5 76 C 109.5 72.8, 115 72.8, 118 76 C 115 79.2, 109.5 79.2, 106.5 76 Z" fill="oklch(0.62 0.12 70)"/>
+                <g id="pupil-left-c">
+                  <circle cx="81.7" cy="76.2" r="1.9" fill="oklch(0.24 0.02 45)"/>
+                  <circle cx="82.4" cy="75.5" r="0.6" fill="oklch(0.96 0.012 78)"/>
+                </g>
+                <g id="pupil-right-c">
+                  <circle cx="112.3" cy="76.2" r="1.9" fill="oklch(0.24 0.02 45)"/>
+                  <circle cx="113" cy="75.5" r="0.6" fill="oklch(0.96 0.012 78)"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="render-context">
+        <span class="name">Vignesh</span>
+        <svg width="34" height="52" viewBox="48 38 106 162" aria-hidden="true"><use href="#art-c"/></svg>
+      </div>
+    </div>
+    <p class="caption">Cleanest silhouette at small size. The rust carries the coat; detail lives in the value steps.</p>
+  </section>
+
+  <!-- ============================ D · WOODCUT ============================ -->
+  <section class="specimen" id="specimen-d">
+    <p class="specimen-label"><span class="letter">D</span> Woodcut colophon mark</p>
+    <p class="specimen-desc">Single-color block print with carved cutlines, like a letterpress printer's device stamped at the foot of the page.</p>
+    <div class="renders">
+      <div class="render-large">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Woodcut style drawing of Chocolata, a Vizsla, bust portrait with chain collar">
+          <g id="art-d">
+            <g id="body-d">
+              <path d="M 74 104 C 66 124, 61 158, 59 200 L 145 200 C 143 156, 138 124, 129 102 C 116 92, 88 92, 74 104 Z"
+                    fill="oklch(0.22 0.018 50)"/>
+              <path d="M 72 128 C 78 136, 88 141, 99 142 M 69 142 C 76 151, 88 156, 100 157 M 67 158 C 75 168, 88 173, 101 174 M 66 176 C 74 186, 87 191, 101 192"
+                    fill="none" stroke="oklch(0.965 0.012 78)" stroke-width="1.7" stroke-linecap="round" opacity="0.9"/>
+            </g>
+            <g id="collar-d">
+              <g fill="oklch(0.965 0.012 78)">
+                <circle cx="68" cy="149" r="2.9"/><circle cx="76" cy="153" r="2.9"/><circle cx="84" cy="156" r="2.9"/>
+                <circle cx="93" cy="158" r="2.9"/><circle cx="101" cy="159" r="2.9"/><circle cx="110" cy="158" r="2.9"/>
+                <circle cx="118" cy="156" r="2.9"/><circle cx="126" cy="153" r="2.9"/><circle cx="133" cy="149" r="2.9"/>
+              </g>
+              <circle cx="101" cy="167" r="5" fill="none" stroke="oklch(0.965 0.012 78)" stroke-width="2.4"/>
+            </g>
+            <g id="head-d">
+              <g id="ear-left-d">
+                <path d="M 78 55 C 64 58, 55 74, 55 93 C 55 110, 59 124, 67 129 C 74 132, 79 125, 79 111 C 79 92, 79 72, 78 55 Z"
+                      fill="oklch(0.22 0.018 50)" stroke="oklch(0.965 0.012 78)" stroke-width="1.6"/>
+                <path d="M 70 74 C 66 86, 65 100, 67 114" fill="none" stroke="oklch(0.965 0.012 78)" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+              </g>
+              <g id="ear-right-d">
+                <path d="M 122 55 C 136 58, 145 74, 145 93 C 145 110, 141 124, 133 129 C 126 132, 121 125, 121 111 C 121 92, 121 72, 122 55 Z"
+                      fill="oklch(0.22 0.018 50)" stroke="oklch(0.965 0.012 78)" stroke-width="1.6"/>
+                <path d="M 130 74 C 134 86, 135 100, 133 114" fill="none" stroke="oklch(0.965 0.012 78)" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+              </g>
+              <path d="M 99 42 C 86 42, 74 50, 70 62 C 67 72, 68 82, 72 91 C 76 100, 82 110, 88 117 C 93 122, 105 122, 110 117 C 116 110, 122 100, 126 91 C 130 82, 131 72, 128 62 C 124 50, 112 42, 99 42 Z"
+                    fill="oklch(0.22 0.018 50)"/>
+              <!-- carved skull form lines -->
+              <path d="M 80 50 C 88 46, 108 46, 118 50" fill="none" stroke="oklch(0.965 0.012 78)" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+              <path d="M 97 56 C 96.5 64, 96.5 74, 97 84" fill="none" stroke="oklch(0.965 0.012 78)" stroke-width="1.4" stroke-linecap="round" opacity="0.85"/>
+              <!-- brow carve -->
+              <path d="M 74 69 C 78 65, 84 64, 89 66 M 105 66 C 110 64, 116 65, 120 69"
+                    fill="none" stroke="oklch(0.965 0.012 78)" stroke-width="1.8" stroke-linecap="round"/>
+              <!-- carved muzzle plate -->
+              <path d="M 96 86 C 87.5 86, 81.5 93, 81.5 101 C 81.5 110.5, 87.5 118.5, 96 119 C 104.5 118.5, 110.5 110.5, 110.5 101 C 110.5 93, 104.5 86, 96 86 Z"
+                    fill="oklch(0.965 0.012 78)"/>
+              <path d="M 96 92 C 91 92, 88 95, 88 98.7 C 88 102.4, 91.6 105, 96 105 C 100.4 105, 104 102.4, 104 98.7 C 104 95, 101 92, 96 92 Z"
+                    fill="oklch(0.22 0.018 50)"/>
+              <path d="M 96 105 L 96 110.5 M 96 110.5 C 92.5 114, 89 114, 86.5 111.5 M 96 110.5 C 99.5 114, 103 114, 105.5 111.5"
+                    fill="none" stroke="oklch(0.22 0.018 50)" stroke-width="1.8" stroke-linecap="round"/>
+              <g id="eyes-d">
+                <path d="M 75.5 76 C 78.5 72.6, 84.8 72.6, 87.8 76 C 84.8 79.4, 78.5 79.4, 75.5 76 Z" fill="oklch(0.965 0.012 78)"/>
+                <path d="M 106.2 76 C 109.2 72.6, 115.5 72.6, 118.5 76 C 115.5 79.4, 109.2 79.4, 106.2 76 Z" fill="oklch(0.965 0.012 78)"/>
+                <g id="pupil-left-d"><circle cx="81.6" cy="76" r="2" fill="oklch(0.22 0.018 50)"/></g>
+                <g id="pupil-right-d"><circle cx="112.4" cy="76" r="2" fill="oklch(0.22 0.018 50)"/></g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="render-context">
+        <span class="name">Vignesh</span>
+        <svg width="34" height="52" viewBox="48 38 106 162" aria-hidden="true"><use href="#art-d"/></svg>
+      </div>
+    </div>
+    <p class="caption">Boldest at 52px, sits like a printer's mark. The white muzzle plate is the carve that makes the face read.</p>
+  </section>
+</main>
+</body>
+</html>

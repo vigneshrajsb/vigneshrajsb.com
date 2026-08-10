@@ -105,13 +105,33 @@
       crossorigin
     />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/chocolata.js" defer></script>
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
     <span id="ext-tab" class="sr-only">opens in a new tab</span>
     <main id="main">
       <header class="masthead">
-        <h1 class="name">Vignesh</h1>
+        <div class="nameplate">
+          <h1 class="name">Vignesh</h1>
+          <!--
+            Chocolata. She keeps the name company: one frame ships with the
+            page, the other twenty-four load once the page is done. Kept out of
+            the h1 so the heading still reads as just "Vignesh".
+          -->
+          <span class="chocolata" role="img" aria-label="Chocolata, my dog">
+            <span class="chocolata-body">
+              <img
+                src="assets/chocolata/gaze-mid-c.png"
+                alt=""
+                width="256"
+                height="256"
+                decoding="async"
+                class="is-shown"
+              />
+            </span>
+          </span>
+        </div>
         <p class="role">
           Lead Software Engineer at
           <a href="https://www.goodrx.com" target="_blank" rel="noopener" aria-describedby="ext-tab"
