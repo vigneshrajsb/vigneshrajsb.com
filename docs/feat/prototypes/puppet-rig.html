@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puppet rig · Chocolata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&family=Vollkorn:ital,wght@0,500;1,500&display=swap">
+<style>
+  :root {
+    --bg:          oklch(0.965 0.012 78);
+    --bg-panel:    oklch(0.945 0.014 78);
+    --stage:       oklch(0.982 0.008 78);
+    --ink:         oklch(0.22 0.018 50);
+    --ink-2:       oklch(0.46 0.014 55);
+    --ink-3:       oklch(0.62 0.012 60);
+    --rule:        oklch(0.84 0.018 70);
+    --rule-soft:   oklch(0.89 0.014 74);
+    --accent:      oklch(0.50 0.16 32);
+    --accent-soft: oklch(0.62 0.10 32);
+    --check:       oklch(0.905 0.012 78);
+
+    --font-serif: Vollkorn, "Iowan Old Style", Georgia, serif;
+    --font-sans: Karla, "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+
+    --ease: cubic-bezier(0.25, 1, 0.5, 1);
+    --xfade: 120ms;
+
+    --z-overlay: 10;
+    --z-magnified: 20;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { font-size: 16px; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .rig-head { margin-bottom: 2.5rem; }
+
+  .rig-head h1 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.4rem;
+  }
+
+  .rig-head p {
+    margin: 0;
+    max-width: 46rem;
+    color: var(--ink-2);
+    font-size: 0.875rem;
+  }
+
+  /* ---------- section chrome ---------- */
+
+  section { margin-top: 3.25rem; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .sec-head h2 {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .sec-head h2::after {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: var(--rule);
+    margin-top: 0.5rem;
+  }
+
+  .sec-note {
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ---------- stage ---------- */
+
+  .stage {
+    position: relative;
+    overflow: hidden;
+    background: var(--stage);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    min-height: 20rem;
+    display: grid;
+    place-items: center;
+    padding: 3.5rem 2rem;
+    touch-action: manipulation;
+  }
+
+  .specimen {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 3.4rem;
+    line-height: 1;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+  }
+
+  .dog {
+    position: relative;
+    display: inline-block;
+    vertical-align: baseline;
+    margin-left: var(--dog-gap, 12px);
+    width: var(--dog-size, 64px);
+    height: var(--dog-size, 64px);
+    transform: translateY(var(--dog-baseline, 0px));
+    transform-origin: 50% 100%;
+  }
+
+  /* Zero-size inline marker: its bottom edge is the text baseline. */
+  .baseline-probe {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: baseline;
+  }
+
+  .dog img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: opacity var(--xfade) linear;
+  }
+
+  .dog.is-breathing { animation: breathe 4.6s ease-in-out infinite; }
+
+  @keyframes breathe {
+    0%, 100% { transform: translateY(var(--dog-baseline, 0px)) scale(1); }
+    50%      { transform: translateY(var(--dog-baseline, 0px)) scale(1.02); }
+  }
+
+  .dog-empty {
+    position: absolute;
+    inset: 0;
+    border: 1px dashed var(--rule);
+    border-radius: 3px;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    color: var(--ink-3);
+  }
+
+  /* emotes — one drifting-glyph system; each state supplies its own glyph,
+     tone and cadence. Hearts on her belly, z's as she drops off, irritation
+     ticks while she's cross. */
+
+  .emotes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .emote {
+    position: absolute;
+    line-height: 1;
+    opacity: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-variant-emoji: text;
+    animation: float-emote var(--dur, 2600ms) var(--ease) forwards;
+  }
+
+  @keyframes float-emote {
+    0%   { opacity: 0; transform: translate(0, 0) scale(0.6) rotate(var(--rot, 0deg)); }
+    18%  { opacity: var(--peak, 0.65); }
+    62%  { opacity: var(--peak, 0.65); }
+    100% { opacity: 0; transform: translate(var(--dx, 0.5em), -2.9em) scale(1) rotate(var(--rot, 0deg)); }
+  }
+
+  /* debug overlay */
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-overlay);
+  }
+
+  .overlay[hidden], .readout[hidden] { display: none; }
+
+  .ring {
+    position: absolute;
+    border: 1px dashed var(--accent-soft);
+    border-radius: 50%;
+    opacity: 0.55;
+  }
+
+  .bbox {
+    position: absolute;
+    border: 1px solid var(--accent);
+    opacity: 0.7;
+  }
+
+  .baseline-guide {
+    position: absolute;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.55;
+  }
+
+  .readout {
+    position: absolute;
+    left: 0.875rem;
+    bottom: 0.875rem;
+    display: grid;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .readout b { color: var(--ink); font-weight: 500; }
+
+  .readout .meter {
+    width: 8.5rem;
+    height: 4px;
+    background: var(--rule-soft);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .readout .meter i {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+  }
+
+  .stage-hint {
+    position: absolute;
+    right: 0.875rem;
+    top: 0.875rem;
+    max-width: 15rem;
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--ink-3);
+  }
+
+  /* ---------- tuning panel ---------- */
+
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+  }
+
+  .fieldset {
+    border: 0;
+    margin: 0;
+    padding: 1.125rem 1.25rem 1.375rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .fieldset:last-of-type { border-bottom: 0; }
+
+  .fieldset > legend {
+    padding: 0;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 0.875rem 2rem;
+    margin-top: 0.875rem;
+  }
+
+  .ctl { display: grid; gap: 0.3rem; }
+
+  .ctl-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .ctl label { font-size: 0.8125rem; color: var(--ink-2); }
+
+  .ctl output {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ctl .hint {
+    font-size: 0.75rem;
+    color: var(--ink-3);
+    margin: 0;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    margin: 0;
+    height: 1.25rem;
+  }
+
+  .toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    margin-top: 0.875rem;
+  }
+
+  .toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    cursor: pointer;
+    min-height: 1.75rem;
+  }
+
+  .toggle input { accent-color: var(--accent); width: 1rem; height: 1rem; margin: 0; }
+
+  .panel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--rule);
+    background: oklch(0.955 0.013 78);
+  }
+
+  button {
+    font-family: inherit;
+    font-size: 0.8125rem;
+    color: var(--ink);
+    background: var(--stage);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0.4rem 0.8rem;
+    min-height: 2rem;
+    cursor: pointer;
+    transition: background 150ms var(--ease), border-color 150ms var(--ease), color 150ms var(--ease);
+  }
+
+  button:hover { border-color: var(--ink-3); }
+  button:active { background: var(--bg-panel); }
+  button[disabled] { color: var(--ink-3); cursor: not-allowed; background: var(--bg-panel); }
+  button[disabled]:hover { border-color: var(--rule); }
+
+  button.primary { border-color: var(--accent); color: var(--accent); }
+  button.primary:hover { background: oklch(0.955 0.02 40); }
+
+  :where(button, input, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .action-status {
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    min-height: 1.2em;
+  }
+
+  .config-dump {
+    padding: 0 1.25rem 1.125rem;
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+  }
+
+  .config-dump summary { cursor: pointer; padding: 0.25rem 0; }
+
+  .config-dump pre {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--stage);
+    border: 1px solid var(--rule-soft);
+    border-radius: 3px;
+    padding: 0.75rem 0.875rem;
+    overflow-x: auto;
+    margin: 0.5rem 0 0;
+  }
+
+  /* ---------- frame bank ---------- */
+
+  .bank-count {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bank-count b { color: var(--ink); font-weight: 500; }
+
+  .bank {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 1rem;
+  }
+
+  .bank-card {
+    position: relative;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+    border-radius: 3px;
+  }
+
+  .thumb {
+    position: relative;
+    aspect-ratio: 1;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: var(--stage);
+    background-image:
+      linear-gradient(45deg, var(--check) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--check) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--check) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--check) 75%);
+    background-size: 14px 14px;
+    background-position: 0 0, 0 7px, 7px -7px, -7px 0;
+    transition: transform 180ms var(--ease), box-shadow 180ms var(--ease);
+    transform-origin: center;
+  }
+
+  .bank-card:hover .thumb,
+  .bank-card:focus-visible .thumb {
+    transform: scale(1.6);
+    box-shadow: 0 8px 26px oklch(0.22 0.018 50 / 0.18);
+    z-index: var(--z-magnified);
+  }
+
+  .bank-card:hover, .bank-card:focus-visible { z-index: var(--z-magnified); }
+
+  .thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .bank-card.is-missing .thumb {
+    background-image: none;
+    background-color: transparent;
+    border-style: dashed;
+    display: grid;
+    place-items: center;
+  }
+
+  .missing-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+  }
+
+  .bank-meta { display: grid; gap: 0.1rem; }
+
+  .bank-file {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+
+  .bank-card.is-missing .bank-file { color: var(--ink-2); }
+
+  .bank-group {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .foot {
+    margin-top: 4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.75rem;
+    color: var(--ink-3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .page { padding: 2rem 1rem 4rem; }
+    .specimen { font-size: 2.4rem; }
+    .stage { padding: 3rem 1rem; min-height: 16rem; }
+    .stage-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="rig-head">
+    <h1>Puppet rig</h1>
+    <p>Interactive test harness for Chocolata, the frame-based masthead mascot. Tune her behaviour here, then copy the config into the site build. Frames load from <code>./dog-assets/</code>; the rig degrades gracefully while the bank is still being generated.</p>
+  </header>
+
+  <!-- ============ 1. STAGE ============ -->
+  <section id="stage-section">
+    <div class="sec-head">
+      <h2>Stage</h2>
+      <p class="sec-note">Masthead specimen at render size. Pointer interaction happens here.</p>
+    </div>
+
+    <div class="stage" id="stage">
+      <p class="stage-hint">Move nearby to wake her. Rest on her for belly-up; shake over her to annoy her.</p>
+      <p class="specimen" id="specimen"><span>Vignesh</span><span class="dog" id="dog" role="img" aria-label="Chocolata, an illustrated Vizsla"></span><span class="baseline-probe" id="baseline-probe" aria-hidden="true"></span></p>
+      <div class="overlay" id="overlay" hidden>
+        <div class="ring" id="ring"></div>
+        <div class="bbox" id="bbox"></div>
+        <div class="baseline-guide" id="baseline-guide"></div>
+      </div>
+      <div class="readout" id="readout" hidden>
+        <div>state <b id="ro-state">—</b></div>
+        <div>frame <b id="ro-frame">—</b></div>
+        <div>cursor <b id="ro-dist">—</b></div>
+        <div>input <b id="ro-input">—</b></div>
+        <div class="meter" title="Shake rate against threshold"><i id="ro-shake"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. TUNING PANEL ============ -->
+  <section id="tuning">
+    <div class="sec-head">
+      <h2>Tuning</h2>
+      <p class="sec-note">Live. Persisted to localStorage on this machine.</p>
+    </div>
+
+    <div class="panel">
+      <fieldset class="fieldset">
+        <legend>Render</legend>
+        <div class="controls" data-controls="render"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Gaze</legend>
+        <div class="controls" data-controls="gaze"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Blink &amp; sleep</legend>
+        <div class="controls" data-controls="sleep"></div>
+        <div class="toggles" data-toggles="sleep"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Reactions</legend>
+        <div class="controls" data-controls="reaction"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Debug</legend>
+        <div class="toggles" data-toggles="debug"></div>
+      </fieldset>
+
+      <div class="panel-actions">
+        <button type="button" id="btn-copy" class="primary">Copy config JSON</button>
+        <button type="button" id="btn-reset">Reset defaults</button>
+        <button type="button" id="btn-reload">Reload frames</button>
+        <span class="action-status" id="action-status" role="status" aria-live="polite"></span>
+      </div>
+
+      <details class="config-dump">
+        <summary>Show config JSON</summary>
+        <pre id="config-json">{}</pre>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 3. FRAME BANK ============ -->
+  <section id="bank-section">
+    <div class="sec-head">
+      <h2>Frame bank</h2>
+      <p class="bank-count" id="bank-count">checking…</p>
+    </div>
+    <ul class="bank" id="bank"></ul>
+  </section>
+
+  <p class="foot">Standalone harness · no build step · opens over <code>file://</code>. Nothing here ships; the tuned numbers do.</p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ *
+   * Manifest — filenames are a fixed contract with the frame generators
+   * ------------------------------------------------------------------ */
+
+  var ASSET_DIR = 'dog-assets/';
+  var GAZE_ROWS = ['up', 'mid', 'down'];
+  var GAZE_COLS = ['l2', 'l1', 'c', 'r1', 'r2'];
+  var CENTER = 'gaze-mid-c.png';
+
+  var MANIFEST = [];
+  GAZE_ROWS.forEach(function (row, r) {
+    GAZE_COLS.forEach(function (col, c) {
+      MANIFEST.push({ file: 'gaze-' + row + '-' + col + '.png', group: 'gaze', row: r, col: c });
+    });
+  });
+  [['blink.png', 'blink'], ['drowsy.png', 'sleep'], ['asleep.png', 'sleep'],
+   ['annoyed-1.png', 'annoyed'], ['annoyed-2.png', 'annoyed'], ['annoyed.png', 'annoyed'],
+   ['roll-1.png', 'roll'], ['roll-2.png', 'roll'], ['roll-3.png', 'roll'],
+   ['belly-up.png', 'reaction'], ['belly-up-happy.png', 'unused']
+  ].forEach(function (pair) {
+    MANIFEST.push({ file: pair[0], group: pair[1] });
+  });
+
+  var byFile = new Map(MANIFEST.map(function (m) { return [m.file, m]; }));
+  var GAZE_FRAMES = MANIFEST.filter(function (m) { return m.group === 'gaze'; });
+
+  /* Substitution chain used when the ideal frame has not been generated yet. */
+  var FALLBACK = {
+    'blink.png': [CENTER],
+    'drowsy.png': ['asleep.png', CENTER],
+    'asleep.png': ['drowsy.png', CENTER],
+    'annoyed.png': [CENTER],
+    'belly-up.png': ['belly-up-happy.png', CENTER],
+    'belly-up-happy.png': ['belly-up.png', CENTER],
+    'roll-1.png': [CENTER],
+    'roll-2.png': ['belly-up.png', CENTER],
+    'roll-3.png': ['belly-up.png', CENTER],
+    'annoyed-1.png': [CENTER],
+    'annoyed-2.png': ['annoyed.png', CENTER]
+  };
+
+  /* ------------------------------------------------------------------ *
+   * Config
+   * ------------------------------------------------------------------ */
+
+  var STORE_KEY = 'puppet-rig.config.v2';
+  var STORE_KEY_V1 = 'puppet-rig.config.v1';
+
+  var DEFAULTS = {
+    size: 64,
+    gap: 12,
+    baseline: 0,
+    xfade: 0,
+    radius: 260,
+    lerp: 0.18,
+    blinkMin: 2.5,
+    blinkMax: 7,
+    blinkHold: 130,
+    drowsyTimeout: 8,
+    sleepTimeout: 12,
+    breathing: true,
+    zzz: true,
+    shakeThreshold: 5,
+    annoyedHold: 2.5,
+    bellyDwell: 900,
+    transStep: 110,
+    emoteRate: 400,
+    debug: false
+  };
+
+  var SLIDERS = [
+    { key: 'size',           section: 'render',   label: 'Dog size',           min: 40,   max: 160, step: 1,    unit: 'px' },
+    { key: 'gap',            section: 'render',   label: 'Gap',                min: 0,    max: 48,  step: 1,    unit: 'px', hint: 'Horizontal space between the name and her.' },
+    { key: 'baseline',       section: 'render',   label: 'Baseline offset',    min: -40,  max: 40,  step: 1,    unit: 'px', hint: 'Positive drops her onto the text baseline.' },
+    { key: 'xfade',          section: 'render',   label: 'Crossfade',          min: 0,    max: 400, step: 5,    unit: 'ms', hint: '0 keeps hard cel cuts between frames.' },
+    { key: 'radius',         section: 'gaze',     label: 'Proximity radius',   min: 60,   max: 600, step: 5,    unit: 'px', hint: 'Awake and tracking within this distance of her centre.' },
+    { key: 'lerp',           section: 'gaze',     label: 'Gaze smoothing',     min: 0.05, max: 1,   step: 0.01, unit: '',   hint: '1 snaps instantly; lower eases.' },
+    { key: 'blinkMin',       section: 'sleep',    label: 'Blink interval min', min: 0.5,  max: 12,  step: 0.1,  unit: 's' },
+    { key: 'blinkMax',       section: 'sleep',    label: 'Blink interval max', min: 0.5,  max: 20,  step: 0.1,  unit: 's' },
+    { key: 'blinkHold',      section: 'sleep',    label: 'Blink hold',         min: 40,   max: 400, step: 10,   unit: 'ms' },
+    { key: 'drowsyTimeout',  section: 'sleep',    label: 'Drowsy timeout',     min: 1,    max: 40,  step: 0.5,  unit: 's',  hint: 'Cursor outside the radius this long.' },
+    { key: 'sleepTimeout',   section: 'sleep',    label: 'Sleep timeout',      min: 1,    max: 60,  step: 0.5,  unit: 's',  hint: 'Additional time spent drowsy.' },
+    { key: 'shakeThreshold', section: 'reaction', label: 'Shake threshold',    min: 1,    max: 20,  step: 1,    unit: '/s', hint: 'Direction reversals per second, over her.' },
+    { key: 'annoyedHold',    section: 'reaction', label: 'Annoyed hold',       min: 0.5,  max: 8,   step: 0.1,  unit: 's' },
+    { key: 'bellyDwell',     section: 'reaction', label: 'Belly dwell',        min: 200,  max: 4000, step: 50,  unit: 'ms', hint: 'Still hover on her before she rolls over.' },
+    { key: 'transStep',      section: 'reaction', label: 'Transition step',    min: 40,   max: 400, step: 5,    unit: 'ms', hint: 'Hold per in-between frame — roll and annoyed, both directions.' },
+    { key: 'emoteRate',      section: 'reaction', label: 'Emote rate',         min: 150,  max: 1200, step: 10,  unit: 'ms', hint: 'Paces every continuous stream — hearts, irritation ticks. Bursts are fixed.' }
+  ];
+
+  var TOGGLES = [
+    { key: 'breathing', section: 'sleep', label: 'Breathing loop while asleep' },
+    { key: 'zzz',       section: 'sleep', label: 'z z z burst as she drops off' },
+    { key: 'debug',     section: 'debug', label: 'Show state, frame, proximity ring, bbox, shake meter' }
+  ];
+
+  var cfg = loadConfig();
+
+  function loadConfig() {
+    var out = Object.assign({}, DEFAULTS);
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      var migrating = false;
+      if (!raw) {
+        raw = localStorage.getItem(STORE_KEY_V1);
+        migrating = !!raw;
+      }
+      if (!raw) return out;
+
+      var saved = JSON.parse(raw);
+      if (migrating) {
+        /* v1 tuning is worth keeping, but crossfade's default changed to a
+           hard cut, and rollStep generalised into transStep. */
+        delete saved.xfade;
+        if (typeof saved.rollStep === 'number') saved.transStep = saved.rollStep;
+      }
+      Object.keys(DEFAULTS).forEach(function (k) {
+        if (typeof saved[k] === typeof DEFAULTS[k]) out[k] = saved[k];
+      });
+    } catch (e) { /* private mode or file:// restrictions — defaults are fine */ }
+    return out;
+  }
+
+  function saveConfig() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(cfg)); } catch (e) {}
+  }
+
+  /* ------------------------------------------------------------------ *
+   * DOM
+   * ------------------------------------------------------------------ */
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  var stageEl = $('stage');
+  var dogEl = $('dog');
+  var overlayEl = $('overlay');
+  var ringEl = $('ring');
+  var bboxEl = $('bbox');
+  var guideEl = $('baseline-guide');
+  var specimenEl = $('specimen');
+  var probeEl = $('baseline-probe');
+  var readoutEl = $('readout');
+  var roState = $('ro-state');
+  var roFrame = $('ro-frame');
+  var roDist = $('ro-dist');
+  var roInput = $('ro-input');
+  var roShake = $('ro-shake');
+  var bankEl = $('bank');
+  var bankCountEl = $('bank-count');
+  var statusEl = $('action-status');
+  var configJsonEl = $('config-json');
+
+  var reduceQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var fineQuery = window.matchMedia('(pointer: fine)');
+  var reduced = reduceQuery.matches;
+  var isTouch = !fineQuery.matches;
+
+  /* ------------------------------------------------------------------ *
+   * Frame loading
+   * ------------------------------------------------------------------ */
+
+  var present = new Set();
+  var layers = new Map();   // file -> stacked image element on the stage
+  var cards = new Map();    // file -> { card, thumb, tag, img }
+  var cacheBust = false;
+  var activeFile = null;
+  var emptyEl = null;
+
+  function assetUrl(file, bust) {
+    return ASSET_DIR + file + (bust && cacheBust ? '?cb=' + Date.now() : '');
+  }
+
+  function probe(url) {
+    return new Promise(function (resolve) {
+      var img = new Image();
+      img.onload = function () { resolve(img.naturalWidth > 0); };
+      img.onerror = function () { resolve(false); };
+      img.src = url;
+    });
+  }
+
+  /* file:// in some browsers drops or rejects query strings; only use the
+     cache-buster if a known-good asset still resolves with one attached. */
+  function detectCacheBust() {
+    return probe(ASSET_DIR + CENTER + '?cb=' + Date.now()).then(function (ok) {
+      cacheBust = ok;
+    });
+  }
+
+  function scanFrames(bust) {
+    return Promise.all(MANIFEST.map(function (m) {
+      return probe(assetUrl(m.file, bust)).then(function (ok) { return [m.file, ok]; });
+    })).then(function (results) {
+      present = new Set(results.filter(function (r) { return r[1]; }).map(function (r) { return r[0]; }));
+      syncSequences();
+      syncLayers(bust);
+      syncBank(bust);
+      updateCount();
+    });
+  }
+
+  function syncLayers(bust) {
+    MANIFEST.forEach(function (m) {
+      var have = present.has(m.file);
+      var el = layers.get(m.file);
+      if (have && !el) {
+        el = new Image();
+        el.src = assetUrl(m.file, bust);
+        el.alt = '';
+        el.draggable = false;
+        dogEl.appendChild(el);
+        layers.set(m.file, el);
+      } else if (have && el && bust) {
+        el.src = assetUrl(m.file, bust);
+      } else if (!have && el) {
+        el.remove();
+        layers.delete(m.file);
+      }
+    });
+    if (activeFile && !present.has(activeFile)) activeFile = null;
+
+    if (present.size === 0) {
+      if (!emptyEl) {
+        emptyEl = document.createElement('span');
+        emptyEl.className = 'dog-empty';
+        emptyEl.textContent = 'no frames';
+        emptyEl.title = 'Drop PNGs into ./dog-assets/, then press Reload frames.';
+        dogEl.appendChild(emptyEl);
+      }
+    } else if (emptyEl) {
+      emptyEl.remove();
+      emptyEl = null;
+    }
+  }
+
+  function buildBank() {
+    var frag = document.createDocumentFragment();
+    MANIFEST.forEach(function (m) {
+      var card = document.createElement('li');
+      card.className = 'bank-card is-missing';
+      card.tabIndex = 0;
+
+      var thumb = document.createElement('div');
+      thumb.className = 'thumb';
+
+      var tag = document.createElement('span');
+      tag.className = 'missing-tag';
+      tag.textContent = 'missing';
+      thumb.appendChild(tag);
+
+      var meta = document.createElement('div');
+      meta.className = 'bank-meta';
+      var file = document.createElement('span');
+      file.className = 'bank-file';
+      file.textContent = m.file;
+      var group = document.createElement('span');
+      group.className = 'bank-group';
+      group.textContent = m.group;
+      meta.appendChild(file);
+      meta.appendChild(group);
+
+      card.appendChild(thumb);
+      card.appendChild(meta);
+      frag.appendChild(card);
+
+      cards.set(m.file, { card: card, thumb: thumb, tag: tag, img: null });
+    });
+    bankEl.appendChild(frag);
+  }
+
+  function syncBank(bust) {
+    MANIFEST.forEach(function (m) {
+      var entry = cards.get(m.file);
+      var have = present.has(m.file);
+      if (have) {
+        if (!entry.img) {
+          entry.img = new Image();
+          entry.img.alt = m.file;
+          entry.img.draggable = false;
+          entry.thumb.appendChild(entry.img);
+        }
+        if (!entry.img.src || bust) entry.img.src = assetUrl(m.file, bust);
+        entry.tag.hidden = true;
+        entry.card.classList.remove('is-missing');
+        entry.card.setAttribute('aria-label', m.file + ' — present');
+      } else {
+        if (entry.img) { entry.img.remove(); entry.img = null; }
+        entry.tag.hidden = false;
+        entry.card.classList.add('is-missing');
+        entry.card.setAttribute('aria-label', m.file + ' — missing');
+      }
+    });
+  }
+
+  function updateCount() {
+    bankCountEl.innerHTML = '';
+    var b = document.createElement('b');
+    b.textContent = present.size + ' / ' + MANIFEST.length;
+    bankCountEl.appendChild(b);
+    bankCountEl.appendChild(document.createTextNode(' frames present'));
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Frame resolution — nearest available neighbour
+   * ------------------------------------------------------------------ */
+
+  function nearestGaze(row, col) {
+    var best = null;
+    var bestCost = Infinity;
+    for (var i = 0; i < GAZE_FRAMES.length; i++) {
+      var m = GAZE_FRAMES[i];
+      if (!present.has(m.file)) continue;
+      var cost = Math.abs(m.row - row) * 1.25 + Math.abs(m.col - col);
+      if (cost < bestCost) { bestCost = cost; best = m.file; }
+    }
+    return best;
+  }
+
+  function anyPresent() {
+    for (var i = 0; i < MANIFEST.length; i++) {
+      if (present.has(MANIFEST[i].file)) return MANIFEST[i].file;
+    }
+    return null;
+  }
+
+  function resolveFrame(file) {
+    if (!file) return anyPresent();
+    if (present.has(file)) return file;
+
+    var meta = byFile.get(file);
+    if (meta && meta.group === 'gaze') {
+      var near = nearestGaze(meta.row, meta.col);
+      if (near) return near;
+    }
+
+    var chain = FALLBACK[file] || [];
+    for (var i = 0; i < chain.length; i++) {
+      var alt = chain[i];
+      if (present.has(alt)) return alt;
+      var am = byFile.get(alt);
+      if (am && am.group === 'gaze') {
+        var n = nearestGaze(am.row, am.col);
+        if (n) return n;
+      }
+    }
+    return anyPresent();
+  }
+
+  function showFrame(file) {
+    if (file === activeFile) return;
+    var prev = layers.get(activeFile);
+    if (prev) prev.style.opacity = '0';
+    var next = layers.get(file);
+    if (next) next.style.opacity = '1';
+    activeFile = file;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * State machine
+   * ------------------------------------------------------------------ */
+
+  var S = {
+    AWAKE: 'awake',
+    DROWSY: 'drowsy',
+    ASLEEP: 'asleep',
+    WAKING: 'waking',
+    ANNOYED: 'annoyed',
+    TRANS_IN: 'transition-in',
+    TRANS_OUT: 'transition-out',
+    BELLY: 'belly-up',
+    STATIC: 'static'
+  };
+
+  /* Timed in-between sequences. Played forward into `rest`, reversed back to
+     AWAKE. `reversible` lets the belly roll turn around mid-sequence when the
+     pointer leaves; the annoyed flare always plays out and holds first. */
+  var TRANSITIONS = {
+    belly: {
+      files: ['roll-1.png', 'roll-2.png', 'roll-3.png'],
+      rest: 'belly-up', inLabel: 'rolling-over', outLabel: 'rolling-back', reversible: true
+    },
+    annoyed: {
+      files: ['annoyed-1.png', 'annoyed-2.png'],
+      rest: 'annoyed', inLabel: 'bristling', outLabel: 'settling', reversible: false
+    }
+  };
+
+  var WAKE_THROUGH_DROWSY_MS = 300;
+  var SHAKE_WINDOW_MS = 1000;
+
+  var state = S.AWAKE;
+  var stateSince = performance.now();
+
+  var pointer = { x: 0, y: 0, present: false, overDog: false, dist: Infinity };
+  var gaze = { x: 0, y: 0 };
+  var gazeTarget = { x: 0, y: 0 };
+
+  var outsideSince = performance.now();
+  var overDogSince = null;
+  var reversals = [];
+  var lastDx = 0;
+  var lastMoveDir = 0;
+  var blinkAt = 0;
+  var blinkUntil = 0;
+  var pressAt = 0;
+  var desiredFile = CENTER;
+
+  var seqCache = {};
+  var trans = null;
+  var transName = null;
+  var transSeq = [];
+  var transIndex = 0;
+  var transNextAt = 0;
+
+  function syncSequences() {
+    Object.keys(TRANSITIONS).forEach(function (name) {
+      seqCache[name] = TRANSITIONS[name].files.filter(function (f) { return present.has(f); });
+    });
+  }
+
+  /* dir +1 plays into the rest state, -1 plays back out to AWAKE. Passing
+     `from` keeps a mid-sequence reversal on the frame already showing so it
+     never snaps. Returns false when no in-between frames exist yet. */
+  function beginTransition(name, dir, now, from) {
+    var seq = seqCache[name] || [];
+    if (!seq.length) return false;
+    trans = TRANSITIONS[name];
+    transName = name;
+    transSeq = seq;
+    transIndex = from === null
+      ? (dir > 0 ? 0 : seq.length - 1)
+      : clamp(from, 0, seq.length - 1);
+    transNextAt = now + cfg.transStep;
+    setState(dir > 0 ? S.TRANS_IN : S.TRANS_OUT, now);
+    return true;
+  }
+
+  function arriveAwake(now, inRadius, overDog) {
+    setState(S.AWAKE, now);
+    outsideSince = inRadius ? null : now;
+    overDogSince = overDog ? now : null;
+  }
+
+  function setState(next, now) {
+    if (state === next) return;
+    state = next;
+    stateSince = now;
+    burstQueue.length = 0;
+    if (next === S.AWAKE) scheduleBlink(now);
+    if (next === S.ASLEEP && cfg.zzz) queueBurst('sleep', now);
+  }
+
+  function scheduleBlink(now) {
+    var lo = Math.min(cfg.blinkMin, cfg.blinkMax);
+    var hi = Math.max(cfg.blinkMin, cfg.blinkMax);
+    blinkAt = now + (lo + Math.random() * (hi - lo)) * 1000;
+  }
+
+  function dogCenter() {
+    var r = dogEl.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2, rect: r };
+  }
+
+  function onPointerMove(e) {
+    if (isTouch) return;
+    pointer.present = true;
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+
+    var c = dogCenter();
+    var dx = pointer.x - c.x;
+    var dy = pointer.y - c.y;
+    pointer.dist = Math.hypot(dx, dy);
+    pointer.overDog = pointer.x >= c.rect.left && pointer.x <= c.rect.right &&
+                      pointer.y >= c.rect.top && pointer.y <= c.rect.bottom;
+
+    var move = e.clientX - lastDx;
+    lastDx = e.clientX;
+    if (Math.abs(move) > 1.5) {
+      var dir = move > 0 ? 1 : -1;
+      if (lastMoveDir !== 0 && dir !== lastMoveDir) reversals.push(performance.now());
+      lastMoveDir = dir;
+    }
+
+    var span = Math.max(1, cfg.radius * 0.6);
+    gazeTarget.x = clamp(dx / span, -1, 1);
+    gazeTarget.y = clamp(dy / span, -1, 1);
+  }
+
+  function onPointerGone() {
+    pointer.present = false;
+    pointer.overDog = false;
+    pointer.dist = Infinity;
+    lastMoveDir = 0;
+    reversals.length = 0;
+  }
+
+  function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+
+  function gazeFrame(nx, ny) {
+    var col = nx < -0.6 ? 0 : nx < -0.18 ? 1 : nx <= 0.18 ? 2 : nx <= 0.6 ? 3 : 4;
+    var row = ny < -0.22 ? 0 : ny <= 0.22 ? 1 : 2;
+    return 'gaze-' + GAZE_ROWS[row] + '-' + GAZE_COLS[col] + '.png';
+  }
+
+  function shakeRate(now) {
+    while (reversals.length && now - reversals[0] > SHAKE_WINDOW_MS) reversals.shift();
+    return reversals.length;
+  }
+
+  function update(now, dt) {
+    if (reduced) {
+      state = S.STATIC;
+      desiredFile = CENTER;
+      return 0;
+    }
+
+    var inRadius = !isTouch && pointer.present && pointer.dist <= cfg.radius;
+    var overDog = !isTouch && pointer.overDog;
+    var rate = shakeRate(now);
+
+    /* Annoyed outranks the belly dwell, and only fires over her bbox. A roll
+       in progress is uninterruptible: it plays out before anything else. */
+    var annoyable = state === S.AWAKE || state === S.BELLY || state === S.WAKING;
+    if (overDog && rate >= cfg.shakeThreshold && annoyable) {
+      if (!beginTransition('annoyed', 1, now, null)) setState(S.ANNOYED, now);
+      reversals.length = 0;
+      overDogSince = null;
+    }
+
+    switch (state) {
+      case S.ANNOYED:
+        if (now - stateSince >= cfg.annoyedHold * 1000) {
+          if (!beginTransition('annoyed', -1, now, null)) arriveAwake(now, inRadius, overDog);
+        }
+        break;
+
+      case S.BELLY:
+        if (!overDog) {
+          overDogSince = null;
+          if (!beginTransition('belly', -1, now, null)) arriveAwake(now, inRadius, overDog);
+        }
+        break;
+
+      case S.TRANS_IN:
+        if (now >= transNextAt) {
+          if (trans.reversible && !overDog) {
+            beginTransition(transName, -1, now, transIndex);
+          } else if (++transIndex >= transSeq.length) {
+            setState(trans.rest, now);
+          } else {
+            transNextAt = now + cfg.transStep;
+          }
+        }
+        break;
+
+      case S.TRANS_OUT:
+        if (now >= transNextAt) {
+          if (--transIndex < 0) arriveAwake(now, inRadius, overDog);
+          else transNextAt = now + cfg.transStep;
+        }
+        break;
+
+      case S.AWAKE:
+        if (overDog) {
+          if (overDogSince === null) overDogSince = now;
+          else if (now - overDogSince >= cfg.bellyDwell) {
+            if (!beginTransition('belly', 1, now, null)) setState(S.BELLY, now);
+          }
+        } else {
+          overDogSince = null;
+        }
+        if (inRadius) {
+          outsideSince = null;
+        } else {
+          if (outsideSince === null) outsideSince = now;
+          if (now - outsideSince >= cfg.drowsyTimeout * 1000) setState(S.DROWSY, now);
+        }
+        /* blink.png has a frontal head, so blinking out of a turned gaze
+           would snap her neck. Only blink from the neutral centre frame. */
+        if (state === S.AWAKE && now >= blinkAt && present.size) {
+          if (resolveFrame(gazeFrame(gaze.x, gaze.y)) === CENTER) {
+            blinkUntil = now + cfg.blinkHold;
+            scheduleBlink(now + cfg.blinkHold);
+          } else {
+            scheduleBlink(now);
+          }
+        }
+        break;
+
+      case S.DROWSY:
+        if (inRadius) setState(S.WAKING, now);
+        else if (now - stateSince >= cfg.sleepTimeout * 1000) setState(S.ASLEEP, now);
+        break;
+
+      case S.ASLEEP:
+        if (inRadius) setState(S.WAKING, now);
+        break;
+
+      case S.WAKING:
+        if (now - stateSince >= WAKE_THROUGH_DROWSY_MS) {
+          setState(S.AWAKE, now);
+          outsideSince = inRadius ? null : now;
+          overDogSince = overDog ? now : null;
+        }
+        break;
+    }
+
+    /* Gaze eases toward the cursor; it recentres when she is not tracking. */
+    if (!inRadius || state !== S.AWAKE) { gazeTarget.x = 0; gazeTarget.y = 0; }
+    var k = cfg.lerp >= 1 ? 1 : 1 - Math.pow(1 - cfg.lerp, dt / 16.667);
+    gaze.x += (gazeTarget.x - gaze.x) * k;
+    gaze.y += (gazeTarget.y - gaze.y) * k;
+
+    switch (state) {
+      case S.ASLEEP:  desiredFile = 'asleep.png'; break;
+      case S.DROWSY:
+      case S.WAKING:  desiredFile = 'drowsy.png'; break;
+      case S.ANNOYED: desiredFile = 'annoyed.png'; break;
+      case S.BELLY:   desiredFile = 'belly-up.png'; break;
+      case S.TRANS_IN:
+      case S.TRANS_OUT:
+        desiredFile = transSeq[clamp(transIndex, 0, transSeq.length - 1)] || CENTER;
+        break;
+      default:
+        desiredFile = now < blinkUntil ? 'blink.png' : gazeFrame(gaze.x, gaze.y);
+    }
+
+    return rate;
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Touch: idle cycle on a timer, tap to wake / annoy, hold for belly
+   * ------------------------------------------------------------------ */
+
+  function bindTouch() {
+    stageEl.addEventListener('pointerdown', function (e) {
+      var c = dogCenter();
+      var onDog = e.clientX >= c.rect.left && e.clientX <= c.rect.right &&
+                  e.clientY >= c.rect.top && e.clientY <= c.rect.bottom;
+      if (!onDog) return;
+      pressAt = performance.now();
+      if (state === S.ASLEEP || state === S.DROWSY || state === S.WAKING) {
+        setState(S.WAKING, pressAt);
+      } else if (state === S.AWAKE) {
+        setState(S.ANNOYED, pressAt);
+      }
+      outsideSince = pressAt;
+    });
+
+    window.addEventListener('pointerup', function () {
+      if (state === S.BELLY) {
+        var now = performance.now();
+        setState(S.AWAKE, now);
+        outsideSince = now;
+      }
+      pressAt = 0;
+    });
+  }
+
+  function touchTick(now) {
+    if (!pressAt) return;
+    if (now - pressAt >= cfg.bellyDwell && state !== S.BELLY) setState(S.BELLY, now);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Render loop
+   * ------------------------------------------------------------------ */
+
+  var lastTs = performance.now();
+
+  function frame(ts) {
+    var dt = Math.min(64, ts - lastTs);
+    lastTs = ts;
+
+    if (isTouch && !reduced) touchTick(ts);
+    var rate = update(ts, dt);
+
+    var resolved = resolveFrame(desiredFile);
+    showFrame(resolved);
+
+    dogEl.classList.toggle('is-breathing', state === S.ASLEEP && cfg.breathing && !reduced);
+    driveEmotes(ts);
+
+    if (cfg.debug) paintDebug(rate, resolved);
+
+    requestAnimationFrame(frame);
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Emotes — drifting glyphs. `stream` emits on the emote-rate clock for
+   * as long as its state holds; `burst` fires a fixed run once on entry.
+   * Bands are fractions of her box, so they track the render size.
+   * ------------------------------------------------------------------ */
+
+  var EMOTES = {
+    love: {
+      glyph: '♥', mode: 'stream',
+      colors: ['var(--accent)', 'var(--accent-soft)'],
+      size: [0.14, 0.21], life: [2200, 3200],
+      x: [0.34, 0.66], y: [0.44, 0.62],
+      dx: [-0.9, 0.9], rot: [-14, 14], peak: [0.45, 0.75]
+    },
+    sleep: {
+      glyph: 'z', mode: 'burst', count: 3, spacing: 300,
+      colors: ['var(--ink-3)', 'var(--ink-2)'],
+      size: [0.16, 0.26], life: [1500, 1900],
+      x: [0.62, 0.80], y: [0.28, 0.42],
+      dx: [0.5, 1.3], rot: [-6, 12], peak: [0.55, 0.85]
+    },
+    irritated: {
+      glyph: '#', mode: 'stream',
+      colors: ['var(--ink-2)', 'var(--ink)'],
+      size: [0.11, 0.16], life: [800, 1200],
+      x: [0.52, 0.82], y: [0.24, 0.40],
+      dx: [-0.5, 0.9], rot: [-18, 18], peak: [0.35, 0.6]
+    }
+  };
+
+  var STREAM_FOR = {};
+  STREAM_FOR[S.BELLY] = 'love';
+  STREAM_FOR[S.ANNOYED] = 'irritated';
+
+  var emoteLayer = null;
+  var burstQueue = [];
+  var activeStream = null;
+  var emoteNextAt = 0;
+
+  function rand(lo, hi) { return lo + Math.random() * (hi - lo); }
+  function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
+
+  function queueBurst(name, now) {
+    var e = EMOTES[name];
+    for (var i = 0; i < e.count; i++) burstQueue.push({ name: name, at: now + i * e.spacing });
+  }
+
+  function spawnEmote(name) {
+    var e = EMOTES[name];
+    if (!emoteLayer) {
+      emoteLayer = document.createElement('span');
+      emoteLayer.className = 'emotes';
+      emoteLayer.setAttribute('aria-hidden', 'true');
+      dogEl.appendChild(emoteLayer);
+    }
+    var el = document.createElement('span');
+    el.className = 'emote';
+    el.textContent = e.glyph;
+    el.style.fontSize = (cfg.size * rand(e.size[0], e.size[1])).toFixed(1) + 'px';
+    el.style.left = (rand(e.x[0], e.x[1]) * 100).toFixed(1) + '%';
+    el.style.top = (rand(e.y[0], e.y[1]) * 100).toFixed(1) + '%';
+    el.style.color = pick(e.colors);
+    el.style.setProperty('--dx', rand(e.dx[0], e.dx[1]).toFixed(2) + 'em');
+    el.style.setProperty('--rot', rand(e.rot[0], e.rot[1]).toFixed(1) + 'deg');
+    el.style.setProperty('--peak', rand(e.peak[0], e.peak[1]).toFixed(2));
+    el.style.setProperty('--dur', Math.round(rand(e.life[0], e.life[1])) + 'ms');
+    el.addEventListener('animationend', function () { el.remove(); });
+    emoteLayer.appendChild(el);
+  }
+
+  function driveEmotes(now) {
+    if (reduced) { burstQueue.length = 0; activeStream = null; return; }
+
+    while (burstQueue.length && now >= burstQueue[0].at) spawnEmote(burstQueue.shift().name);
+
+    var name = STREAM_FOR[state] || null;
+    if (!name) { activeStream = null; return; }
+    if (activeStream !== name) { activeStream = name; emoteNextAt = now; }
+    if (now >= emoteNextAt) {
+      spawnEmote(name);
+      emoteNextAt = now + cfg.emoteRate * rand(0.8, 1.25);
+    }
+  }
+
+  function paintDebug(rate, resolved) {
+    var sr = stageEl.getBoundingClientRect();
+    var dr = dogEl.getBoundingClientRect();
+    var cx = dr.left + dr.width / 2 - sr.left;
+    var cy = dr.top + dr.height / 2 - sr.top;
+
+    ringEl.style.width = ringEl.style.height = (cfg.radius * 2) + 'px';
+    ringEl.style.left = (cx - cfg.radius) + 'px';
+    ringEl.style.top = (cy - cfg.radius) + 'px';
+
+    bboxEl.style.left = (dr.left - sr.left) + 'px';
+    bboxEl.style.top = (dr.top - sr.top) + 'px';
+    bboxEl.style.width = dr.width + 'px';
+    bboxEl.style.height = dr.height + 'px';
+
+    var spec = specimenEl.getBoundingClientRect();
+    guideEl.style.left = (spec.left - sr.left - 16) + 'px';
+    guideEl.style.width = (spec.width + 32) + 'px';
+    guideEl.style.top = (probeEl.getBoundingClientRect().bottom - sr.top) + 'px';
+
+    roState.textContent = reduced ? 'static · reduced-motion, machine off'
+      : state === S.TRANS_IN ? trans.inLabel
+      : state === S.TRANS_OUT ? trans.outLabel
+      : state;
+    roFrame.textContent = resolved
+      ? (resolved === desiredFile ? resolved : desiredFile + ' → ' + resolved)
+      : 'none';
+    roDist.textContent = pointer.present
+      ? Math.round(pointer.dist) + 'px' + (pointer.overDog ? ' · on dog' : '')
+      : 'away';
+    roInput.textContent = isTouch ? 'touch · timer cycle' : 'fine pointer';
+    roShake.style.width = clamp(rate / Math.max(1, cfg.shakeThreshold), 0, 1) * 100 + '%';
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Controls
+   * ------------------------------------------------------------------ */
+
+  function fmt(ctl, value) {
+    var v = String(parseFloat(value.toFixed(2)));
+    return ctl.unit ? v + ' ' + ctl.unit : v;
+  }
+
+  function buildControls() {
+    SLIDERS.forEach(function (ctl) {
+      var host = document.querySelector('[data-controls="' + ctl.section + '"]');
+      var wrap = document.createElement('div');
+      wrap.className = 'ctl';
+
+      var top = document.createElement('div');
+      top.className = 'ctl-top';
+      var label = document.createElement('label');
+      label.setAttribute('for', 'c-' + ctl.key);
+      label.textContent = ctl.label;
+      var out = document.createElement('output');
+      out.id = 'o-' + ctl.key;
+      out.setAttribute('for', 'c-' + ctl.key);
+      out.textContent = fmt(ctl, cfg[ctl.key]);
+      top.appendChild(label);
+      top.appendChild(out);
+
+      var input = document.createElement('input');
+      input.type = 'range';
+      input.id = 'c-' + ctl.key;
+      input.min = ctl.min;
+      input.max = ctl.max;
+      input.step = ctl.step;
+      input.value = cfg[ctl.key];
+
+      input.addEventListener('input', function () {
+        cfg[ctl.key] = parseFloat(input.value);
+        if (ctl.key === 'blinkMin' && cfg.blinkMin > cfg.blinkMax) syncSlider('blinkMax', cfg.blinkMin);
+        if (ctl.key === 'blinkMax' && cfg.blinkMax < cfg.blinkMin) syncSlider('blinkMin', cfg.blinkMax);
+        out.textContent = fmt(ctl, cfg[ctl.key]);
+        applyConfig();
+        saveConfig();
+      });
+
+      wrap.appendChild(top);
+      wrap.appendChild(input);
+      if (ctl.hint) {
+        var hint = document.createElement('p');
+        hint.className = 'hint';
+        hint.textContent = ctl.hint;
+        wrap.appendChild(hint);
+      }
+      host.appendChild(wrap);
+    });
+
+    TOGGLES.forEach(function (t) {
+      var host = document.querySelector('[data-toggles="' + t.section + '"]');
+      var label = document.createElement('label');
+      label.className = 'toggle';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.id = 'c-' + t.key;
+      input.checked = cfg[t.key];
+      input.addEventListener('change', function () {
+        cfg[t.key] = input.checked;
+        applyConfig();
+        saveConfig();
+      });
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(t.label));
+      host.appendChild(label);
+    });
+  }
+
+  function syncSlider(key, value) {
+    cfg[key] = value;
+    var ctl = SLIDERS.filter(function (c) { return c.key === key; })[0];
+    var input = $('c-' + key);
+    var out = $('o-' + key);
+    if (input) input.value = value;
+    if (out && ctl) out.textContent = fmt(ctl, value);
+  }
+
+  function refreshControls() {
+    SLIDERS.forEach(function (ctl) { syncSlider(ctl.key, cfg[ctl.key]); });
+    TOGGLES.forEach(function (t) {
+      var input = $('c-' + t.key);
+      if (input) input.checked = cfg[t.key];
+    });
+  }
+
+  function applyConfig() {
+    dogEl.style.setProperty('--dog-size', cfg.size + 'px');
+    dogEl.style.setProperty('--dog-gap', cfg.gap + 'px');
+    dogEl.style.setProperty('--dog-baseline', cfg.baseline + 'px');
+    stageEl.style.setProperty('--xfade', cfg.xfade + 'ms');
+    overlayEl.hidden = !cfg.debug;
+    readoutEl.hidden = !cfg.debug;
+    configJsonEl.textContent = JSON.stringify(cfg, null, 2);
+  }
+
+  var statusTimer = 0;
+  function say(msg) {
+    statusEl.textContent = msg;
+    clearTimeout(statusTimer);
+    if (msg) statusTimer = setTimeout(function () { statusEl.textContent = ''; }, 2600);
+  }
+
+  function copyConfig() {
+    var text = JSON.stringify(cfg, null, 2);
+    var done = function () { say('Config copied.'); };
+    var failed = function () { say('Copy blocked — use “Show config JSON” below.'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, failed);
+      return;
+    }
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy') ? done() : failed(); } catch (e) { failed(); }
+    ta.remove();
+  }
+
+  function reloadFrames() {
+    var btn = $('btn-reload');
+    btn.disabled = true;
+    var previous = present.size;
+    say('Checking frames…');
+    var chain = cacheBust ? Promise.resolve() : detectCacheBust();
+    chain.then(function () { return scanFrames(true); }).then(function () {
+      var delta = present.size - previous;
+      say(delta > 0 ? '+' + delta + ' new frame' + (delta === 1 ? '' : 's') + ' · ' + present.size + ' of ' + MANIFEST.length
+        : delta < 0 ? delta + ' frame' + (delta === -1 ? '' : 's') + ' · ' + present.size + ' of ' + MANIFEST.length
+        : 'No change · ' + present.size + ' of ' + MANIFEST.length);
+      btn.disabled = false;
+    });
+  }
+
+  function resetDefaults() {
+    cfg = Object.assign({}, DEFAULTS);
+    refreshControls();
+    applyConfig();
+    saveConfig();
+    say('Defaults restored.');
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Boot
+   * ------------------------------------------------------------------ */
+
+  buildControls();
+  buildBank();
+  applyConfig();
+
+  $('btn-copy').addEventListener('click', copyConfig);
+  $('btn-reset').addEventListener('click', resetDefaults);
+  $('btn-reload').addEventListener('click', reloadFrames);
+
+  if (isTouch) {
+    bindTouch();
+  } else {
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    document.addEventListener('mouseleave', onPointerGone);
+    window.addEventListener('blur', onPointerGone);
+  }
+
+  var onMotionChange = function () {
+    reduced = reduceQuery.matches;
+    if (reduced) {
+      burstQueue.length = 0;
+      activeStream = null;
+      if (emoteLayer) emoteLayer.innerHTML = '';
+      dogEl.classList.remove('is-breathing');
+    }
+  };
+  if (reduceQuery.addEventListener) reduceQuery.addEventListener('change', onMotionChange);
+  if (fineQuery.addEventListener) {
+    fineQuery.addEventListener('change', function () { isTouch = !fineQuery.matches; });
+  }
+
+  scheduleBlink(performance.now());
+
+  detectCacheBust()
+    .then(function () { return scanFrames(false); })
+    .then(function () { requestAnimationFrame(frame); });
+})();
+</script>
+</body>
+</html>

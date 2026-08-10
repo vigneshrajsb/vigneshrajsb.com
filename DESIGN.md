@@ -6,7 +6,7 @@ Visual system for vigneshrajsb.com. Captures the tokens, type, and patterns that
 
 **Paperlike, editorial, warm.** A page that reads like a hand-set letter on cream paper rather than a screen. Light theme by intent; the warmth comes from tinted neutrals (every surface tinted toward 70-80° hue) and a single ink-red accent used three places only.
 
-The voice is dry-witty and grounded; the visual treatment supports that by being quiet and committed rather than decorated. No gradients, no glassmorphism, no photos, no illustration. Type, paper, hierarchy carry everything.
+The voice is dry-witty and grounded; the visual treatment supports that by being quiet and committed rather than decorated. No gradients, no glassmorphism, no photos, no illustration. Type, paper, hierarchy carry everything. One sanctioned exception: Chocolata, the interactive masthead mascot (see docs/feat/animated-dog-header.html), a soft cel-shaded illustration of the author's dog beside the h1.
 
 **Color strategy**: Restrained. Tinted-cream neutrals + one accent ≤10%.
 
@@ -26,7 +26,7 @@ All values in OKLCH. Reduce chroma at extremes. Never `#000` or `#fff`.
 --focus:        oklch(0.50 0.16 32);     /* focus outline, same as accent */
 ```
 
-**Accent appears only on**: the Currently date stamp; link hover (text-decoration-color); the Resume departing-glyph (`↗`). That's the entire budget.
+**Accent appears only on**: the Currently date stamp; link hover (text-decoration-color); the Resume departing-glyph (`↗`); Chocolata's heart emotes in the masthead. That's the entire budget.
 
 **Contrast**:
 - `--ink` on `--bg`: ~13.0:1 (well above AAA).
@@ -143,7 +143,8 @@ Small Karla text on `--bg-subtle`, two lines: type-and-build credits, copyright.
 
 Minimal by design. Stillness is the voice; motion appears only at the moment of intent.
 
-- **Page-load**: `<main>` opacity-fades 300ms (ease-out-quart). Concurrent with the fade, the `.name` h1 plays a one-shot 700ms `name-settle` keyframe — letter-spacing tightens from `0.005em` to `-0.012em`, opacity `0.85` → `1`. Reads as type settling onto paper. The h1 is the only element with a non-opacity entrance.
+- **Page-load**: `<main>` opacity-fades 300ms (ease-out-quart). Concurrent with the fade, the `.name` h1 plays a one-shot 700ms `name-settle` keyframe — letter-spacing tightens from `0.005em` to `-0.012em`, opacity `0.85` → `1`. Reads as type settling onto paper. The h1 and Chocolata are the only non-opacity motion on the page.
+- **Chocolata (masthead mascot)**: frame-based cel animation, hard cuts only (no crossfade). Pointer-proximity gaze tracking; state transitions step through tween frames at 150ms. Idle: drowsy at 8s, asleep at 12s more, with a 4.6s breathing scale loop and a one-shot z-burst. Emotes (hearts on belly-rub, irritation marks while annoyed) are typographic glyphs in system tokens, drifting up and fading. Under `prefers-reduced-motion` she is a single static frame with no state machine, matching how the rest of the page cancels its motion. Her animation loop must fully stop (zero rAF) when she is asleep and unobserved.
 - **Link hover**: `text-decoration-color` transitions from current to `--accent` over 180ms ease-out. Text color stays put.
 - **Departing-glyph nudge**: the Resume `↗` and "More on Medium" `→` translate 2–3px on hover/focus (180ms ease-out-quart). Confirms the click leaves the site. Apply only to glyphs that already mean "departing"; never to chrome that stays put.
 - **Focus**: `outline: 2px solid var(--focus); outline-offset: 2px;` instant.

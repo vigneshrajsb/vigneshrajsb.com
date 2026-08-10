@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animated Dog Header · Feature Tracker</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3a;
+    --txt:#e7ebf0; --mut:#9aa3b2; --dim:#6b7484;
+    --accent:#6ea8fe; --good:#4ec98a; --warn:#e0b341; --bad:#e5687a; --info:#9b8cff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 24px 96px}
+  header .kicker{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  header h1{font-size:30px;margin:6px 0 8px;letter-spacing:-.02em}
+  header .meta{color:var(--mut);font-size:13.5px}
+  nav.toc{position:sticky;top:0;background:rgba(15,17,21,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);margin:26px 0 0;padding:12px 0;display:flex;flex-wrap:wrap;gap:6px;z-index:5}
+  nav.toc a{color:var(--mut);text-decoration:none;font-size:12.5px;padding:5px 10px;border-radius:7px;border:1px solid transparent}
+  nav.toc a:hover{color:var(--txt);border-color:var(--line);background:var(--panel)}
+  section{margin:40px 0 0;scroll-margin-top:64px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);
+    margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:8px 0;color:var(--txt)}
+  .mut{color:var(--mut)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:12px 0}
+  .badge{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+    padding:2px 8px;border-radius:6px;vertical-align:middle}
+  .s-planned{background:rgba(110,168,254,.14);color:var(--accent)}
+  .s-progress{background:rgba(224,179,65,.16);color:var(--warn)}
+  .s-done{background:rgba(78,201,138,.16);color:var(--good)}
+  .s-blocked{background:rgba(229,104,122,.16);color:var(--bad)}
+  .s-deviated{background:rgba(155,140,255,.16);color:var(--info)}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  td code,p code{background:#0b0e13;border:1px solid var(--line);border-radius:5px;padding:1px 6px;
+    font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:#a9d1ff}
+  .callout{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--info);
+    border-radius:10px;padding:14px 18px;margin:12px 0}
+  .callout.warn{border-top-color:var(--warn)}
+  .callout.good{border-top-color:var(--good)}
+  .callout .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:4px}
+  .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:10px}
+  figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  figure img{width:100%;display:block;background:#0b0e13;aspect-ratio:16/10;object-fit:cover}
+  figure figcaption{padding:9px 12px;font-size:12.5px;color:var(--mut)}
+  ul.checks{list-style:none;padding:0;margin:8px 0}
+  ul.checks li{padding:7px 0;border-bottom:1px solid var(--line);color:var(--txt);font-size:14px}
+  footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Feature Tracker</div>
+  <h1>Animated Dog Header (Chocolata)</h1>
+  <div class="meta">Owner: vigneshrajsb &nbsp;·&nbsp; Repo: vigneshrajsb.com &nbsp;·&nbsp; Status: <span class="badge s-progress">In progress</span> &nbsp;·&nbsp; Updated: 2026-08-09</div>
+</header>
+
+<nav class="toc">
+  <a href="#overview">Overview</a>
+  <a href="#plan">Plan</a>
+  <a href="#design">Design</a>
+  <a href="#prototypes">Prototypes</a>
+  <a href="#decisions">Decisions</a>
+  <a href="#tracker">Implementation</a>
+  <a href="#deviations">Deviations</a>
+  <a href="#validation">Validation</a>
+  <a href="#notes">Notes</a>
+</nav>
+
+<section id="overview">
+  <h2>Overview</h2>
+  <div class="card">
+    <p><b>What:</b> A small animated, interactive illustration of Chocolata (Vignesh's dog, a 65lb Doberman mix per the site's own copy) lying inline to the right of the "Vignesh" h1 in the masthead. When the cursor enters her proximity, her head turns and eyes track the mouse; hovering directly triggers extra delight (ear perk / head tilt); when idle, she blinks and breathes.</p>
+    <p><b>Why (product intent):</b> The masthead aside already says "walking the dog." Chocolata makes the site's warmth literal and personal without adding chrome. She is the one deliberate moment of play on an otherwise still, editorial page.</p>
+    <p class="mut"><b>Success looks like:</b> Instantly reads as Chocolata herself (deep chocolate coat, floppy ears, chain collar, drawn from her photos); tracking feels alive, not gimmicky; zero jank; respects prefers-reduced-motion; no layout shift; fits the paperlike visual voice.</p>
+  </div>
+</section>
+
+<section id="plan">
+  <h2>Plan</h2>
+  <p class="mut">Approach, scope, and build sequence. Keep current; refactor the text when the plan changes.</p>
+  <div class="card">
+    <h3>Scope</h3>
+    <p>In: base illustration variations for user confirmation; interactive SVG with head-turn + eye-track + hover delight + idle loop; proximity gating; reduced-motion fallback; integration into index.html masthead.</p>
+    <p>Out: oil-motion skill install; AI video-generation pipeline; scroll-driven animation; appearances on writing/ pages (may follow later).</p>
+    <h3>Build sequence</h3>
+    <ol class="mut">
+      <li>Base art confirmed: variant-A soft cel style, sphinx pose with one front leg extended, deep chocolate coat (done).</li>
+      <li>Frame bank generation via parallel subagents driving codex image gen, every frame an edit of the awake base for consistency: 15-frame gaze grid (5 horizontal × 3 vertical), blink, drowsy, asleep (chain fixed), annoyed, belly-up, belly-up-happy. Each agent QCs its frames against the base and regenerates failures.</li>
+      <li>Standalone rig harness at <code>docs/feat/prototypes/puppet-rig.html</code>: frame-based state machine (awake gaze-tracking / drowsy / asleep / annoyed / belly-up), tuning control panel, and an asset grid view of the full frame bank.</li>
+      <li>Impeccable review subagent audit of the harness + frame consistency; iterate.</li>
+      <li>Integrate into index.html masthead right of the h1; validate across breakpoints, touch, and reduced motion.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="design">
+  <h2>Design</h2>
+  <p class="mut">Visual direction and design decisions. Filled through the delegated design workflow (build subagent, then Impeccable review subagent).</p>
+  <div class="card">
+    <p><b>Direction:</b> Soft cel-shaded cartoon (user's variant A) of Chocolata in a sphinx pose with one front leg extended, deep chocolate coat, chain collar. Frame-based state machine (oil-motion approach): 15-frame gaze grid + blink + sleep set + annoyed set (with 2 tweens) + roll set (3 tweens) + belly-up. Hard cel cuts (crossfade 0), typographic emotes in system tones. "No photos, no illustration" (DESIGN.md) is deliberately broken here as the site's single sanctioned exception.</p>
+    <p><b>Final user config (baked into production):</b> <code>{"size":110,"gap":0,"baseline":40,"xfade":0,"radius":245,"lerp":0.18,"blinkMin":2.5,"blinkMax":7,"blinkHold":130,"drowsyTimeout":8,"sleepTimeout":12,"breathing":true,"zzz":true,"shakeThreshold":5,"annoyedHold":2.5,"bellyDwell":4000,"transStep":150,"emoteRate":500}</code> (debug stripped for production).</p>
+    <p><b>Impeccable review summary:</b> Audit health 17/20, verdict "ship after fixes". Verified working: zero CLS, true idle quiet (0 rAF over 23s asleep), load discipline (1 frame before load event), clean AX tree, frame-accurate annoyed sequence, no overflow at 320px. Findings applied: docs excluded from deploys; hit box inset to her silhouette (stops accidental belly-rolls from the GoodRx link); breathing scoped to the visible frame; shake detection gated to over-dog; user-select scoped to coarse pointers with touch-callout; pointermove layout reads moved into the rAF loop; frame preload gated on document readiness; heart glyph pinned to text presentation; blink reschedule on reduced-motion toggle; radius scaled with render size. Deliberately kept against reviewer preference (user decision): the continuous heart stream during an intentional belly rub. Deferred: WebP/PNG8 re-encode of the frame bank.</p>
+  </div>
+</section>
+
+<section id="prototypes">
+  <h2>Prototypes</h2>
+  <p class="mut">Prototype iterations, embedded or linked. Note what each one tested and what was learned.</p>
+  <div class="card">
+    <p><a href="prototypes/chocolata-variations.html">Hand-drawn SVG variation sheet</a> — tested whether hand-authored SVG could carry the likeness. Verdict: no; all four read as amateur clip-art. Kept for the record.</p>
+    <p><a href="prototypes/chocolata-generated-variations.html">Generated variation sheet</a> — four codex image-gen illustrations from her photo (soft cel ×2, pen-and-ink, minimal flat), each shown full-size and at ~52px beside the masthead name. Strong likeness across all four; variation B missed its chibi brief and duplicates A. User picked A.</p>
+    <p><a href="prototypes/dog-pose/lying-awake.png">lying-awake.png</a> / <a href="prototypes/dog-pose/lying-asleep.png">lying-asleep.png</a> — final pose pair in variant-A style: sphinx pose with one front leg extended (matching the user's bed-photo reference), corrected deep-chocolate coat, double-ring chain collar. Asleep version generated as an edit of awake for crossfade consistency. Awaiting user confirmation before rig build.</p>
+  </div>
+</section>
+
+<section id="decisions">
+  <h2>Decisions</h2>
+  <p class="mut">Decision log. Record the call, the rationale, and what was traded off.</p>
+  <table>
+    <tr><th>Date</th><th>Decision</th><th>Rationale</th><th>Trade-off</th></tr>
+    <tr><td>2026-08-09</td><td>Hand-built SVG over oil-motion pipeline</td><td>At header size (~cap-height) photoreal frames are invisible; SVG gives continuous smooth tracking via layered groups, zero runtime assets, no API costs. User confirmed; codex CLI image-gen kept as fallback if SVG likeness disappoints.</td><td>Stylized rather than photoreal likeness.</td></tr>
+    <tr><td>2026-08-09</td><td>Behavior: head-turn + eye-track + hover delight + idle loop</td><td>User selected all four in interview.</td><td>More states to choreograph; must stay subtle.</td></tr>
+    <tr><td>2026-08-09</td><td>Placement: inline right of the "Vignesh" h1</td><td>User selection; reads as part of the wordmark.</td><td>Must not disturb name-settle load animation or cause layout shift.</td></tr>
+    <tr><td>2026-08-09</td><td>Base art: generated variation A (soft cel cartoon)</td><td>User pick from the generated sheet; closest to the picture-book warmth of the oil-motion reference while keeping breed likeness.</td><td>Raster, not vector; rig must slice the PNG into layered pieces.</td></tr>
+    <tr><td>2026-08-09</td><td>Motion feel: hard cel cuts (crossfade default 0ms), state changes eased by in-between frames instead of opacity fades</td><td>User tuning verdict after testing the rig; reads as classic cel animation rather than a dissolve.</td><td>Every choppy state change needs generated tween frames (roll-1/2/3, annoyed-1/2) rather than a free crossfade.</td></tr>
+    <tr><td>2026-08-09</td><td>Blink fires only while gaze is at center (gaze-mid-c)</td><td>blink.png has a frontal head; blinking from a turned gaze would snap her head to center for a frame.</td><td>Fewer visible blinks when the cursor keeps her looking sideways.</td></tr>
+    <tr><td>2026-08-09</td><td>Belly-up holds a single frame with a continuous heart-emote stream; the two-frame wiggle loop is retired</td><td>User call: a steady stream of love over the held pose reads better than frame alternation.</td><td>belly-up-happy.png stays in the bank but unused by the state machine.</td></tr>
+    <tr><td>2026-08-09</td><td>user-select: none on the nameplate and role line</td><td>She is pointer-events: none (GoodRx link must stay clickable), so an iOS long-press for belly rubs passes through to the text and raised the selection callout. User chose suppression over selectable masthead text.</td><td>Visitors cannot text-select the name/role lines.</td></tr>
+  </table>
+</section>
+
+<section id="tracker">
+  <h2>Implementation tracker</h2>
+  <p class="mut">Live task status. Update as work moves.</p>
+  <table>
+    <tr><th>Task</th><th>Status</th><th>Notes</th></tr>
+    <tr><td>Base-style variation sheet (hand-drawn SVG)</td><td><span class="badge s-deviated">Superseded</span></td><td>SVG likeness too weak; replaced by codex image-gen route</td></tr>
+    <tr><td>Generated variation sheet (codex image gen ×4)</td><td><span class="badge s-done">Done</span></td><td>prototypes/chocolata-generated-variations.html</td></tr>
+    <tr><td>User confirms base style + pose</td><td><span class="badge s-done">Done</span></td><td>Variant A, sphinx pose w/ one leg extended, chocolate coat</td></tr>
+    <tr><td>Gaze frame bank: mid + up rows (9)</td><td><span class="badge s-done">Done</span></td><td>All 9 passed QC incl. pixel-diff body-consistency check; up row is pixel-identical below the neck</td></tr>
+    <tr><td>Gaze frame bank: down row + blink (6)</td><td><span class="badge s-done">Done</span></td><td>All 6 first-attempt passes; codex used masked compositing to keep bodies pixel-locked</td></tr>
+    <tr><td>Sleep set: drowsy + asleep w/ chain fix (2)</td><td><span class="badge s-done">Done</span></td><td>First-attempt pass; chain-low defect fixed, verified in spot-check</td></tr>
+    <tr><td>Reaction set: annoyed + belly-up ×2 (3)</td><td><span class="badge s-done">Done</span></td><td>First-attempt pass on all three; belly pair verified loop-consistent</td></tr>
+    <tr><td>Rig harness w/ tuning controls + frame grid</td><td><span class="badge s-done">Done</span></td><td>prototypes/puppet-rig.html · all states exercised live by builder; independently re-verified in browser pane</td></tr>
+    <tr><td>Fix gaze-down-l2/r2 (chain over face)</td><td><span class="badge s-done">Done</span></td><td>Replaced + spot-checked; agent applied Reinhard color-match to cancel codex's full-canvas color drift</td></tr>
+    <tr><td>Rig: unified emote system (hearts / sleep z-burst / annoyed marks)</td><td><span class="badge s-done">Done</span></td><td>One EMOTES table + spawner; frame-accurate verification of burst/stream/stop behavior in all three states; emotes are italic Vollkorn glyphs in system tones</td></tr>
+    <tr><td>Roll transition frames roll-1/2/3</td><td><span class="badge s-done">Done</span></td><td>Frames delivered + spot-checked (roll-1 took 2 attempts)</td></tr>
+    <tr><td>Rig: generalized transition sequencer (roll + annoyed, reversible mid-roll)</td><td><span class="badge s-done">Done</span></td><td>Single TRANSITIONS table + "Transition step" slider; verified frame-by-frame in both directions</td></tr>
+    <tr><td>Annoyed tween frames annoyed-1/2</td><td><span class="badge s-done">Done</span></td><td>Delivered + spot-checked (annoyed-1 took 2 attempts, first overshot)</td></tr>
+    <tr><td>Rig: crossfade default 0, blink only at gaze-mid-c</td><td><span class="badge s-done">Done</span></td><td>Storage bumped to v2 so the new 0ms default takes effect; blink gates on the resolved frame</td></tr>
+    <tr><td>Rig: baseline-offset + gap alignment controls w/ baseline guide</td><td><span class="badge s-done">Done</span></td><td>Both exported in config JSON; guide line marks the true text baseline; offset survives the breathing loop</td></tr>
+    <tr><td>Impeccable review + frame-consistency audit</td><td><span class="badge s-planned">Planned</span></td><td>Separate reviewer subagent after assets + rig land</td></tr>
+    <tr><td>Asset optimization: 25 frames → 256px PNG (1.3MB total, lazy-loaded)</td><td><span class="badge s-done">Done</span></td><td>assets/chocolata/; belly-up-happy excluded (unused); eager load is gaze-mid-c only (~52KB)</td></tr>
+    <tr><td>Masthead integration (index.html + styles.css + chocolata.js)</td><td><span class="badge s-done">Done</span></td><td>Zero-CLS baseline slot; em-scaled size (110px at display ceiling, ~75px at floor); pointer-events none w/ geometric hit-testing so the GoodRx link stays clickable; 1 eager + 24 lazy frames; builder fixed 2 self-found bugs (breathing-inflated hit box, stale gaze on wake)</td></tr>
+    <tr><td>Impeccable review of the integration</td><td><span class="badge s-done">Done</span></td><td>17/20, "ship after fixes"; findings triaged (see Design section)</td></tr>
+    <tr><td>Review fixes applied (10 items)</td><td><span class="badge s-done">Done</span></td><td>Hit-box inset, breathing scope, shake gate, scoped user-select, layout-read discipline, load gate, glyph presentation, blink reschedule, radius scaling, idle early-out; all re-verified incl. the GoodRx-park repro</td></tr>
+    <tr><td>Masthead validation</td><td><span class="badge s-done">Done</span></td><td>Builder + reviewer + independent passes: gaze cells, idle timings, belly/annoyed flows, touch paths, reduced-motion, 320/375px no overflow, zero CLS, zero console errors, make check green</td></tr>
+    <tr><td>Ship to production</td><td><span class="badge s-progress">In progress</span></td><td>Merge to main → Vercel deploy → live spot-check</td></tr>
+    <tr><td>Follow-up: re-encode frames (WebP/PNG8, ~1.3MB → ~450KB)</td><td><span class="badge s-planned">Planned</span></td><td>Post-ship; not blocking since only 1 frame (~52KB) loads before interactive</td></tr>
+  </table>
+</section>
+
+<section id="deviations">
+  <h2>Deviations from plan</h2>
+  <p class="mut">Every divergence from the plan, as a concise current-state entry with its reason. This is the only place divergence is recorded.</p>
+  <table>
+    <tr><th>What changed</th><th>From → To</th><th>Reason</th></tr>
+    <tr><td>Base art production route</td><td>Hand-drawn SVG variations → codex CLI image generation from her photo</td><td>Hand-authored SVG plateaued at clip-art quality (see first prototype sheet); generated art preserves real Vizsla likeness.</td></tr>
+    <tr><td>Interaction architecture</td><td>Sliced-layer CSS puppet → frame-based state machine (oil-motion approach)</td><td>User asked for high fidelity, look-in-all-directions gaze, and rich states (rest, snooze, annoyed, belly-up). A generated frame bank handles all of these; CSS transforms on slices cannot.</td></tr>
+    <tr><td>Pose</td><td>Sitting full-body → sphinx lying pose, one front leg extended</td><td>User insight: horizontal body keeps the face large within cap-height and enables the sleep/rest idle story. Pose matched to user's reference photo.</td></tr>
+  </table>
+</section>
+
+<section id="validation">
+  <h2>Validation</h2>
+  <p class="mut">Screenshots from validation/preview runs, test results, and callouts confirming the feature works.</p>
+  <ul class="checks">
+    <li><span class="badge s-done">Pass</span> &nbsp; Frame bank complete: 26 frames generated and QC'd (15 gaze + blink + 2 sleep + 3 annoyed + 3 roll + 2 belly); 25 ship at 256px in assets/chocolata/ (belly-up-happy retired unused).</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; Rig states exercised live by the builder: gaze bucket mapping, blink, drowsy→asleep→wake cycle, annoyed (shake), belly-up dwell + wiggle loop, missing-frame fallback.</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; Independent browser pass: 12 tuning sliders + 3 toggles present, 21 bank cards, frames load at 1024px naturals, no JS errors (resource errors in the preview pane are its file:// snapshot quirk, not the harness).</li>
+    <li><span class="badge s-planned">Pending</span> &nbsp; User tuning session in puppet-rig.html; Impeccable review; masthead integration validation (breakpoints, touch, reduced-motion).</li>
+  </ul>
+</section>
+
+<section id="notes">
+  <h2>Notes &amp; callouts</h2>
+  <div class="callout">
+    <div class="label">Info</div>
+    <p>Base art drawn from Chocolata's own photos (a 65lb Doberman mix per the site copy; early tracker notes guessed Vizsla from the reference photo): deep chocolate short coat, long floppy ears, amber eyes, lean build, silver chain collar with hanging rings.</p>
+  </div>
+  <div class="callout warn">
+    <div class="label">Watch out</div>
+    <p>DESIGN.md bans photos and illustration site-wide, and Motion rules say stillness is the voice. This feature is a sanctioned single exception; keep the dog quiet by default (idle loop must be barely-there) so the page still reads as still. Also: codex CLI is not installed on this machine; the raster-frames fallback requires installing and authenticating it first.</p>
+  </div>
+</section>
+
+<footer>
+  Living artifact for Animated Dog Header. One file per feature; keep it current. Generated from ~/.claude/templates/feat-tracker.html.
+</footer>
+
+</div>
+</body>
+</html>

@@ -278,6 +278,131 @@ a:focus-visible {
     margin-bottom: 0;
 }
 
+/* ---------- Chocolata ---------- */
+
+/*
+ * The dog rides on the name's own line, flush against it. Her slot reserves
+ * her width and pins its bottom edge to the text baseline, but stands zero
+ * pixels tall, so the frames hang out of it and the masthead lays out exactly
+ * as it did before she arrived. Pointer events stay off her: her box overlaps
+ * the role line, and the link under it has to keep working. The state machine
+ * hit-tests her geometrically instead.
+ */
+
+.nameplate {
+    display: flex;
+    align-items: baseline;
+}
+
+/*
+ * Holding a finger on her is how you get her belly on touch, but she is
+ * pointer-events: none, so the press lands on whatever sits under her: the name
+ * and the role line. On touch that raises a selection callout, and a link
+ * preview for the anchor beneath her, halfway through the hold. Guarded to
+ * touch only, so copy and paste keeps working everywhere else.
+ */
+@media (hover: none) and (pointer: coarse) {
+    .nameplate,
+    .masthead .role {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+}
+
+.chocolata {
+    /* Tuned against the display type at its ceiling: 110px tall, dropped 40px
+       past the baseline, no gap. Held in em so she scales with the name rather
+       than crowding it on a narrow viewport. */
+    --dog-size: 1.797em;
+    --dog-drop: 0.654em;
+    position: relative;
+    flex: none;
+    width: var(--dog-size);
+    height: 0;
+    font-size: var(--text-display);
+    pointer-events: none;
+}
+
+.chocolata-body {
+    position: absolute;
+    left: 0;
+    bottom: calc(var(--dog-drop) * -1);
+    width: var(--dog-size);
+    height: var(--dog-size);
+    transform-origin: 50% 100%;
+}
+
+/* Frames are stacked cels: exactly one is shown, and cuts between them are
+   hard on purpose. No crossfade. */
+.chocolata-body img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+}
+
+.chocolata-body img.is-shown {
+    opacity: 1;
+}
+
+/* The breath scales the frames rather than the box around them, so the box the
+   script measures for proximity and hit testing never wobbles with her ribs.
+   Only the visible cel breathes: the frame is constant while she is asleep, so
+   animating the other twenty-four at opacity 0 would be work for nobody. */
+.chocolata-body.is-breathing img.is-shown {
+    animation: chocolata-breathe 4.6s ease-in-out infinite;
+    transform-origin: 50% 100%;
+}
+
+@keyframes chocolata-breathe {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* One drifting-glyph system serves every reaction: hearts on her belly, z's as
+   she drops off, ink ticks while she is cross. Each supplies its own glyph,
+   tone and cadence from the script. */
+
+.chocolata-emotes {
+    position: absolute;
+    inset: 0;
+}
+
+.chocolata-emote {
+    position: absolute;
+    line-height: 1;
+    opacity: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-variant-emoji: text;
+    animation: chocolata-drift var(--dur, 2600ms) var(--ease-out-quart) forwards;
+}
+
+@keyframes chocolata-drift {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.6) rotate(var(--rot, 0deg));
+    }
+    18% {
+        opacity: var(--peak, 0.65);
+    }
+    62% {
+        opacity: var(--peak, 0.65);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--dx, 0.5em), -2.9em) scale(1) rotate(var(--rot, 0deg));
+    }
+}
+
 /* ---------- Links bar ---------- */
 
 .links {
@@ -485,6 +610,14 @@ section:last-of-type {
         animation: none;
     }
 
+    /* She holds a single still frame. The script sees the same query and never
+       starts the state machine, so nothing is waiting behind this. */
+    .chocolata-body img,
+    .chocolata-body.is-breathing img.is-shown {
+        animation: none;
+        transform: none;
+    }
+
     .writing .forward:hover span[aria-hidden],
     .writing .forward:focus-visible span[aria-hidden] {
         transform: none;
@@ -508,6 +641,11 @@ section:last-of-type {
         margin: 0;
         padding: 0;
         animation: none;
+    }
+
+    /* Print is ink on paper, and she is not part of the document. */
+    .chocolata {
+        display: none;
     }
 
     .links a,
