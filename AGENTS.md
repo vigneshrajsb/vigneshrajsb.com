@@ -52,6 +52,11 @@ A post touches seven files. Miss one and the post silently fails to propagate.
   QuickLook; content-hashed filenames) and swaps them for `<img>` in the
   feed only. Give every chart `<svg>` a `viewBox` and a descriptive
   `aria-label` — the label becomes the feed image's alt text.
+- CSS-dependent layouts collapse in readers. `make feed` already converts
+  stat-tile grids (`.tiles`/`.tile` with val/lbl/sub spans) to plain lists
+  and bolds `.viz-title`/`.panel-h`/`.mini-t` labels; preview any new
+  layout pattern in tools/feed-preview.html and extend `semanticize()` in
+  tools/build-feed.py if it degrades.
 - Body content is semantic HTML: `h2`/`h3` with slug `id` anchors, `p`,
   `ul`/`ol`, `blockquote`, `pre`/`code`, `figure`/`figcaption`. Wide code
   blocks and ASCII diagrams must scroll inside their own `pre` (the shared CSS

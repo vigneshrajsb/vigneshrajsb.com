@@ -74,6 +74,44 @@ def replace_svgs(content, slug):
     return re.sub(r"<svg.*?</svg>", sub, content, flags=re.S)
 
 
+def div_block(content, start):
+    """Return (start, end) of the div opening at `start`, matching nesting."""
+    depth = 0
+    for m in re.finditer(r"<div\b|</div>", content[start:]):
+        depth += 1 if m.group(0) == "<div" else -1
+        if depth == 0:
+            return start, start + m.end()
+    sys.exit("error: unbalanced <div> while extracting feed content")
+
+
+def semanticize(content):
+    """Rewrite CSS-dependent structures into plain HTML that reads without
+    styles: stat-tile grids become lists, mini panel titles become bold."""
+    while True:
+        i = content.find('<div class="tiles">')
+        if i == -1:
+            break
+        start, end = div_block(content, i)
+        block = content[start:end]
+        items = []
+        for tile in re.findall(r'<div class="tile[^"]*">(.*?)</div>', block, re.S):
+            def span(cls):
+                m = re.search(rf'<span class="{cls}">(.*?)</span>', tile, re.S)
+                return re.sub(r"\s+", " ", m.group(1)).strip() if m else ""
+            li = f"<strong>{span('val')}</strong> {span('lbl')}"
+            if span("sub"):
+                li += f" <em>({span('sub')})</em>"
+            items.append(f"<li>{li}</li>")
+        content = content[:start] + "<ul>" + "".join(items) + "</ul>" + content[end:]
+    content = re.sub(
+        r'<p class="(?:viz-title|panel-h|mini-t)">(.*?)</p>',
+        r"<p><strong>\1</strong></p>",
+        content,
+        flags=re.S,
+    )
+    return content
+
+
 def absolutize(content, post_url):
     content = re.sub(r'(href|src)="\.\./', rf'\1="{SITE}/writing/', content)
     content = re.sub(r'(href|src)="/', rf'\1="{SITE}/', content)
@@ -110,6 +148,7 @@ def build():
         url = meta["url"]
         content = extract_content(html, page)
         content = replace_svgs(content, page.parent.name)
+        content = semanticize(content)
         items.append({
             "title": meta["headline"],
             "url": url,
