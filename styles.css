@@ -367,18 +367,6 @@ a:focus-visible {
     margin: 0 0.7rem;
 }
 
-/* Narrow screens: the last dot becomes an invisible line break, so Resume
-   starts its own row at natural width instead of wrapping mid-row. */
-@media (max-width: 539px) {
-    .links .profiles .dot:last-of-type {
-        flex-basis: 100%;
-        height: 0;
-        overflow: hidden;
-        margin: 0;
-    }
-}
-
-
 /* ---------- Sections ---------- */
 
 section {
