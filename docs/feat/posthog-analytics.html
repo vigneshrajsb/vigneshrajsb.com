@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PostHog analytics · Feature Tracker</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3a;
+    --txt:#e7ebf0; --mut:#9aa3b2; --dim:#6b7484;
+    --accent:#6ea8fe; --good:#4ec98a; --warn:#e0b341; --bad:#e5687a; --info:#9b8cff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 24px 96px}
+  header .kicker{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  header h1{font-size:30px;margin:6px 0 8px;letter-spacing:-.02em}
+  header .meta{color:var(--mut);font-size:13.5px}
+  nav.toc{position:sticky;top:0;background:rgba(15,17,21,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);margin:26px 0 0;padding:12px 0;display:flex;flex-wrap:wrap;gap:6px;z-index:5}
+  nav.toc a{color:var(--mut);text-decoration:none;font-size:12.5px;padding:5px 10px;border-radius:7px;border:1px solid transparent}
+  nav.toc a:hover{color:var(--txt);border-color:var(--line);background:var(--panel)}
+  section{margin:40px 0 0;scroll-margin-top:64px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);
+    margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:8px 0;color:var(--txt)}
+  .mut{color:var(--mut)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:12px 0}
+  .badge{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+    padding:2px 8px;border-radius:6px;vertical-align:middle}
+  .s-planned{background:rgba(110,168,254,.14);color:var(--accent)}
+  .s-progress{background:rgba(224,179,65,.16);color:var(--warn)}
+  .s-done{background:rgba(78,201,138,.16);color:var(--good)}
+  .s-blocked{background:rgba(229,104,122,.16);color:var(--bad)}
+  .s-deviated{background:rgba(155,140,255,.16);color:var(--info)}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  td code,p code,li code{background:#0b0e13;border:1px solid var(--line);border-radius:5px;padding:1px 6px;
+    font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:#a9d1ff}
+  .callout{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--info);
+    border-radius:10px;padding:14px 18px;margin:12px 0}
+  .callout.warn{border-top-color:var(--warn)}
+  .callout.good{border-top-color:var(--good)}
+  .callout .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:4px}
+  .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:10px}
+  figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  figure img{width:100%;display:block;background:#0b0e13;aspect-ratio:16/10;object-fit:cover}
+  figure figcaption{padding:9px 12px;font-size:12.5px;color:var(--mut)}
+  ul.checks{list-style:none;padding:0;margin:8px 0}
+  ul.checks li{padding:7px 0;border-bottom:1px solid var(--line);color:var(--txt);font-size:14px}
+  footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Feature Tracker</div>
+  <h1>PostHog analytics</h1>
+  <div class="meta">Owner: Vignesh &nbsp;·&nbsp; Repo: vigneshrajsb.com &nbsp;·&nbsp; Status: <span class="badge s-progress">In progress</span> &nbsp;·&nbsp; Updated: 2026-08-10</div>
+</header>
+
+<nav class="toc">
+  <a href="#overview">Overview</a>
+  <a href="#plan">Plan</a>
+  <a href="#design">Design</a>
+  <a href="#prototypes">Prototypes</a>
+  <a href="#decisions">Decisions</a>
+  <a href="#tracker">Implementation</a>
+  <a href="#deviations">Deviations</a>
+  <a href="#validation">Validation</a>
+  <a href="#notes">Notes</a>
+</nav>
+
+<section id="overview">
+  <h2>Overview</h2>
+  <div class="card">
+    <p><b>What:</b> Replace GoatCounter with PostHog for pageviews, per-post visitor counts, link-click tracking, and custom events for Chocolata masthead interactions.</p>
+    <p><b>Why (product intent):</b> One place to answer "who visits which post, what do they click, and do they play with the dog" — richer than GoatCounter's pageview-only counts, while keeping the site's privacy-first posture (no cookies, no consent banner, no session replay).</p>
+    <p class="mut"><b>Success looks like:</b> PostHog Web Analytics shows visitors + views per path; <code>link_click</code> and <code>chocolata_*</code> events arrive from production; zero GoatCounter references remain.</p>
+  </div>
+</section>
+
+<section id="plan">
+  <h2>Plan</h2>
+  <div class="card">
+    <h3>Scope</h3>
+    <p>In: PostHog JS snippet on all 6 pages via one shared <code>analytics.js</code>; delegated link-click capture; three Chocolata events in <code>chocolata.js</code>; GoatCounter removal; AGENTS.md doc update.</p>
+    <p>Out: reverse proxy (<code>/ingest</code> rewrites), session replay, identified users, feature flags, surveys, consent banner.</p>
+    <h3>Build sequence</h3>
+    <ol class="mut">
+      <li>Shared <code>analytics.js</code>: PostHog snippet, localStorage-only persistence, autocapture off, pageview on, link-click delegation.</li>
+      <li>Swap GoatCounter tag for <code>analytics.js</code> include on all 6 HTML pages.</li>
+      <li>Capture calls at Chocolata state transitions (belly rub, annoyed, woken).</li>
+      <li>User creates the <code>vigneshrajsb.com</code> PostHog project; fill real token via connector.</li>
+      <li>Validate locally (make check + browser), ship, confirm live events.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="design">
+  <h2>Design</h2>
+  <div class="card">
+    <p><b>Direction:</b> No UI surface. Analytics is invisible by design; no visual changes to the site.</p>
+    <p><b>Impeccable review summary:</b> N/A — no rendered interface.</p>
+  </div>
+</section>
+
+<section id="prototypes">
+  <h2>Prototypes</h2>
+  <div class="card">
+    <p class="mut">None — direct implementation; the event schema is small enough to validate live.</p>
+  </div>
+</section>
+
+<section id="decisions">
+  <h2>Decisions</h2>
+  <table>
+    <tr><th>Date</th><th>Decision</th><th>Rationale</th><th>Trade-off</th></tr>
+    <tr><td>2026-08-10</td><td>New PostHog project <code>vigneshrajsb.com</code></td><td>Existing org projects (advocate-kishore, posthog-bole-magnet) carry unrelated events; clean separation</td><td>One extra project to manage</td></tr>
+    <tr><td>2026-08-10</td><td>localStorage persistence, no cookies, anonymous events</td><td>Accurate uniques and returning visitors without a consent banner; cheapest PostHog tier; matches privacy-first framing</td><td>Slightly less durable than cookies (cleared with site data)</td></tr>
+    <tr><td>2026-08-10</td><td>No reverse proxy; events go direct to us.i.posthog.com</td><td>Ad blockers are an expressed preference of a dev-heavy audience; relative trends stay valid</td><td>Absolute counts run ~20-40% low</td></tr>
+    <tr><td>2026-08-10</td><td>Events only, session replay off</td><td>Covers all stated goals; keeps script behavior light and within no-banner posture</td><td>Cannot watch real sessions</td></tr>
+    <tr><td>2026-08-10</td><td>Autocapture off, manual <code>link_click</code> via one delegated listener</td><td>Precise event names, tiny event volume, no accidental capture of arbitrary DOM interactions</td><td>New interactive elements need explicit instrumentation</td></tr>
+    <tr><td>2026-08-10</td><td>Honor Do Not Track and Global Privacy Control</td><td>GoatCounter setup advertised DNT respect; keep that promise across the migration</td><td>A sliver of visitors go uncounted</td></tr>
+    <tr><td>2026-08-10</td><td>Skip init on localhost</td><td>Local dev must not pollute production analytics</td><td>Capture calls verified via console debug locally, live events verified after deploy</td></tr>
+  </table>
+</section>
+
+<section id="tracker">
+  <h2>Implementation tracker</h2>
+  <table>
+    <tr><th>Task</th><th>Status</th><th>Notes</th></tr>
+    <tr><td>Shared <code>analytics.js</code> (snippet + config + link clicks)</td><td><span class="badge s-done">Done</span></td><td>Official loader stub verbatim from PostHog docs; SDK v1.415.1 verified</td></tr>
+    <tr><td>Include on all 6 pages, remove GoatCounter tags</td><td><span class="badge s-done">Done</span></td><td>index, writing/index, 4 posts; zero goatcounter references remain</td></tr>
+    <tr><td>Chocolata capture calls in <code>chocolata.js</code></td><td><span class="badge s-done">Done</span></td><td>belly rub + annoyed verified in browser; woken shares the tested setState path</td></tr>
+    <tr><td>Update AGENTS.md analytics line</td><td><span class="badge s-done">Done</span></td><td>GoatCounter → PostHog, schema documented</td></tr>
+    <tr><td>Create PostHog project, wire real token</td><td><span class="badge s-blocked">Blocked</span></td><td>UI-only step for Vignesh; connector then supplies the token to fill the placeholder in analytics.js</td></tr>
+    <tr><td>Local validation (make check, browser run)</td><td><span class="badge s-done">Done</span></td><td>See Validation</td></tr>
+    <tr><td>Ship + confirm live events in PostHog</td><td><span class="badge s-planned">Planned</span></td><td>After token lands; verify via events query</td></tr>
+  </table>
+</section>
+
+<section id="deviations">
+  <h2>Deviations from plan</h2>
+  <table>
+    <tr><th>What changed</th><th>From → To</th><th>Reason</th></tr>
+  </table>
+</section>
+
+<section id="validation">
+  <h2>Validation</h2>
+  <ul class="checks">
+    <li><span class="badge s-done">Pass</span> &nbsp; <code>make check</code> (feed + sitemap validation) and <code>node --check</code> on analytics.js and chocolata.js</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; Localhost guard: <code>window.posthog</code> undefined on localhost, no PostHog network traffic</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; With guard bypassed: SDK v1.415.1 loads, config applied (localStorage persistence, autocapture off, replay disabled), <code>$pageview</code> captured</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; <code>link_click</code> fires with correct href/text and external true/false for external and internal links</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; <code>chocolata_annoyed</code> {via: taps} on triple-tap; <code>chocolata_belly_rub</code> on dwell-to-roll (belly-up frame confirmed on screen, hearts streaming)</li>
+    <li><span class="badge s-planned">Pending</span> &nbsp; Live production events after the real token ships</li>
+  </ul>
+</section>
+
+<section id="notes">
+  <h2>Notes &amp; callouts</h2>
+  <div class="callout">
+    <div class="label">Info</div>
+    <p>The Vercel PostHog integration provisions env vars, which a no-build static site cannot consume. The public <code>phc_</code> token is pasted directly into <code>analytics.js</code> instead; that token is designed to be public.</p>
+  </div>
+  <div class="callout warn">
+    <div class="label">Watch out</div>
+    <p>Event schema is the contract: <code>$pageview</code> (auto), <code>link_click</code> {href, text, external}, <code>chocolata_belly_rub</code>, <code>chocolata_annoyed</code> {via}, <code>chocolata_woken</code>. Rename only with a matching update to saved insights.</p>
+  </div>
+</section>
+
+<footer>
+  Living artifact for PostHog analytics. One file per feature; keep it current. Generated from ~/.claude/templates/feat-tracker.html.
+</footer>
+
+</div>
+</body>
+</html>

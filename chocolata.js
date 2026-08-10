@@ -221,8 +221,17 @@
 
     function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
 
+    /* Analytics is optional equipment. When /analytics.js chose not to run
+       (localhost, DNT, GPC, blocker) there is no posthog and she keeps her
+       secrets. */
+    function report(name, props) {
+        if (window.posthog && window.posthog.capture) window.posthog.capture(name, props);
+    }
+
     function setState(next, now) {
         if (state === next) return;
+        if (next === S.BELLY) report('chocolata_belly_rub');
+        if (next === S.WAKING && state === S.ASLEEP) report('chocolata_woken');
         state = next;
         stateSince = now;
         burstQueue.length = 0;
@@ -259,7 +268,8 @@
         overDogSince = overDog ? now : null;
     }
 
-    function annoy(now) {
+    function annoy(now, via) {
+        report('chocolata_annoyed', { via: via });
         if (!beginTransition('annoyed', 1, now, null)) setState(S.ANNOYED, now);
         reversals.length = 0;
         overDogSince = null;
@@ -321,7 +331,7 @@
         /* Annoyed outranks the belly dwell, and only fires over her. A roll in
            progress is uninterruptible: it plays out before anything else. */
         var annoyable = state === S.AWAKE || state === S.BELLY || state === S.WAKING;
-        if (overDog && annoyable && shakeRate(now) >= CFG.shakeThreshold) annoy(now);
+        if (overDog && annoyable && shakeRate(now) >= CFG.shakeThreshold) annoy(now, 'shake');
 
         switch (state) {
             case S.ANNOYED:
@@ -564,7 +574,7 @@
         while (taps.length && now - taps[0] > TAP_WINDOW_MS) taps.shift();
         if (taps.length >= TAP_ANNOY_COUNT) {
             taps.length = 0;
-            annoy(now);
+            annoy(now, 'taps');
         }
     }
 

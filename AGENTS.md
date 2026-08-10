@@ -8,8 +8,11 @@ Hand-built static site: plain HTML and CSS, no framework, no build step, no
 package.json. Deploys to production automatically when `main` is pushed
 (Vercel, proxied through Cloudflare). Voice and visual rules live in
 `PRODUCT.md` and `DESIGN.md` — read them before writing copy or CSS.
-Analytics is GoatCounter (cookieless); the script tag has no SRI on purpose
-because GoatCounter rotates `count.js`.
+Analytics is PostHog, loaded by the shared `/analytics.js` on every page:
+anonymous events, localStorage persistence, no cookies, no session replay,
+autocapture off. The event schema is `$pageview` (automatic), `link_click`,
+and the `chocolata_*` events captured in `chocolata.js`. Keep it that way:
+new events are added deliberately, not via autocapture.
 
 ## Dev commands
 

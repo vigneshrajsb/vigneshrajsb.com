@@ -329,17 +329,10 @@
     </main>
 
     <!--
-      Privacy-first, cookieless analytics. Respects Do Not Track, stores no
-      personal data, sets no cookies. Replaces Vercel hobby analytics.
-
-      SETUP (one-time): claim the free account at https://www.goatcounter.com/
-      and confirm the subdomain below matches your site code. Right now it
-      assumes "vigneshrajsb.goatcounter.com" — swap it if yours differs.
+      PostHog analytics via /analytics.js: anonymous events, localStorage
+      persistence, no cookies, no session recording. Honours Do Not Track and
+      Global Privacy Control, and stays quiet on localhost.
     -->
-    <script
-      data-goatcounter="https://vigneshrajsb.goatcounter.com/count"
-      async
-      src="//gc.zgo.at/count.js"
-    ></script>
+    <script src="/analytics.js" defer></script>
   </body>
 </html>
