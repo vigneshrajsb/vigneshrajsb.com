@@ -166,6 +166,7 @@
     <tr><td>Masthead validation</td><td><span class="badge s-done">Done</span></td><td>Builder + reviewer + independent passes: gaze cells, idle timings, belly/annoyed flows, touch paths, reduced-motion, 320/375px no overflow, zero CLS, zero console errors, make check green</td></tr>
     <tr><td>Ship to production</td><td><span class="badge s-done">Done</span></td><td>Merge df1a38b pushed to main; live spot-check passed: masthead renders (caught her napping), console clean, docs/ 404s, assets and chocolata.js serve 200</td></tr>
     <tr><td>Follow-up: re-encode frames to PNG8</td><td><span class="badge s-done">Done</span></td><td>Pillow FASTOCTREE 256-color quantize in place: 1308KB → 266KB (80%), eager frame now ~10KB; no code changes; visual spot-check clean on belly-up and asleep</td></tr>
+    <tr><td>Follow-up: reliable belly rubs on touch (reviewer finding 16)</td><td><span class="badge s-done">Done</span></td><td>Touch dwell 1000ms vs desktop 4000ms; touch-action none on the masthead so a hold cannot be claimed as a scroll; masthead GoodRx link moved to the Currently section (its removal also retires the link-under-her-box overlap concern)</td></tr>
   </table>
 </section>
 

@@ -39,7 +39,8 @@
         zzz: true,
         shakeThreshold: 5,    /* direction reversals per second, over her */
         annoyedHold: 2.5,     /* s */
-        bellyDwell: 4000,     /* ms of still hover, or press, before she rolls */
+        bellyDwell: 4000,     /* ms of still hover before she rolls */
+        bellyDwellTouch: 1000, /* ms of press; a finger cannot rest as still as a cursor */
         transStep: 150,       /* ms per in-between frame */
         emoteRate: 500        /* ms between glyphs in a continuous stream */
     };
@@ -369,7 +370,7 @@
             case S.AWAKE:
                 if (overDog) {
                     if (overDogSince === null) overDogSince = now;
-                    else if (now - overDogSince >= CFG.bellyDwell) {
+                    else if (now - overDogSince >= (pointer.touch ? CFG.bellyDwellTouch : CFG.bellyDwell)) {
                         if (!beginTransition('belly', 1, now, null)) setState(S.BELLY, now);
                     }
                 } else {
@@ -522,6 +523,7 @@
     function track(e, trackShake) {
         if (reduced) return;
         pointer.present = true;
+        pointer.touch = e.pointerType !== 'mouse';
         pointer.x = e.clientX;
         pointer.y = e.clientY;
         geometryDirty = true;

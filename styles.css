@@ -316,15 +316,6 @@ a:focus-visible {
     margin-bottom: var(--space-2xs);
 }
 
-.masthead .role a {
-    --u-base: var(--rule);
-    color: var(--ink-2);
-}
-
-.masthead .role a:hover {
-    color: var(--ink);
-}
-
 .masthead .aside {
     font-family: var(--font-serif);
     font-size: var(--text-body);
@@ -363,6 +354,9 @@ a:focus-visible {
         -webkit-user-select: none;
         user-select: none;
         -webkit-touch-callout: none;
+        /* A hold on her must not be claimed as a scroll gesture mid-dwell;
+           scrolling still starts fine from anywhere below the masthead. */
+        touch-action: none;
     }
 }
 
