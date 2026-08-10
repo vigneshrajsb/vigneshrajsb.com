@@ -60,7 +60,7 @@
 <header>
   <div class="kicker">Feature Tracker</div>
   <h1>Animated Dog Header (Chocolata)</h1>
-  <div class="meta">Owner: vigneshrajsb &nbsp;·&nbsp; Repo: vigneshrajsb.com &nbsp;·&nbsp; Status: <span class="badge s-progress">In progress</span> &nbsp;·&nbsp; Updated: 2026-08-09</div>
+  <div class="meta">Owner: vigneshrajsb &nbsp;·&nbsp; Repo: vigneshrajsb.com &nbsp;·&nbsp; Status: <span class="badge s-done">Shipped</span> &nbsp;·&nbsp; Updated: 2026-08-09</div>
 </header>
 
 <nav class="toc">
@@ -164,8 +164,8 @@
     <tr><td>Impeccable review of the integration</td><td><span class="badge s-done">Done</span></td><td>17/20, "ship after fixes"; findings triaged (see Design section)</td></tr>
     <tr><td>Review fixes applied (10 items)</td><td><span class="badge s-done">Done</span></td><td>Hit-box inset, breathing scope, shake gate, scoped user-select, layout-read discipline, load gate, glyph presentation, blink reschedule, radius scaling, idle early-out; all re-verified incl. the GoodRx-park repro</td></tr>
     <tr><td>Masthead validation</td><td><span class="badge s-done">Done</span></td><td>Builder + reviewer + independent passes: gaze cells, idle timings, belly/annoyed flows, touch paths, reduced-motion, 320/375px no overflow, zero CLS, zero console errors, make check green</td></tr>
-    <tr><td>Ship to production</td><td><span class="badge s-progress">In progress</span></td><td>Merge to main → Vercel deploy → live spot-check</td></tr>
-    <tr><td>Follow-up: re-encode frames (WebP/PNG8, ~1.3MB → ~450KB)</td><td><span class="badge s-planned">Planned</span></td><td>Post-ship; not blocking since only 1 frame (~52KB) loads before interactive</td></tr>
+    <tr><td>Ship to production</td><td><span class="badge s-done">Done</span></td><td>Merge df1a38b pushed to main; live spot-check passed: masthead renders (caught her napping), console clean, docs/ 404s, assets and chocolata.js serve 200</td></tr>
+    <tr><td>Follow-up: re-encode frames to PNG8</td><td><span class="badge s-done">Done</span></td><td>Pillow FASTOCTREE 256-color quantize in place: 1308KB → 266KB (80%), eager frame now ~10KB; no code changes; visual spot-check clean on belly-up and asleep</td></tr>
   </table>
 </section>
 
