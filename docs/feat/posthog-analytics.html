@@ -140,7 +140,7 @@
     <tr><td>Update AGENTS.md analytics line</td><td><span class="badge s-done">Done</span></td><td>GoatCounter → PostHog, schema documented</td></tr>
     <tr><td>Create PostHog project, wire real token</td><td><span class="badge s-done">Done</span></td><td>Project vigneshrajsb.com (id 551192), token wired into analytics.js</td></tr>
     <tr><td>Local validation (make check, browser run)</td><td><span class="badge s-done">Done</span></td><td>See Validation</td></tr>
-    <tr><td>Ship + confirm live events in PostHog</td><td><span class="badge s-planned">Planned</span></td><td>After token lands; verify via events query</td></tr>
+    <tr><td>Ship + confirm live events in PostHog</td><td><span class="badge s-done">Done</span></td><td>Deployed to production; $pageview, $pageleave, and link_click confirmed via events query</td></tr>
   </table>
 </section>
 
@@ -159,7 +159,7 @@
     <li><span class="badge s-done">Pass</span> &nbsp; With guard bypassed: SDK v1.415.1 loads, config applied (localStorage persistence, autocapture off, replay disabled), <code>$pageview</code> captured</li>
     <li><span class="badge s-done">Pass</span> &nbsp; <code>link_click</code> fires with correct href/text and external true/false for external and internal links</li>
     <li><span class="badge s-done">Pass</span> &nbsp; <code>chocolata_annoyed</code> {via: taps} on triple-tap; <code>chocolata_belly_rub</code> on dwell-to-roll (belly-up frame confirmed on screen, hearts streaming)</li>
-    <li><span class="badge s-planned">Pending</span> &nbsp; Live production events after the real token ships</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; Live production events: <code>$pageview</code> for three pages, <code>link_click</code> {href, text, external: false} surviving navigation, and <code>$pageleave</code> (free from SDK defaults) all queryable in project 551192</li>
   </ul>
 </section>
 
