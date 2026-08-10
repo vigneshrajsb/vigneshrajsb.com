@@ -41,6 +41,8 @@
         annoyedHold: 2.5,     /* s */
         bellyDwell: 4000,     /* ms of still hover before she rolls */
         bellyDwellTouch: 1000, /* ms of press; a finger cannot rest as still as a cursor */
+        bellyLinger: 4000,    /* ms she stays belly-up after the pointer leaves; on touch
+                                 the thumb hides her, so the payoff plays after release */
         transStep: 150,       /* ms per in-between frame */
         emoteRate: 500        /* ms between glyphs in a continuous stream */
     };
@@ -185,7 +187,7 @@
     var TRANSITIONS = {
         belly: {
             files: ['roll-1.png', 'roll-2.png', 'roll-3.png'],
-            rest: S.BELLY, reversible: true
+            rest: S.BELLY, reversible: false
         },
         annoyed: {
             files: ['annoyed-1.png', 'annoyed-2.png'],
@@ -206,6 +208,7 @@
 
     var outsideSince = performance.now();
     var overDogSince = null;
+    var bellyLeftAt = null;
     var reversals = [];
     var taps = [];
     var lastX = 0;
@@ -342,9 +345,15 @@
                 break;
 
             case S.BELLY:
-                if (!overDog) {
+                if (overDog) {
+                    bellyLeftAt = null;
+                } else {
                     overDogSince = null;
-                    if (!beginTransition('belly', -1, now, null)) arriveAwake(now, inRadius, overDog);
+                    if (bellyLeftAt === null) bellyLeftAt = now;
+                    if (now - bellyLeftAt >= CFG.bellyLinger) {
+                        bellyLeftAt = null;
+                        if (!beginTransition('belly', -1, now, null)) arriveAwake(now, inRadius, overDog);
+                    }
                 }
                 break;
 
