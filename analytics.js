@@ -14,7 +14,7 @@
 (function () {
     'use strict';
 
-    var TOKEN = 'phc_REPLACE_WITH_VIGNESHRAJSB_COM_PROJECT_TOKEN';
+    var TOKEN = 'phc_pCTMgAq3nF6H7g4wa39GDogFkS6XfLaDkntAHii9atjn';
 
     /* A local checkout is not a reader. */
     if (/^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname)) return;
