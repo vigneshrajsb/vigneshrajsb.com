@@ -1,6 +1,8 @@
 # vigneshrajsb.com Redesign — Spec
 
-Living spec for the full-site redesign. Updates land here as decisions evolve.
+Historical spec for the 2026 single-page redesign, kept for context. The site
+has since grown beyond it (native posts under /writing/, full-content RSS).
+Current agent instructions and workflows live in [AGENTS.md](AGENTS.md).
 
 ## 1. Feature Summary
 

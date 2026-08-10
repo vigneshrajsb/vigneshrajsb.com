@@ -7,6 +7,7 @@ the page's Article JSON-LD. Pages without an Article datePublished are
 treated as drafts and skipped. Run with --check to verify feed.xml is
 current without writing it (exits 1 if stale).
 """
+import hashlib
 import json
 import re
 import sys
@@ -52,7 +53,6 @@ def extract_content(html, page):
 
 def replace_svgs(content, slug):
     """Swap inline SVGs for the PNGs render-viz.py produced (feed only)."""
-    import hashlib
     counter = [0]
 
     def sub(m):
