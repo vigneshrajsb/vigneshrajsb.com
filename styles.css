@@ -736,6 +736,26 @@ section:last-of-type {
     transform: translateX(3px);
 }
 
+/* ---------- Tailpiece ---------- */
+
+/*
+ * The ink mark that closes every page: the three of us on a single brush
+ * stroke, sunset on the water behind. One self-contained SVG, in-flow inside
+ * main so short pages never strand it. Geometry locked from the owner's
+ * tuning session (docs/feat/abstract-pier-footer.html records the arc).
+ * The negative bottom margin cancels main's 6rem padding so the stroke is
+ * the last thing on the page.
+ */
+.tailpiece {
+    margin: 8rem 0 calc(-1 * var(--space-3xl));
+}
+
+.tailpiece img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
