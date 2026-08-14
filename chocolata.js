@@ -13,6 +13,10 @@
 (function () {
     'use strict';
 
+    /* Kill switch: body[data-chocolata='off'] parks the whole rig (CSS hides
+       her frame too). Flip the attribute to bring her back. */
+    if (document.body.dataset.chocolata === 'off') return;
+
     var slot = document.querySelector('.chocolata');
     var body = slot && slot.querySelector('.chocolata-body');
     var seed = body && body.querySelector('img');

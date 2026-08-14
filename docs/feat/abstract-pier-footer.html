@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abstract Pier Footer · Feature Tracker</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212b; --line:#2a2f3a;
+    --txt:#e7ebf0; --mut:#9aa3b2; --dim:#6b7484;
+    --accent:#6ea8fe; --good:#4ec98a; --warn:#e0b341; --bad:#e5687a; --info:#9b8cff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 24px 96px}
+  header .kicker{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  header h1{font-size:30px;margin:6px 0 8px;letter-spacing:-.02em}
+  header .meta{color:var(--mut);font-size:13.5px}
+  nav.toc{position:sticky;top:0;background:rgba(15,17,21,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);margin:26px 0 0;padding:12px 0;display:flex;flex-wrap:wrap;gap:6px;z-index:5}
+  nav.toc a{color:var(--mut);text-decoration:none;font-size:12.5px;padding:5px 10px;border-radius:7px;border:1px solid transparent}
+  nav.toc a:hover{color:var(--txt);border-color:var(--line);background:var(--panel)}
+  section{margin:40px 0 0;scroll-margin-top:64px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);
+    margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16px;margin:22px 0 8px}
+  p{margin:8px 0;color:var(--txt)}
+  .mut{color:var(--mut)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:12px 0}
+  .badge{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+    padding:2px 8px;border-radius:6px;vertical-align:middle}
+  .s-planned{background:rgba(110,168,254,.14);color:var(--accent)}
+  .s-progress{background:rgba(224,179,65,.16);color:var(--warn)}
+  .s-done{background:rgba(78,201,138,.16);color:var(--good)}
+  .s-blocked{background:rgba(229,104,122,.16);color:var(--bad)}
+  .s-deviated{background:rgba(155,140,255,.16);color:var(--info)}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  td code,p code,li code{background:#0b0e13;border:1px solid var(--line);border-radius:5px;padding:1px 6px;
+    font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:#a9d1ff}
+  .callout{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--info);
+    border-radius:10px;padding:14px 18px;margin:12px 0}
+  .callout.warn{border-top-color:var(--warn)}
+  .callout.good{border-top-color:var(--good)}
+  .callout .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:4px}
+  .shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:10px}
+  figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  figure img{width:100%;display:block;background:#0b0e13;aspect-ratio:16/10;object-fit:cover}
+  figure figcaption{padding:9px 12px;font-size:12.5px;color:var(--mut)}
+  ul.checks{list-style:none;padding:0;margin:8px 0}
+  ul.checks li{padding:7px 0;border-bottom:1px solid var(--line);color:var(--txt);font-size:14px}
+  pre.brief{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c9d4e3;white-space:pre-wrap;margin:10px 0}
+  footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Feature Tracker</div>
+  <h1>Abstract Pier Footer</h1>
+  <div class="meta">Owner: Vignesh &nbsp;·&nbsp; Repo: vigneshrajsb.com &nbsp;·&nbsp; Status: <span class="badge s-done">Done</span> &nbsp;·&nbsp; Updated: 2026-08-14</div>
+</header>
+
+<nav class="toc">
+  <a href="#overview">Overview</a>
+  <a href="#plan">Plan</a>
+  <a href="#design">Design</a>
+  <a href="#prototypes">Prototypes</a>
+  <a href="#decisions">Decisions</a>
+  <a href="#tracker">Implementation</a>
+  <a href="#deviations">Deviations</a>
+  <a href="#validation">Validation</a>
+  <a href="#notes">Notes</a>
+</nav>
+
+<section id="overview">
+  <h2>Overview</h2>
+  <div class="card">
+    <p><b>What:</b> A site-wide footer that is a pure image: an abstracted, painted-feel rendition of the Lake Tahoe pier photo (Vignesh and Chocolata seated at the pier edge at sunset), with no text or links anywhere in it.</p>
+    <p><b>Why (product intent):</b> The site currently ends abruptly after the last section. The footer gives every page one shared, personal ending: the author and his dog looking out over the water. It pairs with the Chocolata masthead so the site is bookended by the same two characters, and it sets the visual language for the upcoming scrapbook photo section (abstract, painted, personal photos rather than literal ones).</p>
+    <p class="mut"><b>Success looks like:</b> Every page (home, /writing/, all posts) dissolves seamlessly from cream paper into the scene; the pier deck is the last pixel of the page; the abstraction reads as flat painted shapes in the site's warm palette, not as a photo or a framed illustration.</p>
+  </div>
+</section>
+
+<section id="plan">
+  <h2>Plan</h2>
+  <div class="card">
+    <h3>Scope</h3>
+    <p>In: skill-generated abstract panel art (codex cli + travel-photo-abstraction skill, driven from this session); footer markup + CSS on all 6 pages (index, writing index, 4 posts); three height presets (slim / medium / immersive) with a localhost-only preview control; swap-in of the chosen generated image.</p>
+    <p>Out: the scrapbook photo section (separate feature, will reuse this abstraction language); any footer text, colophon, or links; dark mode; SVG recreations of the art (owner rejected: the art must come from image generation, not hand-drawn vectors).</p>
+    <h3>Build sequence</h3>
+    <ol class="mut">
+      <li>Concept wireframe + rough look, aligned with owner. <b>Done.</b></li>
+      <li>Feature tracker scaffolded. <b>Done.</b></li>
+      <li>Install travel-photo-abstraction skill into ~/.codex/skills, verify with check_installation.py. <b>Done.</b></li>
+      <li>Generate 3 no-text abstract panel variations from the source photo (~/Downloads/lake-footer.png) via codex exec. <b>Done.</b> Owner shortlisted panels 2 and 3, trialed both in-page, locked panel 2 at medium height.</li>
+      <li>Footer on all 6 pages with the finalized asset; trial picker and unused variants removed after the decision. <b>Done.</b></li>
+      <li>Asset finalization: crop to the deck line, background matched to --bg, 2x upscale, lossless WebP. <b>Done.</b></li>
+    </ol>
+  </div>
+</section>
+
+<section id="design">
+  <h2>Design</h2>
+  <div class="card">
+    <p><b>Direction (final):</b> the travel-photo-abstraction skill's sparse editorial grammar, not a full painted scene. A mostly empty cream field carrying a handful of quiet marks derived from the photo: a single mountain ridge hairline with one peak, scattered peach and salmon reflection strokes, the two seated masses (Vignesh larger left, Chocolata smaller right with her warm brown head, the one warmest accent), and a long thin deck line they sit on. The art's background is baked to the exact sRGB value of <code>--bg</code> (<code>rgb(248 243 235)</code>), so the page dissolves into the scene with no seam, and the image is cropped so the deck line is its final rows: the line is literally the bottom of every page.</p>
+    <p><b>Chosen art:</b> generation variation "panel 2" (horizontal-axis emphasis) from the source photo ~/Downloads/lake-footer.png. Height locked at 420px desktop / 300px under 540px viewports, <code>object-fit: cover</code> anchored center bottom. Spacing locked after a picker trial: zero gap above the art (footer margin cancels main's 6rem bottom padding) and zero gap below (the deck line's antialiased edge is the page's final pixel row).</p>
+    <p><b>Mobile:</b> the wide art scaled to invisibility at 375x300 (cover fits the full 1.83:1 image into a 1.25:1 box, shrinking the motif to ~25px), so a dedicated 1000x800 crop of the same asset, centered on the figures with the deck line running edge to edge, is served under 540px via <code>&lt;picture&gt;</code>.</p>
+    <p><b>Asset pipeline (scripted, repeatable):</b> crop at the detected deck line so the line's antialiased edge is the image's last row (nothing below it); shift all pixels by the delta that maps the generator's <code>#F3F0E8</code> background onto <code>--bg</code>; 2x Lanczos upscale to 3072x1680 with light unsharp for retina; lossless WebP (81 KB).</p>
+    <p><b>Review:</b> owner reviewed live variations and the in-page trial directly; the Impeccable subagent workflow was explicitly skipped for this feature (owner call).</p>
+  </div>
+</section>
+
+<section id="prototypes">
+  <h2>Prototypes</h2>
+  <div class="card">
+    <p><b>Concept mock (2026-08-14)</b> — hand-drawn flat SVG stand-in, shown in page context with structure wireframe. Tested: composition, band order, seamless cream-sky dissolve, silhouette placement, deck-as-last-pixel. Learned: figures must overlap the deck edge by a clear margin or they read as floating on the water; the sun-glow band must butt directly against the cloud bands or a cream seam appears. Kept in session scratchpad; the stand-in SVG ships as <code>assets/pier-footer.svg</code> in step 3.</p>
+  </div>
+</section>
+
+<section id="decisions">
+  <h2>Decisions</h2>
+  <table>
+    <tr><th>Date</th><th>Decision</th><th>Rationale</th><th>Trade-off</th></tr>
+    <tr><td>2026-08-14</td><td>Footer contains no text or links, image only</td><td>Owner call during concept review; colophon content stays off the site</td><td>No footer nav or credits anywhere</td></tr>
+    <tr><td>2026-08-14</td><td>One generated image, figures baked in</td><td>Owner call: simplest pipeline for codex cli iterations</td><td>Silhouettes soften slightly at extreme widths; no independent figure animation later</td></tr>
+    <tr><td>2026-08-14</td><td>Identical footer on every page</td><td>Owner call: strongest as a signature ending</td><td>Long posts get the same full-height scene</td></tr>
+    <tr><td>2026-08-14</td><td>Height flexible: three presets + localhost-only preview control</td><td>Owner wants to try slim / medium / immersive against real pages before locking</td><td>Small dev-only script shipped until the height is locked</td></tr>
+    <tr><td>2026-08-14</td><td>Sky top edge is flat page cream, not a CSS fade mask</td><td>Seamless dissolve without gradients (banned by DESIGN.md); the image itself carries the blend</td><td>Image is coupled to the page background value</td></tr>
+    <tr><td>2026-08-14</td><td>This is the second sanctioned illustration exception in DESIGN.md (after Chocolata)</td><td>The "no photos, no illustration" rule predates this feature; footer + masthead bookend the site with the same two characters</td><td>DESIGN.md updated alongside this feature</td></tr>
+    <tr><td>2026-08-14</td><td>Art must come from image generation via the travel-photo-abstraction skill, never hand-drawn SVG recreation</td><td>Owner call: SVG mockups misrepresent the skill's aesthetic; the skill's sparse panels on near-cream ground fit the site better than the full-scene concept</td><td>Original full-scene direction and the SVG stand-in discarded</td></tr>
+    <tr><td>2026-08-14</td><td>Panel 2 at medium height (420px / 300px mobile), locked</td><td>Owner trialed shortlisted panels 2 and 3 in-page; panel 3 did not fit</td><td>Trial picker, height presets, and panel 3 removed</td></tr>
+    <tr><td>2026-08-14</td><td>Crop the art at the deck line and upscale 2x to 3072px, lossless WebP</td><td>Owner: the deck line must be the last pixels of the page, no empty space after; 1536px source looked pixelated on retina; lossy WebP shifted the background cream by 1 RGB unit, visible as a faint seam</td><td>81 KB asset instead of 7 KB lossy</td></tr>
+    <tr><td>2026-08-14</td><td>Spacing locked at zero above and below the art; picker removed</td><td>Owner trialed presets and chose 0/0: content flows straight into the scene and the line ends the page</td><td>The scene's own empty sky is the only breathing room</td></tr>
+    <tr><td>2026-08-14</td><td>Separate 1000x800 mobile crop served via picture element</td><td>Cover-fitting the wide master into the tall mobile box shrank the motif to invisibility; a crop centered on the figures keeps them ~2x larger with the line edge to edge</td><td>Second asset (70 KB) to keep in sync if the art ever changes</td></tr>
+  </table>
+</section>
+
+<section id="tracker">
+  <h2>Implementation tracker</h2>
+  <table>
+    <tr><th>Task</th><th>Status</th><th>Notes</th></tr>
+    <tr><td>Concept wireframe + rough look</td><td><span class="badge s-done">Done</span></td><td>Aligned with owner 2026-08-14</td></tr>
+    <tr><td>Feature tracker scaffolded</td><td><span class="badge s-done">Done</span></td><td>This file</td></tr>
+    <tr><td>Skill installed + 3 variations generated via codex exec</td><td><span class="badge s-done">Done</span></td><td>Panels validated by the skill's uniform-background contract</td></tr>
+    <tr><td>Footer markup on all 6 pages</td><td><span class="badge s-done">Done</span></td><td>index, writing/index, 4 posts</td></tr>
+    <tr><td>In-page trial of shortlisted panels 2 and 3 with picker</td><td><span class="badge s-done">Done</span></td><td>Owner locked panel 2, medium; picker and variants then removed</td></tr>
+    <tr><td>Final asset: crop, color match, 2x upscale, lossless WebP</td><td><span class="badge s-done">Done</span></td><td>assets/pier-footer.webp, 3072x1692, 81 KB</td></tr>
+    <tr><td>Validation on desktop, post page, mobile</td><td><span class="badge s-done">Done</span></td><td>Screenshots below</td></tr>
+    <tr><td>Update DESIGN.md (second illustration exception)</td><td><span class="badge s-done">Done</span></td><td>Shipped with the feature</td></tr>
+  </table>
+</section>
+
+<section id="deviations">
+  <h2>Deviations from plan</h2>
+  <table>
+    <tr><th>What changed</th><th>From → To</th><th>Reason</th></tr>
+    <tr><td>Footer content</td><td>Colophon text on the deck → image only</td><td>Owner decision during concept review</td></tr>
+    <tr><td>Art direction</td><td>Full painted landscape scene (concept mock) → the skill's sparse editorial panel</td><td>Owner rejected SVG recreation; the installed skill's real output grammar is sparse marks on a near-cream field, which suits the paperlike site better</td></tr>
+    <tr><td>Build process</td><td>Design subagent + Impeccable review workflow → direct build, owner-reviewed</td><td>Owner call to skip Impeccable for this feature and avoid subagent token spend</td></tr>
+    <tr><td>Height flexibility</td><td>Three shipped presets with picker → single locked 420px (300px mobile)</td><td>Trial concluded same day; presets were a trial mechanism, not a feature</td></tr>
+  </table>
+</section>
+
+<section id="validation">
+  <h2>Validation</h2>
+  <ul class="checks">
+    <li><span class="badge s-done">Pass</span> &nbsp; All 6 pages end with the footer; background sampled identical to page cream across the image's top edge (single value <code>rgb(248 243 235)</code>)</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; Deck line is the document's last pixels: image bottom equals <code>scrollHeight</code> (gap under 1px), verified in the live preview</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; Desktop (1280), post page, and mobile (375) hold composition; figures stay in frame at the center crop</li>
+    <li><span class="badge s-done">Pass</span> &nbsp; No console errors; footer is static, so reduced-motion behavior is unchanged; print hides the footer</li>
+  </ul>
+  <div class="shots">
+    <figure><img src="prototypes/pier-home-desktop.png" alt="Bottom of the home page at desktop width ending in the abstract pier scene"><figcaption>Home, 1280px: page dissolves into the scene; deck line is the last row</figcaption></figure>
+    <figure><img src="prototypes/pier-post.png" alt="Bottom of a post page ending in the same abstract pier scene"><figcaption>Post page (/writing/extraction/): identical ending</figcaption></figure>
+    <figure><img src="prototypes/pier-mobile.png" alt="Bottom of the home page at mobile width with the dedicated mobile crop of the pier scene"><figcaption>Mobile, 375px: dedicated 1000x800 crop, figures ~2x larger, line edge to edge</figcaption></figure>
+  </div>
+</section>
+
+<section id="notes">
+  <h2>Notes &amp; callouts</h2>
+
+  <div class="callout good">
+    <div class="label">How the art was made (repeatable)</div>
+    <p>Skill: <code>travel-photo-abstraction</code> installed at <code>~/.codex/skills/travel-photo-abstraction</code> (verified with its <code>check_installation.py</code>). Run: <code>codex exec</code> with the source photo attached (<code>-i</code> swallows a following positional prompt, so pipe the prompt via stdin) and a deliverable override asking for three standalone no-text panels instead of the skill's photo-plus-panel composite. The skill validated each panel's uniform <code>#F3F0E8</code> background before returning. Regenerating more variations later: same command, same override, new variation intents.</p>
+  </div>
+
+  <div class="callout">
+    <div class="label">Info</div>
+    <p>The remaining source panels (1 and 3) and the finalization script (<code>finalize-panel2.py</code>: deck-line detection, background delta shift, 2x Lanczos upscale, lossless WebP export) lived in the session scratchpad; the pipeline is fully described in Design, so any future re-run can rebuild the asset from a new generation in minutes.</p>
+  </div>
+
+  <div class="callout warn">
+    <div class="label">Watch out</div>
+    <p>The dissolve depends on the asset's background being byte-identical to <code>--bg</code> (<code>rgb(248 243 235)</code>). Re-encoding the WebP lossily shifts the cream by 1 RGB unit and reintroduces a faint seam; keep it lossless, and re-run the delta shift if <code>--bg</code> ever changes. The scrapbook photo section planned for the home page should reuse this same abstraction grammar and pipeline.</p>
+  </div>
+</section>
+
+<footer>
+  Living artifact for Abstract Pier Footer. One file per feature; keep it current. Generated from ~/.claude/templates/feat-tracker.html.
+</footer>
+
+</div>
+</body>
+</html>
