@@ -332,14 +332,18 @@ a:focus-visible {
     transition: clip-path 2000000s step-end;
 }
 
-.masthead .name:hover::before {
+/* .is-marked is pinned by masthead.js on first pointer entry so a quick
+   pass still completes the swipe; :hover remains the no-JS fallback. */
+.masthead .name:hover::before,
+.masthead .name.is-marked::before {
     clip-path: inset(0 0 0 0);
     transition: clip-path 0.45s cubic-bezier(0.33, 0, 0.2, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
     .masthead .name::before,
-    .masthead .name:hover::before {
+    .masthead .name:hover::before,
+    .masthead .name.is-marked::before {
         transition: none;
     }
 }
@@ -366,6 +370,35 @@ a:focus-visible {
 
 .masthead .pronounce:hover {
     color: var(--ink-2);
+}
+
+/* The speaker keeps its width so nothing shifts; it fades in with a small
+   rightward step on hover, kin to the departing-glyph nudge. Drawn inline in
+   currentColor so it follows the button's ink. */
+.masthead .pronounce .play {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-3px);
+    transition: opacity 360ms var(--ease-out-quart),
+        transform 360ms var(--ease-out-quart);
+}
+
+.masthead .pronounce .play svg {
+    display: inline-block;
+    vertical-align: -0.12em;
+}
+
+.masthead .pronounce:hover .play,
+.masthead .pronounce:focus-visible .play {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .masthead .pronounce .play {
+        transition: none;
+        transform: none;
+    }
 }
 
 .masthead .pronounce:focus-visible {

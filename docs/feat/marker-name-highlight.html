@@ -83,7 +83,10 @@
 
 <section id="deviations">
   <h2>Deviations from plan</h2>
-  <p class="mut">None yet.</p>
+  <table>
+    <tr><th>What changed</th><th>From &#8594; To</th><th>Reason</th></tr>
+    <tr><td>Persistence mechanism</td><td>Pure-CSS infinite resting transition &#8594; two-line pointerenter handler in assets/masthead.js pinning .is-marked (CSS :hover kept as no-JS fallback)</td><td>The CSS-only trick froze the swipe half-drawn when the pointer left mid-wipe; owner required a quick pass to complete the full highlight</td></tr>
+  </table>
 </section>
 
 <section id="validation">
