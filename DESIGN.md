@@ -6,7 +6,7 @@ Visual system for vigneshrajsb.com. Captures the tokens, type, and patterns that
 
 **Paperlike, editorial, warm.** A page that reads like a hand-set letter on cream paper rather than a screen. Light theme by intent; the warmth comes from tinted neutrals (every surface tinted toward 70-80° hue) and a single ink-red accent used three places only.
 
-The voice is dry-witty and grounded; the visual treatment supports that by being quiet and committed rather than decorated. No gradients, no glassmorphism, no photos, no illustration. Type, paper, hierarchy carry everything. One sanctioned exception: Chocolata, the interactive masthead mascot (see docs/feat/animated-dog-header.html), a soft cel-shaded illustration of the author's dog beside the h1 (currently parked behind body[data-chocolata='off']). An abstract pier footer was shipped and pulled the same day (see docs/feat/abstract-pier-footer.html for the retrospective); any future footer art must clear a higher bar than that attempt.
+The voice is dry-witty and grounded; the visual treatment supports that by being quiet and committed rather than decorated. No gradients, no glassmorphism, no photos, no illustration. Type, paper, hierarchy carry everything. Two sanctioned exceptions: Chocolata, the interactive masthead mascot (see docs/feat/animated-dog-header.html), a soft cel-shaded illustration of the author's dog beside the h1 (currently parked behind body[data-chocolata='off']); and the ink tailpiece (see docs/feat/ink-tailpiece.html), the small brush-stroke family mark that ends every page. Both are ink-weight marks, not scenes; the full-bleed pier footer that briefly shipped between them was pulled the same day (retrospective in docs/feat/abstract-pier-footer.html).
 
 **Color strategy**: Restrained. Tinted-cream neutrals + one accent ≤10%.
 
@@ -135,11 +135,18 @@ Eyebrow label, h2 heading, `<ul>` of bullets. Bullets use a custom marker (`·` 
 
 Eyebrow + heading + a single styled link "Read on Medium →" with the arrow being a real Unicode arrow (`→`), not a decorative SVG.
 
-### Footer
+### `figure.tailpiece`
 
-There is no footer. Pages end after their last section with `main`'s 6rem
-bottom padding as the close. (An abstract pier footer was tried and pulled;
-see docs/feat/abstract-pier-footer.html before attempting another.)
+The ink mark that closes every page: Vignesh, Chocolata, and his wife as
+small silhouettes standing on a single calligraphic brush stroke, one faint
+peach sunset stroke on the water behind them. A book-tradition tailpiece at
+column scale, not a footer band: it lives in-flow inside `main` after the
+last section (8rem above; its negative bottom margin cancels main's padding
+so the stroke is the page's final ink). One self-contained SVG,
+`assets/tailpiece.svg`; geometry is owner-tuned and recorded in
+docs/feat/ink-tailpiece.html. The full-bleed pier footer this replaced was
+tried and pulled the same day; read docs/feat/abstract-pier-footer.html
+before attempting any full-bleed art again.
 
 ## Motion
 
