@@ -311,8 +311,8 @@ a:focus-visible {
 }
 
 /*
- * The highlighter pass over the name. A hand-drawn band (inline SVG, peach
- * from the pier footer's palette) sits behind the glyphs across the x-height.
+ * The highlighter pass over the name. A hand-drawn band (inline SVG, warm
+ * sunset peach) sits behind the glyphs across the x-height.
  * First hover wipes it in left to right; the resting state's transition is
  * effectively infinite, so once drawn it stays for the visit, like real ink.
  */
@@ -736,39 +736,6 @@ section:last-of-type {
     transform: translateX(3px);
 }
 
-/* ---------- Pier footer ---------- */
-
-/*
- * The art's background is baked to the exact sRGB value of --bg, so the page
- * dissolves into the image with no seam. The image is cropped so the deck
- * line is its last rows; cover + bottom anchoring makes that line the final
- * pixels of every page.
- */
-footer.pier {
-    display: block;
-    width: 100%;
-    /* Both gaps are trial knobs for the localhost-only spacing picker. Top:
-       main already carries 6rem bottom padding, so the total space above the
-       art is 6rem + this margin; negative values eat into main's padding.
-       Bottom: cream after the deck line, i.e. after the page "ends". */
-    margin-top: var(--pier-gap, calc(-1 * var(--space-3xl)));
-    margin-bottom: var(--pier-gap-bottom, 0px);
-}
-
-footer.pier img {
-    display: block;
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
-    object-position: center bottom;
-}
-
-@media (max-width: 539px) {
-    footer.pier img {
-        height: 300px;
-    }
-}
-
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -824,10 +791,6 @@ footer.pier img {
         display: none;
     }
 
-    /* DESIGN.md prints without the footer; the pier stays on screen. */
-    footer.pier {
-        display: none;
-    }
 
     .links a,
     .work a,

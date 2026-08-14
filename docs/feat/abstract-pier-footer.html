@@ -62,7 +62,7 @@
 <header>
   <div class="kicker">Feature Tracker</div>
   <h1>Abstract Pier Footer</h1>
-  <div class="meta">Owner: Vignesh &nbsp;·&nbsp; Repo: vigneshrajsb.com &nbsp;·&nbsp; Status: <span class="badge s-done">Done</span> &nbsp;·&nbsp; Updated: 2026-08-14</div>
+  <div class="meta">Owner: Vignesh &nbsp;·&nbsp; Repo: vigneshrajsb.com &nbsp;·&nbsp; Status: <span class="badge s-deviated">Rolled back</span> &nbsp;·&nbsp; Updated: 2026-08-14</div>
 </header>
 
 <nav class="toc">
@@ -138,6 +138,7 @@
     <tr><td>2026-08-14</td><td>Spacing locked at zero above and below the art; picker removed</td><td>Owner trialed presets and chose 0/0: content flows straight into the scene and the line ends the page</td><td>The scene's own empty sky is the only breathing room</td></tr>
     <tr><td>2026-08-14</td><td>Separate 1000x800 mobile crop served via picture element</td><td>Cover-fitting the wide master into the tall mobile box shrank the motif to invisibility; a crop centered on the figures keeps them ~2x larger with the line edge to edge</td><td>Second asset (70 KB) to keep in sync if the art ever changes</td></tr>
     <tr><td>2026-08-14</td><td>Real-ESRGAN 4x master (4608px) replaces the Lanczos 2x asset</td><td>Owner saw pixelation at a 2299px retina viewport: Lanczos adds no detail and the browser stretched 3072px a further 1.5x; codex's image tool is capped at 1536px so regeneration at high res was not possible, and pixel-faithful SVG would trade the soft watercolor edges for hard vector ones</td><td>Assets grow to 196 + 169 KB; a downloaded upscaler binary joins the pipeline</td></tr>
+    <tr><td>2026-08-14</td><td><b>Feature rolled back the same day: footer removed from all pages</b></td><td>Owner verdict after living with it in production: "feels cheap and more tacky." The rollback came while investigating why short pages (writing index) show cream below the deck line: the document is shorter than tall viewports, and the scene floats mid-window instead of closing the page</td><td>Markup, CSS, and assets removed (recoverable from git history); this tracker stays as the retrospective. A future attempt needs art that survives full-bleed scrutiny and a sticky-footer treatment for short pages from day one</td></tr>
   </table>
 </section>
 
