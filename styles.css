@@ -306,6 +306,42 @@ a:focus-visible {
 
 .masthead .name {
     margin-bottom: var(--space-sm);
+    position: relative;
+    z-index: 0;
+}
+
+/*
+ * The highlighter pass over the name. A hand-drawn band (inline SVG, peach
+ * from the pier footer's palette) sits behind the glyphs across the x-height.
+ * First hover wipes it in left to right; the resting state's transition is
+ * effectively infinite, so once drawn it stays for the visit, like real ink.
+ */
+.masthead .name::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: -0.2em;
+    right: -0.1em;
+    bottom: 0.14em;
+    height: 0.82em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 44' preserveAspectRatio='none'%3E%3Cpath fill='%23F0AC78' fill-opacity='0.6' d='M5 16C46 15 108 14 162 13 216 12 268 15 314 20L312 31C266 36 208 38 150 38 96 38 40 37 6 36Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+    mix-blend-mode: multiply;
+    transform: rotate(-0.8deg);
+    pointer-events: none;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 2000000s step-end;
+}
+
+.masthead .name:hover::before {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 0.45s cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .masthead .name::before,
+    .masthead .name:hover::before {
+        transition: none;
+    }
 }
 
 .masthead .role,
