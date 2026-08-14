@@ -183,5 +183,8 @@ Mirrors the impeccable absolute bans, plus brand-specific:
 - No modals (none expected on this site anyway).
 - No em-dashes in copy. Use commas, colons, semicolons, periods, parentheses.
 - No icons-above-headings. Eyebrow label + heading is the pattern.
+- Icons in general stay banned; the single sanctioned exception is the
+  pronounce helper's hover-only speaker (inline SVG, currentColor, 14px),
+  because no typographic glyph says "audio" unambiguously.
 - No monospace. The site is editorial, not dev-bro. Exception: code blocks and ASCII diagrams inside /writing/ posts — technical article content requires it; the chrome around them stays editorial.
 - No dark mode toggle. The scene sentence forces light; a toggle would dilute the voice.
