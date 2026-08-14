@@ -344,6 +344,35 @@ a:focus-visible {
     }
 }
 
+/*
+ * The pronounce helper rides the name's baseline where Chocolata used to sit.
+ * Dictionary slashes in the site's own italic carry the "this is how you say
+ * it" convention without an underline pulling the eye off the name; hover
+ * deepens the ink a shade as the click affordance.
+ */
+.masthead .pronounce {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-3);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0.6rem 0.5rem;
+    margin: -0.6rem -0.5rem -0.6rem calc(var(--space-sm) - 0.5rem);
+    white-space: nowrap;
+    transition: color 180ms var(--ease-out-quart);
+}
+
+.masthead .pronounce:hover {
+    color: var(--ink-2);
+}
+
+.masthead .pronounce:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+
 .masthead .role,
 .masthead .location {
     font-family: var(--font-sans);
