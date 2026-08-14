@@ -6,7 +6,7 @@ Visual system for vigneshrajsb.com. Captures the tokens, type, and patterns that
 
 **Paperlike, editorial, warm.** A page that reads like a hand-set letter on cream paper rather than a screen. Light theme by intent; the warmth comes from tinted neutrals (every surface tinted toward 70-80° hue) and a single ink-red accent used three places only.
 
-The voice is dry-witty and grounded; the visual treatment supports that by being quiet and committed rather than decorated. No gradients, no glassmorphism, no photos, no illustration. Type, paper, hierarchy carry everything. Two sanctioned exceptions, both featuring the same two characters: Chocolata, the interactive masthead mascot (see docs/feat/animated-dog-header.html), a soft cel-shaded illustration of the author's dog beside the h1; and the pier footer (see docs/feat/abstract-pier-footer.html), a sparse abstract artwork generated from a photo of the author and Chocolata on a Lake Tahoe pier, which closes every page. Masthead and footer bookend the site with the same pair.
+The voice is dry-witty and grounded; the visual treatment supports that by being quiet and committed rather than decorated. No gradients, no glassmorphism, no photos, no illustration. Type, paper, hierarchy carry everything. One sanctioned exception: Chocolata, the interactive masthead mascot (see docs/feat/animated-dog-header.html), a soft cel-shaded illustration of the author's dog beside the h1 (currently parked behind body[data-chocolata='off']). An abstract pier footer was shipped and pulled the same day (see docs/feat/abstract-pier-footer.html for the retrospective); any future footer art must clear a higher bar than that attempt.
 
 **Color strategy**: Restrained. Tinted-cream neutrals + one accent ≤10%.
 
@@ -135,9 +135,11 @@ Eyebrow label, h2 heading, `<ul>` of bullets. Bullets use a custom marker (`·` 
 
 Eyebrow + heading + a single styled link "Read on Medium →" with the arrow being a real Unicode arrow (`→`), not a decorative SVG.
 
-### `footer.pier`
+### Footer
 
-The abstract pier artwork, image only: no text, no links, no border. Its background is baked to the exact sRGB value of `--bg`, so the page dissolves into the scene with no seam, and the image is cropped so the deck line (with the two seated figures) is the final pixel row of every page. Zero margin above (the footer cancels main's 6rem bottom padding, content flows straight into the scene's sky) and zero below. Fixed heights: 420px, 300px under 540px viewports, `object-fit: cover` anchored center bottom. Under 540px a dedicated 1000x800 crop centered on the figures is served via `<picture>` (`assets/pier-footer-mobile.webp`); the wide master scales the motif to invisibility there. Hidden in print. Assets are lossless WebP; lossy re-encoding shifts the cream and breaks the dissolve.
+There is no footer. Pages end after their last section with `main`'s 6rem
+bottom padding as the close. (An abstract pier footer was tried and pulled;
+see docs/feat/abstract-pier-footer.html before attempting another.)
 
 ## Motion
 
