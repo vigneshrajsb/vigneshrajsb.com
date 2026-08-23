@@ -99,7 +99,10 @@ def degrade_interactive(content, post_url):
         return f'<p><a href="{src.group(1)}">{text} (MP4)</a></p>'
 
     content = INTERACTIVE_FIGURE.sub(figure, content)
-    return VIDEO.sub(video, content)
+    content = VIDEO.sub(video, content)
+    # Loose embed loaders (e.g. X's widgets.js) do nothing in a reader; the
+    # blockquote fallback they decorate already carries the content.
+    return re.sub(r"\s*<script\b[^>]*>.*?</script>", "", content, flags=re.S)
 
 
 def div_block(content, start):

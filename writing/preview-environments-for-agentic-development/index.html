@@ -106,9 +106,6 @@
       .post-body th { font-weight: 500; color: var(--ink-2); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
       .post-body hr { border: none; border-top: 1px solid var(--rule); width: 48px; margin: var(--space-xl) 0 var(--space-lg); }
       .post-body .endnote { font-style: italic; color: var(--ink-2); }
-      .post-body blockquote.tweet { margin: var(--space-lg) 0; padding: 0.9rem 1.1rem; border: 1px solid var(--rule); border-left: 3px solid var(--accent-soft); border-radius: 6px; background: var(--bg-subtle); }
-      .post-body blockquote.tweet p { font-style: italic; margin: 0 0 0.5rem; }
-      .post-body blockquote.tweet footer { font-family: var(--font-sans); font-size: var(--text-meta); color: var(--ink-2); }
       .post-body .media { margin: var(--space-lg) 0 var(--space-xl); }
       .post-body .media video { width: 100%; height: auto; display: block; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg-subtle); }
       .post-body .media figcaption { font-family: var(--font-sans); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.5rem; }
@@ -690,12 +687,9 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   <hr>
   <h2 id="your-agent-or-the-built-in-one">Your agent, or the built-in one?</h2>
   <p>A thread this week summed up a common view:</p>
-  <blockquote class="tweet">
-    <p>&ldquo;i really don't want to use your agent, i want to use my agent to use your thing.&rdquo;</p>
-    <footer>Ali Spittel, quote-tweeted by Gergely Orosz, who added that unless you are a frontier lab, most people would rather connect the agent they already use over MCP than adopt yours. <a href="https://x.com/GergelyOrosz/status/2091248280365682688" target="_blank" rel="noopener" aria-describedby="ext-tab">Read the thread on X</a></footer>
-  </blockquote>
+  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">So many vendors are NOT getting this. I have one or two agents I use and like. For anyone else: give me an MCP interface to connect these agents to so I can use your service. Unless your a frontier AI lab, I prob don't want to use your agent, sorry</p>&mdash; Gergely Orosz (@GergelyOrosz) <a href="https://twitter.com/GergelyOrosz/status/2091248280365682688?ref_src=twsrc%5Etfw">August 22, 2026</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <p>We agree, and that is what the CLI and the MCP server are for. If you already have an agent you like, point it at Lifecycle and keep your workflow.</p>
-  <p>The built-in debug agent covers a different case. It lives next to the environment, already has the logs and the Kubernetes state, and needs no setup. When a deploy fails and you want a quick answer or a one-off fix, you open it and ask. Replies in the same thread made this point too: for a quick check, a built-in agent that already knows the system beats wiring up your own.</p>
+  <p>The built-in debug agent covers a different case. It lives next to the environment, already has the logs and the Kubernetes state, and needs no setup. When a deploy fails and you want a quick answer or a one-off fix, you open it and ask.</p>
   <p>Use both. Your agent, through MCP or <code>lfc</code>, for the work you own. The built-in agent for the quick debug.</p>
 
   <h2 id="the-debug-agent">The debug agent</h2>
