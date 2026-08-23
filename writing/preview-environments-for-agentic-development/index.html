@@ -6,7 +6,7 @@
     <title>Preview environments for agentic development — Vignesh</title>
     <meta
       name="description"
-      content="Agents made code cheap to write, but verifying it is still laborious. I taught agents to work with preview environments: a CLI, an MCP server, and a debug agent."
+      content="Agents made code cheap to write, but verifying it is still laborious. Teaching agents to work with preview environments: a CLI, an MCP server, and a debug agent."
     />
     <link rel="canonical" href="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/" />
     <meta name="robots" content="index, follow" />
@@ -17,7 +17,7 @@
     <meta property="og:title" content="Preview environments for agentic development" />
     <meta
       property="og:description"
-      content="Agents made code cheap to write, but verifying it is still laborious. I taught agents to work with preview environments: a CLI, an MCP server, and a debug agent."
+      content="Agents made code cheap to write, but verifying it is still laborious. Teaching agents to work with preview environments: a CLI, an MCP server, and a debug agent."
     />
     <meta property="og:url" content="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/" />
     <meta property="og:locale" content="en_US" />
@@ -39,7 +39,7 @@
     <meta name="twitter:title" content="Preview environments for agentic development" />
     <meta
       name="twitter:description"
-      content="Agents made code cheap to write, but verifying it is still laborious. I taught agents to work with preview environments: a CLI, an MCP server, and a debug agent."
+      content="Agents made code cheap to write, but verifying it is still laborious. Teaching agents to work with preview environments: a CLI, an MCP server, and a debug agent."
     />
     <meta
       name="twitter:image"
@@ -51,7 +51,7 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Preview environments for agentic development",
-        "description": "Agents made code cheap to write, but verifying it is still laborious. I taught agents to work with preview environments: a CLI, an MCP server, and a debug agent.",
+        "description": "Agents made code cheap to write, but verifying it is still laborious. Teaching agents to work with preview environments: a CLI, an MCP server, and a debug agent.",
         "image": "https://vigneshrajsb.com/writing/assets/preview-environments-og.png",
         "author": {
           "@type": "Person",
@@ -695,7 +695,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   <h2 id="the-debug-agent">The debug agent</h2>
   <p>The capability engineers use most is the built-in agent for diagnosing broken environments. Open an environment, ask why it failed, and the <a href="https://uselifecycle.com/docs/features/ai-agent" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle Agent</a> starts with that environment already in context: the namespace, the deployed services, the build metadata, the logs, and the PR branch.</p>
   
-  <p>Here is one full run on a failed environment. The agent reads the deploy status, pulls the failing pod’s logs, checks recent Kubernetes events, and comes back with a diagnosis and a suggested fix.</p>
+  <p>Here is one full run on a failed environment. The agent reads the build status, pulls the failing build job’s logs, checks recent Kubernetes events, and comes back with a diagnosis and a suggested fix.</p>
   <figure class="media">
     <video width="1598" height="998" controls autoplay loop muted playsinline preload="metadata" poster="../assets/lifecycle-debug-agent-poster.jpg" aria-label="Screen recording of the Lifecycle debug agent, from a failed build to an applied fix">
       <source src="../assets/lifecycle-debug-agent-replay.mp4" type="video/mp4">
@@ -1344,7 +1344,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
 </figure>
 </div>
   <p>The benefit is that verification stops being the bottleneck: the environment exists automatically, the agent can read it directly, and the humans spend their attention on judgment calls instead of tab-hopping between browser and tools to validate your changes integrated with the rest of your stack.</p>
-  <p>Code is getting cheaper to write. The apps are more interconnected and complex than ever. Preview environments keep those two from causing friction, and teaching the tools to speak agent, and agents to speak the tools, is how I keep up.</p>
+  <p>Code is getting cheaper to write. The apps are more interconnected and complex than ever. Preview environments keep those two from causing friction, and teaching the tools to speak agent, and agents to speak the tools, is how we keep up.</p>
   <hr>
   <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
         </div>

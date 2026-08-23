@@ -11,7 +11,7 @@
       <link>https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/</link>
       <guid>https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/</guid>
       <pubDate>Sun, 23 Aug 2026 00:00:00 GMT</pubDate>
-      <description>Agents made code cheap to write, but verifying it is still laborious. I taught agents to work with preview environments: a CLI, an MCP server, and a debug agent.</description>
+      <description>Agents made code cheap to write, but verifying it is still laborious. Teaching agents to work with preview environments: a CLI, an MCP server, and a debug agent.</description>
       <content:encoded><![CDATA[<div class="post-body">
   <p>AI agents have made writing code fast and cheap. Verifying that code hasn’t gotten any faster.</p>
   <p>Tests help, but they answer a part of a question: does this function behave? They don’t tell you that the changed API, the frontend, the database migration, and the feature flag all work together. For that, you need the change running somewhere real — with its dependencies, its config, and a URL you can click.</p>
@@ -87,7 +87,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   <h2 id="the-debug-agent">The debug agent</h2>
   <p>The capability engineers use most is the built-in agent for diagnosing broken environments. Open an environment, ask why it failed, and the <a href="https://uselifecycle.com/docs/features/ai-agent" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle Agent</a> starts with that environment already in context: the namespace, the deployed services, the build metadata, the logs, and the PR branch.</p>
   
-  <p>Here is one full run on a failed environment. The agent reads the deploy status, pulls the failing pod’s logs, checks recent Kubernetes events, and comes back with a diagnosis and a suggested fix.</p>
+  <p>Here is one full run on a failed environment. The agent reads the build status, pulls the failing build job’s logs, checks recent Kubernetes events, and comes back with a diagnosis and a suggested fix.</p>
   <figure class="media">
     <p><a href="https://vigneshrajsb.com/writing/assets/lifecycle-debug-agent-replay.mp4">Screen recording of the Lifecycle debug agent, from a failed build to an applied fix (MP4)</a></p>
     <figcaption>The debug agent on a failed frontend build: it reads the build log, finds the cause, proposes a fix, and the PR goes green.</figcaption>
@@ -115,7 +115,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
 <p><em>Diagram: the developer asks a coding agent for a change. The agent opens a pull request; Lifecycle reads both repo configs, builds the image and deploys into namespace env-pr-124, but one pod fails and the check is marked failed on the pull request. Path A: the coding agent asks Lifecycle for the logs over MCP or the lfc CLI and finds the cause. Path B: the developer asks the Lifecycle Agent, which reads logs and Kubernetes state and suggests the fix. Either way the fix is pushed as a commit, Lifecycle rebuilds and redeploys, posts the URL, the developer verifies, and the agent merges. Closing the pull request deletes the namespace.</em> <a href="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/">View the interactive version on the site.</a></p>
 </div>
   <p>The benefit is that verification stops being the bottleneck: the environment exists automatically, the agent can read it directly, and the humans spend their attention on judgment calls instead of tab-hopping between browser and tools to validate your changes integrated with the rest of your stack.</p>
-  <p>Code is getting cheaper to write. The apps are more interconnected and complex than ever. Preview environments keep those two from causing friction, and teaching the tools to speak agent, and agents to speak the tools, is how I keep up.</p>
+  <p>Code is getting cheaper to write. The apps are more interconnected and complex than ever. Preview environments keep those two from causing friction, and teaching the tools to speak agent, and agents to speak the tools, is how we keep up.</p>
   <hr>
   <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
         </div>]]></content:encoded>
