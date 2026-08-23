@@ -79,7 +79,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   <hr>
   <h2 id="your-agent-or-the-built-in-one">Your agent, or the built-in one?</h2>
   <p>A thread this week summed up a common view:</p>
-  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">So many vendors are NOT getting this. I have one or two agents I use and like. For anyone else: give me an MCP interface to connect these agents to so I can use your service. Unless your a frontier AI lab, I prob don't want to use your agent, sorry</p>&mdash; Gergely Orosz (@GergelyOrosz) <a href="https://twitter.com/GergelyOrosz/status/2091248280365682688?ref_src=twsrc%5Etfw">August 22, 2026</a></blockquote>
+  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">So many vendors are NOT getting this<br><br>I have one or two agents I use and like. For anyone else: give me an MCP interface to connect these agents to so I can use your service<br><br>Unless your a frontier AI lab, I prob don&#39;t want to use your agent, sorry <a href="https://t.co/8cMTKdFqwF">https://t.co/8cMTKdFqwF</a></p>&mdash; Gergely Orosz (@GergelyOrosz) <a href="https://x.com/GergelyOrosz/status/2091248280365682688?ref_src=twsrc%5Etfw">August 22, 2026</a></blockquote>
   <p>We agree, and that is what the CLI and the MCP server are for. If you already have an agent you like, point it at Lifecycle and keep your workflow.</p>
   <p>The built-in debug agent covers a different case. It lives next to the environment, already has the logs and the Kubernetes state, and needs no setup. When a deploy fails and you want a quick answer or a one-off fix, you open it and ask.</p>
   <p>Use both. Your agent, through MCP or <code>lfc</code>, for the work you own. The built-in agent for the quick debug.</p>
