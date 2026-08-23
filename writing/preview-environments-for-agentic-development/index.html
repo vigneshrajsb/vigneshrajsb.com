@@ -1,0 +1,1372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview environments for agentic development — Vignesh</title>
+    <meta
+      name="description"
+      content="AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built."
+    />
+    <link rel="canonical" href="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Vigneshraj Sekar Babu" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Vignesh — vigneshrajsb.com" />
+    <meta property="og:title" content="Preview environments for agentic development" />
+    <meta
+      property="og:description"
+      content="AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built."
+    />
+    <meta property="og:url" content="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:image"
+      content="https://vigneshrajsb.com/writing/assets/preview-environments-og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="628" />
+    <meta property="article:published_time" content="2026-08-23" />
+    <meta property="article:author" content="Vigneshraj Sekar Babu" />
+    <meta property="article:tag" content="lifecycle" />
+    <meta property="article:tag" content="preview environments" />
+    <meta property="article:tag" content="ai agents" />
+    <meta property="article:tag" content="mcp" />
+    <meta property="article:tag" content="platform engineering" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Preview environments for agentic development" />
+    <meta
+      name="twitter:description"
+      content="AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built."
+    />
+    <meta
+      name="twitter:image"
+      content="https://vigneshrajsb.com/writing/assets/preview-environments-og.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Preview environments for agentic development",
+        "description": "AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built.",
+        "image": "https://vigneshrajsb.com/writing/assets/preview-environments-og.png",
+        "author": {
+          "@type": "Person",
+          "name": "Vigneshraj Sekar Babu",
+          "url": "https://vigneshrajsb.com/"
+        },
+        "datePublished": "2026-08-23",
+        "url": "https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/"
+        }
+      }
+    </script>
+
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Vignesh — Writing"
+      href="/feed.xml"
+    />
+    <link
+      rel="preload"
+      href="/fonts/vollkorn-v30-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/vollkorn-italic-v30-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/karla-v33-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/writing/writing.css" />
+
+    <style>
+      /* Preview environments: post-local figure, table, and media styles. Colors resolve to site tokens. */
+      .post-body .tablewrap { overflow-x: auto; margin: 0 0 var(--space-md); }
+      .post-body table { border-collapse: collapse; width: 100%; font-family: var(--font-sans); font-size: 0.9rem; }
+      .post-body th, .post-body td { border-bottom: 1px solid var(--rule); padding: 0.5rem 0.6rem; text-align: left; vertical-align: top; }
+      .post-body th { font-weight: 500; color: var(--ink-2); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
+      .post-body hr { border: none; border-top: 1px solid var(--rule); width: 48px; margin: var(--space-xl) 0 var(--space-lg); }
+      .post-body .endnote { font-style: italic; color: var(--ink-2); }
+      .post-body .media { margin: var(--space-lg) 0 var(--space-xl); }
+      .post-body .media video { width: 100%; height: auto; display: block; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg-subtle); }
+      .post-body .media figcaption { font-family: var(--font-sans); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.5rem; }
+      .post-body .fig { margin: var(--space-xl) 0 var(--space-2xl); }
+      .post-body .fig-label { font-family: var(--font-sans); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 0.6rem; }
+    </style>
+  </head>
+  <body class="post-page">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <span id="ext-tab" class="sr-only">opens in a new tab</span>
+    <main id="main">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep" aria-hidden="true">&#x203A;</span>
+        <a href="/writing/">Writing</a>
+      </nav>
+
+      <article>
+        <header class="post-header">
+          <h1>Preview environments for agentic development</h1>
+          <p class="post-subtitle">
+            How we use Lifecycle to verify agent-written code, and the CLI, MCP
+            server, and debug agent we built so agents can use it too
+          </p>
+          <p class="post-meta">
+            <time datetime="2026-08-23">August 23, 2026</time> &middot; 6 min
+            read
+          </p>
+        </header>
+
+        <!-- feed:start -->
+        <div class="post-body">
+  <p>AI agents have made writing code fast and cheap. Verifying that code hasn’t gotten any faster.</p>
+  <p>Tests help, but they answer a part of a question: does this function behave? They don’t tell you that the changed API, the frontend, the database migration, and the feature flag all work together. For that, you need the change running somewhere real — with its dependencies, its config, and a URL you can click.</p>
+  <p>A preview environment solves this: a disposable copy of your application, wired to one pull request. These used to be a nice developer-experience perk. Now agents can open more pull requests than any team can hand-verify, and the preview environment is where that code proves it actually runs.</p>
+  <p>This post is about how we do that with Lifecycle, and about the capabilities we’ve been building so that agents can use it as well.</p>
+
+  <p><a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle</a> is an open source tool from GoodRx that creates a preview environment for every pull request. When a PR opens, Lifecycle figures out which services the change needs, deploys them to Kubernetes, and posts stable URLs back to the PR. When the PR closes or the environment’s TTL expires, it cleans everything up.</p>
+  <p><i>I’m one of the contributors to Lifecycle, and we use it at work.</i></p>
+  <p>The core loop is simple:</p>
+  <ol>
+    <li>Open a pull request.</li>
+    <li>Get a running environment with the services your change touches.</li>
+    <li>Share the URL with whoever needs to see it — designer, product, tester or an agent.</li>
+    <li>Close the PR, and the environment goes away.</li>
+  </ol>
+  <p>That loop was built for people. The interesting recent work has been making it usable by agents too, through three surfaces: a CLI, a Model Context Protocol (MCP) server, and a built-in debug agent to assist engineers.</p>
+
+<div class="fig"><p class="fig-label">Fig. 01 · The preview environment loop, no agents involved</p>
+<figure class="lfc-flow" aria-labelledby="lfc-caption">
+<style>
+.lfc-flow {
+  --bg: #f6f2ea; --bg-subtle: #f0ebe2; --ink: #2b2622; --ink-2: #6c6560; --ink-3: #958d86;
+  --rule: #d4cbbd; --accent: #a8482e; --accent-soft: #c4785f; --accent-tint: #f4ece5;
+  --bg: oklch(0.965 0.012 78); --bg-subtle: oklch(0.945 0.014 78);
+  --ink: oklch(0.22 0.018 50); --ink-2: oklch(0.46 0.014 55); --ink-3: oklch(0.62 0.012 60);
+  --rule: oklch(0.84 0.018 70); --accent: oklch(0.50 0.16 32); --accent-soft: oklch(0.62 0.10 32);
+  --accent-tint: oklch(0.95 0.018 45);
+  --card: #fbf9f5; --card: oklch(0.985 0.008 80);
+  --font-serif: 'Vollkorn', Georgia, serif;
+  --font-sans: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+  margin: 0; padding: 0; max-width: 100%; color: var(--ink); font-family: var(--font-sans);
+  background: var(--bg);
+}
+.lfc-flow * { box-sizing: border-box; }
+.lfc-flow .lfc-svg-wrap { max-width: 100%; }
+.lfc-flow .lfc-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* wires */
+.lfc-flow .lfc-wire { fill: none; stroke: var(--rule); stroke-width: 1.5; marker-end: url(#lfc-arrow); transition: stroke .35s var(--ease-out-quart); }
+.lfc-flow .lfc-wire.is-warm { stroke: var(--accent-soft); marker-end: url(#lfc-arrow-warm); }
+.lfc-flow .lfc-wire.is-loop { stroke: var(--accent-soft); marker-end: url(#lfc-arrow-warm); }
+.lfc-flow .lfc-wire.is-hot { stroke: var(--accent); marker-end: url(#lfc-arrow-hot); }
+.lfc-flow .lfc-wire.is-dashed { stroke-dasharray: 4 4; }
+.lfc-flow .lfc-arrow { fill: var(--rule); }
+.lfc-flow .lfc-arrow-warm { fill: var(--accent-soft); }
+.lfc-flow .lfc-arrow-hot { fill: var(--accent); }
+.lfc-flow .lfc-wire-labels { fill: var(--ink-2); font-size: 12.5px; }
+.lfc-flow .lfc-hatch line { stroke: var(--ink-2); stroke-width: 1; }
+
+/* nodes */
+.lfc-flow .lfc-box { fill: var(--card); stroke: var(--rule); stroke-width: 1; rx: 7; filter: url(#lfc-shadow); transition: stroke .3s var(--ease-out-quart), fill .3s var(--ease-out-quart); }
+.lfc-flow .lfc-title { font-family: var(--font-serif); font-size: 16px; fill: var(--ink); }
+.lfc-flow .lfc-sub { font-size: 13px; fill: var(--ink-2); }
+.lfc-flow .lfc-mono { font-family: var(--font-mono); font-size: 12.5px; fill: var(--ink-2); }
+.lfc-flow .lfc-node text { transition: fill .3s var(--ease-out-quart); }
+.lfc-flow .lfc-node[data-state="active"] .lfc-box { stroke: var(--accent); stroke-width: 1.5; fill: var(--accent-tint); filter: url(#lfc-shadow-lift); }
+.lfc-flow .lfc-node[data-state="active"] .lfc-sub,
+.lfc-flow .lfc-node[data-state="active"] .lfc-mono { fill: var(--ink); }
+.lfc-flow .lfc-node[data-state="done"] .lfc-box { stroke: var(--ink-3); }
+.lfc-flow .lfc-node[data-state="gone"] .lfc-box { stroke: var(--ink-3); stroke-dasharray: 5 4; fill: transparent; filter: none; }
+.lfc-flow .lfc-node[data-state="gone"] text { fill: var(--ink-3); }
+.lfc-flow .lfc-node[data-state="gone"] .lfc-ns { text-decoration: line-through; }
+
+/* pods, layers, live */
+.lfc-flow .lfc-pod { fill: none; stroke: var(--ink-3); stroke-width: 1.5; transition: fill .25s var(--ease-out-quart), stroke .25s var(--ease-out-quart); }
+.lfc-flow .lfc-pod.is-on { fill: var(--accent); stroke: var(--accent); }
+.lfc-flow .lfc-pod.is-rolling { fill: var(--rule); stroke: var(--accent-soft); }
+.lfc-flow .lfc-layer { fill: none; stroke: var(--ink-3); stroke-width: 1.25; transition: fill .3s var(--ease-out-quart), stroke .3s var(--ease-out-quart); }
+.lfc-flow .lfc-layer.is-dim { fill: var(--rule); stroke: var(--ink-3); }
+.lfc-flow .lfc-layer.is-on { fill: var(--accent); stroke: var(--accent); }
+.lfc-flow .lfc-layer.is-cached { fill: url(#lfc-hatch); stroke: var(--ink-2); }
+.lfc-flow .lfc-live { opacity: 0; transition: opacity .3s var(--ease-out-quart); }
+.lfc-flow .lfc-live.is-on { opacity: 1; }
+.lfc-flow .lfc-live-dot { fill: var(--accent); }
+.lfc-flow .lfc-live-ring { fill: none; stroke: var(--accent); stroke-width: 1.25; transform-box: fill-box; transform-origin: center; animation: lfc-pulse 2s var(--ease-out-quart) infinite; }
+.lfc-flow .lfc-live-text { font-size: 12px; fill: var(--accent); letter-spacing: .04em; }
+@keyframes lfc-pulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.2); opacity: 0; } }
+
+/* chips */
+.lfc-flow .lfc-chip rect { fill: var(--accent); stroke: var(--bg); stroke-width: 1.5; filter: url(#lfc-shadow-chip); }
+.lfc-flow .lfc-chip text { font-size: 12.5px; font-weight: 700; fill: #fff; text-anchor: middle; }
+
+/* caption row */
+.lfc-flow .lfc-bar { display: flex; align-items: center; gap: .5rem; margin-top: .75rem; padding: .6rem .8rem; border: 1px solid var(--rule); border-radius: 6px; background: var(--card); box-shadow: 0 1px 2px rgba(60,40,20,.08), 0 4px 12px rgba(60,40,20,.05); min-height: 3.4rem; }
+.lfc-flow .lfc-step { flex: 0 0 auto; font-family: var(--font-mono); font-size: .78rem; color: var(--ink-2); white-space: nowrap; }
+.lfc-flow .lfc-caption { flex: 1 1 auto; margin: 0; font-size: .84rem; line-height: 1.45; color: var(--ink); transition: opacity .18s ease-out; text-wrap: pretty; }
+.lfc-flow .lfc-caption.is-swapping { opacity: 0; }
+.lfc-flow .lfc-replay { flex: 0 0 auto; width: 2.25rem; height: 2.25rem; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--rule); border-radius: 8px; color: var(--ink-2); cursor: pointer; padding: 0; transition: color .2s, border-color .2s; }
+.lfc-flow .lfc-replay:hover, .lfc-flow .lfc-replay:focus-visible { color: var(--accent); border-color: var(--accent); outline: none; }
+.lfc-flow .lfc-replay:focus-visible { box-shadow: 0 0 0 3px var(--accent-tint); }
+.lfc-flow .lfc-replay.is-ready { color: var(--accent); border-color: var(--accent); }
+.lfc-flow .lfc-replay svg { width: 1.05rem; height: 1.05rem; }
+.lfc-flow .lfc-static { display: none; margin: .75rem 0 0; padding-left: 1.4rem; font-size: .9rem; line-height: 1.5; color: var(--ink); }
+.lfc-flow .lfc-static li { margin: 0 0 .35rem; }
+.lfc-flow .lfc-static li::marker { font-family: var(--font-mono); color: var(--ink-2); }
+.lfc-flow .lfc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lfc-flow.is-static .lfc-bar { display: none; }
+.lfc-flow.is-static .lfc-static { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .lfc-flow .lfc-live-ring { animation: none; opacity: 0; }
+}
+@media (max-width: 480px) {
+  .lfc-flow .lfc-svg-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; padding-bottom: .25rem; }
+  .lfc-flow .lfc-svg { min-width: 540px; }
+}
+@media (max-width: 420px) {
+  .lfc-flow .lfc-bar { flex-wrap: wrap; }
+  .lfc-flow .lfc-caption { flex-basis: 100%; order: 3; }
+  .lfc-flow .lfc-replay { margin-left: auto; }
+}
+</style>
+
+<div class="lfc-svg-wrap">
+<svg class="lfc-svg" viewBox="0 0 600 514" role="img" aria-label="Diagram: a developer opens a pull request on the frontend repo; Lifecycle reads the frontend and backend configs, builds images, deploys them into a Kubernetes namespace, and posts the preview URL back to the pull request, which the developer opens to test. New commits repeat the loop. Closing the pull request deletes the namespace." xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="lfc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="lfc-arrow" d="M0,1 L9,5 L0,9 z"/></marker>
+    <marker id="lfc-arrow-warm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="lfc-arrow-warm" d="M0,1 L9,5 L0,9 z"/></marker>
+    <marker id="lfc-arrow-hot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="lfc-arrow-hot" d="M0,1 L9,5 L0,9 z"/></marker>
+    <filter id="lfc-shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgb(60,40,20)" flood-opacity=".10"/><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgb(60,40,20)" flood-opacity=".06"/></filter>
+    <filter id="lfc-shadow-lift" x="-10%" y="-10%" width="120%" height="150%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgb(60,40,20)" flood-opacity=".12"/><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgb(60,40,20)" flood-opacity=".10"/></filter>
+    <filter id="lfc-shadow-chip" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="rgb(60,40,20)" flood-opacity=".22"/></filter>
+    <pattern id="lfc-hatch" class="lfc-hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4"/></pattern>
+  </defs>
+
+  <!-- wires: each path doubles as the motion track for chips -->
+  <g class="lfc-wires">
+    <path id="lfc-w1" class="lfc-wire" d="M112,226 C138,226 150,212 150,172"/>
+    <path id="lfc-w9" class="lfc-wire" d="M128,150 C90,150 60,158 60,200"/>
+    <path id="lfc-w2" class="lfc-wire" d="M332,130 C360,130 372,130 400,130"/>
+    <path id="lfc-w3" class="lfc-wire" d="M332,40 C400,40 470,44 470,98"/>
+    <path id="lfc-w4" class="lfc-wire" d="M500,172 C500,192 500,208 500,228"/>
+    <path id="lfc-w5" class="lfc-wire" d="M500,338 C500,358 500,374 500,394"/>
+    <path id="lfc-w6" class="lfc-wire" d="M400,440 C330,440 240,350 240,172"/>
+    <path id="lfc-w8" class="lfc-wire is-dashed" d="M412,172 C412,246 412,320 412,394"/>
+  </g>
+
+  <g class="lfc-wire-labels">
+    <text x="366" y="122" text-anchor="middle">webhook</text>
+    <text x="380" y="32" text-anchor="middle">config</text>
+    <text x="288" y="338">post URL to PR</text>
+    <text x="404" y="290" text-anchor="end">on close</text>
+    <text x="118" y="142" text-anchor="end">opens URL</text>
+  </g>
+
+  <!-- nodes: title y23 / subtitle y42 / status y62, 10-unit inset -->
+  <g class="lfc-node" data-node="be" data-state="idle" transform="translate(128,4)">
+    <rect class="lfc-box" width="204" height="74"/>
+    <text class="lfc-title" x="10" y="23">Backend repo</text>
+    <text class="lfc-sub" x="10" y="42">GitHub · lifecycle.yaml</text>
+    <text class="lfc-mono" x="10" y="62" data-text="be.note">main, no open PR</text>
+  </g>
+
+  <g class="lfc-node" data-node="gh" data-state="idle" transform="translate(128,98)">
+    <rect class="lfc-box" width="204" height="74"/>
+    <text class="lfc-title" x="10" y="23">Frontend repo</text>
+    <text class="lfc-sub" x="10" y="42">GitHub · lifecycle.yaml</text>
+    <text class="lfc-mono" x="10" y="62" data-text="gh.note">no open PR</text>
+  </g>
+
+  <g class="lfc-node" data-node="lc" data-state="idle" transform="translate(400,98)">
+    <rect class="lfc-box" width="160" height="74"/>
+    <text class="lfc-title" x="10" y="23">Lifecycle</text>
+    <text class="lfc-sub" x="10" y="42">control plane</text>
+    <text class="lfc-mono" x="10" y="62" data-text="lc.note">idle</text>
+  </g>
+
+  <g class="lfc-node" data-node="dev" data-state="idle" transform="translate(8,200)">
+    <rect class="lfc-box" width="104" height="74"/>
+    <text class="lfc-title" x="10" y="23">Developer</text>
+    <text class="lfc-sub" x="10" y="42">engineer</text>
+    <text class="lfc-mono" x="10" y="62" data-text="dev.sub">coding</text>
+  </g>
+
+  <g class="lfc-node" data-node="build" data-state="idle" transform="translate(436,228)">
+    <rect class="lfc-box" width="124" height="110"/>
+    <text class="lfc-title" x="10" y="23">Build</text>
+    <text class="lfc-sub" x="10" y="42">BuildKit</text>
+    <text class="lfc-mono" x="10" y="62" data-text="build.note">idle</text>
+    <text class="lfc-mono" x="10" y="79" data-text="build.api"></text>
+    <g class="lfc-layers">
+      <rect class="lfc-layer" data-layer="0" x="10" y="90" width="10" height="10"/>
+      <rect class="lfc-layer" data-layer="1" x="23" y="90" width="10" height="10"/>
+      <rect class="lfc-layer" data-layer="2" x="36" y="90" width="10" height="10"/>
+      <text class="lfc-sub" x="51" y="99" font-size="12px">web</text>
+      <rect class="lfc-layer" data-layer="api" x="84" y="90" width="10" height="10"/>
+      <text class="lfc-sub" x="98" y="99" font-size="12px">api</text>
+    </g>
+  </g>
+
+  <g class="lfc-node" data-node="dep" data-state="idle" transform="translate(400,394)">
+    <rect class="lfc-box" width="160" height="112"/>
+    <text class="lfc-title" x="10" y="23">Deploy</text>
+    <text class="lfc-sub" x="10" y="42">Kubernetes</text>
+    <text class="lfc-mono lfc-ns" x="10" y="62" data-text="dep.ns">no namespace</text>
+    <text class="lfc-mono" x="10" y="79" data-text="dep.note">nothing running</text>
+    <g class="lfc-pods">
+      <circle class="lfc-pod" data-pod="0" cx="15" cy="95" r="5"/>
+      <circle class="lfc-pod" data-pod="1" cx="30" cy="95" r="5"/>
+      <circle class="lfc-pod" data-pod="2" cx="45" cy="95" r="5"/>
+      <circle class="lfc-pod" data-pod="3" cx="60" cy="95" r="5"/>
+      <text class="lfc-sub" x="74" y="99" font-size="12px">pods</text>
+    </g>
+    <g class="lfc-live" data-live>
+      <circle class="lfc-live-ring" cx="144" cy="19" r="4"/>
+      <circle class="lfc-live-dot" cx="144" cy="19" r="3.5"/>
+      <text class="lfc-live-text" x="136" y="23" text-anchor="end">live</text>
+    </g>
+  </g>
+
+  <!-- chips ride here, on top of everything -->
+  <g class="lfc-chips"></g>
+</svg>
+</div>
+
+<div class="lfc-bar">
+  <span class="lfc-step" data-step aria-hidden="true">0 / 9</span>
+  <figcaption class="lfc-caption" id="lfc-caption" data-caption>A pull request is about to open.</figcaption>
+  <button class="lfc-replay" type="button" data-replay aria-label="Replay">
+    <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2v3.2h-3.2"/></svg>
+  </button>
+</div>
+<ol class="lfc-static" data-static></ol>
+<ol class="lfc-sr" data-sr aria-label="Steps in the diagram"></ol>
+
+<script>
+(function () {
+  const root = document.currentScript.closest('.lfc-flow');
+  const NS = 'http://www.w3.org/2000/svg';
+  const $ = (sel) => root.querySelector(sel);
+  const $$ = (sel) => Array.from(root.querySelectorAll(sel));
+  const chipsLayer = $('.lfc-chips');
+  const captionEl = $('[data-caption]');
+  const stepEl = $('[data-step]');
+  const replayBtn = $('[data-replay]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LOOP_WIRES = ['w1', 'w2', 'w4', 'w5', 'w6', 'w9'];
+
+  const CANCEL = Symbol('cancel');
+  let runId = 0;
+
+  const node = (name) => $('[data-node="' + name + '"]');
+  const wrap = $('.lfc-svg-wrap');
+  const followNode = (name) => {
+    if (wrap.scrollWidth <= wrap.clientWidth + 4) return;
+    const r = node(name).getBoundingClientRect();
+    const w = wrap.getBoundingClientRect();
+    const left = wrap.scrollLeft + (r.left - w.left) + r.width / 2 - wrap.clientWidth / 2;
+    wrap.scrollTo({ left: Math.max(0, left), behavior: reducedMotion ? 'auto' : 'smooth' });
+  };
+  const setNode = (name, state) => { node(name).dataset.state = state; if (state === 'active') followNode(name); };
+  const setText = (key, text) => { const el = $('[data-text="' + key + '"]'); if (el) el.textContent = text; };
+  const pod = (i) => $('.lfc-pod[data-pod="' + i + '"]');
+  const setPods = (n) => $$('.lfc-pod').forEach((p, i) => { p.classList.toggle('is-on', i < n); p.classList.remove('is-rolling'); });
+  const webLayers = () => $$('.lfc-layer[data-layer]').filter((l) => l.dataset.layer !== 'api');
+  const setLayers = (n, cached) => {
+    webLayers().forEach((l, i) => { l.classList.toggle('is-on', i < n); l.classList.remove('is-dim'); });
+    $('.lfc-layer[data-layer="api"]').classList.toggle('is-cached', !!cached);
+  };
+  const setLive = (on) => $('[data-live]').classList.toggle('is-on', on);
+  const setWire = (id, cls, on) => $('#lfc-' + id).classList.toggle(cls, on);
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const wait = async (ms) => { const id = runId; await sleep(ms); if (id !== runId) throw CANCEL; };
+
+  function ride(wireId, label, dur) {
+    return new Promise((resolve) => {
+      const path = $('#lfc-' + wireId);
+      const g = document.createElementNS(NS, 'g');
+      g.setAttribute('class', 'lfc-chip');
+      const w = Math.max(30, label.length * 7.8 + 12);
+      const rect = document.createElementNS(NS, 'rect');
+      rect.setAttribute('x', -w / 2); rect.setAttribute('y', -10);
+      rect.setAttribute('width', w); rect.setAttribute('height', 20); rect.setAttribute('rx', 4);
+      const text = document.createElementNS(NS, 'text');
+      text.setAttribute('y', 4.5);
+      text.textContent = label;
+      const am = document.createElementNS(NS, 'animateMotion');
+      am.setAttribute('begin', 'indefinite');
+      am.setAttribute('dur', dur + 'ms');
+      am.setAttribute('fill', 'freeze');
+      am.setAttribute('calcMode', 'spline');
+      am.setAttribute('keyTimes', '0;1');
+      am.setAttribute('keySplines', '0.45 0 0.2 1');
+      const mp = document.createElementNS(NS, 'mpath');
+      mp.setAttribute('href', '#lfc-' + wireId);
+      mp.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#lfc-' + wireId);
+      am.appendChild(mp);
+      g.append(rect, text, am);
+      chipsLayer.appendChild(g);
+      path.classList.add('is-hot');
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        g.remove();
+        path.classList.remove('is-hot');
+        resolve();
+      };
+      am.addEventListener('endEvent', finish);
+      setTimeout(finish, dur + 120);
+      am.beginElement();
+    });
+  }
+  const go = async (wire, label, dur) => { const id = runId; await ride(wire, label, dur); if (id !== runId) throw CANCEL; };
+
+  async function startPods(delay) {
+    for (let i = 1; i <= 4; i++) { setPods(i); await wait(delay); }
+  }
+  async function rollPods(delay) {
+    for (let i = 0; i < 4; i++) {
+      pod(i).classList.add('is-rolling'); pod(i).classList.remove('is-on');
+      await wait(delay);
+      pod(i).classList.remove('is-rolling'); pod(i).classList.add('is-on');
+    }
+  }
+  async function buildLayers(delay) {
+    for (let i = 1; i <= 3; i++) { setLayers(i, true); await wait(delay); }
+  }
+  async function rebuildLayers(delay) {
+    webLayers().forEach((l) => { l.classList.remove('is-on'); l.classList.add('is-dim'); });
+    await wait(delay);
+    for (let i = 1; i <= 3; i++) { setLayers(i, true); webLayers().slice(i).forEach((l) => l.classList.add('is-dim')); await wait(delay); }
+  }
+
+  const STEPS = [
+    {
+      id: 'open-pr',
+      caption: 'The developer opens pull request #123 on the frontend repo.',
+      settle() { setNode('dev', 'done'); setNode('gh', 'active'); setText('dev.sub', 'opened PR'); setText('gh.note', 'PR #123 open'); },
+      async run() { setNode('dev', 'active'); setText('dev.sub', 'opens PR'); await wait(500); await go('w1', 'PR', 900); this.settle(); await wait(1700); }
+    },
+    {
+      id: 'webhook',
+      caption: 'GitHub sends the event to Lifecycle.',
+      settle() { setNode('gh', 'done'); setNode('lc', 'active'); setText('lc.note', 'PR opened'); },
+      async run() { await go('w2', 'hook', 800); this.settle(); await wait(1500); }
+    },
+    {
+      id: 'resolve',
+      caption: 'Lifecycle reads the config of both repos and makes one plan.',
+      settle() { setNode('gh', 'done'); setNode('be', 'done'); setNode('lc', 'active'); setText('lc.note', 'web@pr + api@main'); setText('gh.note', 'PR #123 open'); },
+      async run() {
+        setText('lc.note', 'reading configs'); setNode('be', 'active'); setNode('gh', 'active');
+        await wait(400);
+        const id = runId;
+        await Promise.all([ride('w2', 'cfg', 900), ride('w3', 'cfg', 1000)]);
+        if (id !== runId) throw CANCEL;
+        setText('lc.note', 'merging 2 configs'); setNode('gh', 'done'); setNode('be', 'done');
+        await wait(900);
+        this.settle(); await wait(1600);
+      }
+    },
+    {
+      id: 'build',
+      caption: 'BuildKit builds the changed image and uses the cache for the rest.',
+      settle() { setNode('lc', 'done'); setNode('build', 'active'); setLayers(3, true); setText('build.note', 'web: built'); setText('build.api', 'api: cached'); },
+      async run() {
+        await go('w4', 'build', 700);
+        setNode('lc', 'done'); setNode('build', 'active'); setText('build.note', 'web: building');
+        await buildLayers(380);
+        this.settle(); await wait(1500);
+      }
+    },
+    {
+      id: 'deploy',
+      caption: 'Lifecycle applies the manifests to namespace env‑pr‑123.',
+      settle() { setNode('build', 'done'); setNode('dep', 'active'); setText('dep.ns', 'env-pr-123'); setPods(4); setText('dep.note', '4 pods running'); },
+      async run() {
+        await go('w5', 'img', 700);
+        setNode('build', 'done'); setNode('dep', 'active'); setText('dep.ns', 'env-pr-123'); setText('dep.note', 'applying manifests');
+        await wait(400);
+        setText('dep.note', 'pods starting');
+        await startPods(300);
+        this.settle(); await wait(1400);
+      }
+    },
+    {
+      id: 'report',
+      caption: 'Lifecycle posts the environment URL on the pull request.',
+      settle() { setNode('dep', 'done'); setLive(true); setNode('gh', 'active'); setText('gh.note', 'pr-123.lifecycle.example'); setWire('w6', 'is-warm', true); },
+      async run() { await go('w6', 'url', 1100); this.settle(); await wait(1600); }
+    },
+    {
+      id: 'test',
+      caption: 'The developer opens the URL and tests the change.',
+      settle() { setNode('gh', 'done'); setNode('dev', 'active'); setText('dev.sub', 'tests it'); },
+      async run() { await go('w9', 'url', 800); this.settle(); await wait(1600); }
+    },
+    {
+      id: 'loop',
+      caption: 'A second commit repeats the steps in the same namespace.',
+      settle() { setNode('dev', 'active'); setNode('gh', 'done'); setNode('lc', 'done'); setNode('build', 'done'); setNode('dep', 'done'); setText('dev.sub', 'tests it'); setText('gh.note', 'pr-123.lifecycle.example'); setText('lc.note', 'web@pr2 + api@main'); setText('build.note', 'web: rebuilt'); setText('build.api', 'api: cached'); setText('dep.note', '4 pods · rolled out'); setLayers(3, true); setPods(4); setLive(true); setWire('w6', 'is-warm', true); LOOP_WIRES.forEach((w) => setWire(w, 'is-loop', false)); },
+      async run() {
+        LOOP_WIRES.forEach((w) => setWire(w, 'is-loop', true));
+        setText('dev.sub', 'pushes fix');
+        await wait(500);
+        await go('w1', 'commit', 600);
+        setNode('dev', 'done'); setNode('gh', 'active'); setText('gh.note', 'PR #123 · new commit');
+        await go('w2', 'hook', 500);
+        setNode('gh', 'done'); setNode('lc', 'active'); setText('lc.note', 'web@pr2 + api@main');
+        await wait(250);
+        await go('w4', 'build', 450);
+        setNode('lc', 'done'); setNode('build', 'active'); setText('build.note', 'web: rebuilding');
+        await rebuildLayers(170);
+        setText('build.note', 'web: rebuilt'); setText('build.api', 'api: cached');
+        await go('w5', 'img', 450);
+        setNode('build', 'done'); setNode('dep', 'active'); setText('dep.note', 'rolling out pods');
+        await rollPods(220);
+        setText('dep.note', '4 pods · rolled out');
+        await go('w6', 'url', 700);
+        setNode('dep', 'done'); setNode('gh', 'active'); setText('gh.note', 'pr-123.lifecycle.example');
+        await go('w9', 'url', 550);
+        this.settle(); await wait(2000);
+      }
+    },
+    {
+      id: 'close',
+      caption: 'When the PR closes, Lifecycle deletes the environment.',
+      settle() { setNode('dev', 'done'); setNode('gh', 'active'); setNode('lc', 'done'); setNode('dep', 'gone'); setText('dev.sub', 'merged PR'); setText('gh.note', 'environment removed'); setText('lc.note', 'env deleted'); setText('dep.ns', 'env-pr-123'); setText('dep.note', 'namespace deleted'); setPods(0); setLive(false); setWire('w6', 'is-warm', false); },
+      async run() {
+        setNode('gh', 'done'); setNode('dev', 'active'); setText('dev.sub', 'merges PR');
+        await wait(400);
+        await go('w1', 'close', 800);
+        setNode('dev', 'done'); setNode('gh', 'active'); setText('gh.note', 'PR #123 merged');
+        await go('w2', 'hook', 700);
+        setNode('gh', 'done'); setNode('lc', 'active'); setText('lc.note', 'PR closed');
+        await wait(300);
+        await go('w8', 'delete', 900);
+        setNode('dep', 'active'); setLive(false); setText('dep.note', 'pods stopping');
+        for (let i = 3; i >= 0; i--) { setPods(i); await wait(180); }
+        setNode('dep', 'gone'); setText('dep.note', 'namespace deleted'); setText('lc.note', 'env deleted');
+        await wait(600);
+        await go('w6', 'note', 1000);
+        this.settle(); await wait(1200);
+      }
+    }
+  ];
+
+  function showCaption(i) {
+    const id = runId;
+    const text = i < 0 ? 'The developer is about to open a pull request.' : STEPS[i].caption;
+    const label = i < 0 ? '0 / ' + STEPS.length : (STEPS[i].label || (i + 1) + ' / ' + STEPS.length);
+    captionEl.classList.add('is-swapping');
+    setTimeout(() => { if (id !== runId) return; captionEl.textContent = text; stepEl.textContent = label; captionEl.classList.remove('is-swapping'); }, 180);
+  }
+
+  function reset() {
+    runId++;
+    chipsLayer.replaceChildren();
+    $$('.lfc-wire').forEach((w) => w.classList.remove('is-hot', 'is-warm', 'is-loop'));
+    ['dev', 'gh', 'lc', 'be', 'build', 'dep'].forEach((n) => setNode(n, 'idle'));
+    setText('dev.sub', 'coding'); setText('gh.note', 'no open PR'); setText('be.note', 'main, no open PR'); setText('lc.note', 'idle');
+    setText('build.note', 'idle'); setText('build.api', ''); setText('dep.ns', 'no namespace'); setText('dep.note', 'nothing running');
+    setPods(0); setLayers(0, false); setLive(false);
+    replayBtn.classList.remove('is-ready');
+    showCaption(-1);
+  }
+
+  async function runStep(i) {
+    showCaption(i);
+    await STEPS[i].run();
+  }
+
+  async function play(from = 0) {
+    reset();
+    for (let k = 0; k < from; k++) STEPS[k].settle();
+    try {
+      await wait(from === 0 ? 900 : 300);
+      for (let i = from; i < STEPS.length; i++) await runStep(i);
+      replayBtn.classList.add('is-ready');
+    } catch (e) { if (e !== CANCEL) throw e; }
+  }
+
+  function goto(i) { play(Math.max(0, Math.min(STEPS.length - 1, i))); }
+
+  const captionItems = () => STEPS.map((s) => { const li = document.createElement('li'); li.textContent = s.caption; return li; });
+  $('[data-sr]').replaceChildren(...captionItems());
+
+  function renderStatic() {
+    root.classList.add('is-static');
+    $('[data-static]').replaceChildren(...captionItems());
+    reset();
+    runId++;
+    STEPS.slice(0, 7).forEach((s) => s.settle());
+  }
+
+  replayBtn.addEventListener('click', () => play(0));
+
+  if (reducedMotion) {
+    renderStatic();
+  } else if ('IntersectionObserver' in window) {
+    let started = false;
+    const io = new IntersectionObserver((entries) => {
+      if (started) return;
+      if (entries.some((e) => e.isIntersecting)) { started = true; io.disconnect(); play(0); }
+    }, { threshold: 0.35 });
+    io.observe(root);
+  } else {
+    play(0);
+  }
+
+  window.lfcFlow = { play, reset, goto, steps: STEPS };
+})();
+</script>
+</figure>
+</div>
+
+  <h2 id="the-cli-lfc">The CLI: <code>lfc</code></h2>
+  <p><a href="https://uselifecycle.com/docs/features/cli" target="_blank" rel="noopener" aria-describedby="ext-tab"><code>lfc</code></a> is the Lifecycle command-line interface, and it’s built for two audiences at once: people typing at a terminal, and automation — scripts and agents that run with no one around to answer an interactive prompt.</p>
+  <p>For people, it does what you’d expect — find the environment for a PR, watch a deploy, pull logs:</p>
+  <pre><code>lfc builds find --pr 123 --repo org/repo
+lfc builds status &lt;uuid&gt; --watch
+lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
+  <p>For agents and scripts,</p>
+  <ul>
+    <li>Every command supports <code>--json</code>, so output is structured and parseable.</li>
+    <li>Interactive prompts appear only on a TTY. In a script or an agent loop, a command with missing input fails fast and names the missing flag instead of hanging.</li>
+    <li>Destructive commands require an explicit <code>--yes</code> when there’s no human at the keyboard.</li>
+    <li><code>lfc llms</code> prints usage instructions written for agents, so a coding agent can teach itself the tool.</li>
+  </ul>
+  <p>The benefit is an agent driving <code>lfc</code> gets structured output and predictable failures. It knows whether to retry, re-authenticate, or stop without guessing its way through browser use.</p>
+
+  <h2 id="the-mcp-server">The MCP server</h2>
+  <p>MCP is an open standard that lets AI tools call external systems through a common protocol. Lifecycle ships a <a href="https://uselifecycle.com/docs/features/mcp-server" target="_blank" rel="noopener" aria-describedby="ext-tab">remote MCP server</a>, so coding agents like Claude, Codex or Cursor can query your preview environments directly instead of asking you to paste URLs and log fragments into chat.</p>
+  <p>Connecting is low-friction. Add lfc deployment’s <code>/mcp</code> URL to any of your MCP clients and sign in with your auth. The client uses OAuth discovery and registers itself automatically — you don’t create an OAuth client, an API key, or a token by hand.</p>
+  <p>Two things about the permission model are worth knowing:</p>
+  <ul>
+    <li><strong>Your agent gets your permissions, nothing more.</strong> Lifecycle applies your existing user permissions to every tool call. Connecting an agent over MCP doesn’t grant access to any environment, repository, or site you couldn’t already reach.</li>
+    <li><strong>Write access is a policy decision that we can control.</strong> The catalog includes management tools — creating, deploying, and destroying environments — but users control whether those are enabled at all.&nbsp;</li>
+  </ul>
+  <p>The current catalog groups its tools the way an investigation actually flows:</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>You want to know</th><th>Tool group</th></tr></thead>
+      <tbody>
+        <tr><td>What environments exist, and what’s in them?</td><td>Understand Environments</td></tr>
+        <tr><td>Why did a build or deploy fail?</td><td>Diagnose Environments</td></tr>
+        <tr><td>Create, deploy, or tear down an environment</td><td>Manage Environments</td></tr>
+        <tr><td>What static artifacts are published?</td><td>View Hosted Sites</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>In practice, this means you can stay in your editor, ask your coding agent “why is the preview for my PR failing?”, and it can go figure it out.</p>
+
+  <h2 id="per-user-connections-for-external-mcp-servers">Per-user connections for external MCP servers</h2>
+  <p>MCP works in the other direction too. Lifecycle can act as an <a href="https://uselifecycle.com/docs/features/mcp-integration" target="_blank" rel="noopener" aria-describedby="ext-tab">MCP client</a>: an administrator registers an external MCP server — say, your observability or incident tool — allow-lists the tools agents may use, and those tools become available inside agent sessions.</p>
+  <p>The part that makes this usable day to day is per-user authentication. When a shared server needs individual credentials, each user connects it themselves: open <strong>Settings</strong>, open <strong>My connections</strong>, select the server, and complete the OAuth flow or enter the requested fields. Your next agent session picks up the connection automatically.</p>
+  <p>So the setup cost splits cleanly: the user integrates a tool and authorizes it once with their SSO/OAuth (several supported through Keycloak as the auth manager). After that, the tools are just there for an agent investigating your environment can also query the systems you’ve connected, with your identity and your access.</p>
+
+  <h2 id="the-debug-agent">The debug agent</h2>
+  <p>The capability engineers use most is the built-in agent for diagnosing broken environments. Open an environment, ask why it failed, and the <a href="https://uselifecycle.com/docs/features/ai-agent" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle Agent</a> starts with that environment already in context: the namespace, the deployed services, the build metadata, the logs, and the PR branch.</p>
+  
+  <p>Here is one full run on a failed environment. The agent reads the deploy status, pulls the failing pod’s logs, checks recent Kubernetes events, and comes back with a diagnosis and a suggested fix.</p>
+  <figure class="media">
+    <video width="1598" height="998" controls autoplay loop muted playsinline preload="metadata" poster="../assets/lifecycle-debug-agent-poster.jpg" aria-label="Screen recording of the Lifecycle debug agent, from a failed build to an applied fix">
+      <source src="../assets/lifecycle-debug-agent-replay.mp4" type="video/mp4">
+    </video>
+    <figcaption>The debug agent on a failed frontend build: it reads the build log, finds the cause, proposes a fix, and the PR goes green.</figcaption>
+  </figure>
+  <p>For longer work, <a href="https://uselifecycle.com/docs/features/agent-sessions" target="_blank" rel="noopener" aria-describedby="ext-tab">agent sessions</a> keep the conversation going and can open an isolated workspace. Anything that crosses a write boundary like shell commands, git pushes, changes to the environment goes through approval users approval inline in chat. The conversation is durable; the workspace(sandbox) is released when you’re done.</p>
+
+  <h2 id="runtime-backends">Runtime backends</h2>
+  <p>A short but useful detail: agent workspaces don’t assume one sandbox provider. Lifecycle supports <a href="https://uselifecycle.com/docs/features/workspace-backends" target="_blank" rel="noopener" aria-describedby="ext-tab">multiple runtime backends</a> — Kubernetes, OpenSandbox, E2B, Modal, and Daytona — with a capability matrix covering editors, previews, session resume, and prewarming. You pick the backend that fits your infrastructure and isolation requirements rather than adopting a new one.</p>
+
+  <h2 id="lifecycle-sites">Lifecycle sites</h2>
+  <p>One more feature worth a mention: <a href="https://uselifecycle.com/docs/features/sites" target="_blank" rel="noopener" aria-describedby="ext-tab">Sites</a>. A site is a static HTML file or ZIP archive published at a stable Lifecycle URL — updates are versioned, and the URL stays the same.</p>
+  <p>If that sounds familiar, it’s the same idea trending in AI products right now — Claude Artifacts, ChatGPT Sites, Shopify Quick: hand someone a running, viewable page instead of a file attachment. Here it’s wired into your platform. An agent (or a CI job, or you) can generate a report, a prototype, or a docs preview and publish it with one <code>lfc</code> command or an API call, behind your deployment’s authentication.</p>
+
+  <h2 id="how-this-changes-the-day-to-day">How this changes the day to day</h2>
+  <p>Putting it together, here’s the shape of the workflow:</p>
+  <ol>
+    <li>An agent (or a human) opens a pull request. Lifecycle builds the preview environment.</li>
+    <li>A coding agent checks the environment over MCP or <code>lfc</code>&nbsp;cli to check if is it up, did the deploy succeed, what do the logs say?</li>
+    <li>If something’s broken, the debug agent investigates with the environment already in context, and shows its evidence.</li>
+    <li>Generated artifacts — reports, prototypes — get published as sites with stable URLs.</li>
+    <li>Anything that changes state goes through user permissions, administrator policy, and approvals.</li>
+  </ol>
+
+<div class="fig"><p class="fig-label">Fig. 02 · The same loop with a coding agent and the Lifecycle Agent</p>
+<figure class="lfc2-flow" aria-labelledby="lfc2-caption">
+<style>
+.lfc2-flow {
+  --bg: #f6f2ea; --bg-subtle: #f0ebe2; --ink: #2b2622; --ink-2: #6c6560; --ink-3: #958d86;
+  --rule: #d4cbbd; --accent: #a8482e; --accent-soft: #c4785f; --accent-tint: #f4ece5;
+  --bg: oklch(0.965 0.012 78); --bg-subtle: oklch(0.945 0.014 78);
+  --ink: oklch(0.22 0.018 50); --ink-2: oklch(0.46 0.014 55); --ink-3: oklch(0.62 0.012 60);
+  --rule: oklch(0.84 0.018 70); --accent: oklch(0.50 0.16 32); --accent-soft: oklch(0.62 0.10 32);
+  --accent-tint: oklch(0.95 0.018 45);
+  --card: #fbf9f5; --card: oklch(0.985 0.008 80);
+  --font-serif: 'Vollkorn', Georgia, serif;
+  --font-sans: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+  margin: 0; padding: 0; max-width: 100%; color: var(--ink); font-family: var(--font-sans);
+  background: var(--bg);
+}
+.lfc2-flow * { box-sizing: border-box; }
+.lfc2-flow .lfc-svg-wrap { max-width: 100%; }
+.lfc2-flow .lfc-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* wires */
+.lfc2-flow .lfc-wire { fill: none; stroke: var(--rule); stroke-width: 1.5; marker-end: url(#lfc2-arrow); transition: stroke .35s var(--ease-out-quart); }
+.lfc2-flow .lfc-wire.is-warm,
+.lfc2-flow .lfc-wire.is-loop { stroke: var(--accent-soft); marker-end: url(#lfc2-arrow-warm); }
+.lfc2-flow .lfc-wire.is-hot { stroke: var(--accent); marker-end: url(#lfc2-arrow-hot); }
+.lfc2-flow .lfc-wire.is-dashed { stroke-dasharray: 4 4; }
+.lfc2-flow .lfc-wire.is-mcp { stroke-dasharray: 1.5 4; stroke-linecap: round; }
+.lfc2-flow .lfc-wire.is-dim { opacity: .3; }
+.lfc2-flow .lfc-path-label { fill: var(--ink-2); font-size: 12.5px; }
+.lfc2-flow .lfc-path-label.is-dim { opacity: .35; }
+.lfc2-flow .lfc-mono.is-alert { fill: var(--accent); }
+.lfc2-flow .lfc-wire.is-both { marker-start: url(#lfc2-arrow); }
+.lfc2-flow .lfc-wire.is-both.is-hot { marker-start: url(#lfc2-arrow-hot); }
+.lfc2-flow .lfc-arrow { fill: var(--rule); }
+.lfc2-flow .lfc-arrow-warm { fill: var(--accent-soft); }
+.lfc2-flow .lfc-arrow-hot { fill: var(--accent); }
+.lfc2-flow .lfc-wire-labels { fill: var(--ink-2); font-size: 12.5px; }
+.lfc2-flow .lfc-wire-labels .lfc-mono { fill: var(--ink-2); }
+.lfc2-flow .lfc-hatch line { stroke: var(--ink-2); stroke-width: 1; }
+
+/* nodes: title / subtitle / status on a shared grid */
+.lfc2-flow .lfc-box { fill: var(--card); stroke: var(--rule); stroke-width: 1; rx: 7; filter: url(#lfc2-shadow); transition: stroke .3s var(--ease-out-quart), fill .3s var(--ease-out-quart); }
+.lfc2-flow .lfc-title { font-family: var(--font-serif); font-size: 16px; fill: var(--ink); }
+.lfc2-flow .lfc-sub { font-size: 13px; fill: var(--ink-2); }
+.lfc2-flow .lfc-mono { font-family: var(--font-mono); font-size: 12.5px; fill: var(--ink-2); }
+.lfc2-flow .lfc-node text { transition: fill .3s var(--ease-out-quart); }
+.lfc2-flow .lfc-node[data-state="active"] .lfc-box { stroke: var(--accent); stroke-width: 1.5; fill: var(--accent-tint); filter: url(#lfc2-shadow-lift); }
+.lfc2-flow .lfc-node[data-state="active"] .lfc-sub,
+.lfc2-flow .lfc-node[data-state="active"] .lfc-mono { fill: var(--ink); }
+.lfc2-flow .lfc-node[data-state="failed"] .lfc-box { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 3; fill: var(--card); }
+.lfc2-flow .lfc-node[data-state="failed"] .lfc-mono { fill: var(--accent); }
+.lfc2-flow .lfc-node[data-state="done"] .lfc-box { stroke: var(--ink-3); }
+.lfc2-flow .lfc-node[data-state="gone"] .lfc-box { stroke: var(--ink-3); stroke-dasharray: 5 4; fill: transparent; filter: none; }
+.lfc2-flow .lfc-node[data-state="gone"] text { fill: var(--ink-3); }
+.lfc2-flow .lfc-node[data-state="gone"] .lfc-ns { text-decoration: line-through; }
+.lfc2-flow .lfc-node--human[data-state="active"] .lfc-box { stroke-width: 2.5; }
+
+/* pods, layers, live, evidence */
+.lfc2-flow .lfc-pod circle { fill: none; stroke: var(--ink-3); stroke-width: 1.5; transition: fill .25s var(--ease-out-quart), stroke .25s var(--ease-out-quart); }
+.lfc2-flow .lfc-pod .lfc-podx { stroke: var(--accent); stroke-width: 1.75; stroke-linecap: round; opacity: 0; transition: opacity .2s; }
+.lfc2-flow .lfc-pod.is-on circle { fill: var(--accent); stroke: var(--accent); }
+.lfc2-flow .lfc-pod.is-rolling circle { fill: var(--rule); stroke: var(--accent-soft); }
+.lfc2-flow .lfc-pod.is-failed circle { fill: var(--accent-tint); stroke: var(--accent); stroke-width: 1.75; }
+.lfc2-flow .lfc-pod.is-failed .lfc-podx { opacity: 1; }
+.lfc2-flow .lfc-layer { fill: none; stroke: var(--ink-3); stroke-width: 1.25; transition: fill .3s var(--ease-out-quart), stroke .3s var(--ease-out-quart); }
+.lfc2-flow .lfc-layer.is-dim { fill: var(--rule); stroke: var(--ink-3); }
+.lfc2-flow .lfc-layer.is-on { fill: var(--accent); stroke: var(--accent); }
+.lfc2-flow .lfc-layer.is-cached { fill: url(#lfc2-hatch); stroke: var(--ink-2); }
+.lfc2-flow .lfc-live { opacity: 0; transition: opacity .3s var(--ease-out-quart); }
+.lfc2-flow .lfc-live.is-on { opacity: 1; }
+.lfc2-flow .lfc-live-dot { fill: var(--accent); }
+.lfc2-flow .lfc-live-ring { fill: none; stroke: var(--accent); stroke-width: 1.25; transform-box: fill-box; transform-origin: center; animation: lfc2-pulse 2s var(--ease-out-quart) infinite; }
+.lfc2-flow .lfc-live-text { font-size: 12px; fill: var(--accent); letter-spacing: .04em; }
+.lfc2-flow .lfc-evidence { opacity: 0; transition: opacity .3s var(--ease-out-quart); }
+.lfc2-flow .lfc-evidence.is-on { opacity: 1; }
+@keyframes lfc2-pulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.2); opacity: 0; } }
+
+/* chips */
+.lfc2-flow .lfc-chip rect { fill: var(--accent); stroke: var(--bg); stroke-width: 1.5; filter: url(#lfc2-shadow-chip); }
+.lfc2-flow .lfc-chip text { font-size: 12.5px; font-weight: 700; fill: #fff; text-anchor: middle; }
+.lfc2-flow .lfc-chip--soft rect { fill: var(--accent-soft); }
+
+/* caption row */
+.lfc2-flow .lfc-bar { display: flex; align-items: center; gap: .5rem; margin-top: .75rem; padding: .6rem .8rem; border: 1px solid var(--rule); border-radius: 6px; background: var(--card); box-shadow: 0 1px 2px rgba(60,40,20,.08), 0 4px 12px rgba(60,40,20,.05); min-height: 3.75rem; }
+.lfc2-flow .lfc-step { flex: 0 0 auto; font-family: var(--font-mono); font-size: .78rem; color: var(--ink-2); white-space: nowrap; }
+.lfc2-flow .lfc-caption { flex: 1 1 auto; margin: 0; font-size: .84rem; line-height: 1.45; color: var(--ink); transition: opacity .18s ease-out; text-wrap: pretty; }
+.lfc2-flow .lfc-caption.is-swapping { opacity: 0; }
+.lfc2-flow .lfc-replay { flex: 0 0 auto; width: 2.25rem; height: 2.25rem; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--rule); border-radius: 8px; color: var(--ink-2); cursor: pointer; padding: 0; transition: color .2s, border-color .2s; }
+.lfc2-flow .lfc-replay:hover, .lfc2-flow .lfc-replay:focus-visible { color: var(--accent); border-color: var(--accent); outline: none; }
+.lfc2-flow .lfc-replay:focus-visible { box-shadow: 0 0 0 3px var(--accent-tint); }
+.lfc2-flow .lfc-replay.is-ready { color: var(--accent); border-color: var(--accent); }
+.lfc2-flow .lfc-replay svg { width: 1.05rem; height: 1.05rem; }
+.lfc2-flow .lfc-static { display: none; margin: .75rem 0 0; padding-left: 1.4rem; font-size: .9rem; line-height: 1.5; color: var(--ink); }
+.lfc2-flow .lfc-static li { margin: 0 0 .35rem; }
+.lfc2-flow .lfc-static li::marker { font-family: var(--font-mono); color: var(--ink-2); }
+.lfc2-flow .lfc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lfc2-flow.is-static .lfc-bar { display: none; }
+.lfc2-flow.is-static .lfc-static { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .lfc2-flow .lfc-live-ring { animation: none; opacity: 0; }
+}
+@media (max-width: 480px) {
+  .lfc2-flow .lfc-svg-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; padding: .5rem 1rem .25rem .5rem; margin: -.5rem -1rem 0 -.5rem; }
+  .lfc2-flow .lfc-svg { min-width: 540px; }
+}
+@media (max-width: 420px) {
+  .lfc2-flow .lfc-bar { flex-wrap: wrap; }
+  .lfc2-flow .lfc-caption { flex-basis: 100%; order: 3; }
+  .lfc2-flow .lfc-replay { margin-left: auto; }
+}
+</style>
+<div class="lfc-svg-wrap">
+<svg class="lfc-svg" viewBox="0 0 600 562" role="img" aria-label="Diagram: the developer asks a coding agent for a change. The agent opens a pull request; Lifecycle reads both repo configs, builds the image and deploys into namespace env-pr-124, but one pod fails and the check is marked failed on the pull request. Path A: the coding agent asks Lifecycle for the logs over MCP or the lfc CLI and finds the cause. Path B: the developer asks the Lifecycle Agent, which reads logs and Kubernetes state and suggests the fix. Either way the fix is pushed as a commit, Lifecycle rebuilds and redeploys, posts the URL, the developer verifies, and the agent merges. Closing the pull request deletes the namespace." xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="lfc2-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="lfc-arrow" d="M0,1 L9,5 L0,9 z"/></marker>
+    <marker id="lfc2-arrow-warm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="lfc-arrow-warm" d="M0,1 L9,5 L0,9 z"/></marker>
+    <marker id="lfc2-arrow-hot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="lfc-arrow-hot" d="M0,1 L9,5 L0,9 z"/></marker>
+    <filter id="lfc2-shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgb(60,40,20)" flood-opacity=".10"/><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgb(60,40,20)" flood-opacity=".06"/></filter>
+    <filter id="lfc2-shadow-lift" x="-10%" y="-10%" width="120%" height="150%"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="rgb(60,40,20)" flood-opacity=".12"/><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgb(60,40,20)" flood-opacity=".10"/></filter>
+    <filter id="lfc2-shadow-chip" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="rgb(60,40,20)" flood-opacity=".22"/></filter>
+    <pattern id="lfc2-hatch" class="lfc-hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4"/></pattern>
+  </defs>
+
+  <!-- wires: each path doubles as the motion track for chips -->
+  <g class="lfc-wires">
+    <path id="lfc2-w0" class="lfc-wire" d="M60,160 C60,148 60,132 60,120"/>
+    <path id="lfc2-w1" class="lfc-wire is-both" d="M138,100 C152,100 150,175 162,175"/>
+    <path id="lfc2-w9" class="lfc-wire" d="M162,216 C154,216 146,216 138,216"/>
+    <path id="lfc2-wm" class="lfc-wire is-mcp is-both" data-path="a" d="M60,28 L60,20 Q60,12 68,12 L566,12 Q574,12 574,20 L574,160"/>
+    <path id="lfc2-w2" class="lfc-wire" d="M366,197 C384,197 404,197 422,197"/>
+    <path id="lfc2-w3" class="lfc-wire" d="M366,65 C420,65 496,70 496,160"/>
+    <path id="lfc2-w4" class="lfc-wire" d="M539,234 C539,250 539,264 539,280"/>
+    <path id="lfc2-w5" class="lfc-wire" d="M539,390 C539,406 539,420 539,436"/>
+    <path id="lfc2-w6" class="lfc-wire" d="M422,446 C340,446 264,400 264,234"/>
+    <path id="lfc2-w8" class="lfc-wire is-dashed" d="M436,234 C436,300 436,370 436,436"/>
+    <path id="lfc2-wd" class="lfc-wire" data-path="a" d="M464,436 C464,370 464,300 464,234"/>
+    <path id="lfc2-wb" class="lfc-wire is-both" data-path="b" d="M60,234 C60,300 60,370 60,436"/>
+    <path id="lfc2-wl" class="lfc-wire" data-path="b" d="M422,490 C340,490 260,490 178,490"/>
+    <path id="lfc2-wk" class="lfc-wire" data-path="b" d="M422,522 C340,522 260,522 178,522"/>
+  </g>
+
+  <g class="lfc-wire-labels">
+    <text class="lfc-mono" x="200" y="23" text-anchor="middle">/mcp · lfc</text>
+    <text x="394" y="189" text-anchor="middle">webhook</text>
+    <text x="440" y="57" text-anchor="middle">config</text>
+    <text x="286" y="392">post URL to PR</text>
+    <text x="428" y="338" text-anchor="end">on close</text>
+    <text x="150" y="204" text-anchor="middle">URL</text>
+    <text x="70" y="418">asks ↓ · suggests fix ↑</text>
+  </g>
+  <g class="lfc-path-labels">
+    <text class="lfc-path-label" data-path="a" x="566" y="23" text-anchor="end">Path A · agent debugs over MCP / lfc</text>
+    <text class="lfc-path-label" data-path="b" x="70" y="300">Path B · developer asks</text>
+    <text class="lfc-path-label" data-path="b" x="70" y="316">the Lifecycle Agent</text>
+  </g>
+
+  <!-- nodes: title y23 / subtitle y42 / status y62, 10-unit inset -->
+  <g class="lfc-node" data-node="agent" data-state="idle" transform="translate(8,28)">
+    <rect class="lfc-box" width="130" height="92"/>
+    <text class="lfc-title" x="10" y="23">Coding agent</text>
+    <text class="lfc-sub" x="10" y="42">AI · MCP / lfc client</text>
+    <text class="lfc-mono" x="10" y="62" data-text="agent.note">idle</text>
+    <text class="lfc-mono lfc-evidence" x="10" y="79" data-text="agent.ev"></text>
+  </g>
+
+  <g class="lfc-node" data-node="be" data-state="idle" transform="translate(162,28)">
+    <rect class="lfc-box" width="204" height="74"/>
+    <text class="lfc-title" x="10" y="23">Backend repo</text>
+    <text class="lfc-sub" x="10" y="42">GitHub · lifecycle.yaml</text>
+    <text class="lfc-mono" x="10" y="62" data-text="be.note">main, no open PR</text>
+  </g>
+
+  <g class="lfc-node lfc-node--human" data-node="dev" data-state="idle" transform="translate(8,160)">
+    <rect class="lfc-box" width="130" height="74"/>
+    <text class="lfc-title" x="10" y="23">Developer</text>
+    <text class="lfc-sub" x="10" y="42">human</text>
+    <text class="lfc-mono" x="10" y="62" data-text="dev.note">idle</text>
+  </g>
+
+  <g class="lfc-node" data-node="gh" data-state="idle" transform="translate(162,160)">
+    <rect class="lfc-box" width="204" height="74"/>
+    <text class="lfc-title" x="10" y="23">Frontend repo</text>
+    <text class="lfc-sub" x="10" y="42">GitHub · lifecycle.yaml</text>
+    <text class="lfc-mono" x="10" y="62" data-text="gh.note">no open PR</text>
+  </g>
+
+  <g class="lfc-node" data-node="lc" data-state="idle" transform="translate(422,160)">
+    <rect class="lfc-box" width="170" height="74"/>
+    <text class="lfc-title" x="10" y="23">Lifecycle</text>
+    <text class="lfc-sub" x="10" y="42">control plane · MCP/lfc</text>
+    <text class="lfc-mono" x="10" y="62" data-text="lc.note">idle</text>
+  </g>
+
+  <g class="lfc-node" data-node="build" data-state="idle" transform="translate(486,280)">
+    <rect class="lfc-box" width="106" height="110"/>
+    <text class="lfc-title" x="10" y="23">Build</text>
+    <text class="lfc-sub" x="10" y="42">BuildKit</text>
+    <text class="lfc-mono" x="10" y="62" data-text="build.note">idle</text>
+    <text class="lfc-mono" x="10" y="79" data-text="build.api"></text>
+    <g class="lfc-layers">
+      <rect class="lfc-layer" data-layer="0" x="10" y="90" width="9" height="9"/>
+      <rect class="lfc-layer" data-layer="1" x="21" y="90" width="9" height="9"/>
+      <rect class="lfc-layer" data-layer="2" x="32" y="90" width="9" height="9"/>
+      <text class="lfc-sub" x="45" y="99" font-size="12px">web</text>
+      <rect class="lfc-layer" data-layer="api" x="71" y="90" width="9" height="9"/>
+      <text class="lfc-sub" x="83" y="99" font-size="12px">api</text>
+    </g>
+  </g>
+
+  <g class="lfc-node" data-node="dep" data-state="idle" transform="translate(422,436)">
+    <rect class="lfc-box" width="170" height="112"/>
+    <text class="lfc-title" x="10" y="23">Deploy</text>
+    <text class="lfc-sub" x="10" y="42">Kubernetes</text>
+    <text class="lfc-mono lfc-ns" x="10" y="62" data-text="dep.ns">no namespace</text>
+    <text class="lfc-mono" x="10" y="79" data-text="dep.note">nothing running</text>
+    <g class="lfc-pods">
+      <g class="lfc-pod" data-pod="0"><circle cx="15" cy="95" r="5"/><path class="lfc-podx" d="M12,92 L18,98 M18,92 L12,98"/></g>
+      <g class="lfc-pod" data-pod="1"><circle cx="30" cy="95" r="5"/><path class="lfc-podx" d="M27,92 L33,98 M33,92 L27,98"/></g>
+      <g class="lfc-pod" data-pod="2"><circle cx="45" cy="95" r="5"/><path class="lfc-podx" d="M42,92 L48,98 M48,92 L42,98"/></g>
+      <g class="lfc-pod" data-pod="3"><circle cx="60" cy="95" r="5"/><path class="lfc-podx" d="M57,92 L63,98 M63,92 L57,98"/></g>
+      <text class="lfc-sub" x="74" y="99" font-size="12px">pods</text>
+    </g>
+    <g class="lfc-live" data-live>
+      <circle class="lfc-live-ring" cx="154" cy="19" r="4"/>
+      <circle class="lfc-live-dot" cx="154" cy="19" r="3.5"/>
+      <text class="lfc-live-text" x="146" y="23" text-anchor="end">live</text>
+    </g>
+  </g>
+
+  <g class="lfc-node" data-node="la" data-state="idle" transform="translate(8,436)">
+    <rect class="lfc-box" width="170" height="92"/>
+    <text class="lfc-title" x="10" y="23">Lifecycle Agent</text>
+    <text class="lfc-sub" x="10" y="42">build-scoped debug agent</text>
+    <text class="lfc-mono" x="10" y="62" data-text="la.note">idle</text>
+    <text class="lfc-mono lfc-evidence" x="10" y="79" data-text="la.ev2"></text>
+  </g>
+
+  <!-- chips ride here, on top of everything -->
+  <g class="lfc-chips"></g>
+</svg>
+</div>
+
+<div class="lfc-bar">
+  <span class="lfc-step" data-step aria-hidden="true">0 / 16</span>
+  <figcaption class="lfc-caption" id="lfc2-caption" data-caption>The developer is about to ask for a change.</figcaption>
+  <button class="lfc-replay" type="button" data-replay aria-label="Replay">
+    <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2v3.2h-3.2"/></svg>
+  </button>
+</div>
+<ol class="lfc-static" data-static></ol>
+<ol class="lfc-sr" data-sr aria-label="Steps in the diagram"></ol>
+
+<script>
+(function () {
+  const root = document.currentScript.closest('.lfc2-flow');
+  const NS = 'http://www.w3.org/2000/svg';
+  const $ = (sel) => root.querySelector(sel);
+  const $$ = (sel) => Array.from(root.querySelectorAll(sel));
+  const chipsLayer = $('.lfc-chips');
+  const captionEl = $('[data-caption]');
+  const stepEl = $('[data-step]');
+  const replayBtn = $('[data-replay]');
+  const wrap = $('.lfc-svg-wrap');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LOOP_WIRES = ['w1', 'w2', 'w4', 'w5', 'w6'];
+  const FAILED_POD = 3;
+
+  const CANCEL = Symbol('cancel');
+  let runId = 0;
+
+  const node = (name) => $('[data-node="' + name + '"]');
+  const followNode = (name) => {
+    if (wrap.scrollWidth <= wrap.clientWidth + 4) return;
+    const r = node(name).getBoundingClientRect();
+    const w = wrap.getBoundingClientRect();
+    const left = wrap.scrollLeft + (r.left - w.left) + r.width / 2 - wrap.clientWidth / 2;
+    wrap.scrollTo({ left: Math.max(0, left), behavior: reducedMotion ? 'auto' : 'smooth' });
+  };
+  const setNode = (name, state) => { node(name).dataset.state = state; if (state === 'active' || state === 'failed') followNode(name); };
+  const setText = (key, text) => { const el = $('[data-text="' + key + '"]'); if (el) el.textContent = text; };
+  const setAlert = (key, on) => { const el = $('[data-text="' + key + '"]'); if (el) el.classList.toggle('is-alert', on); };
+  const pod = (i) => $('.lfc-pod[data-pod="' + i + '"]');
+  const podState = (i, state) => { const p = pod(i); p.classList.remove('is-on', 'is-rolling', 'is-failed'); if (state) p.classList.add('is-' + state); };
+  const setPods = (n) => $$('.lfc-pod').forEach((p, i) => podState(i, i < n ? 'on' : null));
+  const webLayers = () => $$('.lfc-layer[data-layer]').filter((l) => l.dataset.layer !== 'api');
+  const setLayers = (n, cached) => {
+    webLayers().forEach((l, i) => { l.classList.toggle('is-on', i < n); l.classList.remove('is-dim'); });
+    $('.lfc-layer[data-layer="api"]').classList.toggle('is-cached', !!cached);
+  };
+  const setLive = (on) => $('[data-live]').classList.toggle('is-on', on);
+  const setEvidence = (key, on) => { const el = $('[data-text="' + key + '"]'); if (el) el.classList.toggle('is-on', on); };
+  const setWire = (id, cls, on) => $('#lfc2-' + id).classList.toggle(cls, on);
+  const dimPath = (letter, on) => $$('[data-path="' + letter + '"]').forEach((el) => el.classList.toggle('is-dim', on));
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const wait = async (ms) => { const id = runId; await sleep(ms); if (id !== runId) throw CANCEL; };
+
+  function ride(wireId, label, dur, opts = {}) {
+    return new Promise((resolve) => {
+      const path = $('#lfc2-' + wireId);
+      const g = document.createElementNS(NS, 'g');
+      g.setAttribute('class', 'lfc-chip' + (opts.soft ? ' lfc-chip--soft' : ''));
+      const w = Math.max(30, label.length * 7.8 + 12);
+      const rect = document.createElementNS(NS, 'rect');
+      rect.setAttribute('x', -w / 2); rect.setAttribute('y', -10);
+      rect.setAttribute('width', w); rect.setAttribute('height', 20); rect.setAttribute('rx', 4);
+      const text = document.createElementNS(NS, 'text');
+      text.setAttribute('y', 4.5);
+      text.textContent = label;
+      const am = document.createElementNS(NS, 'animateMotion');
+      am.setAttribute('begin', 'indefinite');
+      am.setAttribute('dur', dur + 'ms');
+      am.setAttribute('fill', 'freeze');
+      am.setAttribute('calcMode', 'spline');
+      am.setAttribute('keyTimes', '0;1');
+      am.setAttribute('keyPoints', opts.reverse ? '1;0' : '0;1');
+      am.setAttribute('keySplines', '0.45 0 0.2 1');
+      const mp = document.createElementNS(NS, 'mpath');
+      mp.setAttribute('href', '#lfc2-' + wireId);
+      mp.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#lfc2-' + wireId);
+      am.appendChild(mp);
+      g.append(rect, text, am);
+      chipsLayer.appendChild(g);
+      path.classList.add('is-hot');
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        g.remove();
+        path.classList.remove('is-hot');
+        resolve();
+      };
+      am.addEventListener('endEvent', finish);
+      setTimeout(finish, dur + 120);
+      am.beginElement();
+    });
+  }
+  const go = async (wire, label, dur, opts) => { const id = runId; await ride(wire, label, dur, opts); if (id !== runId) throw CANCEL; };
+  const goAll = async (list) => { const id = runId; await Promise.all(list.map((a) => ride(...a))); if (id !== runId) throw CANCEL; };
+
+  async function buildLayers(delay) {
+    for (let i = 1; i <= 3; i++) { setLayers(i, true); await wait(delay); }
+  }
+  async function rebuildLayers(delay) {
+    webLayers().forEach((l) => { l.classList.remove('is-on'); l.classList.add('is-dim'); });
+    await wait(delay);
+    for (let i = 1; i <= 3; i++) { setLayers(i, true); webLayers().slice(i).forEach((l) => l.classList.add('is-dim')); await wait(delay); }
+  }
+  async function rollPods(delay) {
+    podState(FAILED_POD, 'rolling'); await wait(delay); podState(FAILED_POD, 'on');
+    for (let i = 0; i < 4; i++) {
+      if (i === FAILED_POD) continue;
+      podState(i, 'rolling'); await wait(delay); podState(i, 'on');
+    }
+  }
+  const pathAState = () => { setText('agent.note', 'found cause'); setText('agent.ev', 'no env: API_URL'); setEvidence('agent.ev', true); setText('lc.note', 'sent logs'); };
+  const pathBState = () => { setText('la.note', 'suggested fix'); setText('la.ev2', 'no env: API_URL'); setEvidence('la.ev2', true); setText('dev.note', 'has fix'); };
+
+  const STEPS = [
+    {
+      id: 'ask',
+      caption: 'The developer asks the coding agent for a change.',
+      settle() { setNode('dev', 'done'); setNode('agent', 'active'); setText('dev.note', 'asked'); setText('agent.note', 'reads task'); },
+      async run() { setNode('dev', 'active'); setText('dev.note', 'asks agent'); await wait(300); await go('w0', 'task', 700); this.settle(); await wait(1300); }
+    },
+    {
+      id: 'open-pr',
+      caption: 'The coding agent writes the code and opens a pull request.',
+      settle() { setNode('agent', 'done'); setNode('gh', 'active'); setText('agent.note', 'opened PR'); setText('gh.note', 'PR #124 open'); },
+      async run() { setText('agent.note', 'coding'); await wait(600); setText('agent.note', 'opens PR'); await go('w1', 'PR', 900); this.settle(); await wait(1300); }
+    },
+    {
+      id: 'webhook',
+      caption: 'GitHub sends the event to Lifecycle.',
+      settle() { setNode('gh', 'done'); setNode('lc', 'active'); setText('lc.note', 'PR opened'); },
+      async run() { await go('w2', 'hook', 800); this.settle(); await wait(1200); }
+    },
+    {
+      id: 'resolve',
+      caption: 'Lifecycle reads both configs and makes one plan.',
+      settle() { setNode('gh', 'done'); setNode('be', 'done'); setNode('lc', 'active'); setText('lc.note', 'web@pr + api@main'); setText('gh.note', 'PR #124 open'); },
+      async run() {
+        setText('lc.note', 'reading configs'); setNode('be', 'active'); setNode('gh', 'active');
+        await wait(400);
+        await goAll([['w2', 'cfg', 900], ['w3', 'cfg', 1000]]);
+        setText('lc.note', 'merging 2 configs'); setNode('gh', 'done'); setNode('be', 'done');
+        await wait(600);
+        this.settle(); await wait(1100);
+      }
+    },
+    {
+      id: 'build',
+      caption: 'BuildKit builds the changed image.',
+      settle() { setNode('lc', 'done'); setNode('build', 'active'); setLayers(3, true); setText('build.note', 'web built'); setText('build.api', 'api cached'); },
+      async run() {
+        await go('w4', 'build', 700);
+        setNode('lc', 'done'); setNode('build', 'active'); setText('build.note', 'building web');
+        await buildLayers(360);
+        this.settle(); await wait(1200);
+      }
+    },
+    {
+      id: 'deploy-fails',
+      caption: 'The deploy fails because one pod does not start.',
+      settle() { setNode('build', 'done'); setNode('dep', 'failed'); setText('dep.ns', 'env-pr-124'); setPods(3); podState(FAILED_POD, 'failed'); setText('dep.note', '1 pod failed'); },
+      async run() {
+        await go('w5', 'img', 700);
+        setNode('build', 'done'); setNode('dep', 'active'); setText('dep.ns', 'env-pr-124'); setText('dep.note', 'applying manifests');
+        await wait(400);
+        setText('dep.note', 'pods starting');
+        for (let i = 1; i <= 3; i++) { setPods(i); await wait(240); }
+        podState(FAILED_POD, 'rolling'); await wait(500);
+        this.settle(); await wait(1800);
+      }
+    },
+    {
+      id: 'check-failed',
+      caption: 'Lifecycle marks the check failed and the coding agent sees it.',
+      settle() { setNode('gh', 'done'); setNode('agent', 'active'); setText('lc.note', 'check: failed'); setText('gh.note', 'PR #124 · check failed'); setAlert('gh.note', true); setText('agent.note', 'sees failure'); },
+      async run() {
+        setText('lc.note', 'check: failed');
+        await go('w6', 'failed', 1100);
+        setNode('gh', 'active'); setText('gh.note', 'PR #124 · check failed'); setAlert('gh.note', true);
+        await wait(1200);
+        await go('w1', 'failed', 800, { reverse: true });
+        this.settle(); await wait(1500);
+      }
+    },
+    {
+      id: 'path-a-ask',
+      caption: 'Path A: the coding agent asks Lifecycle for logs over MCP or lfc.',
+      settle() { dimPath('b', true); dimPath('a', false); setNode('agent', 'active'); setNode('lc', 'active'); setText('agent.note', 'asks for logs'); setText('lc.note', 'sent logs'); setText('agent.ev', 'CrashLoopBackOff'); setEvidence('agent.ev', true); },
+      async run() {
+        dimPath('b', true);
+        setText('agent.note', 'asks for logs'); await wait(400);
+        await go('wm', 'get logs', 1000);
+        setNode('lc', 'active'); setText('lc.note', 'fetching logs');
+        await wait(200);
+        await goAll([['wd', 'logs', 800], ['wd', 'k8s', 1000]]);
+        setText('lc.note', 'sent logs');
+        await go('wm', 'logs', 1000, { reverse: true });
+        setText('agent.note', 'reads logs'); setText('agent.ev', 'CrashLoopBackOff'); setEvidence('agent.ev', true);
+        await wait(1100);
+      }
+    },
+    {
+      id: 'path-a-cause',
+      caption: 'The coding agent reads the logs and finds the cause.',
+      settle() { dimPath('b', true); dimPath('a', false); setNode('lc', 'done'); setNode('agent', 'active'); pathAState(); },
+      async run() { await wait(500); setText('agent.ev', 'no env: API_URL'); await wait(500); setText('agent.note', 'found cause'); setNode('lc', 'done'); await wait(1300); }
+    },
+    {
+      id: 'path-b-ask',
+      caption: 'Path B: or the developer asks the Lifecycle Agent to debug.',
+      settle() { dimPath('a', true); dimPath('b', false); setNode('agent', 'done'); setNode('dev', 'active'); setNode('la', 'active'); setText('dev.note', 'asks debugger'); setText('la.note', 'CrashLoopBackOff'); },
+      async run() {
+        dimPath('a', true); dimPath('b', false);
+        setNode('agent', 'done'); setNode('dev', 'active'); setText('dev.note', 'asks debugger');
+        await wait(400);
+        await go('wb', 'ask', 900, { soft: true });
+        setNode('la', 'active'); setText('la.note', 'reading logs');
+        await wait(200);
+        await goAll([['wl', 'logs', 900, { soft: true }], ['wk', 'k8s', 1000, { soft: true }]]);
+        setText('la.note', 'CrashLoopBackOff');
+        await wait(1100);
+      }
+    },
+    {
+      id: 'path-b-fix',
+      caption: 'The Lifecycle Agent reads the logs and suggests the fix.',
+      settle() { dimPath('a', true); dimPath('b', false); setNode('la', 'done'); setNode('dev', 'active'); pathBState(); },
+      async run() {
+        setText('la.ev2', 'no env: API_URL'); setEvidence('la.ev2', true);
+        await wait(600);
+        setText('la.note', 'suggested fix');
+        await go('wb', 'fix', 900, { soft: true, reverse: true });
+        setNode('la', 'done'); setText('dev.note', 'has fix');
+        await wait(1300);
+      }
+    },
+    {
+      id: 'push-fix',
+      caption: 'Either way, the fix is pushed as a new commit.',
+      settle() { dimPath('a', false); dimPath('b', false); setNode('dev', 'done'); setNode('agent', 'done'); setNode('gh', 'active'); setAlert('gh.note', false); setText('agent.note', 'pushed fix'); setText('gh.note', 'PR #124 · new commit'); setText('dev.note', 'waits'); },
+      async run() {
+        dimPath('a', false); dimPath('b', false);
+        LOOP_WIRES.forEach((w) => setWire(w, 'is-loop', true));
+        setNode('dev', 'done'); setNode('agent', 'active'); setText('agent.note', 'pushes fix'); await wait(500);
+        await go('w1', 'commit', 700);
+        this.settle(); await wait(1000);
+      }
+    },
+    {
+      id: 'redeploy',
+      caption: 'Lifecycle builds and deploys the fix.',
+      settle() { setNode('gh', 'done'); setNode('lc', 'done'); setNode('build', 'done'); setNode('dep', 'done'); setText('lc.note', 'web@pr2 + api@main'); setText('build.note', 'web rebuilt'); setText('build.api', 'api cached'); setLayers(3, true); setPods(4); setText('dep.note', '4 pods running'); setLive(true); LOOP_WIRES.forEach((w) => setWire(w, 'is-loop', false)); },
+      async run() {
+        await go('w2', 'hook', 500);
+        setNode('gh', 'done'); setNode('lc', 'active'); setText('lc.note', 'web@pr2 + api@main');
+        await wait(250);
+        await go('w4', 'build', 450);
+        setNode('lc', 'done'); setNode('build', 'active'); setText('build.note', 'rebuilding');
+        await rebuildLayers(170);
+        setText('build.note', 'web rebuilt'); setText('build.api', 'api cached');
+        await go('w5', 'img', 450);
+        setNode('build', 'done'); setNode('dep', 'active'); setText('dep.note', 'replacing pods');
+        await rollPods(260);
+        setText('dep.note', '4 pods running'); setLive(true);
+        LOOP_WIRES.forEach((w) => setWire(w, 'is-loop', false));
+        await wait(1100);
+        this.settle();
+      }
+    },
+    {
+      id: 'report',
+      caption: 'Lifecycle posts the environment URL on the pull request.',
+      settle() { setNode('dep', 'done'); setNode('gh', 'active'); setText('gh.note', 'pr-124.lifecycle.example'); setWire('w6', 'is-warm', true); },
+      async run() { await go('w6', 'url', 1100); this.settle(); await wait(1200); }
+    },
+    {
+      id: 'verify',
+      caption: 'The developer, the only human in the loop, opens the URL and verifies the change.',
+      settle() { setNode('gh', 'done'); setNode('dev', 'active'); setText('dev.note', 'verifies'); },
+      async run() { await go('w9', 'url', 700); this.settle(); await wait(1800); }
+    },
+    {
+      id: 'close',
+      caption: 'When the PR closes, Lifecycle deletes the environment.',
+      settle() { setNode('dev', 'done'); setNode('agent', 'done'); setNode('gh', 'active'); setNode('lc', 'done'); setNode('dep', 'gone'); setText('dev.note', 'approved'); setText('agent.note', 'merged PR'); setText('gh.note', 'environment removed'); setText('lc.note', 'env deleted'); setText('dep.ns', 'env-pr-124'); setText('dep.note', 'namespace deleted'); setPods(0); setLive(false); setWire('w6', 'is-warm', false); },
+      async run() {
+        setText('dev.note', 'approves'); await wait(400);
+        setNode('dev', 'done'); setNode('agent', 'active'); setText('agent.note', 'merges PR');
+        await wait(300);
+        await go('w1', 'merge', 700);
+        setNode('agent', 'done'); setNode('gh', 'active'); setText('gh.note', 'PR #124 merged');
+        await go('w2', 'hook', 700);
+        setNode('gh', 'done'); setNode('lc', 'active'); setText('lc.note', 'PR closed');
+        await wait(300);
+        await go('w8', 'delete', 800);
+        setNode('dep', 'active'); setLive(false); setText('dep.note', 'pods stopping');
+        for (let i = 3; i >= 0; i--) { setPods(i); await wait(180); }
+        setNode('dep', 'gone'); setText('dep.note', 'namespace deleted'); setText('lc.note', 'env deleted');
+        await wait(400);
+        await go('w6', 'note', 900);
+        this.settle(); await wait(1000);
+      }
+    }
+  ];
+
+  function showCaption(i) {
+    const id = runId;
+    const text = i < 0 ? 'The developer is about to ask for a change.' : STEPS[i].caption;
+    const label = Math.max(0, i + 1) + ' / ' + STEPS.length;
+    captionEl.classList.add('is-swapping');
+    setTimeout(() => { if (id !== runId) return; captionEl.textContent = text; stepEl.textContent = label; captionEl.classList.remove('is-swapping'); }, 180);
+  }
+
+  function reset() {
+    runId++;
+    chipsLayer.replaceChildren();
+    $$('.lfc-wire').forEach((w) => w.classList.remove('is-hot', 'is-warm', 'is-loop', 'is-dim'));
+    $$('.lfc-path-label').forEach((l) => l.classList.remove('is-dim'));
+    ['dev', 'agent', 'gh', 'lc', 'be', 'build', 'dep', 'la'].forEach((n) => setNode(n, 'idle'));
+    setText('dev.note', 'idle'); setText('agent.note', 'idle'); setText('agent.ev', ''); setEvidence('agent.ev', false);
+    setText('gh.note', 'no open PR'); setAlert('gh.note', false); setText('be.note', 'main, no open PR'); setText('lc.note', 'idle');
+    setText('build.note', 'idle'); setText('build.api', ''); setText('dep.ns', 'no namespace'); setText('dep.note', 'nothing running');
+    setText('la.note', 'idle'); setText('la.ev2', ''); setEvidence('la.ev2', false);
+    setPods(0); setLayers(0, false); setLive(false);
+    replayBtn.classList.remove('is-ready');
+    showCaption(-1);
+  }
+
+  async function runStep(i) {
+    showCaption(i);
+    await STEPS[i].run();
+  }
+
+  async function play(from = 0) {
+    reset();
+    for (let k = 0; k < from; k++) STEPS[k].settle();
+    try {
+      await wait(from === 0 ? 900 : 300);
+      for (let i = from; i < STEPS.length; i++) await runStep(i);
+      replayBtn.classList.add('is-ready');
+    } catch (e) { if (e !== CANCEL) throw e; }
+  }
+
+  function goto(i) { play(Math.max(0, Math.min(STEPS.length - 1, i))); }
+
+  const captionItems = () => STEPS.map((s) => { const li = document.createElement('li'); li.textContent = s.caption; return li; });
+  $('[data-sr]').replaceChildren(...captionItems());
+
+  function renderStatic() {
+    root.classList.add('is-static');
+    $('[data-static]').replaceChildren(...captionItems());
+    reset();
+    runId++;
+    STEPS.slice(0, 11).forEach((s) => s.settle());
+    dimPath('a', false); dimPath('b', false);
+  }
+
+  replayBtn.addEventListener('click', () => play(0));
+
+  if (reducedMotion) {
+    renderStatic();
+  } else if ('IntersectionObserver' in window) {
+    let started = false;
+    const io = new IntersectionObserver((entries) => {
+      if (started) return;
+      if (entries.some((e) => e.isIntersecting)) { started = true; io.disconnect(); play(0); }
+    }, { threshold: 0.35 });
+    io.observe(root);
+  } else {
+    play(0);
+  }
+
+  window.lfcFlow2 = { play, reset, goto, steps: STEPS };
+})();
+</script>
+</figure>
+</div>
+  <p>The benefit is that verification stops being the bottleneck: the environment exists automatically, the agent can read it directly, and the humans spend their attention on judgment calls instead of tab-hopping between browser and tools to validate your changes integrated with the rest of your stack.</p>
+  <p>Code is getting cheaper to write. The systems it runs in are just as real as ever. Preview environments are how to keep those two from colliding and teaching the tools to speak agent is how we keep up.</p>
+  <hr>
+  <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle</a> and <a href="https://github.com/GoodRxOSS/lifecycle-cli" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle-cli</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
+        </div>
+        <!-- feed:end -->
+      </article>
+
+      <nav class="post-foot" aria-label="Post navigation">
+        <a href="/writing/"
+          ><span class="arrow" aria-hidden="true">&#x2190;&#xFE0E;</span>All
+          writing</a
+        >
+        <a href="/">vigneshrajsb.com</a>
+      </nav>
+
+      <figure class="tailpiece">
+        <img
+          src="/assets/tailpiece.svg"
+          alt="Ink tailpiece: Vignesh, his wife, and Chocolata standing together on a single brush stroke, a faint sunset on the water behind them."
+          width="620"
+          height="120"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </main>
+
+
+    <script src="/analytics.js" defer></script>
+  </body>
+</html>

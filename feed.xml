@@ -7,6 +7,111 @@
     <language>en-us</language>
     <atom:link href="https://vigneshrajsb.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Preview environments for agentic development</title>
+      <link>https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/</link>
+      <guid>https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/</guid>
+      <pubDate>Sun, 23 Aug 2026 00:00:00 GMT</pubDate>
+      <description>AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built.</description>
+      <content:encoded><![CDATA[<div class="post-body">
+  <p>AI agents have made writing code fast and cheap. Verifying that code hasn’t gotten any faster.</p>
+  <p>Tests help, but they answer a part of a question: does this function behave? They don’t tell you that the changed API, the frontend, the database migration, and the feature flag all work together. For that, you need the change running somewhere real — with its dependencies, its config, and a URL you can click.</p>
+  <p>A preview environment solves this: a disposable copy of your application, wired to one pull request. These used to be a nice developer-experience perk. Now agents can open more pull requests than any team can hand-verify, and the preview environment is where that code proves it actually runs.</p>
+  <p>This post is about how we do that with Lifecycle, and about the capabilities we’ve been building so that agents can use it as well.</p>
+
+  <p><a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle</a> is an open source tool from GoodRx that creates a preview environment for every pull request. When a PR opens, Lifecycle figures out which services the change needs, deploys them to Kubernetes, and posts stable URLs back to the PR. When the PR closes or the environment’s TTL expires, it cleans everything up.</p>
+  <p><i>I’m one of the contributors to Lifecycle, and we use it at work.</i></p>
+  <p>The core loop is simple:</p>
+  <ol>
+    <li>Open a pull request.</li>
+    <li>Get a running environment with the services your change touches.</li>
+    <li>Share the URL with whoever needs to see it — designer, product, tester or an agent.</li>
+    <li>Close the PR, and the environment goes away.</li>
+  </ol>
+  <p>That loop was built for people. The interesting recent work has been making it usable by agents too, through three surfaces: a CLI, a Model Context Protocol (MCP) server, and a built-in debug agent to assist engineers.</p>
+
+<div class="fig"><p class="fig-label">Fig. 01 · The preview environment loop, no agents involved</p>
+<p><em>Diagram: a developer opens a pull request on the frontend repo; Lifecycle reads the frontend and backend configs, builds images, deploys them into a Kubernetes namespace, and posts the preview URL back to the pull request, which the developer opens to test. New commits repeat the loop. Closing the pull request deletes the namespace.</em> <a href="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/">View the interactive version on the site.</a></p>
+</div>
+
+  <h2 id="the-cli-lfc">The CLI: <code>lfc</code></h2>
+  <p><a href="https://uselifecycle.com/docs/features/cli" target="_blank" rel="noopener" aria-describedby="ext-tab"><code>lfc</code></a> is the Lifecycle command-line interface, and it’s built for two audiences at once: people typing at a terminal, and automation — scripts and agents that run with no one around to answer an interactive prompt.</p>
+  <p>For people, it does what you’d expect — find the environment for a PR, watch a deploy, pull logs:</p>
+  <pre><code>lfc builds find --pr 123 --repo org/repo
+lfc builds status &lt;uuid&gt; --watch
+lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
+  <p>For agents and scripts,</p>
+  <ul>
+    <li>Every command supports <code>--json</code>, so output is structured and parseable.</li>
+    <li>Interactive prompts appear only on a TTY. In a script or an agent loop, a command with missing input fails fast and names the missing flag instead of hanging.</li>
+    <li>Destructive commands require an explicit <code>--yes</code> when there’s no human at the keyboard.</li>
+    <li><code>lfc llms</code> prints usage instructions written for agents, so a coding agent can teach itself the tool.</li>
+  </ul>
+  <p>The benefit is an agent driving <code>lfc</code> gets structured output and predictable failures. It knows whether to retry, re-authenticate, or stop without guessing its way through browser use.</p>
+
+  <h2 id="the-mcp-server">The MCP server</h2>
+  <p>MCP is an open standard that lets AI tools call external systems through a common protocol. Lifecycle ships a <a href="https://uselifecycle.com/docs/features/mcp-server" target="_blank" rel="noopener" aria-describedby="ext-tab">remote MCP server</a>, so coding agents like Claude, Codex or Cursor can query your preview environments directly instead of asking you to paste URLs and log fragments into chat.</p>
+  <p>Connecting is low-friction. Add lfc deployment’s <code>/mcp</code> URL to any of your MCP clients and sign in with your auth. The client uses OAuth discovery and registers itself automatically — you don’t create an OAuth client, an API key, or a token by hand.</p>
+  <p>Two things about the permission model are worth knowing:</p>
+  <ul>
+    <li><strong>Your agent gets your permissions, nothing more.</strong> Lifecycle applies your existing user permissions to every tool call. Connecting an agent over MCP doesn’t grant access to any environment, repository, or site you couldn’t already reach.</li>
+    <li><strong>Write access is a policy decision that we can control.</strong> The catalog includes management tools — creating, deploying, and destroying environments — but users control whether those are enabled at all.&nbsp;</li>
+  </ul>
+  <p>The current catalog groups its tools the way an investigation actually flows:</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>You want to know</th><th>Tool group</th></tr></thead>
+      <tbody>
+        <tr><td>What environments exist, and what’s in them?</td><td>Understand Environments</td></tr>
+        <tr><td>Why did a build or deploy fail?</td><td>Diagnose Environments</td></tr>
+        <tr><td>Create, deploy, or tear down an environment</td><td>Manage Environments</td></tr>
+        <tr><td>What static artifacts are published?</td><td>View Hosted Sites</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>In practice, this means you can stay in your editor, ask your coding agent “why is the preview for my PR failing?”, and it can go figure it out.</p>
+
+  <h2 id="per-user-connections-for-external-mcp-servers">Per-user connections for external MCP servers</h2>
+  <p>MCP works in the other direction too. Lifecycle can act as an <a href="https://uselifecycle.com/docs/features/mcp-integration" target="_blank" rel="noopener" aria-describedby="ext-tab">MCP client</a>: an administrator registers an external MCP server — say, your observability or incident tool — allow-lists the tools agents may use, and those tools become available inside agent sessions.</p>
+  <p>The part that makes this usable day to day is per-user authentication. When a shared server needs individual credentials, each user connects it themselves: open <strong>Settings</strong>, open <strong>My connections</strong>, select the server, and complete the OAuth flow or enter the requested fields. Your next agent session picks up the connection automatically.</p>
+  <p>So the setup cost splits cleanly: the user integrates a tool and authorizes it once with their SSO/OAuth (several supported through Keycloak as the auth manager). After that, the tools are just there for an agent investigating your environment can also query the systems you’ve connected, with your identity and your access.</p>
+
+  <h2 id="the-debug-agent">The debug agent</h2>
+  <p>The capability engineers use most is the built-in agent for diagnosing broken environments. Open an environment, ask why it failed, and the <a href="https://uselifecycle.com/docs/features/ai-agent" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle Agent</a> starts with that environment already in context: the namespace, the deployed services, the build metadata, the logs, and the PR branch.</p>
+  
+  <p>Here is one full run on a failed environment. The agent reads the deploy status, pulls the failing pod’s logs, checks recent Kubernetes events, and comes back with a diagnosis and a suggested fix.</p>
+  <figure class="media">
+    <p><a href="https://vigneshrajsb.com/writing/assets/lifecycle-debug-agent-replay.mp4">Screen recording of the Lifecycle debug agent, from a failed build to an applied fix (MP4)</a></p>
+    <figcaption>The debug agent on a failed frontend build: it reads the build log, finds the cause, proposes a fix, and the PR goes green.</figcaption>
+  </figure>
+  <p>For longer work, <a href="https://uselifecycle.com/docs/features/agent-sessions" target="_blank" rel="noopener" aria-describedby="ext-tab">agent sessions</a> keep the conversation going and can open an isolated workspace. Anything that crosses a write boundary like shell commands, git pushes, changes to the environment goes through approval users approval inline in chat. The conversation is durable; the workspace(sandbox) is released when you’re done.</p>
+
+  <h2 id="runtime-backends">Runtime backends</h2>
+  <p>A short but useful detail: agent workspaces don’t assume one sandbox provider. Lifecycle supports <a href="https://uselifecycle.com/docs/features/workspace-backends" target="_blank" rel="noopener" aria-describedby="ext-tab">multiple runtime backends</a> — Kubernetes, OpenSandbox, E2B, Modal, and Daytona — with a capability matrix covering editors, previews, session resume, and prewarming. You pick the backend that fits your infrastructure and isolation requirements rather than adopting a new one.</p>
+
+  <h2 id="lifecycle-sites">Lifecycle sites</h2>
+  <p>One more feature worth a mention: <a href="https://uselifecycle.com/docs/features/sites" target="_blank" rel="noopener" aria-describedby="ext-tab">Sites</a>. A site is a static HTML file or ZIP archive published at a stable Lifecycle URL — updates are versioned, and the URL stays the same.</p>
+  <p>If that sounds familiar, it’s the same idea trending in AI products right now — Claude Artifacts, ChatGPT Sites, Shopify Quick: hand someone a running, viewable page instead of a file attachment. Here it’s wired into your platform. An agent (or a CI job, or you) can generate a report, a prototype, or a docs preview and publish it with one <code>lfc</code> command or an API call, behind your deployment’s authentication.</p>
+
+  <h2 id="how-this-changes-the-day-to-day">How this changes the day to day</h2>
+  <p>Putting it together, here’s the shape of the workflow:</p>
+  <ol>
+    <li>An agent (or a human) opens a pull request. Lifecycle builds the preview environment.</li>
+    <li>A coding agent checks the environment over MCP or <code>lfc</code>&nbsp;cli to check if is it up, did the deploy succeed, what do the logs say?</li>
+    <li>If something’s broken, the debug agent investigates with the environment already in context, and shows its evidence.</li>
+    <li>Generated artifacts — reports, prototypes — get published as sites with stable URLs.</li>
+    <li>Anything that changes state goes through user permissions, administrator policy, and approvals.</li>
+  </ol>
+
+<div class="fig"><p class="fig-label">Fig. 02 · The same loop with a coding agent and the Lifecycle Agent</p>
+<p><em>Diagram: the developer asks a coding agent for a change. The agent opens a pull request; Lifecycle reads both repo configs, builds the image and deploys into namespace env-pr-124, but one pod fails and the check is marked failed on the pull request. Path A: the coding agent asks Lifecycle for the logs over MCP or the lfc CLI and finds the cause. Path B: the developer asks the Lifecycle Agent, which reads logs and Kubernetes state and suggests the fix. Either way the fix is pushed as a commit, Lifecycle rebuilds and redeploys, posts the URL, the developer verifies, and the agent merges. Closing the pull request deletes the namespace.</em> <a href="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/">View the interactive version on the site.</a></p>
+</div>
+  <p>The benefit is that verification stops being the bottleneck: the environment exists automatically, the agent can read it directly, and the humans spend their attention on judgment calls instead of tab-hopping between browser and tools to validate your changes integrated with the rest of your stack.</p>
+  <p>Code is getting cheaper to write. The systems it runs in are just as real as ever. Preview environments are how to keep those two from colliding and teaching the tools to speak agent is how we keep up.</p>
+  <hr>
+  <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle</a> and <a href="https://github.com/GoodRxOSS/lifecycle-cli" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle-cli</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
+        </div>]]></content:encoded>
+    </item>
+    <item>
       <title>Extraction</title>
       <link>https://vigneshrajsb.com/writing/extraction/</link>
       <guid>https://vigneshrajsb.com/writing/extraction/</guid>

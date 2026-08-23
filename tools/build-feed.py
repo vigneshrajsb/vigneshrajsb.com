@@ -74,6 +74,34 @@ def replace_svgs(content, slug):
     return re.sub(r"<svg.*?</svg>", sub, content, flags=re.S)
 
 
+INTERACTIVE_FIGURE = re.compile(r"<figure\b[^>]*>(?:(?!</figure>).)*<script\b.*?</figure>", re.S)
+VIDEO = re.compile(r"<video\b[^>]*>.*?</video>", re.S)
+
+
+def degrade_interactive(content, post_url):
+    """Interactive figures (inline <style>/<script> driving an SVG) and videos
+    cannot run in a reader: swap them for their description plus a link."""
+
+    def figure(m):
+        label = re.search(r'aria-label="([^"]*)"', m.group(0))
+        desc = label.group(1) if label else "Interactive figure"
+        return (
+            f"<p><em>{desc}</em> "
+            f'<a href="{post_url}">View the interactive version on the site.</a></p>'
+        )
+
+    def video(m):
+        src = re.search(r'<source[^>]+src="([^"]+)"', m.group(0))
+        label = re.search(r'aria-label="([^"]*)"', m.group(0))
+        text = label.group(1) if label else "Watch the video"
+        if not src:
+            return f"<p><em>{text}</em></p>"
+        return f'<p><a href="{src.group(1)}">{text} (MP4)</a></p>'
+
+    content = INTERACTIVE_FIGURE.sub(figure, content)
+    return VIDEO.sub(video, content)
+
+
 def div_block(content, start):
     """Return (start, end) of the div opening at `start`, matching nesting."""
     depth = 0
@@ -147,6 +175,7 @@ def build():
             continue
         url = meta["url"]
         content = extract_content(html, page)
+        content = degrade_interactive(content, url)
         content = replace_svgs(content, page.parent.name)
         content = semanticize(content)
         items.append({

@@ -8,9 +8,15 @@
   </url>
   <url>
     <loc>https://vigneshrajsb.com/writing/</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://vigneshrajsb.com/writing/extraction/</loc>
