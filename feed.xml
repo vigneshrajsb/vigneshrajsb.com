@@ -16,7 +16,7 @@
   <p>AI agents have made writing code fast and cheap. Verifying that code hasn’t gotten any faster.</p>
   <p>Tests help, but they answer a part of a question: does this function behave? They don’t tell you that the changed API, the frontend, the database migration, and the feature flag all work together. For that, you need the change running somewhere real — with its dependencies, its config, and a URL you can click.</p>
   <p>A preview environment solves this: a disposable copy of your application, wired to one pull request. These used to be a nice developer-experience perk. Now agents can open more pull requests than any team can hand-verify, and the preview environment is where that code proves it actually runs.</p>
-  <p>This post is about how I do that with Lifecycle, and about the capabilities I’ve been building so that agents can use it as well.</p>
+  <p>This post is about how I do that with Lifecycle, and about the new capabilities we built so that agents can use it as well.</p>
 
   <hr>
   <p><a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle</a> is an open source tool that creates a preview environment for every pull request. When a PR opens, Lifecycle figures out which services the change needs, deploys them to Kubernetes, and posts stable URLs back to the PR. When the PR closes or the environment’s TTL expires, it cleans everything up.</p>
