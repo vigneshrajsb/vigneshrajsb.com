@@ -39,6 +39,19 @@ def feed_content(html):
     return html[start:end]
 
 
+def static_svgs(content):
+    """Chart SVGs to rasterize: skip interactive figures (their SVG depends on
+    the figure's own <style>/<script>, so build-feed.py degrades them to
+    text) and aria-hidden icon SVGs."""
+    content = re.sub(
+        r"<figure\b[^>]*>(?:(?!</figure>).)*<script\b.*?</figure>", "", content, flags=re.S
+    )
+    return [
+        svg for svg in re.findall(r"<svg.*?</svg>", content, re.S)
+        if 'aria-hidden="true"' not in svg.split(">", 1)[0]
+    ]
+
+
 def resolved_vars(html):
     """Site tokens plus the page's own --var declarations, one level deep."""
     out = dict(SITE_VARS)
@@ -98,7 +111,7 @@ def main():
         content = feed_content(html)
         if content is None:
             continue
-        svgs = re.findall(r"<svg.*?</svg>", content, re.S)
+        svgs = static_svgs(content)
         slug = page.parent.name
         keep = set()
         for i, svg in enumerate(svgs, 1):
