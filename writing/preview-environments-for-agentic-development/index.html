@@ -6,7 +6,7 @@
     <title>Preview environments for agentic development — Vignesh</title>
     <meta
       name="description"
-      content="AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built."
+      content="Agents made code cheap to write, but verifying it is still laborious. We taught agents to work with preview environments: a CLI, an MCP server, and a debug agent."
     />
     <link rel="canonical" href="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/" />
     <meta name="robots" content="index, follow" />
@@ -17,7 +17,7 @@
     <meta property="og:title" content="Preview environments for agentic development" />
     <meta
       property="og:description"
-      content="AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built."
+      content="Agents made code cheap to write, but verifying it is still laborious. We taught agents to work with preview environments: a CLI, an MCP server, and a debug agent."
     />
     <meta property="og:url" content="https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/" />
     <meta property="og:locale" content="en_US" />
@@ -39,7 +39,7 @@
     <meta name="twitter:title" content="Preview environments for agentic development" />
     <meta
       name="twitter:description"
-      content="AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built."
+      content="Agents made code cheap to write, but verifying it is still laborious. We taught agents to work with preview environments: a CLI, an MCP server, and a debug agent."
     />
     <meta
       name="twitter:image"
@@ -51,7 +51,7 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Preview environments for agentic development",
-        "description": "AI agents made writing code cheap; verifying it did not get faster. How we use Lifecycle preview environments and the CLI, MCP server, and debug agent we built.",
+        "description": "Agents made code cheap to write, but verifying it is still laborious. We taught agents to work with preview environments: a CLI, an MCP server, and a debug agent.",
         "image": "https://vigneshrajsb.com/writing/assets/preview-environments-og.png",
         "author": {
           "@type": "Person",
@@ -106,6 +106,9 @@
       .post-body th { font-weight: 500; color: var(--ink-2); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
       .post-body hr { border: none; border-top: 1px solid var(--rule); width: 48px; margin: var(--space-xl) 0 var(--space-lg); }
       .post-body .endnote { font-style: italic; color: var(--ink-2); }
+      .post-body blockquote.tweet { margin: var(--space-lg) 0; padding: 0.9rem 1.1rem; border: 1px solid var(--rule); border-left: 3px solid var(--accent-soft); border-radius: 6px; background: var(--bg-subtle); }
+      .post-body blockquote.tweet p { font-style: italic; margin: 0 0 0.5rem; }
+      .post-body blockquote.tweet footer { font-family: var(--font-sans); font-size: var(--text-meta); color: var(--ink-2); }
       .post-body .media { margin: var(--space-lg) 0 var(--space-xl); }
       .post-body .media video { width: 100%; height: auto; display: block; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg-subtle); }
       .post-body .media figcaption { font-family: var(--font-sans); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.5rem; }
@@ -126,12 +129,8 @@
       <article>
         <header class="post-header">
           <h1>Preview environments for agentic development</h1>
-          <p class="post-subtitle">
-            How we use Lifecycle to verify agent-written code, and the CLI, MCP
-            server, and debug agent we built so agents can use it too
-          </p>
           <p class="post-meta">
-            <time datetime="2026-08-23">August 23, 2026</time> &middot; 6 min
+            <time datetime="2026-08-23">August 23, 2026</time> &middot; 7 min
             read
           </p>
         </header>
@@ -143,6 +142,7 @@
   <p>A preview environment solves this: a disposable copy of your application, wired to one pull request. These used to be a nice developer-experience perk. Now agents can open more pull requests than any team can hand-verify, and the preview environment is where that code proves it actually runs.</p>
   <p>This post is about how we do that with Lifecycle, and about the capabilities we’ve been building so that agents can use it as well.</p>
 
+  <hr>
   <p><a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle</a> is an open source tool from GoodRx that creates a preview environment for every pull request. When a PR opens, Lifecycle figures out which services the change needs, deploys them to Kubernetes, and posts stable URLs back to the PR. When the PR closes or the environment’s TTL expires, it cleans everything up.</p>
   <p><i>I’m one of the contributors to Lifecycle, and we use it at work.</i></p>
   <p>The core loop is simple:</p>
@@ -661,7 +661,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   <p>The benefit is an agent driving <code>lfc</code> gets structured output and predictable failures. It knows whether to retry, re-authenticate, or stop without guessing its way through browser use.</p>
 
   <h2 id="the-mcp-server">The MCP server</h2>
-  <p>MCP is an open standard that lets AI tools call external systems through a common protocol. Lifecycle ships a <a href="https://uselifecycle.com/docs/features/mcp-server" target="_blank" rel="noopener" aria-describedby="ext-tab">remote MCP server</a>, so coding agents like Claude, Codex or Cursor can query your preview environments directly instead of asking you to paste URLs and log fragments into chat.</p>
+  <p><a href="https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro" target="_blank" rel="noopener" aria-describedby="ext-tab">MCP</a> is an open standard that lets AI tools call external systems through a common protocol. Lifecycle ships a <a href="https://uselifecycle.com/docs/features/mcp-server" target="_blank" rel="noopener" aria-describedby="ext-tab">remote MCP server</a>, so coding agents like Claude, Codex or Cursor can query your preview environments directly instead of asking you to paste URLs and log fragments into chat.</p>
   <p>Connecting is low-friction. Add lfc deployment’s <code>/mcp</code> URL to any of your MCP clients and sign in with your auth. The client uses OAuth discovery and registers itself automatically — you don’t create an OAuth client, an API key, or a token by hand.</p>
   <p>Two things about the permission model are worth knowing:</p>
   <ul>
@@ -686,6 +686,17 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   <p>MCP works in the other direction too. Lifecycle can act as an <a href="https://uselifecycle.com/docs/features/mcp-integration" target="_blank" rel="noopener" aria-describedby="ext-tab">MCP client</a>: an administrator registers an external MCP server — say, your observability or incident tool — allow-lists the tools agents may use, and those tools become available inside agent sessions.</p>
   <p>The part that makes this usable day to day is per-user authentication. When a shared server needs individual credentials, each user connects it themselves: open <strong>Settings</strong>, open <strong>My connections</strong>, select the server, and complete the OAuth flow or enter the requested fields. Your next agent session picks up the connection automatically.</p>
   <p>So the setup cost splits cleanly: the user integrates a tool and authorizes it once with their SSO/OAuth (several supported through Keycloak as the auth manager). After that, the tools are just there for an agent investigating your environment can also query the systems you’ve connected, with your identity and your access.</p>
+
+  <hr>
+  <h2 id="your-agent-or-the-built-in-one">Your agent, or the built-in one?</h2>
+  <p>A thread this week summed up a common view:</p>
+  <blockquote class="tweet">
+    <p>&ldquo;i really don't want to use your agent, i want to use my agent to use your thing.&rdquo;</p>
+    <footer>Ali Spittel, quote-tweeted by Gergely Orosz, who added that unless you are a frontier lab, most people would rather connect the agent they already use over MCP than adopt yours. <a href="https://x.com/GergelyOrosz/status/2091248280365682688" target="_blank" rel="noopener" aria-describedby="ext-tab">Read the thread on X</a></footer>
+  </blockquote>
+  <p>We agree, and that is what the CLI and the MCP server are for. If you already have an agent you like, point it at Lifecycle and keep your workflow.</p>
+  <p>The built-in debug agent covers a different case. It lives next to the environment, already has the logs and the Kubernetes state, and needs no setup. When a deploy fails and you want a quick answer or a one-off fix, you open it and ask. Replies in the same thread made this point too: for a quick check, a built-in agent that already knows the system beats wiring up your own.</p>
+  <p>Use both. Your agent, through MCP or <code>lfc</code>, for the work you own. The built-in agent for the quick debug.</p>
 
   <h2 id="the-debug-agent">The debug agent</h2>
   <p>The capability engineers use most is the built-in agent for diagnosing broken environments. Open an environment, ask why it failed, and the <a href="https://uselifecycle.com/docs/features/ai-agent" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle Agent</a> starts with that environment already in context: the namespace, the deployed services, the build metadata, the logs, and the PR branch.</p>
@@ -1339,9 +1350,9 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
 </figure>
 </div>
   <p>The benefit is that verification stops being the bottleneck: the environment exists automatically, the agent can read it directly, and the humans spend their attention on judgment calls instead of tab-hopping between browser and tools to validate your changes integrated with the rest of your stack.</p>
-  <p>Code is getting cheaper to write. The systems it runs in are just as real as ever. Preview environments are how to keep those two from colliding and teaching the tools to speak agent is how we keep up.</p>
+  <p>Code is getting cheaper to write. The apps are more interconnected and complex than ever. Preview environments keep those two from causing friction, and teaching the tools to speak agent, and agents to speak the tools, is how we keep up.</p>
   <hr>
-  <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle</a> and <a href="https://github.com/GoodRxOSS/lifecycle-cli" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle-cli</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
+  <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
         </div>
         <!-- feed:end -->
       </article>
