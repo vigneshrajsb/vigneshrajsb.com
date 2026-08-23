@@ -19,7 +19,7 @@
   <p>This post is about how I do that with Lifecycle, and about the capabilities I’ve been building so that agents can use it as well.</p>
 
   <hr>
-  <p><a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle</a> is an open source tool from GoodRx that creates a preview environment for every pull request. When a PR opens, Lifecycle figures out which services the change needs, deploys them to Kubernetes, and posts stable URLs back to the PR. When the PR closes or the environment’s TTL expires, it cleans everything up.</p>
+  <p><a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">Lifecycle</a> is an open source tool that creates a preview environment for every pull request. When a PR opens, Lifecycle figures out which services the change needs, deploys them to Kubernetes, and posts stable URLs back to the PR. When the PR closes or the environment’s TTL expires, it cleans everything up.</p>
   <p><i>I’m one of the contributors to Lifecycle, and I use it at work.</i></p>
   <p>The core loop is simple:</p>
   <ol>
@@ -117,7 +117,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   <p>The benefit is that verification stops being the bottleneck: the environment exists automatically, the agent can read it directly, and the humans spend their attention on judgment calls instead of tab-hopping between browser and tools to validate your changes integrated with the rest of your stack.</p>
   <p>Code is getting cheaper to write. The apps are more interconnected and complex than ever. Preview environments keep those two from causing friction, and teaching the tools to speak agent, and agents to speak the tools, is how we keep up.</p>
   <hr>
-  <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GoodRxOSS/lifecycle</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
+  <p class="endnote">Lifecycle is open source: <a href="https://github.com/GoodRxOSS/lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">GitHub repo</a>. Docs at <a href="https://uselifecycle.com/docs/what-is-lifecycle" target="_blank" rel="noopener" aria-describedby="ext-tab">uselifecycle.com/docs</a>.</p>
         </div>]]></content:encoded>
     </item>
     <item>
