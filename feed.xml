@@ -7,6 +7,23 @@
     <language>en-us</language>
     <atom:link href="https://vigneshrajsb.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Stay long enough to be wrong</title>
+      <link>https://vigneshrajsb.com/writing/stay-long-enough-to-be-wrong/</link>
+      <guid>https://vigneshrajsb.com/writing/stay-long-enough-to-be-wrong/</guid>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <description>Changing jobs can be useful. But staying somewhere worth building lets context become judgment, relationships become trust, and trust become meaningful agency.</description>
+      <content:encoded><![CDATA[<div class="post-body">
+<p>Hopping is useful. If you are underpaid, stuck, or working somewhere toxic, leave. A company or team does not get loyalty by default. It is earned both ways.</p>
+<p>But there is a cost to treating every new logo as growth: you leave before some of the best parts of work arrive.</p>
+<p>Context becomes judgment. You stop seeing a system as tickets and diagrams. You remember the approach that failed, the incident it caused, and the constraint everyone now calls “weird.” You get to watch your own decisions come back. Sometimes that is humbling as hell. It is also how you learn.</p>
+<p>You also build long-lasting relationships. That is gratifying in its own right, but it changes the work too. When your team needs something, going the extra mile feels less like performative heroics and more like showing up for people whose trust you have earned.</p>
+<p>That trust becomes agency. People stop handing you tidy work and start bringing you the ambiguous problem—the thing with no obvious owner, where the answer matters after this quarter. Not because you have a grander title. Because they have seen how you work when things are messy.</p>
+<p>Recently, I read <a href="https://sunilpai.dev/posts/the-senior-engineer-death-spiral/" target="_blank" rel="noopener" aria-describedby="ext-tab">Sunil Pai’s <em>The Senior Engineer Death Spiral</em></a>. His distinction between an outcome-based and a momentum-based mindset stuck with me. Big work rarely arrives through one heroic push. It comes from slow, useful, reliable work—and from relationships strong enough to keep that work moving when things get hard.</p>
+<p>None of this means staying forever. A long stay is only valuable if the pay is fair, the problems still grow, and the people make you better. If those things disappear, “compounding” can become a flattering word for inertia.</p>
+<p>But I no longer think a new logo is automatically progress. Sometimes the <strong>ambitious move is finding a place worth building in</strong>—and staying long enough to be wrong, learn from it, and become useful in ways that a résumé cannot measure.</p>
+        </div>]]></content:encoded>
+    </item>
+    <item>
       <title>Preview environments for agentic development</title>
       <link>https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/</link>
       <guid>https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/</guid>

@@ -24,6 +24,7 @@ The site is hand-built HTML and CSS, no framework. Analytics are privacy-first a
 
 Native posts live under https://vigneshrajsb.com/writing/ (index) with an RSS feed at https://vigneshrajsb.com/feed.xml.
 
+- [Stay long enough to be wrong](https://vigneshrajsb.com/writing/stay-long-enough-to-be-wrong/): context becomes judgment, relationships become trust, and trust becomes agency when you stay somewhere worth building.
 - [Preview environments for agentic development](https://vigneshrajsb.com/writing/preview-environments-for-agentic-development/): agents made code cheap to write, but verification is still laborious; teaching agents to work with Lifecycle preview environments.
 - [Extraction](https://vigneshrajsb.com/writing/extraction/): loyalty is a prediction; what Unity, Veeva, and Reddit reveal about companies that spend customer trust to hit the quarter.
 - [Find my distributed trace](https://vigneshrajsb.com/writing/find-my-distributed-trace/): AirTags for Datadog APM.
