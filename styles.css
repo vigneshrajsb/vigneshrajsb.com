@@ -893,8 +893,11 @@ section:last-of-type {
     }
 }
 
-/* Linked titles are set upright; italic stays for inline emphasis. */
-.entries .title em,
-.archive .title em {
+/* Links are always upright, even when the linked text is a title in
+   <em>; italic stays for unlinked inline emphasis. */
+a em,
+a i,
+em a,
+i a {
     font-style: normal;
 }

@@ -92,7 +92,7 @@ Root font-size scales lightly with viewport for legibility:
 
 ### Voice rules
 
-- Italic is for inline emphasis (project names, the Currently date stamp) and captions. Headings, linked titles, and the masthead aside stay upright.
+- Italic is for unlinked inline emphasis (the Currently date stamp) and captions. Links are never italic, even when the linked text is a project or article name. Headings and the masthead aside stay upright.
 - The h1 "Vignesh" is Geist 650, `letter-spacing: -0.035em`, set at display size.
 - Section eyebrows are uppercase Geist 500 with `letter-spacing: 0.08em`.
 - Body line length is capped via `max-width: 36rem` on the main column (~65-70ch).
