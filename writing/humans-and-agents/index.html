@@ -151,7 +151,13 @@
       .deck-prog { grid-column: 1 / -1; height: 2px; background: var(--stage-rule); border-radius: 2px; overflow: hidden; }
       .deck-prog i { display: block; height: 100%; background: var(--stage-ink-2); transform-origin: left; transition: transform 280ms var(--ease-out-quart); }
       .deck-hint { grid-column: 1 / -1; margin: 0; font-size: 0.75rem; color: var(--stage-ink-2); text-align: center; }
-      @media (hover: none) { .deck-hint .keys { display: none; } }
+      .deck-hint kbd {
+        font: inherit; color: var(--stage-ink);
+        display: inline-block; min-width: 1.6em; padding: 0.05em 0.35em; margin-right: 0.15em;
+        border: 1px solid var(--stage-rule); border-radius: 4px;
+      }
+      .deck-hint .dot { margin: 0 0.6em; }
+      @media (hover: none) { .deck-hint { display: none; } }
       @media (max-width: 560px) {
         .deck-stage .stage-frame { width: 100%; }
         .deck-cap { font-size: 0.98rem; }
@@ -395,7 +401,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
         </button>
         <div class="deck-prog" aria-hidden="true"><i id="deck-prog"></i></div>
-        <p class="deck-hint"><span class="keys">&#x2190; &#x2192; to move, Esc to close. </span>Swipe works too.</p>
+        <p class="deck-hint"><kbd>&#x2190;</kbd><kbd>&#x2192;</kbd> Move<span class="dot" aria-hidden="true">&middot;</span><kbd>Esc</kbd> Close</p>
       </div>
     </dialog>
 
