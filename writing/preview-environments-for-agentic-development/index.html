@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Preview environments for agentic development — Vignesh</title>
     <meta
       name="description"
@@ -217,6 +218,15 @@
 /* chips */
 .lfc-flow .lfc-chip rect { fill: var(--accent); stroke: var(--bg); stroke-width: 1.5; filter: url(#lfc-shadow-chip); }
 .lfc-flow .lfc-chip text { font-size: 12.5px; font-weight: 700; fill: #fff; text-anchor: middle; }
+@media screen and (prefers-color-scheme: dark) {
+  .lfc-flow {
+    --bg: oklch(0.20 0.012 60); --bg-subtle: oklch(0.23 0.013 60);
+    --ink: oklch(0.91 0.018 78); --ink-2: oklch(0.73 0.016 70); --ink-3: oklch(0.60 0.014 65);
+    --rule: oklch(0.34 0.016 65); --accent: oklch(0.72 0.13 40); --accent-soft: oklch(0.62 0.10 38);
+    --accent-tint: oklch(0.28 0.03 40); --card: oklch(0.24 0.012 60);
+  }
+  .lfc-flow .lfc-chip text { fill: var(--bg); }
+}
 
 /* caption row */
 .lfc-flow .lfc-bar { display: flex; align-items: center; gap: .5rem; margin-top: .75rem; padding: .6rem .8rem; border: 1px solid var(--rule); border-radius: 6px; background: var(--card); box-shadow: 0 1px 2px rgba(60,40,20,.08), 0 4px 12px rgba(60,40,20,.05); min-height: 3.4rem; }
@@ -803,6 +813,15 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
 /* chips */
 .lfc2-flow .lfc-chip rect { fill: var(--accent); stroke: var(--bg); stroke-width: 1.5; filter: url(#lfc2-shadow-chip); }
 .lfc2-flow .lfc-chip text { font-size: 12.5px; font-weight: 700; fill: #fff; text-anchor: middle; }
+@media screen and (prefers-color-scheme: dark) {
+  .lfc2-flow {
+    --bg: oklch(0.20 0.012 60); --bg-subtle: oklch(0.23 0.013 60);
+    --ink: oklch(0.91 0.018 78); --ink-2: oklch(0.73 0.016 70); --ink-3: oklch(0.60 0.014 65);
+    --rule: oklch(0.34 0.016 65); --accent: oklch(0.72 0.13 40); --accent-soft: oklch(0.62 0.10 38);
+    --accent-tint: oklch(0.28 0.03 40); --card: oklch(0.24 0.012 60);
+  }
+  .lfc2-flow .lfc-chip text { fill: var(--bg); }
+}
 .lfc2-flow .lfc-chip--soft rect { fill: var(--accent-soft); }
 
 /* caption row */

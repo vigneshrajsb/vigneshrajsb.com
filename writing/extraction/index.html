@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Extraction — Vignesh</title>
     <meta
       name="description"
@@ -105,6 +106,9 @@
         --annot: var(--accent);
         --ink2: var(--ink-2);
         --bar: oklch(0.51 0.11 245);
+      }
+      @media screen and (prefers-color-scheme: dark) {
+        .post-body { --bar: oklch(0.68 0.10 245); }
       }
       .post-body figure.viz { margin: var(--space-xl) 0; font-family: var(--font-sans); }
       .post-body .viz-title { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin: 0 0 0.15rem; }

@@ -4,7 +4,7 @@ Visual system for vigneshrajsb.com. Captures the tokens, type, and patterns that
 
 ## Visual Theme
 
-**Paperlike, editorial, warm.** A page that reads like a hand-set letter on cream paper rather than a screen. Light theme by intent; the warmth comes from tinted neutrals (every surface tinted toward 70-80° hue) and a single ink-red accent used three places only.
+**Paperlike, editorial, warm.** A page that reads like a hand-set letter on cream paper rather than a screen. Light paper first, with a dark counterpart that follows the system setting (walnut paper, cream ink); the warmth comes from tinted neutrals (every surface tinted toward 70-80° hue) and a single ink-red accent used three places only.
 
 The voice is dry-witty and grounded; the visual treatment supports that by being quiet and committed rather than decorated. No gradients, no glassmorphism, no photos, no illustration. Type, paper, hierarchy carry everything. Two sanctioned exceptions: Chocolata, the interactive masthead mascot (see docs/feat/animated-dog-header.html), a soft cel-shaded illustration of the author's dog beside the h1 (currently parked behind body[data-chocolata='off']); and the ink tailpiece (see docs/feat/ink-tailpiece.html), the small brush-stroke family mark that ends every page. Both are ink-weight marks, not scenes; the full-bleed pier footer that briefly shipped between them was pulled the same day (retrospective in docs/feat/abstract-pier-footer.html).
 
@@ -33,6 +33,26 @@ All values in OKLCH. Reduce chroma at extremes. Never `#000` or `#fff`.
 - `--ink-2` on `--bg`: ~6.8:1 (passes AA for body, AAA for large).
 - `--ink-3` on `--bg`: ~3.6:1 (passes AA large only; reserve for non-essential meta and rules).
 - `--accent` on `--bg`: ~5.6:1 (passes AA body).
+
+### Dark mode
+
+Follows `prefers-color-scheme`; no toggle. Same hues, lightness flipped, screen only (print stays light). Every page declares `color-scheme: light dark` (meta tag and `:root`), which also tells Safari's Adaptive Dark Mode to leave the page alone.
+
+```css
+--bg:           oklch(0.20 0.012 60);    /* walnut paper */
+--bg-subtle:    oklch(0.23 0.013 60);
+--ink:          oklch(0.91 0.018 78);    /* cream ink */
+--ink-2:        oklch(0.73 0.016 70);
+--ink-3:        oklch(0.60 0.014 65);
+--rule:         oklch(0.34 0.016 65);
+--accent:       oklch(0.72 0.13 40);     /* paprika, lifted */
+--accent-soft:  oklch(0.62 0.10 38);
+--focus:        oklch(0.72 0.13 40);
+```
+
+Contrast on `--bg`: `--ink` ~13.9:1, `--ink-2` ~7.3:1, `--ink-3` ~4.6:1, `--accent` ~7.0:1.
+
+Off-token pieces with their own dark rules: the name highlighter (deep rust band instead of multiplied peach), the ink tailpiece (inverted with a hue turn so figures read as cream ink), post photos and video (brightness 0.88), and post-local tokens in the preview-environments widgets and the Extraction chart bars. New post styles should use the site tokens so they inherit dark mode for free; any literal color needs a `prefers-color-scheme: dark` override.
 
 ## Typography
 
@@ -196,4 +216,4 @@ Mirrors the impeccable absolute bans, plus brand-specific:
   pronounce helper's hover-only speaker (inline SVG, currentColor, 14px),
   because no typographic glyph says "audio" unambiguously.
 - No monospace. The site is editorial, not dev-bro. Exception: code blocks and ASCII diagrams inside /writing/ posts — technical article content requires it; the chrome around them stays editorial.
-- No dark mode toggle. The scene sentence forces light; a toggle would dilute the voice.
+- No dark mode toggle. Dark mode follows the system setting; a toggle would dilute the voice.

@@ -164,7 +164,7 @@ body.post-page main {
     background-image: linear-gradient(
         100deg,
         transparent 32%,
-        oklch(0.985 0.01 78 / 0.9) 50%,
+        var(--shimmer) 50%,
         transparent 68%
     );
     background-size: 200% 100%;
@@ -391,5 +391,14 @@ body.post-page main {
 
     .post-body pre.diagram {
         white-space: pre;
+    }
+}
+
+/* Photos and screenshots are made for daylight; take the glare off them on
+   dark paper without changing what they show. */
+@media screen and (prefers-color-scheme: dark) {
+    article img,
+    article video {
+        filter: brightness(0.88);
     }
 }

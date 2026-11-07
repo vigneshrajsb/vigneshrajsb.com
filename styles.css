@@ -67,6 +67,8 @@
     --accent: oklch(0.50 0.16 32);
     --accent-soft: oklch(0.62 0.10 32);
     --focus: oklch(0.50 0.16 32);
+    --selection: oklch(0.92 0.06 32);
+    --shimmer: oklch(0.985 0.01 78 / 0.9);
 
     /* Type */
     --font-serif: 'Vollkorn', 'Vollkorn Fallback', Georgia, serif;
@@ -96,6 +98,33 @@
     --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/*
+ * Dark mode follows the system setting; there is no toggle. Same warm hues,
+ * lightness flipped: dark walnut paper, cream ink, the paprika lifted so it
+ * still reads as the one accent. Declaring color-scheme also tells Safari's
+ * Adaptive Dark Mode the site themes itself, so it leaves the page alone.
+ * Screen only: print stays ink on paper.
+ */
+:root {
+    color-scheme: light dark;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --bg: oklch(0.20 0.012 60);
+        --bg-subtle: oklch(0.23 0.013 60);
+        --ink: oklch(0.91 0.018 78);
+        --ink-2: oklch(0.73 0.016 70);
+        --ink-3: oklch(0.60 0.014 65);
+        --rule: oklch(0.34 0.016 65);
+        --accent: oklch(0.72 0.13 40);
+        --accent-soft: oklch(0.62 0.10 38);
+        --focus: oklch(0.72 0.13 40);
+        --selection: oklch(0.38 0.08 38);
+        --shimmer: oklch(0.30 0.012 60 / 0.9);
+    }
+}
+
 /* ---------- Reset ---------- */
 
 *,
@@ -120,7 +149,7 @@ svg {
 }
 
 ::selection {
-    background: oklch(0.92 0.06 32);
+    background: var(--selection);
     color: var(--ink);
 }
 
@@ -330,6 +359,15 @@ a:focus-visible {
     pointer-events: none;
     clip-path: inset(0 100% 0 0);
     transition: clip-path 2000000s step-end;
+}
+
+/* On dark paper a multiplied peach vanishes, so the band becomes a deep
+   rust wash under the cream name. */
+@media screen and (prefers-color-scheme: dark) {
+    .masthead .name::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 44' preserveAspectRatio='none'%3E%3Cpath fill='%239A4A26' fill-opacity='0.75' d='M5 16C46 15 108 14 162 13 216 12 268 15 314 20L312 31C266 36 208 38 150 38 96 38 40 37 6 36Z'/%3E%3C/svg%3E");
+        mix-blend-mode: normal;
+    }
 }
 
 /* .is-marked is pinned by masthead.js on first pointer entry so a quick
@@ -721,6 +759,7 @@ section:last-of-type {
     display: inline-block;
     padding-block: 0.75rem;
     margin-block: -0.75rem;
+    --u-pad: 0.75rem;
     white-space: nowrap;
     color: var(--ink);
     font-weight: 500;
@@ -758,6 +797,14 @@ section:last-of-type {
     display: block;
     width: 100%;
     height: auto;
+}
+
+/* The tailpiece is dark ink drawn for cream paper. On dark paper the figures
+   flip to cream ink; the hue turn brings the sunset back to peach. */
+@media screen and (prefers-color-scheme: dark) {
+    .tailpiece img {
+        filter: invert(0.92) hue-rotate(180deg);
+    }
 }
 
 /* ---------- Reduced motion ---------- */
