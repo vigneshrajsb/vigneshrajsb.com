@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Humans + agents — Vignesh</title>
+    <meta name="description" content="What our engineering team is learning from working with AI agents, as slides from a short talk: hand it the whole job, give it context, and keep learning." />
+    <link rel="canonical" href="https://vigneshrajsb.com/writing/humans-and-agents/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Vigneshraj Sekar Babu" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Vignesh — vigneshrajsb.com" />
+    <meta property="og:title" content="Humans + agents" />
+    <meta property="og:description" content="What our engineering team is learning from working with AI agents, as slides from a short talk: hand it the whole job, give it context, and keep learning." />
+    <meta property="og:url" content="https://vigneshrajsb.com/writing/humans-and-agents/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://vigneshrajsb.com/writing/assets/humans-and-agents-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="628" />
+    <meta property="og:image:alt" content="Title slide of the talk Humans + Agents, over an archival photo of people at an early computer console" />
+    <meta property="article:published_time" content="2026-11-07" />
+    <meta property="article:author" content="Vigneshraj Sekar Babu" />
+    <meta property="article:tag" content="ai" />
+    <meta property="article:tag" content="agents" />
+    <meta property="article:tag" content="engineering" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Humans + agents" />
+    <meta name="twitter:description" content="What our engineering team is learning from working with AI agents, as slides from a short talk: hand it the whole job, give it context, and keep learning." />
+    <meta name="twitter:image" content="https://vigneshrajsb.com/writing/assets/humans-and-agents-og.jpg" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Humans + agents",
+  "description": "What our engineering team is learning from working with AI agents, as slides from a short talk: hand it the whole job, give it context, and keep learning.",
+  "image": "https://vigneshrajsb.com/writing/assets/humans-and-agents-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Vigneshraj Sekar Babu",
+    "url": "https://vigneshrajsb.com/"
+  },
+  "datePublished": "2026-11-07",
+  "url": "https://vigneshrajsb.com/writing/humans-and-agents/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vigneshrajsb.com/writing/humans-and-agents/"
+  }
+}
+    </script>
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Vignesh — Writing"
+      href="/feed.xml"
+    />
+    <link
+      rel="preload"
+      href="/fonts/geist-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/writing/writing.css" />
+    <script src="/writing/reveal.js" defer></script>
+    <style>
+      /* The slides view is a dark stage in both themes, matching the slides themselves. */
+      :root {
+        --stage: oklch(0.17 0.008 70);
+        --stage-ink: oklch(0.93 0.012 78);
+        --stage-ink-2: oklch(0.72 0.012 70);
+        --stage-rule: oklch(0.32 0.01 70);
+      }
+      .post-body .lede { font-size: var(--text-lede); line-height: 1.65; }
+      .view-slides {
+        display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap;
+        padding: var(--space-md) 0; margin: var(--space-lg) 0 var(--space-xl);
+        border-block: 1px solid var(--rule);
+      }
+      .view-slides p { margin: 0; flex: 1 1 14rem; min-width: 0; font-style: italic; color: var(--ink-2); }
+      .view-slides button {
+        font-family: var(--font-meta); font-size: var(--text-meta); font-weight: var(--weight-small);
+        min-height: 44px; padding: 0 1.1rem; border-radius: 999px; cursor: pointer;
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        background: var(--ink); color: var(--bg); border: 1px solid var(--ink);
+      }
+      .view-slides button:hover { background: var(--ink-2); border-color: var(--ink-2); }
+      .view-slides button span { opacity: 0.7; }
+      .post-body h2 + .chap-line { margin-top: calc(-1 * var(--space-sm)); color: var(--ink-2); }
+      .post-body .slide { margin: var(--space-lg) 0 var(--space-xl); }
+      .post-body .slide img { aspect-ratio: 16 / 9; }
+      .post-body .slide .open { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 6px; }
+      .post-body .slide figcaption {
+        font-style: normal; font-size: 1rem; font-weight: var(--weight-text); line-height: 1.55; color: var(--ink);
+        text-align: left; margin-top: var(--space-sm); text-wrap: pretty;
+      }
+      .post-body hr.sep { border: 0; border-top: 1px solid var(--rule); width: 48px; margin: var(--space-2xl) 0; }
+      .post-body .credits { font-style: italic; color: var(--ink-2); font-size: 0.98rem; }
+
+      dialog.deck {
+        position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+        margin: 0; padding: 0; border: 0;
+        background: var(--stage); color: var(--stage-ink); font-family: var(--font-text); font-weight: var(--weight-small);
+      }
+      dialog.deck::backdrop { background: var(--stage); }
+      dialog.deck[open] { display: grid; grid-template-rows: auto 1fr auto; }
+      .deck-bar {
+        display: flex; align-items: center; gap: var(--space-sm);
+        padding: max(10px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px));
+        font-size: var(--text-meta); color: var(--stage-ink-2);
+      }
+      .deck-bar .where { flex: 1; min-width: 0; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .deck-bar .where b { color: var(--stage-ink); font-weight: 600; }
+      .ghost {
+        min-width: 44px; min-height: 44px; padding: 0 0.8rem;
+        display: inline-flex; align-items: center; justify-content: center;
+        background: transparent; color: var(--stage-ink); border: 1px solid var(--stage-rule); border-radius: 999px;
+        font: inherit; cursor: pointer;
+      }
+      .ghost:hover { border-color: var(--stage-ink-2); }
+      .ghost:disabled { opacity: 0.3; cursor: default; }
+      .ghost svg { width: 18px; height: 18px; }
+      .deck-stage {
+        position: relative; min-height: 0;
+        display: flex; align-items: center; justify-content: center;
+        padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+        touch-action: pan-y pinch-zoom; user-select: none;
+      }
+      .deck-stage .stage-frame {
+        width: min(100%, calc((100vh - 13rem) * 16 / 9)); width: min(100%, calc((100dvh - 13rem) * 16 / 9)); max-width: 100%;
+        aspect-ratio: 16 / 9; border-radius: 4px; overflow: hidden;
+        box-shadow: 0 0 0 1px var(--stage-rule);
+      }
+      .deck-stage img { display: block; width: 100%; height: 100%; object-fit: contain; }
+      .deck-stage img.in { animation: slide-in 280ms var(--ease-out-quart) both; }
+      .deck-stage img.in.back { animation-name: slide-in-back; }
+      @keyframes slide-in { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+      @keyframes slide-in-back { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: none; } }
+      .deck-foot {
+        display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-md);
+        width: 100%; max-width: 60rem; margin: 0 auto;
+        padding: var(--space-sm) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+      }
+      .deck-cap {
+        font-family: var(--font-text); font-size: 1.05rem; line-height: 1.45; text-align: center;
+        color: var(--stage-ink); margin: 0; min-height: 3em; text-wrap: balance;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .deck-prog { grid-column: 1 / -1; height: 2px; background: var(--stage-rule); border-radius: 2px; overflow: hidden; }
+      .deck-prog i { display: block; height: 100%; background: var(--stage-ink-2); transform-origin: left; transition: transform 280ms var(--ease-out-quart); }
+      .deck-hint { grid-column: 1 / -1; margin: 0; font-size: 0.75rem; color: var(--stage-ink-2); text-align: center; }
+      @media (hover: none) { .deck-hint .keys { display: none; } }
+      @media (max-width: 560px) {
+        .deck-stage .stage-frame { width: 100%; }
+        .deck-cap { font-size: 0.98rem; }
+        .deck-bar .fs { display: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .deck-stage img.in { animation: none; }
+        .deck-prog i { transition: none; }
+      }
+      @media print { .view-slides, dialog.deck { display: none; } }
+    </style>
+  </head>
+  <body class="post-page">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <span id="ext-tab" class="sr-only">opens in a new tab</span>
+    <main id="main">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep" aria-hidden="true">&#x203A;</span>
+        <a href="/writing/">Writing</a>
+      </nav>
+
+      <article>
+        <header class="post-header">
+          <h1>Humans + agents</h1>
+          <p class="post-meta"><time datetime="2026-11-07">November 7, 2026</time> &middot; 5 min read</p>
+        </header>
+        <div class="view-slides" id="view-slides" hidden>
+          <p>Prefer to click through it like a talk?</p>
+          <button type="button" id="open-deck">View as slides <span aria-hidden="true">&#x2192;&#xFE0E;</span></button>
+        </div>
+        <!-- feed:start -->
+        <div class="post-body">
+<p class="lede">I gave this as a short talk to our engineering team. These are the slides with some things that are working for us, in no particular order.</p>
+<h2 id="a-year-of-agents">A year of agents</h2>
+<figure class="frame slide" id="slide-1" data-chapter="A year of agents">
+  <img src="../assets/humans-and-agents/s01.webp" width="1600" height="900" alt="Newspaper clippings about AI taped up a wall, climbing from ChatGPT in 2022 to Claude Opus 4.5 in November 2025." fetchpriority="high" decoding="async" />
+  <figcaption>Three years of headlines about AI. Agents started really working in November 2025.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-2" data-chapter="A year of agents">
+  <img src="../assets/humans-and-agents/s02.webp" width="1600" height="900" alt="A month counter fast-forwarded from November 2025 to November 2026." loading="lazy" decoding="async" />
+  <figcaption>Then a year went by fast.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-3" data-chapter="A year of agents">
+  <img src="../assets/humans-and-agents/s03.webp" width="1600" height="900" alt="Title slide, Humans + Agents, over an archival photo of people at an early computer console." loading="lazy" decoding="async" />
+  <figcaption>What worked for our team, in no particular order.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-4" data-chapter="A year of agents">
+  <img src="../assets/humans-and-agents/s04.webp" width="1600" height="900" alt="A chat box with the prompt: the biggest task I handed to an agent this week was." loading="lazy" decoding="async" />
+  <figcaption>Before you read on, think of the biggest task you gave an agent this week.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-5" data-chapter="A year of agents">
+  <img src="../assets/humans-and-agents/s05.webp" width="1600" height="900" alt="Two chat logs side by side. A year ago: three separate requests. Now: one request that finds the file, updates the test, opens a PR and deploys." loading="lazy" decoding="async" />
+  <figcaption>A year ago one small change took three turns. Now one turn takes it all the way to staging.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-6" data-chapter="A year of agents">
+  <img src="../assets/humans-and-agents/s06.webp" width="1600" height="900" alt="Fewer turns. Bigger tasks." loading="lazy" decoding="async" />
+  <figcaption>The whole year in two lines.</figcaption>
+</figure>
+<h2 id="hands">Hands</h2>
+<p class="chap-line"><em>You’re the brain. It’s the hands.</em></p>
+<figure class="frame slide" id="slide-7" data-chapter="Hands">
+  <img src="../assets/humans-and-agents/s07.webp" width="1600" height="900" alt="Chapter opener: Hands, over archival footage of hands at a piano." loading="lazy" decoding="async" />
+  <figcaption>Chapter one. We decide, it does the work.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-8" data-chapter="Hands">
+  <img src="../assets/humans-and-agents/s08.webp" width="1600" height="900" alt="A chat where the agent asks clarifying questions about which city to launch next, ending in a short plan card." loading="lazy" decoding="async" />
+  <figcaption>Don’t one-shot it. Brainstorm like you would with a peer, and let it find the gaps before anything gets built.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-9" data-chapter="Hands">
+  <img src="../assets/humans-and-agents/s09.webp" width="1600" height="900" alt="Two columns: what the agent does, such as ranking and prototyping, and the decisions we keep, from the goal to shipping." loading="lazy" decoding="async" />
+  <figcaption>It does the legwork. We make the call at every fork, including when to ship.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-10" data-chapter="Hands">
+  <img src="../assets/humans-and-agents/s10.webp" width="1600" height="900" alt="A rail from the plan through implement, tests, validation, adversarial review, CI checks, bot review and your review to preview ready." loading="lazy" decoding="async" />
+  <figcaption>Hand over the plan and ask for everything up to a preview you can review. The checks along the way make it safe to walk away.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-11" data-chapter="Hands">
+  <img src="../assets/humans-and-agents/s11.webp" width="1600" height="900" alt="A coordinator session above three sessions for the page, pricing and checks, with prices passed from one session to another." loading="lazy" decoding="async" />
+  <figcaption>Split big work across sessions. One coordinates, and the rest pass work to each other directly.</figcaption>
+</figure>
+<h2 id="context">Context</h2>
+<p class="chap-line"><em>It knows what we tell it.</em></p>
+<figure class="frame slide" id="slide-12" data-chapter="Context">
+  <img src="../assets/humans-and-agents/s12.webp" width="1600" height="900" alt="Chapter opener: Context, over an archival diagram." loading="lazy" decoding="async" />
+  <figcaption>Chapter two. The more it knows about our work, the better the work it gives back.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-13" data-chapter="Context">
+  <img src="../assets/humans-and-agents/s13.webp" width="1600" height="900" alt="Your agent connected to chat, search, docs, tickets, wiki, analytics, ads and telemetry." loading="lazy" decoding="async" />
+  <figcaption>Connect the tools where the work lives, before the task that needs them.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-14" data-chapter="Context">
+  <img src="../assets/humans-and-agents/s14.webp" width="1600" height="900" alt="A rambling dictation about signup drop-off, and the agent picking out the phone step that shipped last week." loading="lazy" decoding="async" />
+  <figcaption>Hit dictation and ramble for a few minutes. The useful detail is often buried in the middle.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-15" data-chapter="Context">
+  <img src="../assets/humans-and-agents/s15.webp" width="1600" height="900" alt="Instruction files at two levels: about you for every project, and about this project." loading="lazy" decoding="async" />
+  <figcaption>Write down who you are and how you work once, where the agent reads it every session.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-16" data-chapter="Context">
+  <img src="../assets/humans-and-agents/s16.webp" width="1600" height="900" alt="Skills at three levels: on your machine, in the project, and shared across the organization." loading="lazy" decoding="async" />
+  <figcaption>Keep agents.md short. Make it a skill when you’ve done it twice and there’s a right way to do it.</figcaption>
+</figure>
+<h2 id="guard">Guard</h2>
+<p class="chap-line"><em>It does exactly what we let it.</em></p>
+<figure class="frame slide" id="slide-17" data-chapter="Guard">
+  <img src="../assets/humans-and-agents/s17.webp" width="1600" height="900" alt="Chapter opener: Guard, over archival footage of radar operators." loading="lazy" decoding="async" />
+  <figcaption>Chapter three. What we let it touch, what we install, and who we ask.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-18" data-chapter="Guard">
+  <img src="../assets/humans-and-agents/s18.webp" width="1600" height="900" alt="Capability bar nearly full, judgment bar short. Read only by default, with an allowlist for safe commands." loading="lazy" decoding="async" />
+  <figcaption>Start read only. Grant write access on purpose, for a task.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-19" data-chapter="Guard">
+  <img src="../assets/humans-and-agents/s19.webp" width="1600" height="900" alt="A public skill pack, read and filtered down to a skill with our own ticket format, review step and deploy rules." loading="lazy" decoding="async" />
+  <figcaption>Don’t install public skill packs as they are. Read them, keep what fits, write your own.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-20" data-chapter="Guard">
+  <img src="../assets/humans-and-agents/s20.webp" width="1600" height="900" alt="Settings for npm, uv and Homebrew that hold back brand new releases." loading="lazy" decoding="async" />
+  <figcaption>Tell your package managers to skip anything published in the last week.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-21" data-chapter="Guard">
+  <img src="../assets/humans-and-agents/s21.webp" width="1600" height="900" alt="Two rules: use approved tools, and ask the security team when in doubt." loading="lazy" decoding="async" />
+  <figcaption>Use approved tools, and ask your security team when in doubt.</figcaption>
+</figure>
+<h2 id="insight">Insight</h2>
+<p class="chap-line"><em>If you can’t see it, you can’t steer it.</em></p>
+<figure class="frame slide" id="slide-22" data-chapter="Insight">
+  <img src="../assets/humans-and-agents/s22.webp" width="1600" height="900" alt="Chapter opener: Insight, over an archival radar plot." loading="lazy" decoding="async" />
+  <figcaption>Chapter four. When an agent does a whole job in one turn, make the work easy to look at.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-23" data-chapter="Insight">
+  <img src="../assets/humans-and-agents/s23.webp" width="1600" height="900" alt="A command center showing what is waiting on me, beside a weekly status page, a spend report, an explainer and an incident review." loading="lazy" decoding="async" />
+  <figcaption>When the answer matters, ask for a page you can open and share, not a wall of text in chat.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-24" data-chapter="Insight">
+  <img src="../assets/humans-and-agents/s24.webp" width="1600" height="900" alt="First pass and dig deeper, across code, insight, exploration and options." loading="lazy" decoding="async" />
+  <figcaption>The first answer is rarely the interesting one. Ask what’s missing.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-25" data-chapter="Insight">
+  <img src="../assets/humans-and-agents/s25.webp" width="1600" height="900" alt="A folder tree of tasks by date, one open to show its plan, decisions, report and transcript." loading="lazy" decoding="async" />
+  <figcaption>Keep one folder per task, with the plan, the decisions, the report and the transcript.</figcaption>
+</figure>
+<h2 id="loop">Loop</h2>
+<p class="chap-line"><em>Our transcripts are a coach.</em></p>
+<figure class="frame slide" id="slide-26" data-chapter="Loop">
+  <img src="../assets/humans-and-agents/s26.webp" width="1600" height="900" alt="Chapter opener: Loop, over an archival communications diagram." loading="lazy" decoding="async" />
+  <figcaption>Chapter five. Every session leaves a record, and it’s the best coach we have.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-27" data-chapter="Loop">
+  <img src="../assets/humans-and-agents/s27.webp" width="1600" height="900" alt="History feeds frictions, issues and repeats into lessons, which become skills, instructions and shared docs." loading="lazy" decoding="async" />
+  <figcaption>Once a week, have a small model read the trail for frictions, issues and repeats.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-28" data-chapter="Loop">
+  <img src="../assets/humans-and-agents/s28.webp" width="1600" height="900" alt="Three small tools: a local dashboard, a page alert and a session viewer." loading="lazy" decoding="async" />
+  <figcaption>Sometimes the fix is a small tool the agent can build in an afternoon.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-29" data-chapter="Loop">
+  <img src="../assets/humans-and-agents/s29.webp" width="1600" height="900" alt="A shared skills repo whose skills reach on-call, engineers, legal and compliance, and product." loading="lazy" decoding="async" />
+  <figcaption>Fix it where it lives. A line in a shared skill helps every session after it.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-30" data-chapter="Loop">
+  <img src="../assets/humans-and-agents/s30.webp" width="1600" height="900" alt="Weekly bars of spend and fixes. In week four spend nearly doubles, mostly off target, with nothing extra shipped." loading="lazy" decoding="async" />
+  <figcaption>Check where the spend went, and how much of it was off target.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-31" data-chapter="Loop">
+  <img src="../assets/humans-and-agents/s31.webp" width="1600" height="900" alt="Measure outcomes." loading="lazy" decoding="async" />
+  <figcaption>Usage isn’t the goal. Shipped work and fewer redos are.</figcaption>
+</figure>
+<h2 id="before-you-go">Before you go</h2>
+<figure class="frame slide" id="slide-32" data-chapter="Before you go">
+  <img src="../assets/humans-and-agents/s32.webp" width="1600" height="900" alt="Recap: Hands, give it the whole job. Context, hand it what it needs. Guard, read it before you run it. Insight, see it, dig in, keep it. Loop, get a little better every week." loading="lazy" decoding="async" />
+  <figcaption>What we’re learning, summarized.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-33" data-chapter="Before you go">
+  <img src="../assets/humans-and-agents/s33.webp" width="1600" height="900" alt="A table matching model size and effort level to the kind of work." loading="lazy" decoding="async" />
+  <figcaption>Big model for planning and hard debugging, mid-size for building, small for lookups.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-34" data-chapter="Before you go">
+  <img src="../assets/humans-and-agents/s34.webp" width="1600" height="900" alt="A desktop app with sessions side by side, a live task list, previews and diffs, and the terminal still there." loading="lazy" decoding="async" />
+  <figcaption>Live in the terminal? Try the desktop apps for a week.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-35" data-chapter="Before you go">
+  <img src="../assets/humans-and-agents/s35.webp" width="1600" height="900" alt="A staircase of model jumps from November 2025 to now, with gaps shrinking from three months to one." loading="lazy" decoding="async" />
+  <figcaption>The jumps keep coming, and the gaps between them keep shrinking.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-36" data-chapter="Before you go">
+  <img src="../assets/humans-and-agents/s36.webp" width="1600" height="900" alt="The last twelve months squeezed to the left, with a steeper staircase for next year ending in a person and an agent." loading="lazy" decoding="async" />
+  <figcaption>The next twelve months will move faster. This is the slowest it will ever be.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-37" data-chapter="Before you go">
+  <img src="../assets/humans-and-agents/s37.webp" width="1600" height="900" alt="A chat box: the biggest task I will hand to an agent next week is." loading="lazy" decoding="async" />
+  <figcaption>Take that task from the start and hand over the whole job around it. Then read the transcript back.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-38" data-chapter="Before you go">
+  <img src="../assets/humans-and-agents/s38.webp" width="1600" height="900" alt="Richard Hamming, 1962: the purpose of computing is insight, not numbers." loading="lazy" decoding="async" />
+  <figcaption>Thanks for reading.</figcaption>
+</figure>
+<hr class="sep" />
+<p class="credits"><em>Archival footage from the Prelinger Archives via the Internet Archive, all public domain: <a href="https://archive.org/details/Hands1944" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>Hands</strong></a> (U.S. Army Signal Corps, c. 1944), <a href="https://archive.org/details/InformationM" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>The Information Machine</strong></a> (Charles and Ray Eames for IBM, 1958), <a href="https://archive.org/details/OnGuard1956" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>On Guard! The Story of SAGE</strong></a> (IBM, c. 1956), <a href="https://archive.org/details/communications_primer" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>A Communications Primer</strong></a> (Charles and Ray Eames, 1953) and <a href="https://archive.org/details/logic_by_machine_1" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>Logic by Machine</strong></a> (c. 1960s). Title photo: <a href="https://archive.org/details/propix.493885707" target="_blank" rel="noopener" aria-describedby="ext-tab">Grace Hopper at the UNIVAC</a>, Smithsonian Institution (CC0). Icons adapted from <a href="https://lucide.dev" target="_blank" rel="noopener" aria-describedby="ext-tab">Lucide</a> (ISC License, © Lucide Contributors).</em></p>
+        </div>
+        <!-- feed:end -->
+      </article>
+      <nav class="post-foot" aria-label="Post navigation">
+        <a href="/writing/"
+          ><span class="arrow" aria-hidden="true">&#x2190;&#xFE0E;</span>All
+          writing</a
+        >
+        <a href="/">vigneshrajsb.com</a>
+      </nav>
+
+      <figure class="tailpiece">
+        <img
+          src="/assets/tailpiece.svg"
+          alt="Ink tailpiece: Vignesh, his wife, and Chocolata standing together on a single brush stroke, a faint sunset on the water behind them."
+          width="620"
+          height="120"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </main>
+
+    <dialog class="deck" id="deck" aria-label="Slides view">
+      <div class="deck-bar">
+        <span class="where" id="deck-where" aria-live="polite"></span>
+        <button type="button" class="ghost fs" id="deck-fs" hidden aria-label="Full screen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+        </button>
+        <button type="button" class="ghost" id="deck-close">Close</button>
+      </div>
+      <div class="deck-stage" id="deck-stage">
+        <div class="stage-frame"><img id="deck-img" alt="" width="1600" height="900" /></div>
+      </div>
+      <div class="deck-foot">
+        <button type="button" class="ghost" id="deck-prev" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <p class="deck-cap" id="deck-cap" aria-live="polite"></p>
+        <button type="button" class="ghost" id="deck-next" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="deck-prog" aria-hidden="true"><i id="deck-prog"></i></div>
+        <p class="deck-hint"><span class="keys">&#x2190; &#x2192; to move, Esc to close. </span>Swipe works too.</p>
+      </div>
+    </dialog>
+
+    <script>
+      (function () {
+        var dlg = document.getElementById('deck');
+        if (!dlg || typeof dlg.showModal !== 'function') return;
+        var $ = function (id) { return document.getElementById(id); };
+        var figs = Array.prototype.slice.call(document.querySelectorAll('figure.slide'));
+        var N = figs.length;
+        var slides = figs.map(function (f) {
+          var img = f.querySelector('img');
+          return { src: img.getAttribute('src'), alt: img.alt, cap: f.querySelector('figcaption').textContent, ch: f.dataset.chapter };
+        });
+        var img = $('deck-img'), cap = $('deck-cap'), where = $('deck-where'), prog = $('deck-prog');
+        var prevB = $('deck-prev'), nextB = $('deck-next'), fsB = $('deck-fs');
+        var i = 0;
+
+        var preload = function (k) { if (k >= 0 && k < N) { var p = new Image(); p.src = slides[k].src; } };
+        var show = function (k, dir) {
+          i = Math.max(0, Math.min(N - 1, k));
+          var s = slides[i];
+          img.classList.remove('in', 'back');
+          img.src = s.src; img.alt = s.alt;
+          void img.offsetWidth;
+          img.classList.add('in'); if (dir < 0) img.classList.add('back');
+          cap.textContent = s.cap;
+          where.innerHTML = '<b>' + (i + 1) + '</b> / ' + N + ' &middot; ' + s.ch;
+          prog.style.transform = 'scaleX(' + (i + 1) / N + ')';
+          prevB.disabled = i === 0; nextB.disabled = i === N - 1;
+          preload(i + 1); preload(i - 1);
+        };
+        var open = function (k) {
+          if (!dlg.open) dlg.showModal();
+          document.documentElement.style.overflow = 'hidden';
+          show(k, 1);
+          nextB.focus();
+        };
+
+        figs.forEach(function (f, k) {
+          var pic = f.querySelector('img');
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'open';
+          b.setAttribute('aria-label', 'Open slide ' + (k + 1) + ' in the slides view');
+          pic.parentNode.insertBefore(b, pic); b.appendChild(pic);
+          b.addEventListener('click', function () { open(k); });
+        });
+        $('view-slides').hidden = false;
+        $('open-deck').addEventListener('click', function () { open(0); });
+
+        dlg.addEventListener('close', function () {
+          document.documentElement.style.overflow = '';
+          if (location.hash === '#slides') { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
+          try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+          var f = figs[i];
+          f.scrollIntoView({ block: 'center' });
+          f.querySelector('.open').focus({ preventScroll: true });
+        });
+        prevB.addEventListener('click', function () { show(i - 1, -1); });
+        nextB.addEventListener('click', function () { show(i + 1, 1); });
+        $('deck-close').addEventListener('click', function () { dlg.close(); });
+        dlg.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowRight' || e.key === 'PageDown' || (e.key === ' ' && e.target.tagName !== 'BUTTON')) { e.preventDefault(); show(i + 1, 1); }
+          else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1, -1); }
+          else if (e.key === 'Home') { e.preventDefault(); show(0, -1); }
+          else if (e.key === 'End') { e.preventDefault(); show(N - 1, 1); }
+        });
+
+        var stage = $('deck-stage'), x0 = null, y0 = null, touches = 0;
+        stage.addEventListener('pointerdown', function (e) { touches++; if (touches > 1) { x0 = null; return; } x0 = e.clientX; y0 = e.clientY; });
+        stage.addEventListener('pointercancel', function () { touches = 0; x0 = null; });
+        stage.addEventListener('pointerup', function (e) {
+          touches = Math.max(0, touches - 1);
+          if (x0 === null) return;
+          var dx = e.clientX - x0, dy = e.clientY - y0, fwd;
+          x0 = null;
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) fwd = dx < 0;
+          else if (Math.abs(dx) < 6 && Math.abs(dy) < 6) fwd = e.clientX > stage.clientWidth / 2;
+          else return;
+          show(i + (fwd ? 1 : -1), fwd ? 1 : -1);
+        });
+
+        if (document.fullscreenEnabled) {
+          fsB.hidden = false;
+          fsB.addEventListener('click', function () {
+            try {
+              if (document.fullscreenElement) document.exitFullscreen();
+              else { var p = dlg.requestFullscreen(); if (p) p.catch(function () {}); }
+            } catch (e) {}
+          });
+        }
+
+        if (location.hash === '#slides') open(0);
+      })();
+    </script>
+    <script src="/analytics.js" defer></script>
+  </body>
+</html>

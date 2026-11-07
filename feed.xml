@@ -7,6 +7,182 @@
     <language>en-us</language>
     <atom:link href="https://vigneshrajsb.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Humans + agents</title>
+      <link>https://vigneshrajsb.com/writing/humans-and-agents/</link>
+      <guid>https://vigneshrajsb.com/writing/humans-and-agents/</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 GMT</pubDate>
+      <description>What our engineering team is learning from working with AI agents, as slides from a short talk: hand it the whole job, give it context, and keep learning.</description>
+      <content:encoded><![CDATA[<div class="post-body">
+<p class="lede">I gave this as a short talk to our engineering team. These are the slides with some things that are working for us, in no particular order.</p>
+<h2 id="a-year-of-agents">A year of agents</h2>
+<figure class="frame slide" id="slide-1" data-chapter="A year of agents">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s01.webp" width="1600" height="900" alt="Newspaper clippings about AI taped up a wall, climbing from ChatGPT in 2022 to Claude Opus 4.5 in November 2025." fetchpriority="high" decoding="async" />
+  <figcaption>Three years of headlines about AI. Agents started really working in November 2025.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-2" data-chapter="A year of agents">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s02.webp" width="1600" height="900" alt="A month counter fast-forwarded from November 2025 to November 2026." loading="lazy" decoding="async" />
+  <figcaption>Then a year went by fast.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-3" data-chapter="A year of agents">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s03.webp" width="1600" height="900" alt="Title slide, Humans + Agents, over an archival photo of people at an early computer console." loading="lazy" decoding="async" />
+  <figcaption>What worked for our team, in no particular order.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-4" data-chapter="A year of agents">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s04.webp" width="1600" height="900" alt="A chat box with the prompt: the biggest task I handed to an agent this week was." loading="lazy" decoding="async" />
+  <figcaption>Before you read on, think of the biggest task you gave an agent this week.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-5" data-chapter="A year of agents">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s05.webp" width="1600" height="900" alt="Two chat logs side by side. A year ago: three separate requests. Now: one request that finds the file, updates the test, opens a PR and deploys." loading="lazy" decoding="async" />
+  <figcaption>A year ago one small change took three turns. Now one turn takes it all the way to staging.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-6" data-chapter="A year of agents">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s06.webp" width="1600" height="900" alt="Fewer turns. Bigger tasks." loading="lazy" decoding="async" />
+  <figcaption>The whole year in two lines.</figcaption>
+</figure>
+<h2 id="hands">Hands</h2>
+<p class="chap-line"><em>You’re the brain. It’s the hands.</em></p>
+<figure class="frame slide" id="slide-7" data-chapter="Hands">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s07.webp" width="1600" height="900" alt="Chapter opener: Hands, over archival footage of hands at a piano." loading="lazy" decoding="async" />
+  <figcaption>Chapter one. We decide, it does the work.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-8" data-chapter="Hands">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s08.webp" width="1600" height="900" alt="A chat where the agent asks clarifying questions about which city to launch next, ending in a short plan card." loading="lazy" decoding="async" />
+  <figcaption>Don’t one-shot it. Brainstorm like you would with a peer, and let it find the gaps before anything gets built.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-9" data-chapter="Hands">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s09.webp" width="1600" height="900" alt="Two columns: what the agent does, such as ranking and prototyping, and the decisions we keep, from the goal to shipping." loading="lazy" decoding="async" />
+  <figcaption>It does the legwork. We make the call at every fork, including when to ship.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-10" data-chapter="Hands">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s10.webp" width="1600" height="900" alt="A rail from the plan through implement, tests, validation, adversarial review, CI checks, bot review and your review to preview ready." loading="lazy" decoding="async" />
+  <figcaption>Hand over the plan and ask for everything up to a preview you can review. The checks along the way make it safe to walk away.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-11" data-chapter="Hands">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s11.webp" width="1600" height="900" alt="A coordinator session above three sessions for the page, pricing and checks, with prices passed from one session to another." loading="lazy" decoding="async" />
+  <figcaption>Split big work across sessions. One coordinates, and the rest pass work to each other directly.</figcaption>
+</figure>
+<h2 id="context">Context</h2>
+<p class="chap-line"><em>It knows what we tell it.</em></p>
+<figure class="frame slide" id="slide-12" data-chapter="Context">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s12.webp" width="1600" height="900" alt="Chapter opener: Context, over an archival diagram." loading="lazy" decoding="async" />
+  <figcaption>Chapter two. The more it knows about our work, the better the work it gives back.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-13" data-chapter="Context">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s13.webp" width="1600" height="900" alt="Your agent connected to chat, search, docs, tickets, wiki, analytics, ads and telemetry." loading="lazy" decoding="async" />
+  <figcaption>Connect the tools where the work lives, before the task that needs them.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-14" data-chapter="Context">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s14.webp" width="1600" height="900" alt="A rambling dictation about signup drop-off, and the agent picking out the phone step that shipped last week." loading="lazy" decoding="async" />
+  <figcaption>Hit dictation and ramble for a few minutes. The useful detail is often buried in the middle.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-15" data-chapter="Context">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s15.webp" width="1600" height="900" alt="Instruction files at two levels: about you for every project, and about this project." loading="lazy" decoding="async" />
+  <figcaption>Write down who you are and how you work once, where the agent reads it every session.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-16" data-chapter="Context">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s16.webp" width="1600" height="900" alt="Skills at three levels: on your machine, in the project, and shared across the organization." loading="lazy" decoding="async" />
+  <figcaption>Keep agents.md short. Make it a skill when you’ve done it twice and there’s a right way to do it.</figcaption>
+</figure>
+<h2 id="guard">Guard</h2>
+<p class="chap-line"><em>It does exactly what we let it.</em></p>
+<figure class="frame slide" id="slide-17" data-chapter="Guard">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s17.webp" width="1600" height="900" alt="Chapter opener: Guard, over archival footage of radar operators." loading="lazy" decoding="async" />
+  <figcaption>Chapter three. What we let it touch, what we install, and who we ask.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-18" data-chapter="Guard">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s18.webp" width="1600" height="900" alt="Capability bar nearly full, judgment bar short. Read only by default, with an allowlist for safe commands." loading="lazy" decoding="async" />
+  <figcaption>Start read only. Grant write access on purpose, for a task.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-19" data-chapter="Guard">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s19.webp" width="1600" height="900" alt="A public skill pack, read and filtered down to a skill with our own ticket format, review step and deploy rules." loading="lazy" decoding="async" />
+  <figcaption>Don’t install public skill packs as they are. Read them, keep what fits, write your own.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-20" data-chapter="Guard">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s20.webp" width="1600" height="900" alt="Settings for npm, uv and Homebrew that hold back brand new releases." loading="lazy" decoding="async" />
+  <figcaption>Tell your package managers to skip anything published in the last week.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-21" data-chapter="Guard">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s21.webp" width="1600" height="900" alt="Two rules: use approved tools, and ask the security team when in doubt." loading="lazy" decoding="async" />
+  <figcaption>Use approved tools, and ask your security team when in doubt.</figcaption>
+</figure>
+<h2 id="insight">Insight</h2>
+<p class="chap-line"><em>If you can’t see it, you can’t steer it.</em></p>
+<figure class="frame slide" id="slide-22" data-chapter="Insight">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s22.webp" width="1600" height="900" alt="Chapter opener: Insight, over an archival radar plot." loading="lazy" decoding="async" />
+  <figcaption>Chapter four. When an agent does a whole job in one turn, make the work easy to look at.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-23" data-chapter="Insight">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s23.webp" width="1600" height="900" alt="A command center showing what is waiting on me, beside a weekly status page, a spend report, an explainer and an incident review." loading="lazy" decoding="async" />
+  <figcaption>When the answer matters, ask for a page you can open and share, not a wall of text in chat.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-24" data-chapter="Insight">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s24.webp" width="1600" height="900" alt="First pass and dig deeper, across code, insight, exploration and options." loading="lazy" decoding="async" />
+  <figcaption>The first answer is rarely the interesting one. Ask what’s missing.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-25" data-chapter="Insight">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s25.webp" width="1600" height="900" alt="A folder tree of tasks by date, one open to show its plan, decisions, report and transcript." loading="lazy" decoding="async" />
+  <figcaption>Keep one folder per task, with the plan, the decisions, the report and the transcript.</figcaption>
+</figure>
+<h2 id="loop">Loop</h2>
+<p class="chap-line"><em>Our transcripts are a coach.</em></p>
+<figure class="frame slide" id="slide-26" data-chapter="Loop">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s26.webp" width="1600" height="900" alt="Chapter opener: Loop, over an archival communications diagram." loading="lazy" decoding="async" />
+  <figcaption>Chapter five. Every session leaves a record, and it’s the best coach we have.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-27" data-chapter="Loop">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s27.webp" width="1600" height="900" alt="History feeds frictions, issues and repeats into lessons, which become skills, instructions and shared docs." loading="lazy" decoding="async" />
+  <figcaption>Once a week, have a small model read the trail for frictions, issues and repeats.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-28" data-chapter="Loop">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s28.webp" width="1600" height="900" alt="Three small tools: a local dashboard, a page alert and a session viewer." loading="lazy" decoding="async" />
+  <figcaption>Sometimes the fix is a small tool the agent can build in an afternoon.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-29" data-chapter="Loop">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s29.webp" width="1600" height="900" alt="A shared skills repo whose skills reach on-call, engineers, legal and compliance, and product." loading="lazy" decoding="async" />
+  <figcaption>Fix it where it lives. A line in a shared skill helps every session after it.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-30" data-chapter="Loop">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s30.webp" width="1600" height="900" alt="Weekly bars of spend and fixes. In week four spend nearly doubles, mostly off target, with nothing extra shipped." loading="lazy" decoding="async" />
+  <figcaption>Check where the spend went, and how much of it was off target.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-31" data-chapter="Loop">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s31.webp" width="1600" height="900" alt="Measure outcomes." loading="lazy" decoding="async" />
+  <figcaption>Usage isn’t the goal. Shipped work and fewer redos are.</figcaption>
+</figure>
+<h2 id="before-you-go">Before you go</h2>
+<figure class="frame slide" id="slide-32" data-chapter="Before you go">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s32.webp" width="1600" height="900" alt="Recap: Hands, give it the whole job. Context, hand it what it needs. Guard, read it before you run it. Insight, see it, dig in, keep it. Loop, get a little better every week." loading="lazy" decoding="async" />
+  <figcaption>What we’re learning, summarized.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-33" data-chapter="Before you go">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s33.webp" width="1600" height="900" alt="A table matching model size and effort level to the kind of work." loading="lazy" decoding="async" />
+  <figcaption>Big model for planning and hard debugging, mid-size for building, small for lookups.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-34" data-chapter="Before you go">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s34.webp" width="1600" height="900" alt="A desktop app with sessions side by side, a live task list, previews and diffs, and the terminal still there." loading="lazy" decoding="async" />
+  <figcaption>Live in the terminal? Try the desktop apps for a week.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-35" data-chapter="Before you go">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s35.webp" width="1600" height="900" alt="A staircase of model jumps from November 2025 to now, with gaps shrinking from three months to one." loading="lazy" decoding="async" />
+  <figcaption>The jumps keep coming, and the gaps between them keep shrinking.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-36" data-chapter="Before you go">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s36.webp" width="1600" height="900" alt="The last twelve months squeezed to the left, with a steeper staircase for next year ending in a person and an agent." loading="lazy" decoding="async" />
+  <figcaption>The next twelve months will move faster. This is the slowest it will ever be.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-37" data-chapter="Before you go">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s37.webp" width="1600" height="900" alt="A chat box: the biggest task I will hand to an agent next week is." loading="lazy" decoding="async" />
+  <figcaption>Take that task from the start and hand over the whole job around it. Then read the transcript back.</figcaption>
+</figure>
+<figure class="frame slide" id="slide-38" data-chapter="Before you go">
+  <img src="https://vigneshrajsb.com/writing/assets/humans-and-agents/s38.webp" width="1600" height="900" alt="Richard Hamming, 1962: the purpose of computing is insight, not numbers." loading="lazy" decoding="async" />
+  <figcaption>Thanks for reading.</figcaption>
+</figure>
+<hr class="sep" />
+<p class="credits"><em>Archival footage from the Prelinger Archives via the Internet Archive, all public domain: <a href="https://archive.org/details/Hands1944" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>Hands</strong></a> (U.S. Army Signal Corps, c. 1944), <a href="https://archive.org/details/InformationM" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>The Information Machine</strong></a> (Charles and Ray Eames for IBM, 1958), <a href="https://archive.org/details/OnGuard1956" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>On Guard! The Story of SAGE</strong></a> (IBM, c. 1956), <a href="https://archive.org/details/communications_primer" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>A Communications Primer</strong></a> (Charles and Ray Eames, 1953) and <a href="https://archive.org/details/logic_by_machine_1" target="_blank" rel="noopener" aria-describedby="ext-tab"><strong>Logic by Machine</strong></a> (c. 1960s). Title photo: <a href="https://archive.org/details/propix.493885707" target="_blank" rel="noopener" aria-describedby="ext-tab">Grace Hopper at the UNIVAC</a>, Smithsonian Institution (CC0). Icons adapted from <a href="https://lucide.dev" target="_blank" rel="noopener" aria-describedby="ext-tab">Lucide</a> (ISC License, © Lucide Contributors).</em></p>
+        </div>]]></content:encoded>
+    </item>
+    <item>
       <title>Stay long enough to be wrong</title>
       <link>https://vigneshrajsb.com/writing/stay-long-enough-to-be-wrong/</link>
       <guid>https://vigneshrajsb.com/writing/stay-long-enough-to-be-wrong/</guid>
