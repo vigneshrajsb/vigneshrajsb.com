@@ -1,62 +1,30 @@
 /* ---------- Fonts ---------- */
 
-/* Mona Sans (GitHub, OFL) carries text and headings; JetBrains Mono (OFL)
-   sets the small meta labels. Both are variable, Latin-subset, self-hosted. */
+/* Geist (Vercel, OFL) is the one family for the whole site: text, headings
+   and meta. Variable weight, Latin subset, self-hosted. It has no italic, so
+   the browser slants it where a post uses <em>. */
 
 @font-face {
-    font-family: 'Mona Sans';
+    font-family: 'Geist';
     font-style: normal;
-    font-weight: 400 800;
-    font-stretch: 75% 125%;
+    font-weight: 100 900;
     font-display: swap;
-    src: url('/fonts/mona-sans-latin.woff2') format('woff2');
+    src: url('/fonts/geist-latin.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
         U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
         U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-@font-face {
-    font-family: 'Mona Sans';
-    font-style: italic;
-    font-weight: 400 800;
-    font-stretch: 75% 125%;
-    font-display: swap;
-    src: url('/fonts/mona-sans-italic-latin.woff2') format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
-        U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 400 500;
-    font-display: swap;
-    src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-        U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
-        U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-/* Metric-matched local stand-ins so the swap to the web fonts does not
+/* Metric-matched local stand-in so the swap to the web font does not
    reflow the page (width ratio measured against Arial; vertical metrics
-   from the fonts' OS/2 tables) */
+   from the font's OS/2 table) */
 
 @font-face {
-    font-family: 'Mona Sans Fallback';
+    font-family: 'Geist Fallback';
     src: local('Arial');
-    size-adjust: 104%;
-    ascent-override: 104.8%;
-    descent-override: 30.8%;
-    line-gap-override: 0%;
-}
-
-@font-face {
-    font-family: 'JetBrains Mono Fallback';
-    src: local('Courier New');
-    size-adjust: 100%;
-    ascent-override: 102%;
-    descent-override: 30%;
+    size-adjust: 101%;
+    ascent-override: 99.5%;
+    descent-override: 29.2%;
     line-gap-override: 0%;
 }
 
@@ -77,8 +45,11 @@
     --shimmer: oklch(0.985 0.01 78 / 0.9);
 
     /* Type */
-    --font-text: 'Mona Sans', 'Mona Sans Fallback', Arial, sans-serif;
-    --font-meta: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, Menlo, monospace;
+    --font-text: 'Geist', 'Geist Fallback', Arial, sans-serif;
+    --font-meta: var(--font-text);
+    /* Light weight for reading text; small and faint text stays at 400 */
+    --weight-text: 300;
+    --weight-small: 400;
 
     --text-display: clamp(2.6rem, 5vw + 1rem, 3.6rem);
     --text-h2: clamp(1.15rem, 0.5vw + 1rem, 1.35rem);
@@ -177,7 +148,29 @@ body {
     line-height: 1.6;
     color: var(--ink);
     background: var(--bg);
+    font-weight: var(--weight-text);
     font-feature-settings: 'kern', 'liga', 'onum';
+}
+
+/* Thin strokes read as lower contrast, so text that is small, faint, or
+   both keeps the regular weight */
+strong,
+b {
+    font-weight: 600;
+}
+
+.skip-link,
+.masthead .pronounce,
+.masthead .role,
+.masthead .location,
+.writing .more,
+.archive .when,
+.feed-link,
+.post-meta,
+figcaption,
+small,
+table {
+    font-weight: var(--weight-small);
 }
 
 /* ---------- Visually hidden ---------- */
@@ -254,7 +247,6 @@ main {
     font-family: var(--font-text);
     font-size: var(--text-display);
     font-weight: 650;
-    font-stretch: 110%;
     line-height: 1;
     letter-spacing: -0.035em;
     color: var(--ink);
@@ -276,7 +268,6 @@ h2 {
     font-family: var(--font-text);
     font-size: var(--text-h2);
     font-weight: 600;
-    font-stretch: 110%;
     letter-spacing: -0.015em;
     line-height: 1.25;
     color: var(--ink);

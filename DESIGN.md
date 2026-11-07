@@ -56,14 +56,19 @@ Off-token pieces with their own dark rules: the name highlighter (deep rust band
 
 ## Typography
 
-Two families: a clean grotesk for reading and a mono for meta. Chosen November 2026 to read more software-leaning while staying off the Inter/Geist default.
+One family for everything: Geist. Chosen by Vignesh in November 2026 for a clean, software-leaning feel, with light body text for long reading.
 
 ### Families
 
-- **Mona Sans** (GitHub, OFL) — body, headings, display. Variable weight 400-800 and width 75-125%; display and h2 use `font-stretch: 110%`. Self-hosted Latin subset with a real italic.
-- **JetBrains Mono** (OFL) — meta, nav, labels, dates, eyebrows. Variable weight 400-500. Self-hosted Latin subset.
+- **Geist** (Vercel, OFL) — body, headings, display, meta, nav, labels. Variable weight 100-900. Self-hosted Latin subset. It has no italic, so `<em>` is a browser-slanted oblique.
 
-Tokens: `--font-text` (Mona Sans) and `--font-meta` (JetBrains Mono), each with a metric-matched local fallback so the swap does not reflow.
+Tokens: `--font-text` (Geist, with a metric-matched Arial fallback so the swap does not reflow) and `--font-meta`, which points at `--font-text`. Keep the separate meta token so meta text can be restyled in one place.
+
+### Weight
+
+- `--weight-text: 300` on body: reading text is light.
+- `--weight-small: 400` for text that is small, faint, or both (dates, post meta, captions, the pronunciation, tables). Thin strokes read as lower contrast than their color, so don't drop small or `--ink-3` text below 400.
+- `strong` and `b` are 600, so bold still stands out against the light body.
 
 ### Scale
 
@@ -88,8 +93,8 @@ Root font-size scales lightly with viewport for legibility:
 ### Voice rules
 
 - Italic is for inline emphasis (project names, the Currently date stamp) and captions. Headings, linked titles, and the masthead aside stay upright.
-- The h1 "Vignesh" is Mona Sans 650 at 110% width, `letter-spacing: -0.035em`, set at display size.
-- Section eyebrows are uppercase JetBrains Mono 500 with `letter-spacing: 0.08em`.
+- The h1 "Vignesh" is Geist 650, `letter-spacing: -0.035em`, set at display size.
+- Section eyebrows are uppercase Geist 500 with `letter-spacing: 0.08em`.
 - Body line length is capped via `max-width: 36rem` on the main column (~65-70ch).
 - Body line-height: 1.6. Lede line-height: 1.65. Meta line-height: 1.5.
 
@@ -137,11 +142,11 @@ Name (h1), role line, location, dry-wit aside. Optional date stamp on the right 
 
 ### `nav.links`
 
-Inline row of small mono links separated by a typographic middle dot (`·`) using a `::after` pseudo-element. No pills, no icons. Wraps cleanly on narrow viewports.
+Inline row of small meta links separated by a typographic middle dot (`·`) using a `::after` pseudo-element. No pills, no icons. Wraps cleanly on narrow viewports.
 
 ### `section.about`
 
-Lede paragraph (slightly larger) followed by body paragraphs. No styling beyond paragraph spacing and Mona Sans body.
+Lede paragraph (slightly larger) followed by body paragraphs. No styling beyond paragraph spacing and the light Geist body.
 
 ### `section.currently`
 
@@ -215,5 +220,5 @@ Mirrors the impeccable absolute bans, plus brand-specific:
 - Icons in general stay banned; the single sanctioned exception is the
   pronounce helper's hover-only speaker (inline SVG, currentColor, 14px),
   because no typographic glyph says "audio" unambiguously.
-- Monospace is for meta only (labels, dates, nav, links rows) plus code inside posts. Never for body text or headings, and no terminal cosplay (prompts, blinking cursors, green-on-black).
+- Monospace is for code inside posts only. No terminal cosplay (prompts, blinking cursors, green-on-black).
 - No dark mode toggle. Dark mode follows the system setting; a toggle would dilute the voice.
