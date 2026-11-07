@@ -1,56 +1,62 @@
 /* ---------- Fonts ---------- */
 
+/* Mona Sans (GitHub, OFL) carries text and headings; JetBrains Mono (OFL)
+   sets the small meta labels. Both are variable, Latin-subset, self-hosted. */
+
 @font-face {
-    font-family: 'Vollkorn';
+    font-family: 'Mona Sans';
     font-style: normal;
-    font-weight: 400 600;
+    font-weight: 400 800;
+    font-stretch: 75% 125%;
     font-display: swap;
-    src: url('/fonts/vollkorn-v30-latin.woff2') format('woff2');
+    src: url('/fonts/mona-sans-latin.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
         U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
         U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-    font-family: 'Vollkorn';
+    font-family: 'Mona Sans';
     font-style: italic;
-    font-weight: 400 500;
+    font-weight: 400 800;
+    font-stretch: 75% 125%;
     font-display: swap;
-    src: url('/fonts/vollkorn-italic-v30-latin.woff2') format('woff2');
+    src: url('/fonts/mona-sans-italic-latin.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
         U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
         U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-    font-family: 'Karla';
+    font-family: 'JetBrains Mono';
     font-style: normal;
     font-weight: 400 500;
     font-display: swap;
-    src: url('/fonts/karla-v33-latin.woff2') format('woff2');
+    src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
         U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
         U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* Metric-matched local stand-ins so the swap to the web fonts does not
-   reflow the page (values computed from the actual font metrics) */
+   reflow the page (width ratio measured against Arial; vertical metrics
+   from the fonts' OS/2 tables) */
 
 @font-face {
-    font-family: 'Vollkorn Fallback';
-    src: local('Georgia');
-    size-adjust: 99.01%;
-    ascent-override: 96.15%;
-    descent-override: 44.54%;
+    font-family: 'Mona Sans Fallback';
+    src: local('Arial');
+    size-adjust: 104%;
+    ascent-override: 104.8%;
+    descent-override: 30.8%;
     line-gap-override: 0%;
 }
 
 @font-face {
-    font-family: 'Karla Fallback';
-    src: local('Arial');
-    size-adjust: 104.1%;
-    ascent-override: 88.09%;
-    descent-override: 24.21%;
+    font-family: 'JetBrains Mono Fallback';
+    src: local('Courier New');
+    size-adjust: 100%;
+    ascent-override: 102%;
+    descent-override: 30%;
     line-gap-override: 0%;
 }
 
@@ -71,8 +77,8 @@
     --shimmer: oklch(0.985 0.01 78 / 0.9);
 
     /* Type */
-    --font-serif: 'Vollkorn', 'Vollkorn Fallback', Georgia, serif;
-    --font-sans: 'Karla', 'Karla Fallback', Arial, sans-serif;
+    --font-text: 'Mona Sans', 'Mona Sans Fallback', Arial, sans-serif;
+    --font-meta: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, Menlo, monospace;
 
     --text-display: clamp(2.6rem, 5vw + 1rem, 3.6rem);
     --text-h2: clamp(1.15rem, 0.5vw + 1rem, 1.35rem);
@@ -166,7 +172,7 @@ svg {
 }
 
 body {
-    font-family: var(--font-serif);
+    font-family: var(--font-text);
     font-size: var(--text-body);
     line-height: 1.6;
     color: var(--ink);
@@ -198,7 +204,7 @@ body {
     background: var(--bg);
     color: var(--ink);
     padding: 0.5rem 0.75rem;
-    font-family: var(--font-sans);
+    font-family: var(--font-meta);
     font-size: var(--text-meta);
     text-decoration: underline;
     text-decoration-color: var(--accent);
@@ -245,31 +251,33 @@ main {
 /* ---------- Typography: headings ---------- */
 
 .name {
-    font-family: var(--font-serif);
+    font-family: var(--font-text);
     font-size: var(--text-display);
-    font-weight: 500;
-    font-style: italic;
+    font-weight: 650;
+    font-stretch: 110%;
     line-height: 1;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.035em;
     color: var(--ink);
     animation: name-settle 700ms var(--ease-out-quart) both;
 }
 
 @keyframes name-settle {
     from {
-        letter-spacing: 0.005em;
+        letter-spacing: -0.02em;
         opacity: 0.85;
     }
     to {
-        letter-spacing: -0.012em;
+        letter-spacing: -0.035em;
         opacity: 1;
     }
 }
 
 h2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-text);
     font-size: var(--text-h2);
     font-weight: 600;
+    font-stretch: 110%;
+    letter-spacing: -0.015em;
     line-height: 1.25;
     color: var(--ink);
     margin-bottom: var(--space-md);
@@ -393,8 +401,7 @@ a:focus-visible {
  * deepens the ink a shade as the click affordance.
  */
 .masthead .pronounce {
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-family: var(--font-text);
     font-size: 1rem;
     color: var(--ink-3);
     background: none;
@@ -446,16 +453,15 @@ a:focus-visible {
 
 .masthead .role,
 .masthead .location {
-    font-family: var(--font-sans);
+    font-family: var(--font-meta);
     font-size: var(--text-meta);
     color: var(--ink-2);
     margin-bottom: var(--space-2xs);
 }
 
 .masthead .aside {
-    font-family: var(--font-serif);
+    font-family: var(--font-text);
     font-size: var(--text-body);
-    font-style: italic;
     color: var(--ink-2);
     margin-top: var(--space-md);
     margin-bottom: 0;
@@ -573,7 +579,7 @@ body[data-chocolata='off'] .chocolata {
     position: absolute;
     line-height: 1;
     opacity: 0;
-    font-family: var(--font-serif);
+    font-family: var(--font-text);
     font-style: italic;
     font-variant-emoji: text;
     animation: chocolata-drift var(--dur, 2600ms) var(--ease-out-quart) forwards;
@@ -604,7 +610,7 @@ body[data-chocolata='off'] .chocolata {
     align-items: baseline;
     gap: var(--space-xs) 0.4rem;
     margin-bottom: var(--space-2xl);
-    font-family: var(--font-sans);
+    font-family: var(--font-meta);
     font-size: var(--text-meta);
     font-weight: 500;
     line-height: 1.5;
@@ -643,7 +649,7 @@ section:last-of-type {
 /* ---------- Eyebrow labels ---------- */
 
 .eyebrow {
-    font-family: var(--font-sans);
+    font-family: var(--font-meta);
     font-size: var(--text-eyebrow);
     font-weight: 500;
     letter-spacing: 0.08em;
@@ -714,7 +720,6 @@ section:last-of-type {
 .work .cta {
     margin-top: var(--space-lg);
     color: var(--ink-2);
-    font-style: italic;
 }
 
 .work .cta a {
@@ -750,7 +755,7 @@ section:last-of-type {
 }
 
 .writing .more {
-    font-family: var(--font-sans);
+    font-family: var(--font-meta);
     font-size: var(--text-meta);
     color: var(--ink-2);
 }
@@ -895,4 +900,10 @@ section:last-of-type {
         page-break-inside: avoid;
         margin-bottom: 1.5rem;
     }
+}
+
+/* Linked titles are set upright; italic stays for inline emphasis. */
+.entries .title em,
+.archive .title em {
+    font-style: normal;
 }

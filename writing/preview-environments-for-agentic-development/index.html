@@ -77,21 +77,14 @@
     />
     <link
       rel="preload"
-      href="/fonts/vollkorn-v30-latin.woff2"
+      href="/fonts/mona-sans-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/vollkorn-italic-v30-latin.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/karla-v33-latin.woff2"
+      href="/fonts/jetbrains-mono-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -102,16 +95,16 @@
     <style>
       /* Preview environments: post-local figure, table, and media styles. Colors resolve to site tokens. */
       .post-body .tablewrap { overflow-x: auto; margin: 0 0 var(--space-md); }
-      .post-body table { border-collapse: collapse; width: 100%; font-family: var(--font-sans); font-size: 0.9rem; }
+      .post-body table { border-collapse: collapse; width: 100%; font-family: var(--font-meta); font-size: 0.9rem; }
       .post-body th, .post-body td { border-bottom: 1px solid var(--rule); padding: 0.5rem 0.6rem; text-align: left; vertical-align: top; }
       .post-body th { font-weight: 500; color: var(--ink-2); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
       .post-body hr { border: none; border-top: 1px solid var(--rule); width: 48px; margin: var(--space-xl) 0 var(--space-lg); }
       .post-body .endnote { font-style: italic; color: var(--ink-2); }
       .post-body .media { margin: var(--space-lg) 0 var(--space-xl); }
       .post-body .media video { width: 100%; height: auto; display: block; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg-subtle); }
-      .post-body .media figcaption { font-family: var(--font-sans); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.5rem; }
+      .post-body .media figcaption { font-family: var(--font-meta); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.5rem; }
       .post-body .fig { margin: var(--space-xl) 0 var(--space-2xl); }
-      .post-body .fig-label { font-family: var(--font-sans); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 0.6rem; }
+      .post-body .fig-label { font-family: var(--font-meta); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 0.6rem; }
     </style>
   </head>
   <body class="post-page">
@@ -163,11 +156,11 @@
   --rule: oklch(0.84 0.018 70); --accent: oklch(0.50 0.16 32); --accent-soft: oklch(0.62 0.10 32);
   --accent-tint: oklch(0.95 0.018 45);
   --card: #fbf9f5; --card: oklch(0.985 0.008 80);
-  --font-serif: 'Vollkorn', Georgia, serif;
-  --font-sans: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+  --font-text: 'Mona Sans', Arial, sans-serif;
+  --font-meta: 'JetBrains Mono', ui-monospace, Menlo, monospace;
   --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
-  margin: 0; padding: 0; max-width: 100%; color: var(--ink); font-family: var(--font-sans);
+  margin: 0; padding: 0; max-width: 100%; color: var(--ink); font-family: var(--font-meta);
   background: var(--bg);
 }
 .lfc-flow * { box-sizing: border-box; }
@@ -188,7 +181,7 @@
 
 /* nodes */
 .lfc-flow .lfc-box { fill: var(--card); stroke: var(--rule); stroke-width: 1; rx: 7; filter: url(#lfc-shadow); transition: stroke .3s var(--ease-out-quart), fill .3s var(--ease-out-quart); }
-.lfc-flow .lfc-title { font-family: var(--font-serif); font-size: 16px; fill: var(--ink); }
+.lfc-flow .lfc-title { font-family: var(--font-text); font-size: 16px; fill: var(--ink); }
 .lfc-flow .lfc-sub { font-size: 13px; fill: var(--ink-2); }
 .lfc-flow .lfc-mono { font-family: var(--font-mono); font-size: 12.5px; fill: var(--ink-2); }
 .lfc-flow .lfc-node text { transition: fill .3s var(--ease-out-quart); }
@@ -742,11 +735,11 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
   --rule: oklch(0.84 0.018 70); --accent: oklch(0.50 0.16 32); --accent-soft: oklch(0.62 0.10 32);
   --accent-tint: oklch(0.95 0.018 45);
   --card: #fbf9f5; --card: oklch(0.985 0.008 80);
-  --font-serif: 'Vollkorn', Georgia, serif;
-  --font-sans: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+  --font-text: 'Mona Sans', Arial, sans-serif;
+  --font-meta: 'JetBrains Mono', ui-monospace, Menlo, monospace;
   --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
-  margin: 0; padding: 0; max-width: 100%; color: var(--ink); font-family: var(--font-sans);
+  margin: 0; padding: 0; max-width: 100%; color: var(--ink); font-family: var(--font-meta);
   background: var(--bg);
 }
 .lfc2-flow * { box-sizing: border-box; }
@@ -775,7 +768,7 @@ lfc services logs &lt;build-uuid&gt; &lt;name&gt;</code></pre>
 
 /* nodes: title / subtitle / status on a shared grid */
 .lfc2-flow .lfc-box { fill: var(--card); stroke: var(--rule); stroke-width: 1; rx: 7; filter: url(#lfc2-shadow); transition: stroke .3s var(--ease-out-quart), fill .3s var(--ease-out-quart); }
-.lfc2-flow .lfc-title { font-family: var(--font-serif); font-size: 16px; fill: var(--ink); }
+.lfc2-flow .lfc-title { font-family: var(--font-text); font-size: 16px; fill: var(--ink); }
 .lfc2-flow .lfc-sub { font-size: 13px; fill: var(--ink-2); }
 .lfc2-flow .lfc-mono { font-family: var(--font-mono); font-size: 12.5px; fill: var(--ink-2); }
 .lfc2-flow .lfc-node text { transition: fill .3s var(--ease-out-quart); }

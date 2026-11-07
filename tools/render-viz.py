@@ -28,7 +28,7 @@ SITE_VARS = {
     "--accent": "oklch(0.50 0.16 32)",
     "--accent-soft": "oklch(0.62 0.10 32)",
 }
-FONT = "'Karla', -apple-system, 'Helvetica Neue', sans-serif"
+FONT = "'JetBrains Mono', ui-monospace, Menlo, monospace"
 
 
 def feed_content(html):

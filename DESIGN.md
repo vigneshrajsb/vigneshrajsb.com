@@ -56,14 +56,14 @@ Off-token pieces with their own dark rules: the name highlighter (deep rust band
 
 ## Typography
 
-Two families, magazine shape. Both off the impeccable reflex-reject list.
+Two families: a clean grotesk for reading and a mono for meta. Chosen November 2026 to read more software-leaning while staying off the Inter/Geist default.
 
 ### Families
 
-- **Vollkorn** (Google Fonts) — body, headings, display. Warm bookish German serif with real ink character. Loaded weights: 400, 500, 600. Loaded italic: 400 italic, 500 italic.
-- **Karla** (Google Fonts) — meta, nav, labels, the colophon. Humanist sans with personality. Loaded weights: 400, 500.
+- **Mona Sans** (GitHub, OFL) — body, headings, display. Variable weight 400-800 and width 75-125%; display and h2 use `font-stretch: 110%`. Self-hosted Latin subset with a real italic.
+- **JetBrains Mono** (OFL) — meta, nav, labels, dates, eyebrows. Variable weight 400-500. Self-hosted Latin subset.
 
-Loaded via single Google Fonts request to minimize render delay; subsetting limited to Latin.
+Tokens: `--font-text` (Mona Sans) and `--font-meta` (JetBrains Mono), each with a metric-matched local fallback so the swap does not reflow.
 
 ### Scale
 
@@ -87,9 +87,9 @@ Root font-size scales lightly with viewport for legibility:
 
 ### Voice rules
 
-- Italic carries voice. Reserve for emphasis, asides, and date stamps. Headings stay upright.
-- The h1 "Vignesh" is 500 italic, set at display size. The italic is intentional and load-bearing for the brand's warmth.
-- Section eyebrows are uppercase Karla 500 with `letter-spacing: 0.08em`.
+- Italic is for inline emphasis (project names, the Currently date stamp) and captions. Headings, linked titles, and the masthead aside stay upright.
+- The h1 "Vignesh" is Mona Sans 650 at 110% width, `letter-spacing: -0.035em`, set at display size.
+- Section eyebrows are uppercase JetBrains Mono 500 with `letter-spacing: 0.08em`.
 - Body line length is capped via `max-width: 36rem` on the main column (~65-70ch).
 - Body line-height: 1.6. Lede line-height: 1.65. Meta line-height: 1.5.
 
@@ -137,11 +137,11 @@ Name (h1), role line, location, dry-wit aside. Optional date stamp on the right 
 
 ### `nav.links`
 
-Inline row of small Karla links separated by a typographic middle dot (`·`) using a `::after` pseudo-element. No pills, no icons. Wraps cleanly on narrow viewports.
+Inline row of small mono links separated by a typographic middle dot (`·`) using a `::after` pseudo-element. No pills, no icons. Wraps cleanly on narrow viewports.
 
 ### `section.about`
 
-Lede paragraph (slightly larger) followed by body paragraphs. No styling beyond paragraph spacing and Vollkorn body.
+Lede paragraph (slightly larger) followed by body paragraphs. No styling beyond paragraph spacing and Mona Sans body.
 
 ### `section.currently`
 
@@ -215,5 +215,5 @@ Mirrors the impeccable absolute bans, plus brand-specific:
 - Icons in general stay banned; the single sanctioned exception is the
   pronounce helper's hover-only speaker (inline SVG, currentColor, 14px),
   because no typographic glyph says "audio" unambiguously.
-- No monospace. The site is editorial, not dev-bro. Exception: code blocks and ASCII diagrams inside /writing/ posts — technical article content requires it; the chrome around them stays editorial.
+- Monospace is for meta only (labels, dates, nav, links rows) plus code inside posts. Never for body text or headings, and no terminal cosplay (prompts, blinking cursors, green-on-black).
 - No dark mode toggle. Dark mode follows the system setting; a toggle would dilute the voice.

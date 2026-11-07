@@ -75,21 +75,14 @@
     />
     <link
       rel="preload"
-      href="/fonts/vollkorn-v30-latin.woff2"
+      href="/fonts/mona-sans-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/vollkorn-italic-v30-latin.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/karla-v33-latin.woff2"
+      href="/fonts/jetbrains-mono-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -110,7 +103,7 @@
       @media screen and (prefers-color-scheme: dark) {
         .post-body { --bar: oklch(0.68 0.10 245); }
       }
-      .post-body figure.viz { margin: var(--space-xl) 0; font-family: var(--font-sans); }
+      .post-body figure.viz { margin: var(--space-xl) 0; font-family: var(--font-meta); }
       .post-body .viz-title { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin: 0 0 0.15rem; }
       .post-body #fig-costco .viz-title { margin-bottom: 0.85rem; }
       .post-body .viz-sub { font-size: 0.8rem; color: var(--ink-2); margin: 0 0 0.9rem; }
@@ -120,8 +113,8 @@
       .post-body .chart-scroll > svg { display: block; width: 100%; height: auto; }
       .post-body .chart-scroll > svg.wide { min-width: 600px; }
       .post-body #viz-unity.wide { min-width: 700px; }
-      .post-body .viz svg text { font-family: var(--font-sans); }
-      .post-body .data-table { margin: 0.75rem 0 0; font-family: var(--font-sans); font-size: var(--text-meta); }
+      .post-body .viz svg text { font-family: var(--font-meta); }
+      .post-body .data-table { margin: 0.75rem 0 0; font-family: var(--font-meta); font-size: var(--text-meta); }
       .post-body .data-table summary { cursor: pointer; color: var(--ink-2); font-size: 0.8rem; display: inline-block; padding: 0.7rem 0; margin: -0.45rem 0; }
       .post-body .data-table table { border-collapse: collapse; width: 100%; margin-top: 0.5rem; }
       .post-body .data-table th { text-align: left; font-weight: 500; color: var(--ink-2); }
@@ -130,20 +123,20 @@
       .post-body .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; }
       @media (max-width: 680px) { .post-body .tiles { grid-template-columns: repeat(2, 1fr); } }
       .post-body .tile { border: 1px solid var(--rule); border-radius: 6px; padding: 0.8rem 0.85rem; background: var(--bg-subtle); }
-      .post-body .tile .val { display: block; font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; color: var(--ink); line-height: 1.15; }
+      .post-body .tile .val { display: block; font-family: var(--font-text); font-size: 1.3rem; font-weight: 600; color: var(--ink); line-height: 1.15; }
       .post-body .tile .lbl { display: block; font-size: 0.8rem; color: var(--ink-2); margin-top: 0.3rem; line-height: 1.4; }
       .post-body .tile .sub { display: block; font-size: 0.75rem; color: var(--ink-2); margin-top: 0.35rem; }
       .post-body .tile.neg .val { color: var(--accent); }
       .post-body .vpanel + .vpanel { margin-top: 1.5rem; }
-      .post-body .panel-h { font: 500 0.9rem var(--font-sans); color: var(--ink); margin: 0 0 0.6rem; }
+      .post-body .panel-h { font: 500 0.9rem var(--font-meta); color: var(--ink); margin: 0 0 0.6rem; }
       .post-body .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
       @media (max-width: 640px) { .post-body .duo { grid-template-columns: 1fr; } }
-      .post-body .mini-t { font: 500 0.85rem var(--font-sans); color: var(--ink); margin: 0 0 0.35rem; }
+      .post-body .mini-t { font: 500 0.85rem var(--font-meta); color: var(--ink); margin: 0 0 0.35rem; }
       .post-body .meme { margin: var(--space-xl) auto; max-width: 28rem; }
       .post-body .meme img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; }
       .post-body hr.sep { border: 0; border-top: 1px solid var(--rule); width: 48px; margin: var(--space-2xl) 0; }
       .post-body .credits { font-style: italic; color: var(--ink-2); font-size: 0.98rem; }
-      .post-body .sources { font-family: var(--font-sans); font-size: var(--text-meta); line-height: 1.6; color: var(--ink-2); padding-left: 1.25rem; margin: 0; }
+      .post-body .sources { font-family: var(--font-meta); font-size: var(--text-meta); line-height: 1.6; color: var(--ink-2); padding-left: 1.25rem; margin: 0; }
       .post-body .sources li { padding-left: 0.25rem; margin-bottom: 0.5rem; }
     </style>
   </head>
