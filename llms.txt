@@ -2,21 +2,22 @@
 
 > Personal site of Vigneshraj Sekar Babu (Vignesh), a lead software engineer on the Developer Tools team at GoodRx in Los Angeles. He builds internal tooling, test automation, and infrastructure that make engineers' lives easier.
 
-The site is hand-built HTML and CSS, no framework. Analytics are privacy-first and cookieless (GoatCounter): no cookies, no personal data, Do Not Track respected. It's a hub, not a workflow: the canonical place to learn who Vignesh is, what he's built, what he writes about, and how to reach him. Email is the best contact channel: itsvrsb@gmail.com.
+The site is hand-built HTML and CSS, no framework. Analytics are privacy-first and cookieless (PostHog, anonymous events only): no cookies, no session replay, Do Not Track and Global Privacy Control respected. It's a hub, not a workflow: the canonical place to learn who Vignesh is, what he's built, what he writes about, and how to reach him. Email is the best contact channel: itsvrsb@gmail.com.
 
 ## Currently
 
-- Building features for [Lifecycle](https://github.com/GoodRxOSS/lifecycle), an open-source preview-environment orchestrator (18k+ environments and counting).
-- Helping build a background-agents harness at GoodRx.
+- Helping scale background agents at GoodRx.
+- Learning the ins and outs of distroless container images, and moving production apps onto them.
 - Sharpening design taste with [interface.craft](https://www.interfacecraft.dev/).
+- Building features for [Lifecycle](https://github.com/GoodRxOSS/lifecycle), an open-source preview-environment orchestrator.
 
 ## Work
 
-- [Lifecycle](https://github.com/GoodRxOSS/lifecycle): open-source preview-environment orchestrator, one preview env per pull request.
-- An internal Playwright module with auth, mocking, and telemetry baked in — teams add integration tests with zero config.
+- [tribb.app](https://tribb.app): a small thing I've been tinkering on.
+- Working out an AI and MCP gateway for agentic workloads.
+- [Lifecycle](https://github.com/GoodRxOSS/lifecycle): open-source preview-environment orchestrator.
 - An alert router that pairs GitHub commits and CODEOWNERS to Slack channels so the right people get pinged.
 - [OpenDevTools](https://github.com/vigneshrajsb/opendevtools.io): a small collection of open-source developer utilities. No tracking, no upsell, free.
-- [tribb.app](https://tribb.app): a small thing I've been tinkering on.
 - Second place at a recent GoodRx hackathon for an agent that automates infra-migration work.
 - Scaling preview-environment infrastructure as load grows.
 
