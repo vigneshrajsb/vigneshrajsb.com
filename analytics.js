@@ -19,9 +19,9 @@
     /* A local checkout is not a reader. */
     if (/^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(location.hostname)) return;
 
-    /* GoatCounter honoured Do Not Track and this setup keeps that promise.
-       Global Privacy Control is the newer spelling of the same request, so it
-       gets the same answer. DNT itself is left to respect_dnt below. */
+    /* Do Not Track is honoured, and Global Privacy Control is the newer
+       spelling of the same request, so it gets the same answer. DNT itself
+       is left to respect_dnt below. */
     if (navigator.globalPrivacyControl) return;
 
     /* Official PostHog loader stub, verbatim. It queues calls until array.js
