@@ -162,7 +162,6 @@ b {
 .skip-link,
 .masthead .pronounce,
 .masthead .role,
-.masthead .location,
 .writing .more,
 .archive .when,
 .feed-link,
@@ -442,12 +441,21 @@ a:focus-visible {
     outline-offset: 2px;
 }
 
-.masthead .role,
-.masthead .location {
-    font-family: var(--font-meta);
-    font-size: var(--text-meta);
-    color: var(--ink-2);
+/* Second rank under the name: who and where, one line at body size */
+.masthead .role {
+    font-family: var(--font-text);
+    font-size: var(--text-body);
+    color: var(--ink);
     margin-bottom: var(--space-2xs);
+}
+
+.masthead .role .sep,
+.masthead .role .location {
+    color: var(--ink-2);
+}
+
+.masthead .role .location {
+    white-space: nowrap;
 }
 
 .masthead .aside {
@@ -603,7 +611,7 @@ body[data-chocolata='off'] .chocolata {
     margin-bottom: var(--space-2xl);
     font-family: var(--font-meta);
     font-size: var(--text-meta);
-    font-weight: 500;
+    font-weight: var(--weight-small);
     line-height: 1.5;
 }
 
@@ -617,8 +625,13 @@ body[data-chocolata='off'] .chocolata {
 .links .profiles a {
     --u-base: var(--rule);
     --u-pad: 0.75rem;
-    color: var(--ink);
+    color: var(--ink-2);
     padding: 0.75rem 0;
+}
+
+.links .profiles a:hover,
+.links .profiles a:focus-visible {
+    color: var(--ink);
 }
 
 .links .profiles .dot {
