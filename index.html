@@ -96,7 +96,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/styles.css?v=20261107f" />
+    <link rel="stylesheet" href="/styles.css?v=20261107g" />
     <!--
       Chocolata is parked (body[data-chocolata='off']), so her 27 KB rig is not
       loaded. To bring her back, flip the body attribute and restore:
@@ -353,14 +353,20 @@
       </section>
 
       <figure class="tailpiece">
-        <img
-          src="/assets/tailpiece.svg"
-          alt="Ink tailpiece: Vignesh, his wife, and Chocolata standing together on a single brush stroke, a faint sunset on the water behind them."
-          width="620"
-          height="120"
-          loading="lazy"
-          decoding="async"
-        />
+        <picture>
+          <source
+            srcset="/assets/tailpiece-dark.svg"
+            media="(prefers-color-scheme: dark)"
+          />
+          <img
+            src="/assets/tailpiece.svg"
+            alt="Ink tailpiece: Vignesh, his wife, and Chocolata standing together on a single brush stroke, a faint sunset on the water behind them."
+            width="620"
+            height="120"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
       </figure>
     </main>
 

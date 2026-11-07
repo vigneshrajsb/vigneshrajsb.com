@@ -328,7 +328,7 @@ a:focus-visible {
 /* ---------- Masthead ---------- */
 
 .masthead {
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-lg);
 }
 
 .masthead .name {
@@ -808,13 +808,9 @@ section:last-of-type {
     height: auto;
 }
 
-/* The tailpiece is dark ink drawn for cream paper. On dark paper the figures
-   flip to cream ink; the hue turn brings the sunset back to peach. */
-@media screen and (prefers-color-scheme: dark) {
-    .tailpiece img {
-        filter: invert(0.92) hue-rotate(180deg);
-    }
-}
+/* The tailpiece is dark ink drawn for cream paper. Dark mode swaps in
+   tailpiece-dark.svg via <picture>: figures and ground in muted cream
+   (dark --ink-2, not white) and a warmer, brighter sunset. */
 
 /* ---------- Reduced motion ---------- */
 
