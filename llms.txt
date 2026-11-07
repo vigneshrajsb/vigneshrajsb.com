@@ -13,11 +13,11 @@ The site is hand-built HTML and CSS, no framework. Analytics are privacy-first a
 
 ## Work
 
+- [tribb.app](https://tribb.app): a small thing I've been tinkering on.
+- Working out an AI and MCP gateway for agentic workloads: one governed path from agents to models and tools.
 - [Lifecycle](https://github.com/GoodRxOSS/lifecycle): open-source preview-environment orchestrator, one preview env per pull request.
-- An internal Playwright module with auth, mocking, and telemetry baked in — teams add integration tests with zero config.
 - An alert router that pairs GitHub commits and CODEOWNERS to Slack channels so the right people get pinged.
 - [OpenDevTools](https://github.com/vigneshrajsb/opendevtools.io): a small collection of open-source developer utilities. No tracking, no upsell, free.
-- [tribb.app](https://tribb.app): a small thing I've been tinkering on.
 - Second place at a recent GoodRx hackathon for an agent that automates infra-migration work.
 - Scaling preview-environment infrastructure as load grows.
 
