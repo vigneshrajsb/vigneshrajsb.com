@@ -109,8 +109,12 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/styles.css?v=20260814e" />
-    <script src="/chocolata.js?v=20260814a" defer></script>
+    <link rel="stylesheet" href="/styles.css?v=20261107a" />
+    <!--
+      Chocolata is parked (body[data-chocolata='off']), so her 27 KB rig is not
+      loaded. To bring her back, flip the body attribute and restore:
+      <script src="/chocolata.js?v=20260814a" defer></script>
+    -->
     <script src="/assets/masthead.js" defer></script>
   </head>
   <body data-chocolata="off">
@@ -132,6 +136,7 @@
                 alt=""
                 width="256"
                 height="256"
+                loading="lazy"
                 decoding="async"
                 class="is-shown"
               />
