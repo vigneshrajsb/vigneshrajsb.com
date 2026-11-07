@@ -134,6 +134,9 @@ def semanticize(content):
                 li += f" <em>({span('sub')})</em>"
             items.append(f"<li>{li}</li>")
         content = content[:start] + "<ul>" + "".join(items) + "</ul>" + content[end:]
+    # Readers and their image proxies handle WebP unevenly, and <source>
+    # srcsets are not absolutized: the feed gets each <picture>'s <img> alone.
+    content = re.sub(r"</?picture>\s*|<source\b[^>]*>\s*", "", content)
     content = re.sub(
         r'<p class="(?:viz-title|panel-h|mini-t)">(.*?)</p>',
         r"<p><strong>\1</strong></p>",
