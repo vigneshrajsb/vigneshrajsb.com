@@ -161,7 +161,6 @@
       @media (max-width: 560px) {
         .deck-stage .stage-frame { width: 100%; }
         .deck-cap { font-size: 0.98rem; }
-        .deck-bar .fs { display: none; }
       }
       @media (prefers-reduced-motion: reduce) {
         .deck-stage img.in { animation: none; }
@@ -384,9 +383,6 @@
     <dialog class="deck" id="deck" aria-label="Slides view">
       <div class="deck-bar">
         <span class="where" id="deck-where" aria-live="polite"></span>
-        <button type="button" class="ghost fs" id="deck-fs" hidden aria-label="Full screen">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
-        </button>
         <button type="button" class="ghost" id="deck-close">Close</button>
       </div>
       <div class="deck-stage" id="deck-stage">
@@ -417,7 +413,7 @@
           return { src: img.getAttribute('src'), alt: img.alt, cap: f.querySelector('figcaption').textContent, ch: f.dataset.chapter };
         });
         var img = $('deck-img'), cap = $('deck-cap'), where = $('deck-where'), prog = $('deck-prog');
-        var prevB = $('deck-prev'), nextB = $('deck-next'), fsB = $('deck-fs');
+        var prevB = $('deck-prev'), nextB = $('deck-next');
         var i = 0;
 
         var preload = function (k) { if (k >= 0 && k < N) { var p = new Image(); p.src = slides[k].src; } };
@@ -455,7 +451,6 @@
         dlg.addEventListener('close', function () {
           document.documentElement.style.overflow = '';
           if (location.hash === '#slides') { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
-          try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
           var f = figs[i];
           f.scrollIntoView({ block: 'center' });
           f.querySelector('.open').focus({ preventScroll: true });
@@ -483,16 +478,6 @@
           else return;
           show(i + (fwd ? 1 : -1), fwd ? 1 : -1);
         });
-
-        if (document.fullscreenEnabled) {
-          fsB.hidden = false;
-          fsB.addEventListener('click', function () {
-            try {
-              if (document.fullscreenElement) document.exitFullscreen();
-              else { var p = dlg.requestFullscreen(); if (p) p.catch(function () {}); }
-            } catch (e) {}
-          });
-        }
 
         if (location.hash === '#slides') open(0);
       })();
