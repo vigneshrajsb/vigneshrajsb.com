@@ -28,8 +28,9 @@ feed.xml from the post pages (the only sanctioned way to touch feed.xml),
 - No em-dashes in site chrome or new copy (source: `DESIGN.md` anti-patterns).
   Exception: article content ported verbatim from the author's originals keeps
   its em-dashes — never reword the author's published writing.
-- Monospace only inside `pre`/`code` within posts (documented exception to
-  DESIGN.md's no-monospace rule). Site chrome stays Vollkorn + Karla.
+- Type: Geist for everything (`--font-text`; `--font-meta` points at it).
+  Body is weight 300; keep small or faint text at 400 (see DESIGN.md).
+  Monospace only for code in posts.
 - Interactive elements need 44x44px tap targets on touch viewports.
 - External links: `target="_blank" rel="noopener" aria-describedby="ext-tab"`
   (each page defines the sr-only `#ext-tab` span). Internal links get none of
