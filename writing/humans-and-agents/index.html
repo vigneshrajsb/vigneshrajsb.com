@@ -81,12 +81,13 @@
       }
       .view-slides p { margin: 0; flex: 1 1 14rem; min-width: 0; font-style: italic; color: var(--ink-2); }
       .view-slides button {
-        font-family: var(--font-meta); font-size: var(--text-meta); font-weight: 500;
+        font-family: var(--font-meta); font-size: var(--text-meta); font-weight: var(--weight-small);
         min-height: 44px; padding: 0 1.1rem; border-radius: 999px; cursor: pointer;
         display: inline-flex; align-items: center; gap: 0.5rem;
         background: var(--ink); color: var(--bg); border: 1px solid var(--ink);
       }
-      .view-slides button span { opacity: 0.7; font-weight: 400; }
+      .view-slides button:hover { background: var(--ink-2); border-color: var(--ink-2); }
+      .view-slides button span { opacity: 0.7; }
       .post-body h2 + .chap-line { margin-top: calc(-1 * var(--space-sm)); color: var(--ink-2); }
       .post-body .slide { margin: var(--space-lg) 0 var(--space-xl); }
       .post-body .slide img { aspect-ratio: 16 / 9; }
@@ -111,7 +112,7 @@
         font-size: var(--text-meta); color: var(--stage-ink-2);
       }
       .deck-bar .where { flex: 1; min-width: 0; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .deck-bar .where b { color: var(--stage-ink); font-weight: 500; }
+      .deck-bar .where b { color: var(--stage-ink); font-weight: 600; }
       .ghost {
         min-width: 44px; min-height: 44px; padding: 0 0.8rem;
         display: inline-flex; align-items: center; justify-content: center;
@@ -125,10 +126,10 @@
         position: relative; min-height: 0;
         display: flex; align-items: center; justify-content: center;
         padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
-        touch-action: pan-y; user-select: none;
+        touch-action: pan-y pinch-zoom; user-select: none;
       }
       .deck-stage .stage-frame {
-        width: min(100%, calc((100vh - 13rem) * 16 / 9)); max-width: 100%;
+        width: min(100%, calc((100vh - 13rem) * 16 / 9)); width: min(100%, calc((100dvh - 13rem) * 16 / 9)); max-width: 100%;
         aspect-ratio: 16 / 9; border-radius: 4px; overflow: hidden;
         box-shadow: 0 0 0 1px var(--stage-rule);
       }
@@ -389,7 +390,7 @@
         <button type="button" class="ghost" id="deck-prev" aria-label="Previous slide">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
         </button>
-        <p class="deck-cap" id="deck-cap"></p>
+        <p class="deck-cap" id="deck-cap" aria-live="polite"></p>
         <button type="button" class="ghost" id="deck-next" aria-label="Next slide">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
         </button>
@@ -447,6 +448,7 @@
 
         dlg.addEventListener('close', function () {
           document.documentElement.style.overflow = '';
+          if (location.hash === '#slides') { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
           try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
           var f = figs[i];
           f.scrollIntoView({ block: 'center' });
@@ -462,9 +464,11 @@
           else if (e.key === 'End') { e.preventDefault(); show(N - 1, 1); }
         });
 
-        var stage = $('deck-stage'), x0 = null, y0 = null;
-        stage.addEventListener('pointerdown', function (e) { x0 = e.clientX; y0 = e.clientY; });
+        var stage = $('deck-stage'), x0 = null, y0 = null, touches = 0;
+        stage.addEventListener('pointerdown', function (e) { touches++; if (touches > 1) { x0 = null; return; } x0 = e.clientX; y0 = e.clientY; });
+        stage.addEventListener('pointercancel', function () { touches = 0; x0 = null; });
         stage.addEventListener('pointerup', function (e) {
+          touches = Math.max(0, touches - 1);
           if (x0 === null) return;
           var dx = e.clientX - x0, dy = e.clientY - y0, fwd;
           x0 = null;
