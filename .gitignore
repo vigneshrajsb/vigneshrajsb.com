@@ -1,2 +1,5 @@
 __pycache__/
-.claude/
+# Local agent state stays out; repo skills are shared.
+.claude/*
+!.claude/skills/
+*.whl
