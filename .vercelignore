@@ -3,3 +3,5 @@ Makefile
 .gitignore
 docs
 /*.md
+.claude
+*.whl
