@@ -93,6 +93,9 @@
       .post-body .embed .frame { position: relative; aspect-ratio: 9 / 16; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--bg-subtle); }
       .post-body .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
       .post-body .embed figcaption { font-family: var(--font-meta); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.6rem; text-align: center; }
+      .post-body .callout { margin: var(--space-xl) 0; padding: var(--space-md) var(--space-lg); background: var(--bg-subtle); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; }
+      .post-body .callout p:last-child { margin-bottom: 0; }
+      .post-body .callout .callout-label { font-family: var(--font-meta); font-size: var(--text-eyebrow); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
       @media (max-width: 520px) {
         .post-body .fig-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.25rem; }
         .post-body .fig svg { min-width: 520px; }
@@ -134,6 +137,11 @@
   </div>
   <figcaption><a href="https://youtube.com/shorts/zyQxyNQZ8B4" target="_blank" rel="noopener" aria-describedby="ext-tab">The home repo pattern</a>, Matt Pocock</figcaption>
 </figure>
+
+<aside class="callout" aria-label="A note on why I'm writing this">
+<p class="callout-label">Why I'm writing this</p>
+<p>Until I saw Matt's short, I didn't think any of this was worth sharing. It felt like personal plumbing. Then it clicked: this setup is how you get to trust an agent, and trust is what lets you hand it more. Scaling with agents next depends less on bigger models and more on agents that know you and have earned the right to act for you.</p>
+</aside>
 
 <p>Ditto is that pattern for a whole person, not just a codebase. Your Ditto is a folder on your machine (call it <code>~/Ditto</code>), and you always open your agent there. Inside it are three layers.</p>
 
