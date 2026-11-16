@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Ditto — Vignesh</title>
+    <meta name="description" content="How Ditto, a personal work agent my teammate Vahan built, is set up: one home folder, any harness, memory, a learning loop, and autonomy earned per action." />
+    <link rel="canonical" href="https://vigneshrajsb.com/writing/ditto/" />
+    <meta name="robots" content="noindex" />
+    <meta name="author" content="Vigneshraj Sekar Babu" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Vignesh — vigneshrajsb.com" />
+    <meta property="og:title" content="Ditto" />
+    <meta property="og:description" content="How Ditto, a personal work agent my teammate Vahan built, is set up: one home folder, any harness, memory, a learning loop, and autonomy earned per action." />
+    <meta property="og:url" content="https://vigneshrajsb.com/writing/ditto/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://vigneshrajsb.com/writing/assets/ditto-og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="628" />
+    <meta property="og:image:alt" content="Ditto, an explainer by Vignesh" />
+    <meta property="article:author" content="Vigneshraj Sekar Babu" />
+    <meta property="article:tag" content="ai" />
+    <meta property="article:tag" content="agents" />
+    <meta property="article:tag" content="engineering" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ditto" />
+    <meta name="twitter:description" content="How Ditto, a personal work agent my teammate Vahan built, is set up: one home folder, any harness, memory, a learning loop, and autonomy earned per action." />
+    <meta name="twitter:image" content="https://vigneshrajsb.com/writing/assets/ditto-og.png" />
+    <!-- Draft: no datePublished yet, so make feed skips it. To publish: add
+         datePublished + article:published_time, set the post-meta date, drop
+         noindex, then do the archive/sitemap/llms.txt/feed steps in AGENTS.md. -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Ditto",
+  "description": "How Ditto, a personal work agent my teammate Vahan built, is set up: one home folder, any harness, memory, a learning loop, and autonomy earned per action.",
+  "image": "https://vigneshrajsb.com/writing/assets/ditto-og.png",
+  "author": {
+    "@type": "Person",
+    "name": "Vigneshraj Sekar Babu",
+    "url": "https://vigneshrajsb.com/"
+  },
+  "url": "https://vigneshrajsb.com/writing/ditto/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vigneshrajsb.com/writing/ditto/"
+  }
+}
+    </script>
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Vignesh — Writing"
+      href="/feed.xml"
+    />
+    <link
+      rel="preload"
+      href="/fonts/geist-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/writing/writing.css" />
+    <style>
+      /* Ditto: post-local figure, table and embed styles. Colors resolve to site tokens, so dark mode is inherited. */
+      .post-body .fig { margin: var(--space-xl) 0; }
+      .post-body .fig-wrap { max-width: 100%; }
+      .post-body .fig svg { display: block; width: 100%; height: auto; font-family: var(--font-meta); }
+      .post-body .fig figcaption { font-family: var(--font-meta); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.6rem; line-height: 1.5; }
+      .dt-box { fill: var(--bg-subtle); stroke: var(--rule); stroke-width: 1; }
+      .dt-box.is-dashed { fill: none; stroke-dasharray: 5 4; }
+      .dt-box.is-you { fill: var(--bg); stroke: var(--accent); stroke-width: 1.5; }
+      .dt-box.is-outer { fill: none; stroke: var(--ink-3); stroke-width: 1; }
+      .dt-title { fill: var(--ink); font-size: 16px; font-weight: 500; }
+      .dt-sub { fill: var(--ink-2); font-size: 13px; }
+      .dt-mono { fill: var(--ink-2); font-size: 12.5px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+      .dt-note { fill: var(--ink-2); font-size: 12.5px; }
+      .dt-accent { fill: var(--accent); }
+      .dt-wire { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
+      .dt-wire.is-warm { stroke: var(--accent-soft); }
+      .dt-wire.is-dashed { stroke-dasharray: 4 4; }
+      .dt-arrow { fill: var(--ink-3); }
+      .dt-arrow-warm { fill: var(--accent-soft); }
+      .post-body .tablewrap { overflow-x: auto; margin: 0 0 var(--space-md); }
+      .post-body table { border-collapse: collapse; width: 100%; font-family: var(--font-meta); font-size: 0.9rem; }
+      .post-body th, .post-body td { border-bottom: 1px solid var(--rule); padding: 0.5rem 0.6rem; text-align: left; vertical-align: top; }
+      .post-body th { font-weight: 500; color: var(--ink-2); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; }
+      .post-body .embed { margin: var(--space-xl) auto; max-width: 315px; }
+      .post-body .embed .frame { position: relative; aspect-ratio: 9 / 16; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--bg-subtle); }
+      .post-body .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .post-body .embed figcaption { font-family: var(--font-meta); font-size: 0.85rem; color: var(--ink-2); margin-top: 0.6rem; text-align: center; }
+      @media (max-width: 520px) {
+        .post-body .fig-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.25rem; }
+        .post-body .fig svg { min-width: 520px; }
+      }
+    </style>
+  </head>
+  <body class="post-page">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <span id="ext-tab" class="sr-only">opens in a new tab</span>
+    <main id="main">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep" aria-hidden="true">&#x203A;</span>
+        <a href="/writing/">Writing</a>
+      </nav>
+
+      <article>
+        <header class="post-header">
+          <h1>Ditto</h1>
+          <p class="post-meta">Draft &middot; 9 min read</p>
+        </header>
+        <!-- feed:start -->
+        <div class="post-body">
+<p>Every agent session starts from zero. You explain who you are, which repo matters, who to ask about billing, and that you hate long messages. Then the session ends and it forgets all of it.</p>
+<p>My teammate Vahan got tired of that and built <strong>Ditto</strong>, a personal agent for work. It reads the places your work happens, keeps one list you can trust, remembers your people and projects, writes in your voice, and learns from every correction. It isn't tied to one tool: the same setup runs in Claude Code and in Codex today, and it's built so the next harness can pick it up too.</p>
+<p>I've been adopting it piece by piece. This post is how it's put together, and how you'd set up something like it for yourself with whatever harness you use.</p>
+
+<h2 id="why-ditto">Why “Ditto”</h2>
+<p>Ditto is the Pokémon that turns into a copy of whatever it looks at. This one starts knowing nothing about you and slowly becomes a copy of how you work: how you write, what you'd do first, who matters for what, and what you'd never put in a ticket.</p>
+<p>Under the name, a personal agent needs five things. A <a href="#a-home">home</a> it always starts from. A way to <a href="#any-harness">run in any harness</a>. <a href="#modules">Hands</a> for the work. <a href="#context">Context</a> about you. And a <a href="#learning">loop</a> that turns your corrections into <a href="#trust">trust</a>. The rest of the post takes them in order.</p>
+
+<h2 id="a-home">1. Give it a home</h2>
+<p>Matt Pocock calls this the home repo pattern. Keep your skills, steering files and tooling in one repo, and point your agent at everything else from there.</p>
+
+<figure class="embed">
+  <div class="frame">
+    <iframe src="https://www.youtube-nocookie.com/embed/zyQxyNQZ8B4" title="The Home Repo Pattern, by Matt Pocock" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  <figcaption><a href="https://youtube.com/shorts/zyQxyNQZ8B4" target="_blank" rel="noopener" aria-describedby="ext-tab">The home repo pattern</a>, Matt Pocock</figcaption>
+</figure>
+
+<p>Ditto is that pattern for a whole person, not just a codebase. Your Ditto is a folder on your machine (call it <code>~/Ditto</code>), and you always open your agent there. Inside it are three layers.</p>
+
+<figure class="fig">
+<div class="fig-wrap">
+<svg viewBox="0 0 640 318" role="img" aria-label="Diagram: the Ditto home folder holds three layers. Core is the shared engine (skills, rules, scripts, module manifests, templates) and updates from upstream. Packs hold a team's or company's rules, sources and modules, and are optional. The you layer holds profile.md, self.md, memory, style, learning and your own rules, and never leaves your machine. Lookups go home first, then packs, then core, and safety rules can only be tightened." xmlns="http://www.w3.org/2000/svg">
+  <rect class="dt-box is-outer" x="6" y="6" width="628" height="306" rx="10"/>
+  <text class="dt-title" x="26" y="36">~/Ditto</text>
+  <text class="dt-sub" x="26" y="56">your home: its own git, no remote, never shared</text>
+
+  <rect class="dt-box" x="26" y="76" width="186" height="178" rx="7"/>
+  <text class="dt-title" x="40" y="102">core/</text>
+  <text class="dt-sub" x="40" y="121">the shared engine</text>
+  <text class="dt-mono" x="40" y="148">skills/</text>
+  <text class="dt-mono" x="40" y="167">rules/</text>
+  <text class="dt-mono" x="40" y="186">scripts/</text>
+  <text class="dt-mono" x="40" y="205">modules/</text>
+  <text class="dt-note" x="40" y="238">updates from upstream</text>
+
+  <rect class="dt-box" x="227" y="76" width="186" height="178" rx="7"/>
+  <text class="dt-title" x="241" y="102">packs/&lt;team&gt;/</text>
+  <text class="dt-sub" x="241" y="121">your team or company</text>
+  <text class="dt-mono" x="241" y="148">rules</text>
+  <text class="dt-mono" x="241" y="167">sources</text>
+  <text class="dt-mono" x="241" y="186">modules</text>
+  <text class="dt-note" x="241" y="238">optional</text>
+
+  <rect class="dt-box is-you" x="428" y="76" width="186" height="178" rx="7"/>
+  <text class="dt-title" x="442" y="102">you</text>
+  <text class="dt-sub" x="442" y="121">everything about you</text>
+  <text class="dt-mono" x="442" y="148">profile.md  self.md</text>
+  <text class="dt-mono" x="442" y="167">memory/  style/</text>
+  <text class="dt-mono" x="442" y="186">learning/  rules</text>
+  <text class="dt-mono" x="442" y="205">overrides/</text>
+  <text class="dt-note dt-accent" x="442" y="238">never leaves your machine</text>
+
+  <text class="dt-note" x="26" y="284">Lookup order: you, then packs, then core. Your rules win, except that safety rules can only get stricter.</text>
+</svg>
+</div>
+<figcaption>One home, three layers. Updating core never touches your layer.</figcaption>
+</figure>
+
+<ul>
+<li><strong>Core</strong> is the engine: skills, rules, scripts, module manifests and templates. It never holds anyone's data. Vahan maintains it.</li>
+<li><strong>Packs</strong> hold what a team or company shares: its ticket site, chat workspace, approval rules and runbooks. They're optional, and they keep shared knowledge out of every person's home.</li>
+<li><strong>You</strong> is your layer: your profile, memory, writing voice, your own rules and logs. It's tracked in its own local git, with no remote.</li>
+</ul>
+<p>This split is what made adopting it painless. I didn't fork Vahan's agent. I took his core, and every change I wanted went into my own layer as an override. When he ships an update, I pull it and my changes stay where they are.</p>
+
+<h2 id="any-harness">2. Make the harness a thin shell</h2>
+<p>The harness is whatever runs the model loop: Claude Code, Codex, or whatever comes next. Ditto treats it as a thin shell. Each harness only needs an entry file it already knows how to read, and every entry file points at the same rules in the home.</p>
+
+<figure class="fig">
+<div class="fig-wrap">
+<svg viewBox="0 0 640 262" role="img" aria-label="Diagram: Claude Code reads CLAUDE.md, which imports the home's rules. Codex reads AGENTS.md, which lists the same files. A future harness would read its own entry file. All three lead to one home with rules, skills, memory, voice and model tiers." xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="dt-a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto"><path class="dt-arrow" d="M0,1 L9,5 L0,9 z"/></marker>
+  </defs>
+  <rect class="dt-box" x="6" y="16" width="150" height="56" rx="7"/>
+  <text class="dt-title" x="20" y="49">Claude Code</text>
+  <rect class="dt-box" x="6" y="102" width="150" height="56" rx="7"/>
+  <text class="dt-title" x="20" y="135">Codex</text>
+  <rect class="dt-box is-dashed" x="6" y="188" width="150" height="56" rx="7"/>
+  <text class="dt-sub" x="20" y="221">the next harness</text>
+
+  <rect class="dt-box" x="214" y="16" width="160" height="56" rx="7"/>
+  <text class="dt-mono" x="228" y="40">CLAUDE.md</text>
+  <text class="dt-note" x="228" y="59">imports the rules</text>
+  <rect class="dt-box" x="214" y="102" width="160" height="56" rx="7"/>
+  <text class="dt-mono" x="228" y="126">AGENTS.md</text>
+  <text class="dt-note" x="228" y="145">lists the same files</text>
+  <rect class="dt-box is-dashed" x="214" y="188" width="160" height="56" rx="7"/>
+  <text class="dt-note" x="228" y="221">its own entry file</text>
+
+  <path class="dt-wire" d="M156,44 L208,44" marker-end="url(#dt-a2)"/>
+  <path class="dt-wire" d="M156,130 L208,130" marker-end="url(#dt-a2)"/>
+  <path class="dt-wire is-dashed" d="M156,216 L208,216" marker-end="url(#dt-a2)"/>
+
+  <path class="dt-wire" d="M374,44 C410,44 410,110 444,118" marker-end="url(#dt-a2)"/>
+  <path class="dt-wire" d="M374,130 L440,130" marker-end="url(#dt-a2)"/>
+  <path class="dt-wire is-dashed" d="M374,216 C410,216 410,150 444,142" marker-end="url(#dt-a2)"/>
+
+  <rect class="dt-box is-you" x="446" y="40" width="188" height="180" rx="7"/>
+  <text class="dt-title" x="462" y="68">the home</text>
+  <text class="dt-sub" x="462" y="87">one set of instructions</text>
+  <text class="dt-mono" x="462" y="114">rules</text>
+  <text class="dt-mono" x="462" y="133">skills</text>
+  <text class="dt-mono" x="462" y="152">memory</text>
+  <text class="dt-mono" x="462" y="171">voice</text>
+  <text class="dt-mono" x="462" y="190">model tiers</text>
+</svg>
+</div>
+<figcaption>Each harness reads its own entry file. They all end up at the same home.</figcaption>
+</figure>
+
+<p>Claude Code reads <code>CLAUDE.md</code>, which imports the core rules and your own. Codex reads <code>AGENTS.md</code>, which lists the same files. Skills get linked into each harness's skills folder by one install command, with a flag for the harness you use.</p>
+<p>Models are handled the same way. The rules never name a model for a job. They name a tier, and each harness maps tiers to its own models:</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Tier</th><th>Used for</th><th>In Claude Code</th><th>In Codex</th></tr></thead>
+<tbody>
+<tr><td>Top</td><td>Architecture, deep research, long unattended runs</td><td>The largest model</td><td>Its most capable model, at higher effort</td></tr>
+<tr><td>Strong</td><td>The default: planning, debugging, anything that matters</td><td>The main model</td><td>Its most capable model</td></tr>
+<tr><td>Standard</td><td>Well-scoped work against a clear spec</td><td>The mid-size model</td><td>Its default model</td></tr>
+<tr><td>Light</td><td>Lookups, classifying, collecting raw items</td><td>The small model</td><td>Its smallest model</td></tr>
+</tbody>
+</table>
+</div>
+<p>One rule sits on top: a cheaper model's output only counts after the strong model has checked it. When a new harness or model comes along, you update the mapping, and the rules stay as they are.</p>
+
+<h2 id="modules">3. Give it hands, one module at a time</h2>
+<p>Ditto's features are modules, and you switch them on in your profile:</p>
+<ul>
+<li><strong>Task sync</strong> pulls asks from chat, email, tickets and saved messages into one task list.</li>
+<li><strong>Daily brief</strong> sums up your morning, with a link on every fact.</li>
+<li><strong>Meetings</strong> preps your 1:1s and takes notes.</li>
+<li><strong>Memory</strong> keeps track of people, projects and decisions.</li>
+<li><strong>Writing style</strong> drafts in your voice.</li>
+<li><strong>Code work</strong> picks up tickets in your repos.</li>
+<li><strong>Hub</strong> is a small menu bar app for everything that's waiting on you.</li>
+</ul>
+<p>Each module ships a short manifest that says what it needs. Here's a simplified version of the format:</p>
+<pre><code>---
+name: task-sync
+summary: One task list from chat, email and tickets
+connectors: [Slack, Gmail]
+connectors_optional: [Jira]
+profile: [task_store]
+scheduled: [morning-sync]
+---</code></pre>
+<p>A <em>doctor</em> script reads every manifest and checks your machine against it: connectors, command-line tools, sign-ins, permissions and files. Setup uses the same manifests, so it only asks about the modules you turn on. Adding your own module means adding another manifest, in your layer.</p>
+<p>If you only turn on one module, make it task sync. Asks get scattered across five tools and a few always slip through. Having them in one list every morning, with the people waiting on you at the top, was the first thing that made Ditto feel worth it.</p>
+
+<h2 id="context">4. Teach it who you are</h2>
+<p>Ditto keeps three kinds of context, in plain files you can read and edit:</p>
+<ul>
+<li><strong>Memory</strong> covers people, projects, team-specific words, the services you own, and what other people decided that affects you, each with a link to where it was said. A weekly cleanup job tidies it, the way you'd go through your notes.</li>
+<li><strong>Voice</strong> is worked out from messages you've actually sent, so drafts sound like you and not like an assistant.</li>
+<li><strong>A self model</strong> describes how you decide, what you do yourself and what you delegate, and what you never do. Whenever Ditto has to make a call, it asks what you would do. It starts empty and only changes when you approve a proposed edit.</li>
+</ul>
+<p>None of this is a database or a vector store. It's Markdown in a folder you own, so any harness can read it and you can always see why the agent did what it did.</p>
+
+<h2 id="learning">5. Turn every correction into a rule</h2>
+<p>This is the part I'd copy first. Every message you send to Ditto is checked for a correction, a preference or a new fact: “too long,” “ask Pat, not the whole channel,” “never put that in a ticket.” Each one is filed in the same turn, in the most specific place that will be loaded when it matters. That could be a project's memory, a person's file, an override on one skill, or your general rules. Then Ditto tells you in one line what it kept and where.</p>
+
+<figure class="fig">
+<div class="fig-wrap">
+<svg viewBox="0 0 640 300" role="img" aria-label="Diagram: the daily loop. Ditto reads where work happens (Slack, email, calendar, tickets, docs), and turns it into one task list, a brief, and drafts or next steps. You review them and decide. Every correction you make becomes a rule or memory, and Ditto reads those rules and memory in every session. A weekly self-review proposes changes." xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="dt-a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto"><path class="dt-arrow" d="M0,1 L9,5 L0,9 z"/></marker>
+    <marker id="dt-a3w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto"><path class="dt-arrow-warm" d="M0,1 L9,5 L0,9 z"/></marker>
+  </defs>
+  <rect class="dt-box" x="6" y="20" width="136" height="150" rx="7"/>
+  <text class="dt-title" x="20" y="46">Where work</text>
+  <text class="dt-title" x="20" y="66">happens</text>
+  <text class="dt-mono" x="20" y="92">Slack, email</text>
+  <text class="dt-mono" x="20" y="111">calendar</text>
+  <text class="dt-mono" x="20" y="130">tickets</text>
+  <text class="dt-mono" x="20" y="149">docs</text>
+
+  <rect class="dt-box" x="186" y="62" width="120" height="66" rx="7"/>
+  <text class="dt-title" x="200" y="90">Ditto</text>
+  <text class="dt-sub" x="200" y="110">sync, brief, prep</text>
+
+  <rect class="dt-box" x="350" y="20" width="140" height="150" rx="7"/>
+  <text class="dt-title" x="364" y="46">What you get</text>
+  <text class="dt-sub" x="364" y="76">one task list</text>
+  <text class="dt-sub" x="364" y="98">a morning brief</text>
+  <text class="dt-sub" x="364" y="120">drafts and</text>
+  <text class="dt-sub" x="364" y="138">next steps</text>
+
+  <rect class="dt-box is-you" x="534" y="62" width="100" height="66" rx="7"/>
+  <text class="dt-title" x="548" y="90">You</text>
+  <text class="dt-sub" x="548" y="110">decide</text>
+
+  <path class="dt-wire" d="M142,95 L180,95" marker-end="url(#dt-a3)"/>
+  <path class="dt-wire" d="M306,95 L344,95" marker-end="url(#dt-a3)"/>
+  <path class="dt-wire" d="M490,95 L528,95" marker-end="url(#dt-a3)"/>
+
+  <rect class="dt-box is-you" x="226" y="214" width="208" height="62" rx="7"/>
+  <text class="dt-title" x="240" y="240">Rules and memory</text>
+  <text class="dt-sub" x="240" y="260">plain files in your layer</text>
+
+  <path class="dt-wire is-warm" d="M584,128 C584,200 520,245 440,245" marker-end="url(#dt-a3w)"/>
+  <text class="dt-note dt-accent" x="600" y="200" text-anchor="end">every correction</text>
+  <path class="dt-wire is-warm" d="M246,214 C246,180 246,160 246,134" marker-end="url(#dt-a3w)"/>
+  <text class="dt-note dt-accent" x="236" y="180" text-anchor="end">read every session</text>
+</svg>
+</div>
+<figcaption>The loop runs every day. You correct it once, and every later session reads the result.</figcaption>
+</figure>
+
+<p>You never have to say “remember this.” And when a correction contradicts an existing rule, Ditto doesn't quietly pick one. It asks whether this is an exception, a new general rule, or a one-off.</p>
+<p>Once a week it reviews itself: what you corrected, what you ignored and what you redid. It proposes changes to its rules and your self model, and you approve them or not. Corrections that would help everyone go on a “propose to core” list for Vahan instead of staying in one person's home.</p>
+<p>Ditto fixes its own tools, too. When a step fails, it reads the actual error, names the cause, fixes the script or skill, and re-runs only that step. Every run ends with a short report: what it did, what it healed, and what it skipped because only you could do it.</p>
+
+<h2 id="trust">6. Let it earn the right to act</h2>
+<p>The point of all this isn't drafts. It's an agent that does the work: sends the Slack reply, files the ticket, opens the PR, nudges someone who went quiet. The question is how it gets there without you handing over the keys on day one.</p>
+
+<figure class="fig">
+<div class="fig-wrap">
+<svg viewBox="0 0 640 250" role="img" aria-label="Diagram: four steps of trust, rising left to right. Read only: it looks and reports. Prepares: it drafts and you send. Acts with your OK: it does the action after you OK that item. Standing OK: it acts on its own for that kind of action. Each kind of action climbs separately, based on how often you accept its work as is." xmlns="http://www.w3.org/2000/svg">
+  <rect class="dt-box" x="6" y="170" width="148" height="70" rx="7"/>
+  <text class="dt-title" x="20" y="196">Read only</text>
+  <text class="dt-sub" x="20" y="216">looks and reports</text>
+
+  <rect class="dt-box" x="164" y="126" width="148" height="114" rx="7"/>
+  <text class="dt-title" x="178" y="152">Prepares</text>
+  <text class="dt-sub" x="178" y="172">drafts, you send</text>
+
+  <rect class="dt-box" x="322" y="82" width="148" height="158" rx="7"/>
+  <text class="dt-title" x="336" y="108">Acts with OK</text>
+  <text class="dt-sub" x="336" y="128">asks for each item</text>
+
+  <rect class="dt-box is-you" x="480" y="38" width="154" height="202" rx="7"/>
+  <text class="dt-title dt-accent" x="494" y="64">Standing OK</text>
+  <text class="dt-sub" x="494" y="84">acts on its own</text>
+  <text class="dt-sub" x="494" y="104">for that kind</text>
+  <text class="dt-sub" x="494" y="122">of action</text>
+
+  <text class="dt-note" x="6" y="22">Each kind of action climbs on its own.</text>
+</svg>
+</div>
+<figcaption>Updating a task might sit at a standing OK while replying in Slack is still at “prepares.”</figcaption>
+</figure>
+
+<p>Ditto keeps a ledger of everything it hands you, by kind of action, and whether you accepted it as is, edited it, or rejected it. Once a kind has ten or more answers, at least 90% accepted as is, and no rejection in the last ten, the weekly review proposes a <em>standing OK</em> for that kind, and only that kind. You grant it in your profile, and Ditto stops asking.</p>
+<p>The guardrails sit next to that. Every kind of work session has an explicit list of tools it may use, and a list it may never use, however the request is worded. Your own rules can tighten the core safety rules but never loosen them. Memory and messages are never treated as instructions.</p>
+<p>It's how trust works with a new teammate. Nobody gets every key in week one. They earn them one kind of task at a time, by getting it right the same way enough times in a row.</p>
+
+<h2 id="build-your-own">If you want to build your own</h2>
+<p>You don't need Ditto to get most of the value. Here's the smallest version I'd start with, in any harness:</p>
+<pre class="diagram"><code>~/agent/                 your home, git init, no remote
+  CLAUDE.md              entry file for Claude Code, imports the rest
+  AGENTS.md              entry file for Codex, lists the same files
+  rules.md               how you want it to work
+  profile.md             who you are, your tools, what it may do alone
+  memory/                people, projects, words, one file each
+  learning/feedback.md   every correction, dated, with where it went
+  skills/                anything you've done twice</code></pre>
+<ol>
+<li><strong>Make the folder and always start there.</strong> Point the agent at your repos and tools from the home, not the other way around.</li>
+<li><strong>Write one entry file per harness</strong>, and keep the real instructions in shared files they both load.</li>
+<li><strong>Connect your tools read only.</strong> Let it read chat, email and tickets before you let it write anywhere.</li>
+<li><strong>Add the learning rule on day one:</strong> “Every correction becomes a rule in the right file, and you tell me where.” That one line does more than any prompt you'll write.</li>
+<li><strong>Schedule one morning run</strong> that turns yesterday's asks into a list.</li>
+<li><strong>Keep a tally</strong> of what you accept as is. When a kind of action stops needing edits, let it do that on its own.</li>
+</ol>
+
+<h2 id="what-im-learning">What I'm learning from Vahan</h2>
+<p>The thing that surprised me most is how little of Ditto is about the model. Most of it is plain files, with clear rules for where each piece goes. That's why it survives a model change, a new harness, and a new person adopting it.</p>
+<p>A few weeks in, the drafts sound more like me, the morning list catches things I'd have dropped, and I correct the same thing at most once. It's not done, and that's by design: it gets better each week I use it.</p>
+<p>Thanks, Vahan, for building it and letting me borrow it.</p>
+        </div>
+        <!-- feed:end -->
+      </article>
+      <nav class="post-foot" aria-label="Post navigation">
+        <a href="/writing/"
+          ><span class="arrow" aria-hidden="true">&#x2190;&#xFE0E;</span>All
+          writing</a
+        >
+        <a href="/">vigneshrajsb.com</a>
+      </nav>
+
+      <figure class="tailpiece">
+        <picture>
+          <source
+            srcset="/assets/tailpiece-dark.svg"
+            media="(prefers-color-scheme: dark)"
+          />
+          <img
+            src="/assets/tailpiece.svg"
+            alt="Ink tailpiece: Vignesh, his wife, and Chocolata standing together on a single brush stroke, a faint sunset on the water behind them."
+            width="620"
+            height="120"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </figure>
+    </main>
+
+
+    <script src="/analytics.js" defer></script>
+  </body>
+</html>
